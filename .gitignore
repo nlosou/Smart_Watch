@@ -1,0 +1,35 @@
+# ============================================================
+# Keil MDK build outputs
+# Only ignore build/generated files under 03_Firmware
+# ============================================================
+
+# Keil default build directories
+/03_Firmware/**/Objects/
+/03_Firmware/**/Listings/
+
+# Compiler / linker intermediate files
+/03_Firmware/**/*.o
+/03_Firmware/**/*.obj
+/03_Firmware/**/*.d
+/03_Firmware/**/*.dep
+/03_Firmware/**/*.crf
+/03_Firmware/**/*.lnp
+
+# Linker / debug outputs
+/03_Firmware/**/*.axf
+/03_Firmware/**/*.elf
+/03_Firmware/**/*.map
+
+# Firmware generated binaries
+/03_Firmware/**/*.hex
+/03_Firmware/**/*.bin
+
+# Assembly / listing outputs
+/03_Firmware/**/*.lst
+
+# Keil generated reports
+/03_Firmware/**/*.htm
+/03_Firmware/**/*.html
+
+# Keil user-specific GUI state
+/03_Firmware/**/*.uvguix.*
