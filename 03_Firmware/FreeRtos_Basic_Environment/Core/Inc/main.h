@@ -32,6 +32,7 @@ extern "C" {
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 
+#include "key.h"
 #include <stdio.h>
 /* USER CODE END Includes */
 
@@ -58,6 +59,8 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
+#define Key_Pin GPIO_PIN_0
+#define Key_GPIO_Port GPIOA
 
 /* USER CODE BEGIN Private defines */
 

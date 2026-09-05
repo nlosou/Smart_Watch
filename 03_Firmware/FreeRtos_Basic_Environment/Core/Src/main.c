@@ -46,6 +46,8 @@
 
 /* USER CODE BEGIN PV */
 
+key_t g_key1;
+
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -91,6 +93,7 @@ int main(void)
   MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
 
+  key_init(&g_key1,Key_GPIO_Port,Key_Pin); //初始化按键
   /* USER CODE END 2 */
 
   /* Init scheduler */
