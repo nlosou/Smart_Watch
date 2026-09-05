@@ -19,10 +19,13 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "usart.h"
+#include "FreeRTOS.h"
+#include "semphr.h"
 
 /* USER CODE BEGIN 0 */
 
 
+static  SemaphoreHandle_t uartMutex;
 
 
 /* USER CODE END 0 */
@@ -36,6 +39,7 @@ void MX_USART1_UART_Init(void)
 
   /* USER CODE BEGIN USART1_Init 0 */
 
+  uartMutex = xSemaphoreCreateMutex();
   /* USER CODE END USART1_Init 0 */
 
   /* USER CODE BEGIN USART1_Init 1 */
@@ -127,7 +131,9 @@ void HAL_UART_MspDeInit(UART_HandleTypeDef* uartHandle)
  ******************************************************************/
  PUTCHAR_PROTOTYPE
  {
+     xSemaphoreTake(uartMutex,1000);
      HAL_UART_Transmit(&huart1, (uint8_t *)&ch,1,0xFFFF);
+     xSemaphoreGive(uartMutex);
      return ch;
  }
 

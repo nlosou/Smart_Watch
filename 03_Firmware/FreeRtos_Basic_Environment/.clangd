@@ -1,0 +1,4 @@
+CompileFlags:
+  Add:
+    - --target=arm-none-eabi
+    - -I./Middlewares/Third_Party/FreeRTOS/Source/include

@@ -22,6 +22,7 @@
 #include "task.h"
 #include "main.h"
 #include "cmsis_os.h"
+#include "semphr.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -45,7 +46,7 @@
 
 /* Private variables ---------------------------------------------------------*/
 /* USER CODE BEGIN Variables */
-
+int g_count = 0;
 /* USER CODE END Variables */
 /* Definitions for defaultTask */
 osThreadId_t defaultTaskHandle;
@@ -57,6 +58,12 @@ const osThreadAttr_t defaultTask_attributes = {
 
 /* Private function prototypes -----------------------------------------------*/
 /* USER CODE BEGIN FunctionPrototypes */
+
+void Taks_1(void *argument);
+
+void Taks_2(void *argument);
+
+void Taks_3(void *argument);
 
 /* USER CODE END FunctionPrototypes */
 
@@ -76,6 +83,8 @@ void MX_FREERTOS_Init(void) {
 
   /* USER CODE BEGIN RTOS_MUTEX */
   /* add mutexes, ... */
+  SemaphoreHandle_t uartMutex;
+  uartMutex = xSemaphoreCreateMutex();
   /* USER CODE END RTOS_MUTEX */
 
   /* USER CODE BEGIN RTOS_SEMAPHORES */
@@ -92,8 +101,11 @@ void MX_FREERTOS_Init(void) {
 
   /* Create the thread(s) */
   /* creation of defaultTask */
-  defaultTaskHandle = osThreadNew(StartDefaultTask, NULL, &defaultTask_attributes);
-
+  //defaultTaskHandle = osThreadNew(StartDefaultTask, NULL, &defaultTask_attributes);
+  xTaskCreate(Taks_1,"Task_1",128,&uartMutex,1,NULL);
+  xTaskCreate(Taks_2,"Task_2",128,&uartMutex,1,NULL);
+  xTaskCreate(Taks_3,"Task_3",128,&uartMutex,1,NULL);
+  
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
   /* USER CODE END RTOS_THREADS */
@@ -104,7 +116,10 @@ void MX_FREERTOS_Init(void) {
 
 }
 
-/* USER CODE BEGIN Header_StartDefaultTask */
+/* USER CODE BEGIN Heade
+
+
+r_StartDefaultTask */
 /**
   * @brief  Function implementing the defaultTask thread.
   * @param  argument: Not used
@@ -116,9 +131,11 @@ void StartDefaultTask(void *argument)
 {
   /* USER CODE BEGIN StartDefaultTask */
   /* Infinite loop */
+	
   for(;;)
   {
     printf("%s\r\n","Hello Noser");
+    g_count++;
     osDelay(1000);
   }
   /* USER CODE END StartDefaultTask */
@@ -126,6 +143,30 @@ void StartDefaultTask(void *argument)
 
 /* Private application code --------------------------------------------------*/
 /* USER CODE BEGIN Application */
+void Taks_1(void *argument)
+{
+    for(;;)
+    {
+        printf("AAAAAAAAAAAAAAA\r\n");
+        //osDelay(1000);
+    }
+}
+void Taks_2(void *argument)
+{
+    for(;;)
+    {
+        printf("BBBBBBBBBBBBBB\r\n");
+        //osDelay(1000);
+    }
+}
+void Taks_3(void *argument)
+{
+    for(;;)
+    {
+        printf("CCCCCCCCCCCCC\r\n");
+        //osDelay(1000);
+    }
+}
 
 /* USER CODE END Application */
 
