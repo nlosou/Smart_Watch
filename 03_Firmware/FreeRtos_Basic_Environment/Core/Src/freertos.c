@@ -60,6 +60,7 @@ const osThreadAttr_t defaultTask_attributes = {
 /* Private function prototypes -----------------------------------------------*/
 /* USER CODE BEGIN FunctionPrototypes */
 
+void led_toggle_task(void*argument);
 void Key_task(void*argument);
 void printf_task(void*argument);
 /* USER CODE END FunctionPrototypes */
@@ -104,7 +105,8 @@ void MX_FREERTOS_Init(void) {
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
   xTaskCreate(Key_task,"Key_task",100,NULL,1,NULL); 
-  xTaskCreate(printf_task,"prinf_task",100,NULL,1,NULL); 
+  //xTaskCreate(printf_task,"prinf_task",100,NULL,1,NULL); 
+  xTaskCreate(led_toggle_task,"led_task",100,NULL,1,NULL); 
   /* USER CODE END RTOS_THREADS */
 
   /* USER CODE BEGIN RTOS_EVENTS */
@@ -143,7 +145,7 @@ void key_function_callback(void*argument)
     queue_status = xQueueSendToBack(g_queue,temp,0);
     if(queue_status == pdPASS)
     {
-        (*temp)++;
+        (*temp)^=(*temp);
     }
     else
     {
@@ -170,6 +172,25 @@ void printf_task(void*argument)
         if(queue_status == pdPASS)
         {
             printf("%d\r\n",temp);
+        }
+        else
+        {
+
+            printf("queue empty\r\n");
+        }
+    }
+}
+void led_toggle_task(void*argument)
+{
+    
+    uint32_t temp;
+    BaseType_t queue_status;
+    for(;;)
+    {
+        queue_status = xQueueReceive(g_queue,&temp,100);
+        if(queue_status == pdPASS)
+        {
+            led_toggle(&g_led1);
         }
         else
         {

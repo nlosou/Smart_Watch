@@ -1,4 +1,3 @@
-
 /******************************************************************************
  * Copyright (C) 2026.Noser
  * 
@@ -10,7 +9,7 @@
  * 
  * @author Noser
  * 
- * @brief 提供按键api
+ * @brief 提供led的:wapi
  * 
  * Processing flow:
  * 
@@ -23,50 +22,38 @@
  *****************************************************************************/
 
 //********************************Includes***********************************//
-
-#ifndef KEY_H__
-#define KEY_H__
-
-#include "gpio.h"
-#include "cmsis_os2.h"
-
+#include "led.h"
 //********************************Includes***********************************//
 
 
 //********************************Defines***********************************//
 
-/* 按键状态          */
-typedef enum
-{
-    KEY_IDLE = 0,
-    KEY_PRESSED,
-    KEY_HELD,
-    KEY_RELEASED
-
-}key_state_t;
-
-typedef struct{
-    GPIO_TypeDef *KEY_USE_GPIOx;
-    uint16_t KEY_USE_PIN;
-    key_state_t g_key_state;
-}key_t;
-
 
 //********************************Defines***********************************//
 
-void key_init(key_t *key,GPIO_TypeDef* GPIOx,uint16_t pin);
+void led_init(led_info_t *led,GPIO_TypeDef *GPIOx,uint16_t led_use_pin)
+{
+    if(led == NULL)
+    {
+        return;;
+    }
+    else
+    {
+        led->LED_USE_GPIOx = GPIOx;
+        led->LED_USE_PIN = led_use_pin;
+    }
+}
 
-void key_scan(key_t *key,
-              void (*function_call_back)(void*),
-              void*argument
-             );
+void led_toggle(led_info_t *led)
+{
+    if(led == NULL)
+    {
+        return;;
+    }
+    else
+    {
+        HAL_GPIO_TogglePin(led->LED_USE_GPIOx,led->LED_USE_PIN);
+    }
 
-
-extern key_t g_key1;
-
-#endif
-
-
-
-
+}
 

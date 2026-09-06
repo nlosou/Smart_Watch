@@ -47,6 +47,7 @@
 /* USER CODE BEGIN PV */
 
 key_t g_key1;
+led_info_t g_led1;
 
 /* USER CODE END PV */
 
@@ -94,6 +95,7 @@ int main(void)
   /* USER CODE BEGIN 2 */
 
   key_init(&g_key1,Key_GPIO_Port,Key_Pin); //初始化按键
+  led_init(&g_led1,Led_GPIO_Port,Led_Pin);
   /* USER CODE END 2 */
 
   /* Init scheduler */

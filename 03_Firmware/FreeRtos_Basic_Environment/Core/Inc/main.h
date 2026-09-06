@@ -33,6 +33,7 @@ extern "C" {
 /* USER CODE BEGIN Includes */
 
 #include "key.h"
+#include "led.h"
 #include <stdio.h>
 /* USER CODE END Includes */
 
@@ -61,6 +62,8 @@ void Error_Handler(void);
 /* Private defines -----------------------------------------------------------*/
 #define Key_Pin GPIO_PIN_0
 #define Key_GPIO_Port GPIOA
+#define Led_Pin GPIO_PIN_4
+#define Led_GPIO_Port GPIOA
 
 /* USER CODE BEGIN Private defines */
 
