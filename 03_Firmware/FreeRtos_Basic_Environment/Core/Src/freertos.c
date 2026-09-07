@@ -46,23 +46,13 @@
 
 /* Private variables ---------------------------------------------------------*/
 /* USER CODE BEGIN Variables */
-QueueHandle_t g_queue;
-uint32_t g_count = 0;
-/* USER CODE END Variables */
-/* Definitions for defaultTask */
-osThreadId_t defaultTaskHandle;
-const osThreadAttr_t defaultTask_attributes = {
-  .name = "defaultTask",
-  .stack_size = 128 * 4,
-  .priority = (osPriority_t) osPriorityNormal,
-};
 
+/* USER CODE END Variables */
+
+/* Definitions for defaultTask */
 /* Private function prototypes -----------------------------------------------*/
 /* USER CODE BEGIN FunctionPrototypes */
 
-void led_toggle_task(void*argument);
-void Key_task(void*argument);
-void printf_task(void*argument);
 /* USER CODE END FunctionPrototypes */
 
 void StartDefaultTask(void *argument);
@@ -94,8 +84,8 @@ void MX_FREERTOS_Init(void) {
   /* USER CODE BEGIN RTOS_QUEUES */
   /* add queues, ... */
   
-  g_queue = xQueueCreate(1,sizeof(uint32_t));
-   
+  key_queue = xQueueCreate(1,sizeof(uint32_t));
+  led_queue = xQueueCreate(1,sizeof(uint32_t));
   /* USER CODE END RTOS_QUEUES */
 
   /* Create the thread(s) */
@@ -107,6 +97,7 @@ void MX_FREERTOS_Init(void) {
   xTaskCreate(Key_task,"Key_task",100,NULL,1,NULL); 
   //xTaskCreate(printf_task,"prinf_task",100,NULL,1,NULL); 
   xTaskCreate(led_toggle_task,"led_task",100,NULL,1,NULL); 
+  xTaskCreate(StartDefaultTask,"default_task",100,NULL,1,NULL); 
   /* USER CODE END RTOS_THREADS */
 
   /* USER CODE BEGIN RTOS_EVENTS */
@@ -126,79 +117,29 @@ void StartDefaultTask(void *argument)
 {
   /* USER CODE BEGIN StartDefaultTask */
   /* Infinite loop */
+  uint32_t temp = 0;
   for(;;)
-  {
-    printf("%s\r\n","Hello Noser");
-    osDelay(1000);
+  {     
+        if(xQueueReceive(key_queue,&temp,portMAX_DELAY)== pdPASS)
+        {
+            printf("led send start\r\n");
+            if(xQueueSendToBack(led_queue,&temp,0))
+            {
+                printf("led send successfully\r\n");
+            }
+            else
+            {
+
+            }
+        }
+        
+     osDelay(1);
   }
   /* USER CODE END StartDefaultTask */
 }
 
 /* Private application code --------------------------------------------------*/
 /* USER CODE BEGIN Application */
-
-void key_function_callback(void*argument)
-{
-    
-    uint32_t* temp = (uint32_t*)argument;
-    BaseType_t queue_status;
-    queue_status = xQueueSendToBack(g_queue,temp,0);
-    if(queue_status == pdPASS)
-    {
-        (*temp)^=(*temp);
-    }
-    else
-    {
-        printf("queue full\r\n");
-    }
-}
-void Key_task(void*argument)
-{
-    for(;;)
-    {
-        osDelay(20);
-        key_scan(&g_key1,key_function_callback,&g_count);
-    }
-}
-
-void printf_task(void*argument)
-{
-
-    uint32_t temp;
-    BaseType_t queue_status;
-    for(;;)
-    {
-        queue_status = xQueueReceive(g_queue,&temp,100);
-        if(queue_status == pdPASS)
-        {
-            printf("%d\r\n",temp);
-        }
-        else
-        {
-
-            printf("queue empty\r\n");
-        }
-    }
-}
-void led_toggle_task(void*argument)
-{
-    
-    uint32_t temp;
-    BaseType_t queue_status;
-    for(;;)
-    {
-        queue_status = xQueueReceive(g_queue,&temp,100);
-        if(queue_status == pdPASS)
-        {
-            led_toggle(&g_led1);
-        }
-        else
-        {
-
-            printf("queue empty\r\n");
-        }
-    }
-}
 
 
 /* USER CODE END Application */

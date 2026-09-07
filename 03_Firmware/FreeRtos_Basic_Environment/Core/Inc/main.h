@@ -31,9 +31,9 @@ extern "C" {
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
-#include "key.h"
-#include "led.h"
+#include "FreeRTOS.h"
+#include "bsp_key.h"
+#include "bsp_led.h"
 #include <stdio.h>
 /* USER CODE END Includes */
 

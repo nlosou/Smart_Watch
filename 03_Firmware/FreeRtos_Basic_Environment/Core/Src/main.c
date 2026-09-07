@@ -46,7 +46,7 @@
 
 /* USER CODE BEGIN PV */
 
-key_t g_key1;
+key_info_t g_key1;
 led_info_t g_led1;
 
 /* USER CODE END PV */
@@ -71,6 +71,8 @@ int main(void)
 {
   /* USER CODE BEGIN 1 */
 
+  key_status_t key_init_ret;
+  led_status_t led_init_ret;
   /* USER CODE END 1 */
 
   /* MCU Configuration--------------------------------------------------------*/
@@ -94,8 +96,25 @@ int main(void)
   MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
 
-  key_init(&g_key1,Key_GPIO_Port,Key_Pin); //初始化按键
-  led_init(&g_led1,Led_GPIO_Port,Led_Pin);
+  key_init_ret = key_init(&g_key1,Key_GPIO_Port,Key_Pin);
+  if(KEY_OK == key_init_ret)
+  {
+      printf("key init success\r\n");
+  }
+  else
+  {
+      printf("key init false\r\n");
+  }
+  led_init_ret = led_init(&g_led1,Led_GPIO_Port,Led_Pin);
+  if(LED_OK == led_init_ret)
+  {
+      printf("led init success\r\n");
+  }
+  else
+  {
+      printf("led init false\r\n");
+  }
+
   /* USER CODE END 2 */
 
   /* Init scheduler */

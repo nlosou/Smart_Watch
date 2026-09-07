@@ -14,8 +14,8 @@
  * Processing flow:
  * 
  * call directly.
- * 
- * @version V1.0 2026-09-05
+ *
+ * @version V1.1 2026-09-07
  *
  * @note 1 tab == 4 spaces!
  * 
@@ -23,40 +23,64 @@
 
 //********************************Includes***********************************//
 
-#include "key.h"
-
+#include "bsp_key.h"
 //********************************Includes***********************************//
 
 
 //********************************Defines***********************************//
 
+QueueHandle_t                   key_queue = 0;
 
 //********************************Defines***********************************//
 
 
-void key_init(key_t *key,GPIO_TypeDef* GPIOx,uint16_t pin)
+
+/**
+ * @brief 
+ * 
+ * Steps:
+ *  
+ * @param[in] void 
+ * 
+ * @return 
+ * 
+ * */
+key_status_t key_init(key_info_t *key,GPIO_TypeDef* GPIOx,uint16_t pin)
 {
-    if(key == NULL || GPIOx ==NULL)    
+    if(NULL == key || NULL == GPIOx)    
     {
-        return;
+        return KEY_ERROGETINFO;
     }
     else
     {
         key->KEY_USE_GPIOx = GPIOx;
         key->KEY_USE_PIN = pin;
         key->g_key_state = KEY_IDLE;
+
+        return KEY_OK;
     }
 }
 
-void key_scan(
-              key_t *key,
+/**
+ * @brief
+ * 
+ * Steps:
+ *  
+ * @param[in] void 
+ * 
+ * @return 
+ * 
+ * */
+key_status_t key_scan(
+              key_info_t *key,
               void (*function_call_back)(void*),
               void*argument
              )
 {
-    if(key == NULL)
+    key_status_t key_ret = KEY_ERRORTIMEOUT;
+    if(NULL == key)
     {
-        return; 
+        return KEY_ERRORRESOURCE; 
     }
     else
     {
@@ -91,10 +115,11 @@ void key_scan(
                 }
                 break;;
             case KEY_RELEASED:
-                if(HAL_GPIO_ReadPin(Key_GPIO_Port,Key_Pin))
+                if(HAL_GPIO_ReadPin(key->KEY_USE_GPIOx,key->KEY_USE_PIN))
                 {
                     key->g_key_state = KEY_IDLE;
                     function_call_back(argument);
+                    key_ret = KEY_OK;
                 }
                 else
                 {
@@ -103,4 +128,64 @@ void key_scan(
                 break;
         }
     }
+    return key_ret;
 }
+
+/**
+ * @brief 
+ * 
+ * Steps:
+ *  
+ * @param[in] void 
+ * 
+ * @return 
+ * 
+ * */
+
+void key_function_callback(void*argument)
+{
+    
+    uint32_t* temp = (uint32_t*)argument;
+    if(pdPASS == xQueueSendToBack(key_queue,temp,0))
+    {
+        (*temp)^=(*temp);
+    }
+    else
+    {
+        printf("queue full\r\n");
+    }
+}
+
+/**
+ * @brief 
+ * 
+ * Steps:
+ *  
+ * @param[in] void 
+ * 
+ * @return 
+ * 
+ * */
+
+void Key_task(void*argument)
+{
+    uint32_t key_count = 0;
+    key_status_t key_scan_ret = KEY_OK;
+    for(;;)
+    {
+        osDelay(20);
+        key_scan_ret = key_scan(
+                &g_key1,
+                key_function_callback,
+                &key_count);
+        if(KEY_OK == key_scan_ret)
+        {
+            printf("key PRESSED\r\n");
+        }
+        else
+        {
+            printf("key not pressed\r\n");
+        }
+    }
+}
+
