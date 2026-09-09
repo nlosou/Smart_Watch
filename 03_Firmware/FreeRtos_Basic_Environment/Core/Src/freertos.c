@@ -85,7 +85,25 @@ void MX_FREERTOS_Init(void) {
   /* add queues, ... */
   
   key_queue = xQueueCreate(1,sizeof(uint32_t));
+  if(NULL == key_queue)
+  {
+    printf("key_queue created failed \r\n");
+  }
+  else
+  {
+
+    printf("key_queue created successfully \r\n");
+  }
+
   led_queue = xQueueCreate(1,sizeof(uint32_t));
+  if(NULL == led_queue)
+  {
+    printf("led_queue created failed \r\n");
+  }
+  else
+  {
+    printf("led_queue created successfully \r\n");
+  }
   /* USER CODE END RTOS_QUEUES */
 
   /* Create the thread(s) */
@@ -94,7 +112,7 @@ void MX_FREERTOS_Init(void) {
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
-  xTaskCreate(Key_task,"Key_task",100,NULL,1,NULL); 
+  xTaskCreate(Key_task,"Key_task",100,NULL,2,NULL); 
   //xTaskCreate(printf_task,"prinf_task",100,NULL,1,NULL); 
   xTaskCreate(led_toggle_task,"led_task",100,NULL,1,NULL); 
   xTaskCreate(StartDefaultTask,"default_task",100,NULL,1,NULL); 
@@ -122,10 +140,14 @@ void StartDefaultTask(void *argument)
   {     
         if(xQueueReceive(key_queue,&temp,portMAX_DELAY)== pdPASS)
         {
+            vTaskSuspendAll();
             printf("led send start\r\n");
+            xTaskResumeAll();
             if(xQueueSendToBack(led_queue,&temp,0))
             {
+                vTaskSuspendAll();
                 printf("led send successfully\r\n");
+                xTaskResumeAll();
             }
             else
             {

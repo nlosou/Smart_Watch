@@ -9,7 +9,7 @@
  * 
  * @author Noser
  * 
- * @brief 提供led的:wapi
+ * @brief 提供led的api
  * 
  * Processing flow:
  * 
