@@ -97,6 +97,7 @@ key_status_t key_scan(
                 if(!HAL_GPIO_ReadPin(key->KEY_USE_GPIOx,key->KEY_USE_PIN))
                 {
                     key->g_key_state = KEY_HELD;
+                    key->KEY_TICK_START = xTaskGetTickCount();
                 }
                 else
                 {
@@ -118,8 +119,16 @@ key_status_t key_scan(
                 if(HAL_GPIO_ReadPin(key->KEY_USE_GPIOx,key->KEY_USE_PIN))
                 {
                     key->g_key_state = KEY_IDLE;
-                    function_call_back(argument);
-                    key_ret = KEY_OK;
+                    key->KEY_TICK_END = xTaskGetTickCount();
+                    if(SHORT_LONG_KEY > (key->KEY_TICK_END - key->KEY_TICK_START))
+                    {
+                        key_ret = KEY_SHORT;    
+                    }
+                    else
+                    {
+                        key_ret = KEY_LONG;
+                    }
+                    
                 }
                 else
                 {
@@ -178,14 +187,15 @@ void Key_task(void*argument)
                 &g_key1,
                 key_function_callback,
                 &key_count);
-        if(KEY_OK == key_scan_ret)
+        if(pdPASS == xQueueSendToBack(key_queue,&key_scan_ret,0))
         {
-            printf("key PRESSED\r\n");
+            printf("Sent to key queue success\r\n");
         }
         else
         {
-            printf("key not pressed\r\n");
+            printf("queue full\r\n");
         }
-    }
+            
+        }
 }
 

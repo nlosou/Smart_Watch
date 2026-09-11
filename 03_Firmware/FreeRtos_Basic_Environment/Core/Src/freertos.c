@@ -84,7 +84,7 @@ void MX_FREERTOS_Init(void) {
   /* USER CODE BEGIN RTOS_QUEUES */
   /* add queues, ... */
   
-  key_queue = xQueueCreate(1,sizeof(uint32_t));
+  key_queue = xQueueCreate(1,sizeof(key_status_t));
   if(NULL == key_queue)
   {
     printf("key_queue created failed \r\n");
@@ -95,7 +95,7 @@ void MX_FREERTOS_Init(void) {
     printf("key_queue created successfully \r\n");
   }
 
-  led_queue = xQueueCreate(1,sizeof(uint32_t));
+  led_queue = xQueueCreate(1,sizeof(led_function_t));
   if(NULL == led_queue)
   {
     printf("led_queue created failed \r\n");
@@ -135,15 +135,30 @@ void StartDefaultTask(void *argument)
 {
   /* USER CODE BEGIN StartDefaultTask */
   /* Infinite loop */
-  uint32_t temp = 0;
+  key_status_t temp = 0;
+  led_function_t led_function_sate = LED_OFF;
   for(;;)
   {     
         if(xQueueReceive(key_queue,&temp,portMAX_DELAY)== pdPASS)
         {
-            vTaskSuspendAll();
-            printf("led send start\r\n");
-            xTaskResumeAll();
-            if(xQueueSendToBack(led_queue,&temp,0))
+            if(temp == KEY_SHORT)
+            {
+                led_function_sate = LED_TOGGLE;    
+                vTaskSuspendAll();
+                printf("key_short\r\n");
+                xTaskResumeAll();
+
+            }
+
+            if(temp == KEY_LONG)
+            {
+                led_function_sate = LED_BLINK_3;
+                vTaskSuspendAll();
+                printf("key_long\r\n");
+                xTaskResumeAll();
+
+            }
+            if((temp == KEY_LONG||temp == KEY_SHORT)&&xQueueSendToBack(led_queue,&led_function_sate,0))
             {
                 vTaskSuspendAll();
                 printf("led send successfully\r\n");

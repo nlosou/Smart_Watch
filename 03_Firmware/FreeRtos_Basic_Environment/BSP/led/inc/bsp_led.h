@@ -40,6 +40,7 @@ typedef struct{
     uint16_t LED_USE_PIN;
 }led_info_t;
 
+//函数返回
 typedef enum{
     LED_OK                = 0,           /* Operation completed successfully.  */
     LED_ERROR             = 1,           /* Run-time error without case matched*/
@@ -51,6 +52,15 @@ typedef enum{
     LED_ERROGETINFO       = 7,
     LED_RESERVED          = 8,  
 }led_status_t;
+
+
+typedef enum{
+    LED_ON,
+    LED_OFF,
+    LED_TOGGLE,
+    LED_BLINK_3,
+}led_function_t;
+
 
 extern led_info_t g_led1;
 extern QueueHandle_t led_queue;

@@ -66,7 +66,7 @@ led_status_t led_init(led_info_t *led,GPIO_TypeDef *GPIOx,uint16_t led_use_pin)
  * @return 
  * 
  * */
-led_status_t led_toggle(led_info_t *led)
+inline led_status_t led_toggle(led_info_t *led)
 {
     if(NULL == led)
     {
@@ -74,6 +74,63 @@ led_status_t led_toggle(led_info_t *led)
     }
     else
     {
+        HAL_GPIO_TogglePin(led->LED_USE_GPIOx,led->LED_USE_PIN);
+        return LED_OK;
+    }
+
+}
+
+
+
+/**
+ * @brief 
+ * Flip the LED task
+ * Steps:
+ *  
+ * @param[in] void 
+ * 
+ * @return 
+ * 
+ * */
+inline led_status_t led_off(led_info_t *led)
+{
+    if(NULL == led)
+    {
+        return LED_ERRORRESOURCE;
+    }
+    else
+    {
+        HAL_GPIO_WritePin(led->LED_USE_GPIOx,led->LED_USE_PIN,0);
+        return LED_OK;
+    }
+
+}
+
+/**
+ * @brief 
+ * Flip the LED task
+ * Steps:
+ *  
+ * @param[in] void 
+ * 
+ * @return 
+ * 
+ * */
+
+inline led_status_t led_blink_3(led_info_t *led)
+{
+    if(NULL == led)
+    {
+        return LED_ERRORRESOURCE;
+    }
+    else
+    {
+        HAL_GPIO_TogglePin(led->LED_USE_GPIOx,led->LED_USE_PIN);
+        osDelay(100);
+        HAL_GPIO_TogglePin(led->LED_USE_GPIOx,led->LED_USE_PIN);
+        osDelay(100);
+        HAL_GPIO_TogglePin(led->LED_USE_GPIOx,led->LED_USE_PIN);
+        osDelay(100);
         HAL_GPIO_TogglePin(led->LED_USE_GPIOx,led->LED_USE_PIN);
         return LED_OK;
     }
@@ -92,15 +149,30 @@ led_status_t led_toggle(led_info_t *led)
  * */
 void led_toggle_task(void*argument)
 {
-    uint32_t temp;
+    led_function_t temp = LED_OFF;
     for(;;)
     {
-        if(xQueueReceive(led_queue,&temp,portMAX_DELAY) == pdPASS)
+        if(xQueueReceive(led_queue,&temp,portMAX_DELAY) == pdTRUE)
         {
-            printf("led OK---------!!!\r\n");
-            led_toggle(&g_led1);
-            printf("led OK---------!!!\r\n");
-            
+            if(LED_TOGGLE == temp)
+            {
+                led_toggle(&g_led1);
+                temp = LED_OFF;
+            }
+            else if(LED_BLINK_3 == temp)
+            {
+                led_blink_3(&g_led1);
+                temp = LED_OFF;
+            }
+            else
+            {
+                led_off(&g_led1);
+                temp = LED_OFF;
+            }
+        }
+        else
+        {
+            printf("Led_Queue\r\n");
         }
      osDelay(1);
     }

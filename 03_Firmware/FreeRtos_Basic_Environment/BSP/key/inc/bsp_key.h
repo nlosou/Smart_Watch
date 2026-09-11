@@ -34,6 +34,7 @@
 
 
 //********************************Defines***********************************//
+#define SHORT_LONG_KEY 500U
 
 
 /* 按键状态          */
@@ -55,12 +56,16 @@ typedef enum{
     KEY_ERRORISR          = 6,           /* Not allowed in ISR context         */
     KEY_ERROGETINFO       = 7,
     KEY_RESERVED          = 8,  
+    KEY_SHORT             = 9,
+    KEY_LONG              = 10,
 }key_status_t;
 
 typedef struct{
     GPIO_TypeDef               *KEY_USE_GPIOx;
     uint16_t                      KEY_USE_PIN;
     key_state_t                   g_key_state;
+    TickType_t                 KEY_TICK_START;
+    TickType_t                   KEY_TICK_END;
 }key_info_t;
 
 
