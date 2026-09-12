@@ -55,7 +55,7 @@ key_status_t key_init(key_info_t *key,GPIO_TypeDef* GPIOx,uint16_t pin)
     {
         key->KEY_USE_GPIOx = GPIOx;
         key->KEY_USE_PIN = pin;
-        key->g_key_state = KEY_IDLE;
+        key->g_key_state = NOT_INSPECTING;
 
         return KEY_OK;
     }
@@ -86,55 +86,36 @@ key_status_t key_scan(
     {
         switch(key->g_key_state)
         {  
-            case KEY_IDLE:
+            case NOT_INSPECTING:
                 if(!HAL_GPIO_ReadPin(key->KEY_USE_GPIOx,key->KEY_USE_PIN))
                 {
-                    key->g_key_state = KEY_PRESSED;
-                    osDelay(20);
-                }
-                break;
-            case KEY_PRESSED:
-                if(!HAL_GPIO_ReadPin(key->KEY_USE_GPIOx,key->KEY_USE_PIN))
-                {
-                    key->g_key_state = KEY_HELD;
+                    key->g_key_state = INSPECTING;
                     key->KEY_TICK_START = xTaskGetTickCount();
                 }
+                break;
+            case INSPECTING:
+                if(!HAL_GPIO_ReadPin(key->KEY_USE_GPIOx,key->KEY_USE_PIN))
+                {
+                    key->g_key_state = INSPECTING;
+                }
                 else
                 {
-                    key->g_key_state = KEY_IDLE;
+                    key->g_key_state = INSPECTING_COMPLETE;
+                    key->KEY_TICK_START = xTaskGetTickCount();
                 }
                 break;
-            case KEY_HELD:
-                if(HAL_GPIO_ReadPin(key->KEY_USE_GPIOx,key->KEY_USE_PIN))
+            case INSPECTING_COMPLETE:
+                if(SHORT_LONG_KEY > (key->KEY_TICK_END - key->KEY_TICK_START))
                 {
-                    
-                    key->g_key_state = KEY_RELEASED;
-                    osDelay(20);
+                    key_ret = KEY_SHORT;
                 }
                 else
                 {
+                    key_ret = KEY_LONG;
                 }
-                break;;
-            case KEY_RELEASED:
-                if(HAL_GPIO_ReadPin(key->KEY_USE_GPIOx,key->KEY_USE_PIN))
-                {
-                    key->g_key_state = KEY_IDLE;
-                    key->KEY_TICK_END = xTaskGetTickCount();
-                    if(SHORT_LONG_KEY > (key->KEY_TICK_END - key->KEY_TICK_START))
-                    {
-                        key_ret = KEY_SHORT;    
-                    }
-                    else
-                    {
-                        key_ret = KEY_LONG;
-                    }
-                    
-                }
-                else
-                {
-                    key->g_key_state = KEY_HELD;
-                }
+                key->g_key_state = NOT_INSPECTING;
                 break;
+
         }
     }
     return key_ret;

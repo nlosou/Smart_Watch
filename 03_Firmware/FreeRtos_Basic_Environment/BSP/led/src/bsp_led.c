@@ -66,7 +66,7 @@ led_status_t led_init(led_info_t *led,GPIO_TypeDef *GPIOx,uint16_t led_use_pin)
  * @return 
  * 
  * */
-inline led_status_t led_toggle(led_info_t *led)
+led_status_t led_toggle(led_info_t *led)
 {
     if(NULL == led)
     {
@@ -137,7 +137,6 @@ led_status_t led_blink_3(led_info_t *led)
         osDelay(100);
         HAL_GPIO_TogglePin(led->LED_USE_GPIOx,led->LED_USE_PIN);
         osDelay(100);
-
         return LED_OK;
     }
 

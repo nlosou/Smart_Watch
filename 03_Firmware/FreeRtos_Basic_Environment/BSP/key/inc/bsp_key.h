@@ -40,10 +40,9 @@
 /* 按键状态          */
 typedef enum
 {
-    KEY_IDLE               = 0,
-    KEY_PRESSED,
-    KEY_HELD,
-    KEY_RELEASED
+    NOT_INSPECTING,
+    INSPECTING,
+    INSPECTING_COMPLETE,
 }key_state_t;
 
 typedef enum{
