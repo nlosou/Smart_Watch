@@ -92,7 +92,7 @@ inline led_status_t led_toggle(led_info_t *led)
  * @return 
  * 
  * */
-inline led_status_t led_off(led_info_t *led)
+led_status_t led_off(led_info_t *led)
 {
     if(NULL == led)
     {
@@ -117,7 +117,7 @@ inline led_status_t led_off(led_info_t *led)
  * 
  * */
 
-inline led_status_t led_blink_3(led_info_t *led)
+led_status_t led_blink_3(led_info_t *led)
 {
     if(NULL == led)
     {
@@ -132,6 +132,12 @@ inline led_status_t led_blink_3(led_info_t *led)
         HAL_GPIO_TogglePin(led->LED_USE_GPIOx,led->LED_USE_PIN);
         osDelay(100);
         HAL_GPIO_TogglePin(led->LED_USE_GPIOx,led->LED_USE_PIN);
+        osDelay(100);
+        HAL_GPIO_TogglePin(led->LED_USE_GPIOx,led->LED_USE_PIN);
+        osDelay(100);
+        HAL_GPIO_TogglePin(led->LED_USE_GPIOx,led->LED_USE_PIN);
+        osDelay(100);
+
         return LED_OK;
     }
 
