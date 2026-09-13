@@ -125,18 +125,12 @@ led_status_t led_blink_3(led_info_t *led)
     }
     else
     {
-        HAL_GPIO_TogglePin(led->LED_USE_GPIOx,led->LED_USE_PIN);
-        osDelay(100);
-        HAL_GPIO_TogglePin(led->LED_USE_GPIOx,led->LED_USE_PIN);
-        osDelay(100);
-        HAL_GPIO_TogglePin(led->LED_USE_GPIOx,led->LED_USE_PIN);
-        osDelay(100);
-        HAL_GPIO_TogglePin(led->LED_USE_GPIOx,led->LED_USE_PIN);
-        osDelay(100);
-        HAL_GPIO_TogglePin(led->LED_USE_GPIOx,led->LED_USE_PIN);
-        osDelay(100);
-        HAL_GPIO_TogglePin(led->LED_USE_GPIOx,led->LED_USE_PIN);
-        osDelay(100);
+        for(uint8_t i = 0 ; i < 6 ;i++)
+        {
+            HAL_GPIO_TogglePin(led->LED_USE_GPIOx,led->LED_USE_PIN);
+            osDelay(300);
+
+        }
         return LED_OK;
     }
 
@@ -157,7 +151,7 @@ void led_toggle_task(void*argument)
     led_function_t temp = LED_OFF;
     for(;;)
     {
-        if(xQueueReceive(led_queue,&temp,portMAX_DELAY) == pdTRUE)
+        if(pdTRUE == xQueueReceive(led_queue,&temp,portMAX_DELAY))
         {
             if(LED_TOGGLE == temp)
             {

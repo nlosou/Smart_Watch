@@ -45,7 +45,7 @@ QueueHandle_t                   key_queue = 0;
  * @return 
  * 
  * */
-key_status_t key_init(key_info_t *key,GPIO_TypeDef* GPIOx,uint16_t pin)
+key_result_t key_init(key_info_t *key,GPIO_TypeDef* GPIOx,uint16_t pin)
 {
     if(NULL == key || NULL == GPIOx)    
     {
@@ -71,13 +71,12 @@ key_status_t key_init(key_info_t *key,GPIO_TypeDef* GPIOx,uint16_t pin)
  * @return 
  * 
  * */
-key_status_t key_scan(
-              key_info_t *key,
-              void (*function_call_back)(void*),
-              void*argument
-             )
+key_result_t key_scan(key_info_t               *key,
+                      TickType_t short_pressed_time,
+                      key_event_t         *key_event)
+
 {
-    key_status_t key_ret = KEY_ERRORTIMEOUT;
+    key_result_t key_ret = KEY_ERROR;
     if(NULL == key)
     {
         return KEY_ERRORRESOURCE; 
@@ -97,25 +96,38 @@ key_status_t key_scan(
                 if(!HAL_GPIO_ReadPin(key->KEY_USE_GPIOx,key->KEY_USE_PIN))
                 {
                     key->g_key_state = INSPECTING;
+                    //1.当持续时间大于阈值时,应立刻结束状态机
+                    if(short_pressed_time < (xTaskGetTickCount() - key->KEY_TICK_START))
+                    {
+                        *key_event = KEY_LONG_PRESSED;
+                         key_ret = KEY_OK;
+                         key->g_key_state = WAIT_RELEASE;
+                          
+                    }
+
                 }
-                else
+                else 
                 {
+                    key->KEY_TICK_END = xTaskGetTickCount();
                     key->g_key_state = INSPECTING_COMPLETE;
-                    key->KEY_TICK_START = xTaskGetTickCount();
+                }
+                break;
+            case WAIT_RELEASE:
+                if(HAL_GPIO_ReadPin(key->KEY_USE_GPIOx,key->KEY_USE_PIN))
+                {
+                        key->g_key_state = NOT_INSPECTING;
+                         *key_event =KEY_NOT_PRESSED;
+                        key_ret = KEY_ERROR;
                 }
                 break;
             case INSPECTING_COMPLETE:
-                if(SHORT_LONG_KEY > (key->KEY_TICK_END - key->KEY_TICK_START))
+                if( short_pressed_time > (key->KEY_TICK_END - key->KEY_TICK_START))
                 {
-                    key_ret = KEY_SHORT;
-                }
-                else
-                {
-                    key_ret = KEY_LONG;
+                        *key_event =KEY_SHORT_PRESSED;
                 }
                 key->g_key_state = NOT_INSPECTING;
+                key_ret = KEY_OK;
                 break;
-
         }
     }
     return key_ret;
@@ -159,24 +171,32 @@ void key_function_callback(void*argument)
 
 void Key_task(void*argument)
 {
-    uint32_t key_count = 0;
-    key_status_t key_scan_ret = KEY_OK;
+    uint32_t                   key_count = 0;
+    key_result_t       key_scan_ret = KEY_ERROR;
+    key_event_t  key_event = KEY_NOT_PRESSED;
     for(;;)
     {
         osDelay(20);
         key_scan_ret = key_scan(
                 &g_key1,
-                key_function_callback,
-                &key_count);
-        if(pdPASS == xQueueSendToBack(key_queue,&key_scan_ret,0))
+                800,
+                &key_event);
+        if(KEY_OK == key_scan_ret)
         {
-            printf("Sent to key queue success\r\n");
+            if(pdPASS == xQueueSendToBack(key_queue,&key_event,0))
+            {
+                printf("Sent to key queue success\r\n");
+            }
+            else
+            {
+                printf("queue full\r\n");
+            }
         }
         else
         {
-            printf("queue full\r\n");
+            printf("key not pressed\r\n"); 
         }
-            
-        }
+        
+     }
 }
 

@@ -84,7 +84,7 @@ void MX_FREERTOS_Init(void) {
   /* USER CODE BEGIN RTOS_QUEUES */
   /* add queues, ... */
   
-  key_queue = xQueueCreate(1,sizeof(key_status_t));
+  key_queue = xQueueCreate(1,sizeof(key_event_t));
   if(NULL == key_queue)
   {
     printf("key_queue created failed \r\n");
@@ -135,42 +135,43 @@ void StartDefaultTask(void *argument)
 {
   /* USER CODE BEGIN StartDefaultTask */
   /* Infinite loop */
-  key_status_t temp = 0;
+  key_event_t key_event = KEY_NOT_PRESSED;
   led_function_t led_function_sate = LED_OFF;
   for(;;)
   {     
-        if(xQueueReceive(key_queue,&temp,portMAX_DELAY)== pdPASS)
+        if(pdPASS == xQueueReceive(key_queue,&key_event,portMAX_DELAY))
         {
-            if(temp == KEY_SHORT)
+            if(KEY_NOT_PRESSED != key_event)
             {
-                led_function_sate = LED_TOGGLE;    
-                vTaskSuspendAll();
-                printf("key_short\r\n");
-                xTaskResumeAll();
+                if(key_event == KEY_SHORT_PRESSED)
+                {
+                    led_function_sate = LED_TOGGLE;    
+                    vTaskSuspendAll();
+                    printf("key_short\r\n");
+                    xTaskResumeAll();
 
-            }
+                }
+                if(key_event == KEY_LONG_PRESSED)
+                {
+                    led_function_sate = LED_BLINK_3;
+                    vTaskSuspendAll();
+                    printf("key_long\r\n");
+                    xTaskResumeAll();
 
-            if(temp == KEY_LONG)
-            {
-                led_function_sate = LED_BLINK_3;
-                vTaskSuspendAll();
-                printf("key_long\r\n");
-                xTaskResumeAll();
+                }
+                if((xQueueSendToBack(led_queue,&led_function_sate,0)))
+                {
+                    vTaskSuspendAll();
+                    printf("led send successfully\r\n");
+                    xTaskResumeAll();
+                }
+                else
+                {
 
-            }
-            if((temp == KEY_LONG||temp == KEY_SHORT)&&xQueueSendToBack(led_queue,&led_function_sate,0))
-            {
-                vTaskSuspendAll();
-                printf("led send successfully\r\n");
-                xTaskResumeAll();
-            }
-            else
-            {
-
+                }
+                key_event = KEY_NOT_PRESSED;
             }
         }
-        
-     osDelay(1);
   }
   /* USER CODE END StartDefaultTask */
 }

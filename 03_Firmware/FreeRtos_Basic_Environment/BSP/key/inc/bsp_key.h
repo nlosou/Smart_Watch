@@ -37,14 +37,24 @@
 #define SHORT_LONG_KEY 500U
 
 
-/* 按键状态          */
+/* 状态机内部状态          */
 typedef enum
 {
     NOT_INSPECTING,
     INSPECTING,
+    WAIT_RELEASE,
     INSPECTING_COMPLETE,
-}key_state_t;
+}key_fsm_state_t;
 
+/*按键事件                */
+typedef enum
+{
+    KEY_NOT_PRESSED,
+    KEY_SHORT_PRESSED,
+    KEY_LONG_PRESSED,
+}key_event_t;
+
+/*函数返回值              */
 typedef enum{
     KEY_OK                = 0,           /* Operation completed successfully.  */
     KEY_ERROR             = 1,           /* Run-time error without case matched*/
@@ -55,14 +65,12 @@ typedef enum{
     KEY_ERRORISR          = 6,           /* Not allowed in ISR context         */
     KEY_ERROGETINFO       = 7,
     KEY_RESERVED          = 8,  
-    KEY_SHORT             = 9,
-    KEY_LONG              = 10,
-}key_status_t;
+}key_result_t;
 
 typedef struct{
     GPIO_TypeDef               *KEY_USE_GPIOx;
     uint16_t                      KEY_USE_PIN;
-    key_state_t                   g_key_state;
+    key_fsm_state_t               g_key_state;
     TickType_t                 KEY_TICK_START;
     TickType_t                   KEY_TICK_END;
 }key_info_t;
@@ -89,7 +97,7 @@ extern QueueHandle_t                   key_queue;
  *
  * @return Status of key initialization.
  */
-key_status_t key_init(key_info_t *key,GPIO_TypeDef* GPIOx,uint16_t pin);
+key_result_t key_init(key_info_t *key,GPIO_TypeDef* GPIOx,uint16_t pin);
 
 
 /**
@@ -100,12 +108,12 @@ key_status_t key_init(key_info_t *key,GPIO_TypeDef* GPIOx,uint16_t pin);
  *  
  * @param:
  * 
- * @return key_handler_status_t : Status of the function.
+ * @return KEY_ERRORRESOURCE:not prsent key info
+ *         KEY_OK           : key is pressed
  */ 
-key_status_t key_scan(key_info_t *key,
-              void (*function_call_back)(void*),
-              void*argument
-             );
+key_result_t key_scan(key_info_t               *key,
+                      TickType_t short_pressed_time,
+                      key_event_t         *key_event);
 
 
 

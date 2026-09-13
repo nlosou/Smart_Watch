@@ -71,7 +71,7 @@ int main(void)
 {
   /* USER CODE BEGIN 1 */
 
-  key_status_t key_init_ret;
+  key_result_t key_init_ret;
   led_status_t led_init_ret;
   /* USER CODE END 1 */
 
