@@ -87,7 +87,7 @@ key_result_t key_scan(key_info_t               *key,
         switch(key->g_key_state)
         {  
             case NOT_INSPECTING:
-                if(!HAL_GPIO_ReadPin(key->KEY_USE_GPIOx,key->KEY_USE_PIN))
+                if(!HAL_GPIO_ReadPin(key->KEY_USE_GPIOx,key->KEY_USE_PIN))       
                 {
                     key->g_key_state = INSPECTING;
                     key->KEY_TICK_START = xTaskGetTickCount();
@@ -168,50 +168,78 @@ void key_function_callback(void*argument)
  * 
  * */
 
+key_event_t key_check_pressedType(key_interrupt_data_t key_interrupt_data)
+{
+     static uint32_t                  tick_start = 0; 
+     static uint32_t                  tick_end   = 0; 
+     key_event_t           key_ret = KEY_NOT_PRESSED;
+     key_edge_state_t      key_edge_state  = key_interrupt_data.KEY_EDGE_STATE;
+
+     switch(key_edge_state)
+     {
+         case FALLING_EDGE:
+             tick_start = key_interrupt_data.SYS_CURRENT_TICK;
+             break;
+         case RISEING_EDGE:
+             tick_end = key_interrupt_data.SYS_CURRENT_TICK;
+             if(tick_end  - tick_start < 100)
+             {
+                    key_ret = KEY_NOT_PRESSED;
+             }
+             else if(tick_end  - tick_start > 100 && tick_end - tick_start <1000)
+             {
+                    key_ret = KEY_SHORT_PRESSED;
+             }
+             else
+             {
+                    key_ret = KEY_LONG_PRESSED;
+             }
+             break;
+         default:
+             break;
+     }
+     return key_ret;
+}
+
+/**
+ * @brief 
+ * 
+ * Steps:
+ *  
+ * @param[in] void 
+ * 
+ * @return 
+ * 
+ * */
+
 void Key_task(void*argument)
 {
     uint32_t                      key_count = 0;
-    key_result_t       key_scan_ret = KEY_ERROR;
     key_event_t     key_event = KEY_NOT_PRESSED;
     uint8_t                  start_scan_key = 0;
+    key_interrupt_data_t          key_interrupt_data;
     for(;;)
     {
-        if(start_scan_key == 0)
+        if(pdTRUE == xQueueReceive(key_interrupt_queue,
+                    &key_interrupt_data,
+                    portMAX_DELAY))
         {
-            if(pdTRUE == xSemaphoreTake(key_semaphore,portMAX_DELAY)) 
+            key_event = key_check_pressedType(key_interrupt_data);
+
+            if(key_event!=KEY_NOT_PRESSED)
             {
-                printf("Interrupt is come\r\n");
-                start_scan_key = 1;
-            }
-            else
-            {
-                printf("Interrupt is not come\r\n");
-            }
-        }
-        else
-        {
-            key_scan_ret = key_scan(
-                    &g_key1,
-                    800,
-                    &key_event);
-            if(KEY_OK == key_scan_ret)
-            {
-                if(pdPASS == xQueueSendToBack(key_queue,&key_event,portMAX_DELAY))
+                if(pdPASS == xQueueSendToBack(key_queue,&key_event,0))
                 {
                     printf("Sent to key queue success\r\n");
-                    HAL_NVIC_EnableIRQ(EXTI0_IRQn);
-                    start_scan_key = 0;
+
                 }
                 else
                 {
                     printf("queue full\r\n");
                 }
             }
-            else
-            {
-                printf("key not pressed\r\n"); 
-            }
-
+            
+                
         }
      }
 }

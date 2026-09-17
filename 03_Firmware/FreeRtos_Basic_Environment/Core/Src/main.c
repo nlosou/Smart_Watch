@@ -24,7 +24,6 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include "semphr.h"
 #include "queue.h"
 #include "portmacro.h"
 /* USER CODE END Includes */
@@ -48,20 +47,23 @@
 
 /* USER CODE BEGIN PV */
 
-key_info_t g_key1;
-led_info_t g_led1;
-QueueHandle_t key_semaphore;
+key_info_t                                  g_key1;
+led_info_t                                  g_led1;
+QueueHandle_t                  key_interrupt_queue;
+key_interrupt_data_t          g_key_interrupt_data;
 
-  EXTI_HandleTypeDef key_exti_handle = {
-      .Line = 0,
-      .PendingCallback = Test_Interrupt
-  };
-  EXTI_ConfigTypeDef key_exti_config = {
-      .Line = EXTI_LINE_0,
-      .Trigger = EXTI_TRIGGER_FALLING,
-      .Mode = EXTI_MODE_INTERRUPT,
-      .GPIOSel = EXTI_GPIOA
-  };
+
+
+EXTI_HandleTypeDef key_exti_handle = {
+  .Line = 0,
+  .PendingCallback = Key_Interrupt_Handler
+};
+EXTI_ConfigTypeDef key_exti_config = {
+  .Line = EXTI_LINE_0,
+  .Trigger = EXTI_TRIGGER_FALLING,
+  .Mode = EXTI_MODE_INTERRUPT,
+  .GPIOSel = EXTI_GPIOA
+};
 
 
 /* USER CODE END PV */
@@ -164,11 +166,24 @@ int main(void)
   * @retval None
   */
 
-void Test_Interrupt(void)
+void Key_Interrupt_Handler(void)
 {
-    //HAL_GPIO_TogglePin(LED_BLUE_GPIO_Port,LED_BLUE_Pin);
-    BaseType_t xHigherPriorityTaskWoken = pdFALSE;
-    xSemaphoreGiveFromISR(key_semaphore,&xHigherPriorityTaskWoken);
+    BaseType_t xHigherPriorityTaskWoken;
+    xHigherPriorityTaskWoken              =       pdFALSE;
+    g_key_interrupt_data.SYS_CURRENT_TICK = HAL_GetTick();  
+    
+    if(key_exti_config.Trigger == EXTI_TRIGGER_FALLING )
+    {
+        g_key_interrupt_data.KEY_EDGE_STATE = FALLING_EDGE;
+        key_exti_config.Trigger = EXTI_TRIGGER_RISING;
+    }
+    else if(key_exti_config.Trigger == EXTI_TRIGGER_RISING)
+    {
+        g_key_interrupt_data.KEY_EDGE_STATE = RISEING_EDGE;
+        key_exti_config.Trigger = EXTI_TRIGGER_FALLING;
+    }    
+    HAL_EXTI_SetConfigLine(&key_exti_handle,&key_exti_config);
+    xQueueSendToBackFromISR(key_interrupt_queue,&g_key_interrupt_data,&xHigherPriorityTaskWoken);
     portYIELD_FROM_ISR(&xHigherPriorityTaskWoken);
 }
 

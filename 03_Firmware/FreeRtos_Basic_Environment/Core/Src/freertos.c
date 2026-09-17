@@ -76,8 +76,8 @@ void MX_FREERTOS_Init(void) {
 
   /* USER CODE BEGIN RTOS_SEMAPHORES */
   /* add semaphores, ... */
-  key_semaphore = xSemaphoreCreateBinary();
-  if(NULL == key_semaphore)
+  key_interrupt_queue = xQueueCreate(1,sizeof(key_interrupt_data_t));
+  if(NULL ==key_interrupt_queue)
   {
     printf("key semaphores is failed\r\n");
   }

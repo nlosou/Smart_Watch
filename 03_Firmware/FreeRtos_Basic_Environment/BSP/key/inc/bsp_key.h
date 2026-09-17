@@ -39,17 +39,24 @@
 
 
 /* 状态机内部状态          */
-typedef enum
-{
+typedef enum{
     NOT_INSPECTING,
     INSPECTING,
     WAIT_RELEASE,
     INSPECTING_COMPLETE,
 }key_fsm_state_t;
 
+
+/* 中断按键边沿状态         */
+typedef enum{
+    HIGH_LEVEL_EDGE,
+    FALLING_EDGE,    
+    LOW_LEVEL_EDGE,
+    RISEING_EDGE,
+}key_edge_state_t;
+
 /*按键事件                */
-typedef enum
-{
+typedef enum{
     KEY_NOT_PRESSED,
     KEY_SHORT_PRESSED,
     KEY_LONG_PRESSED,
@@ -68,6 +75,8 @@ typedef enum{
     KEY_RESERVED          = 8,  
 }key_result_t;
 
+
+/*按键基础信息              */
 typedef struct{
     GPIO_TypeDef               *KEY_USE_GPIOx;
     uint16_t                      KEY_USE_PIN;
@@ -76,10 +85,16 @@ typedef struct{
     TickType_t                   KEY_TICK_END;
 }key_info_t;
 
+/*按键中断信息              */
+typedef struct{
+    key_edge_state_t           KEY_EDGE_STATE;
+    TickType_t               SYS_CURRENT_TICK;
+}key_interrupt_data_t;
 
-extern key_info_t                      g_key1;
-extern QueueHandle_t                   key_queue;
-extern QueueHandle_t                   key_semaphore;
+extern key_info_t                                  g_key1;
+extern QueueHandle_t                            key_queue;
+extern QueueHandle_t                  key_interrupt_queue;
+extern key_interrupt_data_t          g_key_interrupt_data;
 
 //********************************Defines***********************************//
 

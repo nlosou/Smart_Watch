@@ -181,13 +181,8 @@ void TIM1_UP_TIM10_IRQHandler(void)
 
 void EXTI0_IRQHandler(void)
 {
-  HAL_NVIC_DisableIRQ(EXTI0_IRQn);
+    
   HAL_EXTI_IRQHandler(&key_exti_handle);
-  //HAL_GPIO_TogglePin(LED_BLUE_GPIO_Port,LED_BLUE_Pin);
-    //BaseType_t xHigherPriorityTaskWoken = pdFALSE;
-    //xSemaphoreGiveFromISR(key_semaphore,&xHigherPriorityTaskWoken);
-    //portYIELD_FROM_ISR(&xHigherPriorityTaskWoken);
-    //EXTI->PR |= 1<<0;
 }
 
 
