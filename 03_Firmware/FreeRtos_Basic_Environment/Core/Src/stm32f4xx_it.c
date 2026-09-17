@@ -22,6 +22,10 @@
 #include "stm32f4xx_it.h"
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include "semphr.h"
+#include "queue.h"
+#include "portmacro.h"
+
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -174,5 +178,18 @@ void TIM1_UP_TIM10_IRQHandler(void)
 }
 
 /* USER CODE BEGIN 1 */
+
+void EXTI0_IRQHandler(void)
+{
+  HAL_NVIC_DisableIRQ(EXTI0_IRQn);
+  HAL_EXTI_IRQHandler(&key_exti_handle);
+  //HAL_GPIO_TogglePin(LED_BLUE_GPIO_Port,LED_BLUE_Pin);
+    //BaseType_t xHigherPriorityTaskWoken = pdFALSE;
+    //xSemaphoreGiveFromISR(key_semaphore,&xHigherPriorityTaskWoken);
+    //portYIELD_FROM_ISR(&xHigherPriorityTaskWoken);
+    //EXTI->PR |= 1<<0;
+}
+
+
 
 /* USER CODE END 1 */

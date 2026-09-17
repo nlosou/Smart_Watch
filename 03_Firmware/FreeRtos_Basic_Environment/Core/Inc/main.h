@@ -45,6 +45,7 @@ extern "C" {
 /* Exported constants --------------------------------------------------------*/
 /* USER CODE BEGIN EC */
 
+
 /* USER CODE END EC */
 
 /* Exported macro ------------------------------------------------------------*/
@@ -54,8 +55,11 @@ extern "C" {
 
 /* Exported functions prototypes ---------------------------------------------*/
 void Error_Handler(void);
-
+void Test_Interrupt(void);
 /* USER CODE BEGIN EFP */
+extern EXTI_HandleTypeDef key_exti_handle;
+
+extern EXTI_ConfigTypeDef key_exti_config;
 
 /* USER CODE END EFP */
 
@@ -67,6 +71,8 @@ void Error_Handler(void);
 
 /* USER CODE BEGIN Private defines */
 
+#define LED_BLUE_Pin                   GPIO_PIN_3
+#define LED_BLUE_GPIO_Port                  GPIOA
 /* USER CODE END Private defines */
 
 #ifdef __cplusplus

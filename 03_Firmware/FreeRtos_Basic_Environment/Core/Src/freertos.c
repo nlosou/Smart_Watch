@@ -26,6 +26,7 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "queue.h"
+#include "semphr.h"
 
 /* USER CODE END Includes */
 
@@ -75,6 +76,15 @@ void MX_FREERTOS_Init(void) {
 
   /* USER CODE BEGIN RTOS_SEMAPHORES */
   /* add semaphores, ... */
+  key_semaphore = xSemaphoreCreateBinary();
+  if(NULL == key_semaphore)
+  {
+    printf("key semaphores is failed\r\n");
+  }
+  else
+  {
+    printf("key semaphores is successfully\r\n");
+  }
   /* USER CODE END RTOS_SEMAPHORES */
 
   /* USER CODE BEGIN RTOS_TIMERS */
@@ -139,31 +149,26 @@ void StartDefaultTask(void *argument)
   led_function_t led_function_sate = LED_OFF;
   for(;;)
   {     
-        if(pdPASS == xQueueReceive(key_queue,&key_event,portMAX_DELAY))
+
+        if(pdTRUE == xQueueReceive(key_queue,&key_event,portMAX_DELAY))
         {
             if(KEY_NOT_PRESSED != key_event)
             {
                 if(key_event == KEY_SHORT_PRESSED)
                 {
                     led_function_sate = LED_TOGGLE;    
-                    vTaskSuspendAll();
                     printf("key_short\r\n");
-                    xTaskResumeAll();
 
                 }
                 if(key_event == KEY_LONG_PRESSED)
                 {
                     led_function_sate = LED_BLINK_3;
-                    vTaskSuspendAll();
                     printf("key_long\r\n");
-                    xTaskResumeAll();
 
                 }
                 if((xQueueSendToBack(led_queue,&led_function_sate,0)))
                 {
-                    vTaskSuspendAll();
                     printf("led send successfully\r\n");
-                    xTaskResumeAll();
                 }
                 else
                 {

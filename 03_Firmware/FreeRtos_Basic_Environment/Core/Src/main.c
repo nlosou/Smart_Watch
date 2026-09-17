@@ -24,7 +24,9 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "semphr.h"
+#include "queue.h"
+#include "portmacro.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -48,6 +50,19 @@
 
 key_info_t g_key1;
 led_info_t g_led1;
+QueueHandle_t key_semaphore;
+
+  EXTI_HandleTypeDef key_exti_handle = {
+      .Line = 0,
+      .PendingCallback = Test_Interrupt
+  };
+  EXTI_ConfigTypeDef key_exti_config = {
+      .Line = EXTI_LINE_0,
+      .Trigger = EXTI_TRIGGER_FALLING,
+      .Mode = EXTI_MODE_INTERRUPT,
+      .GPIOSel = EXTI_GPIOA
+  };
+
 
 /* USER CODE END PV */
 
@@ -60,7 +75,6 @@ void MX_FREERTOS_Init(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-
 /* USER CODE END 0 */
 
 /**
@@ -73,20 +87,30 @@ int main(void)
 
   key_result_t key_init_ret;
   led_status_t led_init_ret;
-  /* USER CODE END 1 */
+  
+   /* USER CODE END 1 */
 
   /* MCU Configuration--------------------------------------------------------*/
 
   /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
   HAL_Init();
-
-  /* USER CODE BEGIN Init */
-
+  HAL_NVIC_SetPriority(EXTI0_IRQn,6,6);
+  HAL_NVIC_EnableIRQ(EXTI0_IRQn);
+  /* USER CODE BEGIN Init */ 
+  
+  if(HAL_OK == HAL_EXTI_SetConfigLine(&key_exti_handle,&key_exti_config))
+  {
+      printf("key exti init success\r\n");
+  }
+  else
+  {
+      printf("key exti init false\r\n");
+  }
+  
   /* USER CODE END Init */
 
   /* Configure the system clock */
   SystemClock_Config();
-
   /* USER CODE BEGIN SysInit */
 
   /* USER CODE END SysInit */
@@ -126,13 +150,26 @@ int main(void)
   /* We should never get here as control is now taken by the scheduler */
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+
   while (1)
   {
     /* USER CODE END WHILE */
-
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
+}
+
+/**
+  * @brief System Clock Configuration
+  * @retval None
+  */
+
+void Test_Interrupt(void)
+{
+    //HAL_GPIO_TogglePin(LED_BLUE_GPIO_Port,LED_BLUE_Pin);
+    BaseType_t xHigherPriorityTaskWoken = pdFALSE;
+    xSemaphoreGiveFromISR(key_semaphore,&xHigherPriorityTaskWoken);
+    portYIELD_FROM_ISR(&xHigherPriorityTaskWoken);
 }
 
 /**

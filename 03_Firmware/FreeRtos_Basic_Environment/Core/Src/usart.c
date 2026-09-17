@@ -127,7 +127,9 @@ void HAL_UART_MspDeInit(UART_HandleTypeDef* uartHandle)
  ******************************************************************/
  PUTCHAR_PROTOTYPE
  {
+     vTaskSuspendAll();
      HAL_UART_Transmit(&huart1, (uint8_t *)&ch,1,0xFFFF);
+     xTaskResumeAll();
      return ch;
  }
 

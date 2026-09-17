@@ -24,6 +24,7 @@
 //********************************Includes***********************************//
 
 #include "bsp_key.h"
+#include "semphr.h"
 //********************************Includes***********************************//
 
 
@@ -102,9 +103,7 @@ key_result_t key_scan(key_info_t               *key,
                         *key_event = KEY_LONG_PRESSED;
                          key_ret = KEY_OK;
                          key->g_key_state = WAIT_RELEASE;
-                          
                     }
-
                 }
                 else 
                 {
@@ -171,32 +170,49 @@ void key_function_callback(void*argument)
 
 void Key_task(void*argument)
 {
-    uint32_t                   key_count = 0;
+    uint32_t                      key_count = 0;
     key_result_t       key_scan_ret = KEY_ERROR;
-    key_event_t  key_event = KEY_NOT_PRESSED;
+    key_event_t     key_event = KEY_NOT_PRESSED;
+    uint8_t                  start_scan_key = 0;
     for(;;)
     {
-        osDelay(20);
-        key_scan_ret = key_scan(
-                &g_key1,
-                800,
-                &key_event);
-        if(KEY_OK == key_scan_ret)
+        if(start_scan_key == 0)
         {
-            if(pdPASS == xQueueSendToBack(key_queue,&key_event,0))
+            if(pdTRUE == xSemaphoreTake(key_semaphore,portMAX_DELAY)) 
             {
-                printf("Sent to key queue success\r\n");
+                printf("Interrupt is come\r\n");
+                start_scan_key = 1;
             }
             else
             {
-                printf("queue full\r\n");
+                printf("Interrupt is not come\r\n");
             }
         }
         else
         {
-            printf("key not pressed\r\n"); 
+            key_scan_ret = key_scan(
+                    &g_key1,
+                    800,
+                    &key_event);
+            if(KEY_OK == key_scan_ret)
+            {
+                if(pdPASS == xQueueSendToBack(key_queue,&key_event,portMAX_DELAY))
+                {
+                    printf("Sent to key queue success\r\n");
+                    HAL_NVIC_EnableIRQ(EXTI0_IRQn);
+                    start_scan_key = 0;
+                }
+                else
+                {
+                    printf("queue full\r\n");
+                }
+            }
+            else
+            {
+                printf("key not pressed\r\n"); 
+            }
+
         }
-        
      }
 }
 

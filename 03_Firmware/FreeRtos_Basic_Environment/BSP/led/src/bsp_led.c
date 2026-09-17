@@ -157,11 +157,13 @@ void led_toggle_task(void*argument)
             {
                 led_toggle(&g_led1);
                 temp = LED_OFF;
+                printf("led toggle\r\n");
             }
             else if(LED_BLINK_3 == temp)
             {
                 led_blink_3(&g_led1);
                 temp = LED_OFF;
+                printf("Led blink\r\n");
             }
             else
             {

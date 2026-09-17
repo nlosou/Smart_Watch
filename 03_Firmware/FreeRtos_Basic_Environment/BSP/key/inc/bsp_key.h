@@ -29,6 +29,7 @@
 #include "gpio.h"
 #include "cmsis_os2.h"
 #include "queue.h"
+#include "main.h"
 
 //********************************Includes***********************************//
 
@@ -78,6 +79,7 @@ typedef struct{
 
 extern key_info_t                      g_key1;
 extern QueueHandle_t                   key_queue;
+extern QueueHandle_t                   key_semaphore;
 
 //********************************Defines***********************************//
 
