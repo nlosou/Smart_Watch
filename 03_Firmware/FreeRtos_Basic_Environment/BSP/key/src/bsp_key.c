@@ -30,9 +30,11 @@
 
 //********************************Defines***********************************//
 
-QueueHandle_t                   key_queue = 0;
 
 //********************************Defines***********************************//
+QueueHandle_t                        key_queue = 0;
+QueueHandle_t                  key_interrupt_queue = NULL;
+key_interrupt_data_t            key_interrupt_data = {0,0};
 
 
 
@@ -214,33 +216,111 @@ key_event_t key_check_pressedType(key_interrupt_data_t key_interrupt_data)
 
 void Key_task(void*argument)
 {
-    uint32_t                      key_count = 0;
-    key_event_t     key_event = KEY_NOT_PRESSED;
-    uint8_t                  start_scan_key = 0;
-    key_interrupt_data_t          key_interrupt_data;
+    /**     Variables (in task stack)             **/
+    uint32_t                           key_count = 0;
+    uint8_t                       start_scan_key = 0;
+    key_event_t          key_event = KEY_NOT_PRESSED;
+    /**     Variables (in task stack)             **/
+
+
+    /**     Variables (in os heap)             **/
+
+   key_interrupt_queue = xQueueCreate(1,sizeof(key_interrupt_data_t));
+   key_queue = xQueueCreate(1,sizeof(key_event_t));
+
+    /**     Variables (in os heap)             **/
+
+   if(NULL ==key_interrupt_queue)
+   {
+     printf("key_interrupt_queue is failed\r\n");
+   }
+   else
+   {
+     printf("key_interrupt_queue is successfully\r\n");
+   }
+
+  if(NULL == key_queue)
+  {
+    printf("key_queue created failed \r\n");
+  }
+  else
+  {
+
+    printf("key_queue created successfully \r\n");
+  }
+
     for(;;)
     {
         if(pdTRUE == xQueueReceive(key_interrupt_queue,
                     &key_interrupt_data,
                     portMAX_DELAY))
         {
+
+            if(key_interrupt_data.KEY_EDGE_STATE == FALLING_EDGE)
+            {
+                printf("FALLING come at [%d] tick\r\n",HAL_GetTick());
+            }
+            else
+            {
+                printf("RISING come at [%d] tick\r\n",HAL_GetTick());
+            }
+
             key_event = key_check_pressedType(key_interrupt_data);
+
+
+            if(key_event == KEY_SHORT_PRESSED)
+            {
+
+                printf("short pressed come at [%d] tick\r\n",HAL_GetTick());
+            }
+            else if(key_event == KEY_LONG_PRESSED)
+            {
+                printf("long pressed come at [%d] tick\r\n",HAL_GetTick());
+            }
 
             if(key_event!=KEY_NOT_PRESSED)
             {
                 if(pdPASS == xQueueSendToBack(key_queue,&key_event,0))
                 {
-                    printf("Sent to key queue success\r\n");
-
+                    printf("Sent key_event to key_queue at [%d] tick\r\n",
+                            HAL_GetTick());
                 }
                 else
                 {
-                    printf("queue full\r\n");
+                    printf("key_queue is full at [%d] tick\r\n",HAL_GetTick());
                 }
             }
-            
-                
+        }
+        else
+        {
+            printf("key_interrupt_queue is empty at [%d] tick\r\n",HAL_GetTick());
         }
      }
 }
 
+
+/**
+  * @brief 
+  * @retval None
+  */
+void Key_Interrupt_Handler(void)
+{
+    BaseType_t xHigherPriorityTaskWoken;
+
+    xHigherPriorityTaskWoken              =       pdFALSE;
+    g_key_interrupt_data.SYS_CURRENT_TICK = HAL_GetTick();  
+    
+    if(key_exti_config.Trigger == EXTI_TRIGGER_FALLING )
+    {
+        g_key_interrupt_data.KEY_EDGE_STATE = FALLING_EDGE;
+        key_exti_config.Trigger = EXTI_TRIGGER_RISING;
+    }
+    else if(key_exti_config.Trigger == EXTI_TRIGGER_RISING)
+    {
+        g_key_interrupt_data.KEY_EDGE_STATE = RISEING_EDGE;
+        key_exti_config.Trigger = EXTI_TRIGGER_FALLING;
+    }    
+    HAL_EXTI_SetConfigLine(&key_exti_handle,&key_exti_config);
+    xQueueSendToBackFromISR(key_interrupt_queue,&g_key_interrupt_data,&xHigherPriorityTaskWoken);
+    portYIELD_FROM_ISR(&xHigherPriorityTaskWoken);
+}

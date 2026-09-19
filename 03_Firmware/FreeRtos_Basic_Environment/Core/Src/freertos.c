@@ -27,6 +27,8 @@
 /* USER CODE BEGIN Includes */
 #include "queue.h"
 #include "semphr.h"
+#include "bsp_led.h"
+#include "bsp_key.h"
 
 /* USER CODE END Includes */
 
@@ -76,15 +78,7 @@ void MX_FREERTOS_Init(void) {
 
   /* USER CODE BEGIN RTOS_SEMAPHORES */
   /* add semaphores, ... */
-  key_interrupt_queue = xQueueCreate(1,sizeof(key_interrupt_data_t));
-  if(NULL ==key_interrupt_queue)
-  {
-    printf("key semaphores is failed\r\n");
-  }
-  else
-  {
-    printf("key semaphores is successfully\r\n");
-  }
+  
   /* USER CODE END RTOS_SEMAPHORES */
 
   /* USER CODE BEGIN RTOS_TIMERS */
@@ -94,26 +88,6 @@ void MX_FREERTOS_Init(void) {
   /* USER CODE BEGIN RTOS_QUEUES */
   /* add queues, ... */
   
-  key_queue = xQueueCreate(1,sizeof(key_event_t));
-  if(NULL == key_queue)
-  {
-    printf("key_queue created failed \r\n");
-  }
-  else
-  {
-
-    printf("key_queue created successfully \r\n");
-  }
-
-  led_queue = xQueueCreate(1,sizeof(led_function_t));
-  if(NULL == led_queue)
-  {
-    printf("led_queue created failed \r\n");
-  }
-  else
-  {
-    printf("led_queue created successfully \r\n");
-  }
   /* USER CODE END RTOS_QUEUES */
 
   /* Create the thread(s) */
@@ -122,10 +96,31 @@ void MX_FREERTOS_Init(void) {
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
-  xTaskCreate(Key_task,"Key_task",100,NULL,2,NULL); 
+  if(pdPASS == xTaskCreate(Key_task,"Key_task",100,NULL,2,NULL))
+  {
+    printf("key_task was successfully create\r\n");
+  }
+  else
+  {
+    printf("key_task was not successfully create\r\n");
+  }
   //xTaskCreate(printf_task,"prinf_task",100,NULL,1,NULL); 
-  xTaskCreate(led_toggle_task,"led_task",100,NULL,1,NULL); 
-  xTaskCreate(StartDefaultTask,"default_task",100,NULL,1,NULL); 
+  if(pdPASS == xTaskCreate(led_toggle_task,"led_task",100,NULL,1,NULL))
+  {
+    printf("led_toggle_task was successfully create\r\n");
+  }
+  else
+  {
+    printf("led_toggle_task was not successfully create\r\n");
+  }
+  if(pdPASS == xTaskCreate(StartDefaultTask,"default_task",100,NULL,1,NULL))
+  {
+    printf("StartDefaultTask was successfully create\r\n");
+  }
+  else
+  {
+    printf("StartDefaultTask was not successfully create\r\n");
+  }
   /* USER CODE END RTOS_THREADS */
 
   /* USER CODE BEGIN RTOS_EVENTS */
@@ -152,6 +147,7 @@ void StartDefaultTask(void *argument)
 
         if(pdTRUE == xQueueReceive(key_queue,&key_event,portMAX_DELAY))
         {
+            printf("Get key_queue at [%d] tick\r\n",HAL_GetTick());
             if(KEY_NOT_PRESSED != key_event)
             {
                 if(key_event == KEY_SHORT_PRESSED)
@@ -168,14 +164,18 @@ void StartDefaultTask(void *argument)
                 }
                 if((xQueueSendToBack(led_queue,&led_function_sate,0)))
                 {
-                    printf("led send successfully\r\n");
+                    printf("Sent led_function_t to led_queue at [%d] tick\r\n",HAL_GetTick());
                 }
                 else
                 {
-
+                    printf("led_queue is full at [%d] tick\r\n",HAL_GetTick());
                 }
                 key_event = KEY_NOT_PRESSED;
             }
+        }
+        else
+        {
+            printf("key_queue is empty at [%d] tick\r\n",HAL_GetTick());
         }
   }
   /* USER CODE END StartDefaultTask */
@@ -183,7 +183,6 @@ void StartDefaultTask(void *argument)
 
 /* Private application code --------------------------------------------------*/
 /* USER CODE BEGIN Application */
-
 
 /* USER CODE END Application */
 

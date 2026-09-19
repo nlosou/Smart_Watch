@@ -35,8 +35,9 @@
 
 
 //********************************Defines***********************************//
-#define SHORT_LONG_KEY 500U
 
+#define SHORT_LONG_KEY 500U
+#define KEY_INTERRUPT_CALLBACKl 
 
 /* 状态机内部状态          */
 typedef enum{
@@ -157,6 +158,19 @@ void key_function_callback(void*argument);
  * @return key_handler_status_t : Status of the function.
  */ 
 void Key_task(void*argument);
+
+
+/**
+ * @brief:
+ * key_interrupt callback function
+ * 
+ * @Steps:
+ *  
+ * @param:
+ * 
+ * @return key_handler_status_t : Status of the function.
+ */ 
+void Key_Interrupt_Handler(void);
 
 //********************************Declaring***********************************//
 

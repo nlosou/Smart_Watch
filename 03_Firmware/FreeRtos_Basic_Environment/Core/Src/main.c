@@ -49,15 +49,14 @@
 
 key_info_t                                  g_key1;
 led_info_t                                  g_led1;
-QueueHandle_t                  key_interrupt_queue;
 key_interrupt_data_t          g_key_interrupt_data;
-
 
 
 EXTI_HandleTypeDef key_exti_handle = {
   .Line = 0,
   .PendingCallback = Key_Interrupt_Handler
 };
+
 EXTI_ConfigTypeDef key_exti_config = {
   .Line = EXTI_LINE_0,
   .Trigger = EXTI_TRIGGER_FALLING,
@@ -87,8 +86,6 @@ int main(void)
 {
   /* USER CODE BEGIN 1 */
 
-  key_result_t key_init_ret;
-  led_status_t led_init_ret;
   
    /* USER CODE END 1 */
 
@@ -122,8 +119,7 @@ int main(void)
   MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
 
-  key_init_ret = key_init(&g_key1,Key_GPIO_Port,Key_Pin);
-  if(KEY_OK == key_init_ret)
+  if(KEY_OK == key_init(&g_key1,Key_GPIO_Port,Key_Pin))
   {
       printf("key init success\r\n");
   }
@@ -131,8 +127,8 @@ int main(void)
   {
       printf("key init false\r\n");
   }
-  led_init_ret = led_init(&g_led1,Led_GPIO_Port,Led_Pin);
-  if(LED_OK == led_init_ret)
+
+  if(LED_OK == led_init(&g_led1,Led_GPIO_Port,Led_Pin))
   {
       printf("led init success\r\n");
   }
@@ -159,32 +155,6 @@ int main(void)
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
-}
-
-/**
-  * @brief System Clock Configuration
-  * @retval None
-  */
-
-void Key_Interrupt_Handler(void)
-{
-    BaseType_t xHigherPriorityTaskWoken;
-    xHigherPriorityTaskWoken              =       pdFALSE;
-    g_key_interrupt_data.SYS_CURRENT_TICK = HAL_GetTick();  
-    
-    if(key_exti_config.Trigger == EXTI_TRIGGER_FALLING )
-    {
-        g_key_interrupt_data.KEY_EDGE_STATE = FALLING_EDGE;
-        key_exti_config.Trigger = EXTI_TRIGGER_RISING;
-    }
-    else if(key_exti_config.Trigger == EXTI_TRIGGER_RISING)
-    {
-        g_key_interrupt_data.KEY_EDGE_STATE = RISEING_EDGE;
-        key_exti_config.Trigger = EXTI_TRIGGER_FALLING;
-    }    
-    HAL_EXTI_SetConfigLine(&key_exti_handle,&key_exti_config);
-    xQueueSendToBackFromISR(key_interrupt_queue,&g_key_interrupt_data,&xHigherPriorityTaskWoken);
-    portYIELD_FROM_ISR(&xHigherPriorityTaskWoken);
 }
 
 /**

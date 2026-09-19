@@ -57,7 +57,6 @@ extern "C" {
 void Error_Handler(void);
 /* USER CODE BEGIN EFP */
 extern EXTI_HandleTypeDef key_exti_handle;
-void Key_Interrupt_Handler(void);
 extern EXTI_ConfigTypeDef key_exti_config;
 
 /* USER CODE END EFP */

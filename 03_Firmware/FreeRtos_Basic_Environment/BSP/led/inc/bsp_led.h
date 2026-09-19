@@ -62,8 +62,8 @@ typedef enum{
 }led_function_t;
 
 
-extern led_info_t g_led1;
-extern QueueHandle_t led_queue;
+extern led_info_t                      g_led1;
+extern QueueHandle_t                led_queue;
 //********************************Defines***********************************//
 
 //********************************Declaring***********************************//

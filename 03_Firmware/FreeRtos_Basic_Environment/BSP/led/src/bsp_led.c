@@ -148,22 +148,51 @@ led_status_t led_blink_3(led_info_t *led)
  * */
 void led_toggle_task(void*argument)
 {
+    /**     Variables (in task stack)             **/
+
     led_function_t temp = LED_OFF;
+
+    /**     Variables (in task stack)             **/
+
+    /**     Variables (in os heap)             **/
+    
+    led_queue = xQueueCreate(1,sizeof(led_function_t));
+
+    /**     Variables (in os heap)             **/
+
+   if(NULL == led_queue)
+   {
+     printf("led_queue created failed \r\n");
+   }
+   else
+   {
+     printf("led_queue created successfully \r\n");
+   }
+
+
     for(;;)
     {
         if(pdTRUE == xQueueReceive(led_queue,&temp,portMAX_DELAY))
         {
+            vTaskSuspendAll();
+            printf("Get led_queue at [%d] tick\r\n",HAL_GetTick());
+            xTaskResumeAll();
             if(LED_TOGGLE == temp)
             {
                 led_toggle(&g_led1);
                 temp = LED_OFF;
+
+                vTaskSuspendAll();
                 printf("led toggle\r\n");
+                xTaskResumeAll();
             }
             else if(LED_BLINK_3 == temp)
             {
                 led_blink_3(&g_led1);
                 temp = LED_OFF;
+                vTaskSuspendAll();
                 printf("Led blink\r\n");
+                xTaskResumeAll();
             }
             else
             {
@@ -173,9 +202,8 @@ void led_toggle_task(void*argument)
         }
         else
         {
-            printf("Led_Queue\r\n");
+            printf("led_Queue is empty at [%d] tick\r\n",HAL_GetTick());
         }
-     osDelay(1);
     }
 }
 
