@@ -192,9 +192,13 @@ key_event_t key_check_pressedType(key_interrupt_data_t key_interrupt_data)
              {
                     key_ret = KEY_SHORT_PRESSED;
              }
-             else
+             else if(tick_end - tick_start > 1000 && tick_end - tick_start < 5000)
              {
                     key_ret = KEY_LONG_PRESSED;
+             }
+             else
+             {
+                    key_ret = KEY_NOT_PRESSED;
              }
              break;
          default:
@@ -214,8 +218,13 @@ key_event_t key_check_pressedType(key_interrupt_data_t key_interrupt_data)
  * 
  * */
 
+
+
+
+
 void Key_task(void*argument)
 {
+
     /**     Variables (in task stack)             **/
     uint32_t                           key_count = 0;
     uint8_t                       start_scan_key = 0;
@@ -225,7 +234,7 @@ void Key_task(void*argument)
 
     /**     Variables (in os heap)             **/
 
-   key_interrupt_queue = xQueueCreate(1,sizeof(key_interrupt_data_t));
+   key_interrupt_queue = xQueueCreate(2,sizeof(key_interrupt_data_t));
    key_queue = xQueueCreate(1,sizeof(key_event_t));
 
     /**     Variables (in os heap)             **/

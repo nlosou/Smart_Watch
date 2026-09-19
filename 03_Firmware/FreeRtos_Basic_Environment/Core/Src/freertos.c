@@ -140,10 +140,29 @@ void StartDefaultTask(void *argument)
 {
   /* USER CODE BEGIN StartDefaultTask */
   /* Infinite loop */
+#if 1
+
+    key_interrupt_data_t  test_key_interrupt_struct_data = {
+        .SYS_CURRENT_TICK = HAL_GetTick(),
+        .KEY_EDGE_STATE =FALLING_EDGE,
+    };
+
+    xQueueSendToBack(key_interrupt_queue,&test_key_interrupt_struct_data,0);
+
+    HAL_Delay(1500);
+
+    test_key_interrupt_struct_data.SYS_CURRENT_TICK = HAL_GetTick();
+    test_key_interrupt_struct_data.KEY_EDGE_STATE =RISEING_EDGE;
+     
+    xQueueSendToBack(key_interrupt_queue,&test_key_interrupt_struct_data,0);
+
+#endif
+
   key_event_t key_event = KEY_NOT_PRESSED;
   led_function_t led_function_sate = LED_OFF;
   for(;;)
   {     
+        
 
         if(pdTRUE == xQueueReceive(key_queue,&key_event,portMAX_DELAY))
         {
