@@ -64,6 +64,7 @@ typedef enum{
 
 extern led_info_t                      g_led1;
 extern QueueHandle_t                led_queue;
+extern volatile uint8_t             pwm_times;
 //********************************Defines***********************************//
 
 //********************************Declaring***********************************//

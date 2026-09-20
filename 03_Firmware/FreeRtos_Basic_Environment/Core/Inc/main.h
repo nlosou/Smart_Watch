@@ -34,6 +34,7 @@ extern "C" {
 #include "FreeRTOS.h"
 #include "bsp_key.h"
 #include "bsp_led.h"
+#include "tim.h"
 #include <stdio.h>
 /* USER CODE END Includes */
 
@@ -55,6 +56,7 @@ extern "C" {
 
 /* Exported functions prototypes ---------------------------------------------*/
 void Error_Handler(void);
+
 /* USER CODE BEGIN EFP */
 extern EXTI_HandleTypeDef key_exti_handle;
 extern EXTI_ConfigTypeDef key_exti_config;

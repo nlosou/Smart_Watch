@@ -51,8 +51,14 @@
 /* USER CODE BEGIN Variables */
 
 /* USER CODE END Variables */
-
 /* Definitions for defaultTask */
+osThreadId_t defaultTaskHandle;
+const osThreadAttr_t defaultTask_attributes = {
+  .name = "defaultTask",
+  .stack_size = 128 * 4,
+  .priority = (osPriority_t) osPriorityNormal,
+};
+
 /* Private function prototypes -----------------------------------------------*/
 /* USER CODE BEGIN FunctionPrototypes */
 
@@ -92,7 +98,7 @@ void MX_FREERTOS_Init(void) {
 
   /* Create the thread(s) */
   /* creation of defaultTask */
-  //defaultTaskHandle = osThreadNew(StartDefaultTask, NULL, &defaultTask_attributes);
+  defaultTaskHandle = osThreadNew(StartDefaultTask, NULL, &defaultTask_attributes);
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
@@ -104,7 +110,7 @@ void MX_FREERTOS_Init(void) {
   {
     printf("key_task was not successfully create\r\n");
   }
-  //xTaskCreate(printf_task,"prinf_task",100,NULL,1,NULL); 
+
   if(pdPASS == xTaskCreate(led_toggle_task,"led_task",100,NULL,1,NULL))
   {
     printf("led_toggle_task was successfully create\r\n");
@@ -113,6 +119,7 @@ void MX_FREERTOS_Init(void) {
   {
     printf("led_toggle_task was not successfully create\r\n");
   }
+  
   if(pdPASS == xTaskCreate(StartDefaultTask,"default_task",100,NULL,1,NULL))
   {
     printf("StartDefaultTask was successfully create\r\n");
@@ -140,7 +147,7 @@ void StartDefaultTask(void *argument)
 {
   /* USER CODE BEGIN StartDefaultTask */
   /* Infinite loop */
-#if 1
+#if 0
 
     key_interrupt_data_t  test_key_interrupt_struct_data = {
         .SYS_CURRENT_TICK = HAL_GetTick(),
