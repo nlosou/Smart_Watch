@@ -98,7 +98,6 @@ void MX_FREERTOS_Init(void) {
 
   /* Create the thread(s) */
   /* creation of defaultTask */
-  defaultTaskHandle = osThreadNew(StartDefaultTask, NULL, &defaultTask_attributes);
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
@@ -147,7 +146,7 @@ void StartDefaultTask(void *argument)
 {
   /* USER CODE BEGIN StartDefaultTask */
   /* Infinite loop */
-#if 0
+#if 0 //Unit Test
 
     key_interrupt_data_t  test_key_interrupt_struct_data = {
         .SYS_CURRENT_TICK = HAL_GetTick(),
@@ -165,10 +164,34 @@ void StartDefaultTask(void *argument)
 
 #endif
 
+
+
+#if 0 //Unit Test KEY_SHORT_PRESSED to bsp_led
+
+#if 0
+    led_function_t led_function_sate_test = LED_TOGGLE;
+#else    
+    led_function_t led_function_sate_test =LED_BLINK_3;
+#endif
+
+
+    if((xQueueSendToBack(led_queue,&led_function_sate_test,0)))
+    {
+        printf("Sent led_function_t to led_queue at [%d] tick\r\n",HAL_GetTick());
+    }
+    else
+    {
+        printf("led_queue is full at [%d] tick\r\n",HAL_GetTick());
+    }
+
+
+#endif
+
   key_event_t key_event = KEY_NOT_PRESSED;
   led_function_t led_function_sate = LED_OFF;
   for(;;)
   {     
+      printf("Default task is active\r\n");
         
 
         if(pdTRUE == xQueueReceive(key_queue,&key_event,portMAX_DELAY))

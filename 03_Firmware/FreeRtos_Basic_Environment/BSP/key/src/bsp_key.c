@@ -260,6 +260,8 @@ void Key_task(void*argument)
 
     for(;;)
     {
+
+        printf("key task is active\r\n");
         if(pdTRUE == xQueueReceive(key_interrupt_queue,
                     &key_interrupt_data,
                     portMAX_DELAY))

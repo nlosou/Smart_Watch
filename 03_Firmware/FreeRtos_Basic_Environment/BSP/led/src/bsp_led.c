@@ -173,6 +173,8 @@ void led_toggle_task(void*argument)
 
     for(;;)
     {
+
+        printf("led task is active\r\n");
         if(pdTRUE == xQueueReceive(led_queue,&temp,portMAX_DELAY))
         {
             vTaskSuspendAll();
@@ -181,7 +183,6 @@ void led_toggle_task(void*argument)
             if(LED_TOGGLE == temp)
             {
                 //1.当从led_queue获得的是LED_TOGGLE时
-                
                 //led_toggle(&g_led1);
                 temp = LED_OFF;
 
@@ -189,9 +190,10 @@ void led_toggle_task(void*argument)
                 printf("led toggle\r\n");
                 xTaskResumeAll();
 
+                blink_times = 0;     
                 //1.1 开启TIM2中断,开启TIM2 CH4的PWM输出
                 HAL_TIM_PWM_Start(&htim2,TIM_CHANNEL_4);
-                HAL_NVIC_EnableIRQ(TIM2_IRQn);
+                __HAL_TIM_ENABLE_IT(&htim2,TIM_IT_UPDATE);
 
             }
             else if(LED_BLINK_3 == temp)
@@ -204,9 +206,10 @@ void led_toggle_task(void*argument)
                 printf("Led blink\r\n");
                 xTaskResumeAll();
 
+                blink_times = 10;     
                 //2.1 开启TIM2中断,开启TIM2 CH4的PWM输出
                 HAL_TIM_PWM_Start(&htim2,TIM_CHANNEL_4);
-                HAL_NVIC_EnableIRQ(TIM2_IRQn);
+                HAL_TIM_Base_Start_IT(&htim2);
             }
             else
             {
@@ -219,15 +222,8 @@ void led_toggle_task(void*argument)
             printf("led_Queue is empty at [%d] tick\r\n",HAL_GetTick());
         }
 
-        //0.将GPIOA_PIN3配置 为TIM2_CH4的PWM输出模式
-        //0.1
-        //由公式: 一次周期(ms) = (PSC + 1)*(ARR + 1) / f(Mhz)*1000
-        //需要将ARR配置为200000 - 1
-
-                //2.2 并在中断里维护一个flag 
-        //2.3 当flag == 10时,关闭TIM2中断,TIM_CH4的PWM输出
         
-    }
+        }
 }
 
 
@@ -243,18 +239,25 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
     //1.2 并在中断里维护一个flag 
     //1.3 当flag == 1时,关闭TIM2中断,TIM_CH4的PWM输出
-        
+    //2.2 并在中断里维护一个flag 
+    //2.3 当flag == 10时,关闭TIM2中断,TIM_CH4的PWM输出
 
-    pwm_times++;
-    if(pwm_times > blink_times)
-    {
-        pwm_times = 0;     
-        HAL_NVIC_DisableIRQ(TIM2_IRQn);
-        HAL_TIM_PWM_Stop(&htim2,TIM_CHANNEL_4);
-    }
+     if (htim->Instance == TIM2) {
+
+        pwm_times++;
+        if(pwm_times > blink_times)
+        {
+            pwm_times = 0;     
+            HAL_TIM_Base_Stop_IT(&htim2);
+            HAL_TIM_PWM_Stop(&htim2,TIM_CHANNEL_4);
+        }
+
+
+    }   
+    
     
     if (htim->Instance == TIM1) {
-    HAL_IncTick();
+        HAL_IncTick();
     }
 }
 

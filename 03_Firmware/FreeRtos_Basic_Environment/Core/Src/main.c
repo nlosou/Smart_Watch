@@ -96,9 +96,8 @@ int main(void)
   HAL_Init();
 
   /* USER CODE BEGIN Init */
-  //HAL_TIM_Base_Start_IT(&htim2);
   HAL_NVIC_SetPriority(EXTI0_IRQn,6,6);
-  //HAL_NVIC_SetPriority(TIM2_IRQn,6,6);
+ // HAL_NVIC_SetPriority(TIM2_IRQn,6,6);
   HAL_NVIC_EnableIRQ(EXTI0_IRQn);
 
   if(HAL_OK == HAL_EXTI_SetConfigLine(&key_exti_handle,&key_exti_config))
@@ -122,6 +121,11 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   MX_USART1_UART_Init();
+
+  //0.将GPIOA_PIN3配置 为TIM2_CH4的PWM输出模式
+  //0.1
+  //由公式: 一次周期(ms) = (PSC + 1)*(ARR + 1) / f(Mhz)*1000
+  //需要将ARR配置为200000 - 1
   MX_TIM2_Init();
   /* USER CODE BEGIN 2 */
 
