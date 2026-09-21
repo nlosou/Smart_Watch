@@ -59,6 +59,7 @@ typedef enum{
     LED_OFF,
     LED_TOGGLE,
     LED_BLINK_3,
+    LED_BLINK_10,
 }led_function_t;
 
 
@@ -108,6 +109,13 @@ led_status_t led_toggle(led_info_t *led);
  */ 
 void led_toggle_task(void*argument);
 
+/**
+  * @brief  led to tim2 callback
+  * @note   
+  * @param  void
+  * @retval None
+  */
+void led_tim_Callback(void);
 
 //********************************Declaring***********************************//
 

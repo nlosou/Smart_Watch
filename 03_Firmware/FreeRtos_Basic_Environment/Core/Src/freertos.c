@@ -171,7 +171,7 @@ void StartDefaultTask(void *argument)
 #if 0
     led_function_t led_function_sate_test = LED_TOGGLE;
 #else    
-    led_function_t led_function_sate_test =LED_BLINK_3;
+    led_function_t led_function_sate_test =LED_BLINK_10;
 #endif
 
 
@@ -207,7 +207,7 @@ void StartDefaultTask(void *argument)
                 }
                 if(key_event == KEY_LONG_PRESSED)
                 {
-                    led_function_sate = LED_BLINK_3;
+                    led_function_sate = LED_BLINK_10;
                     printf("key_long\r\n");
 
                 }
