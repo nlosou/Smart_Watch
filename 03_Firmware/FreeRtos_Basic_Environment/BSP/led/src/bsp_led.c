@@ -190,10 +190,22 @@ void led_toggle_task(void*argument)
                 printf("led toggle\r\n");
                 xTaskResumeAll();
 
-                blink_times = 0;     
+                blink_times = 1;     
                 //1.1 开启TIM2中断,开启TIM2 CH4的PWM输出
                 HAL_TIM_PWM_Start(&htim2,TIM_CHANNEL_4);
                 __HAL_TIM_ENABLE_IT(&htim2,TIM_IT_UPDATE);
+
+            }
+            else if(LED_BLINK_1 == temp)
+            {
+                temp = LED_OFF;
+                vTaskSuspendAll();
+                printf("Led blink\r\n");
+                xTaskResumeAll();
+                blink_times = 1;     
+
+                HAL_TIM_PWM_Start(&htim2,TIM_CHANNEL_4);
+                HAL_TIM_Base_Start_IT(&htim2);
 
             }
             else if(LED_BLINK_3 == temp)
@@ -240,11 +252,10 @@ void led_toggle_task(void*argument)
 
 /**
   * @brief  led to tim2 callback
-  * @note   
+  * @note   200ms触发一次中断
   * @param  void
   * @retval None
   */
-
 void led_tim_Callback(void)
 {   //1.2 并在中断里维护一个flag 
     //1.3 当flag == 1时,关闭TIM2中断,TIM_CH4的PWM输出
