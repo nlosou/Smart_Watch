@@ -176,6 +176,7 @@ key_event_t key_check_pressedType(key_interrupt_data_t key_interrupt_data)
      static uint32_t                  tick_end   = 0; 
      key_event_t           key_ret = KEY_NOT_PRESSED;
      key_edge_state_t      key_edge_state  = key_interrupt_data.KEY_EDGE_STATE;
+     uint32_t                         pressed_time = 0;
 
      switch(key_edge_state)
      {
@@ -184,15 +185,16 @@ key_event_t key_check_pressedType(key_interrupt_data_t key_interrupt_data)
              break;
          case RISEING_EDGE:
              tick_end = key_interrupt_data.SYS_CURRENT_TICK;
-             if(tick_end  - tick_start < 100)
+             pressed_time = tick_end - tick_start;
+             if(pressed_time < 20)
              {
                     key_ret = KEY_NOT_PRESSED;
              }
-             else if(tick_end  - tick_start > 100 && tick_end - tick_start <1000)
+             else if(pressed_time >=20 &&pressed_time<1000)
              {
                     key_ret = KEY_SHORT_PRESSED;
              }
-             else if(tick_end - tick_start > 1000 && tick_end - tick_start < 5000)
+             else if(pressed_time  >=1000 && pressed_time < 5000)
              {
                     key_ret = KEY_LONG_PRESSED;
              }
@@ -217,11 +219,6 @@ key_event_t key_check_pressedType(key_interrupt_data_t key_interrupt_data)
  * @return 
  * 
  * */
-
-
-
-
-
 void Key_task(void*argument)
 {
 

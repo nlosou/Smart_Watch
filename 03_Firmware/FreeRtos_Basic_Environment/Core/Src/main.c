@@ -99,7 +99,6 @@ int main(void)
   HAL_NVIC_SetPriority(EXTI0_IRQn,6,6);
  // HAL_NVIC_SetPriority(TIM2_IRQn,6,6);
   HAL_NVIC_EnableIRQ(EXTI0_IRQn);
-
   if(HAL_OK == HAL_EXTI_SetConfigLine(&key_exti_handle,&key_exti_config))
   {
       printf("key exti init success\r\n");
@@ -127,6 +126,7 @@ int main(void)
   //由公式: 一次周期(ms) = (PSC + 1)*(ARR + 1) / f(Mhz)*1000
   //需要将ARR配置为200000 - 1
   MX_TIM2_Init();
+  HAL_TIM_Base_Start_IT(&htim2);
   /* USER CODE BEGIN 2 */
 
   if(KEY_OK == key_init(&g_key1,Key_GPIO_Port,Key_Pin))

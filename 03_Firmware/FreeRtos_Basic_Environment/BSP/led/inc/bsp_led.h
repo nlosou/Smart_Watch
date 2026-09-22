@@ -58,6 +58,7 @@ typedef enum{
     LED_ON,
     LED_OFF,
     LED_TOGGLE,
+    LED_BLINK_1,
     LED_BLINK_3,
     LED_BLINK_10,
 }led_function_t;

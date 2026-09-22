@@ -30,7 +30,8 @@
 //********************************Defines***********************************//
 
 QueueHandle_t led_queue = 0;
-uint8_t blink_times = 0;
+static uint32_t g_blink_times = 0; // 1: blink 1, 5： blink 5
+static uint32_t g_blink_order = 0;
 volatile uint8_t pwm_times = 0;
 //********************************Defines***********************************//
 
@@ -108,6 +109,31 @@ led_status_t led_off(led_info_t *led)
 
 }
 
+
+/**
+ * @brief 
+ * Flip the LED task
+ * Steps:
+ *  
+ * @param[in] void 
+ * 
+ * @return 
+ * 
+ * */
+led_status_t led_on(led_info_t *led)
+{
+    if(NULL == led)
+    {
+        return LED_ERRORRESOURCE;
+    }
+    else
+    {
+        HAL_GPIO_WritePin(led->LED_USE_GPIOx,led->LED_USE_PIN,1);
+        return LED_OK;
+    }
+
+}
+
 /**
  * @brief 
  * Flip the LED task
@@ -137,6 +163,70 @@ led_status_t led_blink_3(led_info_t *led)
     }
 
 }
+
+/**
+ * @brief 
+ * Flip the LED task
+ * Steps:
+ *  
+ * @param[in] void 
+ * 
+ * @return 
+ * 
+ * */
+led_status_t led_select_function(led_info_t *led,led_function_t led_function_state)
+{
+    if(NULL == led)
+    {
+        return LED_ERRORRESOURCE;
+    }
+    else
+    {
+        switch(led_function_state)
+        {
+            case LED_TOGGLE:
+                //1.当从led_queue获得的是LED_TOGGLE时
+                //led_toggle(&g_led1);
+
+                vTaskSuspendAll();
+                printf("led toggle\r\n");
+                xTaskResumeAll();
+
+               break;
+            case LED_BLINK_1:
+                vTaskSuspendAll();
+                printf("Led blink 1\r\n");
+                xTaskResumeAll();
+
+                g_blink_times = 1;     
+                g_blink_order = 0;
+                break;
+            case LED_BLINK_3:
+                //led_blink_3(&g_led1);
+                vTaskSuspendAll();
+                printf("Led blink 3\r\n");
+                xTaskResumeAll();
+
+                g_blink_times = 3;     
+                g_blink_order = 0;
+                break;
+            case LED_BLINK_10:
+                //2.当从led_queue获得的是LED_BLINK时
+                vTaskSuspendAll();
+                printf("Led blink 3\r\n");
+                xTaskResumeAll();
+
+                g_blink_times = 10;     
+                g_blink_order = 0;
+               break;
+            default:
+                led_off(&g_led1);
+                break;
+        }
+        return LED_OK;
+    }
+}
+
 
 /**
  * @brief 
@@ -180,74 +270,15 @@ void led_toggle_task(void*argument)
             vTaskSuspendAll();
             printf("Get led_queue at [%d] tick\r\n",HAL_GetTick());
             xTaskResumeAll();
-            if(LED_TOGGLE == temp)
-            {
-                //1.当从led_queue获得的是LED_TOGGLE时
-                //led_toggle(&g_led1);
-                temp = LED_OFF;
-
-                vTaskSuspendAll();
-                printf("led toggle\r\n");
-                xTaskResumeAll();
-
-                blink_times = 1;     
-                //1.1 开启TIM2中断,开启TIM2 CH4的PWM输出
-                HAL_TIM_PWM_Start(&htim2,TIM_CHANNEL_4);
-                __HAL_TIM_ENABLE_IT(&htim2,TIM_IT_UPDATE);
-
-            }
-            else if(LED_BLINK_1 == temp)
-            {
-                temp = LED_OFF;
-                vTaskSuspendAll();
-                printf("Led blink\r\n");
-                xTaskResumeAll();
-                blink_times = 1;     
-
-                HAL_TIM_PWM_Start(&htim2,TIM_CHANNEL_4);
-                HAL_TIM_Base_Start_IT(&htim2);
-
-            }
-            else if(LED_BLINK_3 == temp)
-            {
-
-                //led_blink_3(&g_led1);
-                temp = LED_OFF;
-                vTaskSuspendAll();
-                printf("Led blink\r\n");
-                xTaskResumeAll();
-                blink_times = 3;     
-
-                HAL_TIM_PWM_Start(&htim2,TIM_CHANNEL_4);
-                HAL_TIM_Base_Start_IT(&htim2);
-            }
-            else if(LED_BLINK_10 == temp)
-            {
-
-                //2.当从led_queue获得的是LED_BLINK时
-                temp = LED_OFF;
-                vTaskSuspendAll();
-                printf("Led blink\r\n");
-                xTaskResumeAll();
-                blink_times = 10;     
-                //2.1 开启TIM2中断,开启TIM2 CH4的PWM输出
-                HAL_TIM_PWM_Start(&htim2,TIM_CHANNEL_4);
-                HAL_TIM_Base_Start_IT(&htim2);
-
-            }
-            else
-            {
-                //led_off(&g_led1);
-                temp = LED_OFF;
-            }
+            led_select_function(&g_led1,temp);
+            
         }
         else
         {
             printf("led_Queue is empty at [%d] tick\r\n",HAL_GetTick());
         }
-
         
-        }
+    }
 }
 
 /**
@@ -257,16 +288,22 @@ void led_toggle_task(void*argument)
   * @retval None
   */
 void led_tim_Callback(void)
-{   //1.2 并在中断里维护一个flag 
-    //1.3 当flag == 1时,关闭TIM2中断,TIM_CH4的PWM输出
-    //2.2 并在中断里维护一个flag 
-    //2.3 当flag == 10时,关闭TIM2中断,TIM_CH4的PWM输出
-
-    pwm_times++;
-    if(pwm_times > blink_times)
+{   
+    if (g_blink_times > 0)
     {
-        pwm_times = 0;     
-        HAL_TIM_Base_Stop_IT(&htim2);
-        HAL_TIM_PWM_Stop(&htim2,TIM_CHANNEL_4);
+        if (g_blink_order % 2 == 0)
+        {
+            led_on(&g_led1);
+        }
+        else
+        {
+            led_off(&g_led1);
+            g_blink_times--;
+        }
+        g_blink_order++;
+    }
+    else
+    {
+        g_blink_order = 0;
     }
 }

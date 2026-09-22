@@ -201,7 +201,7 @@ void StartDefaultTask(void *argument)
             {
                 if(key_event == KEY_SHORT_PRESSED)
                 {
-                    led_function_sate = LED_TOGGLE;    
+                    led_function_sate = LED_BLINK_1;    
                     printf("key_short\r\n");
 
                 }
