@@ -29,10 +29,10 @@
 
 //********************************Defines***********************************//
 
-QueueHandle_t led_queue = 0;
-static uint32_t g_blink_times = 0; // 1: blink 1, 5： blink 5
+QueueHandle_t       led_queue = 0;
+static uint32_t g_blink_times = 0; 
 static uint32_t g_blink_order = 0;
-volatile uint8_t pwm_times = 0;
+volatile uint8_t    pwm_times = 0;
 //********************************Defines***********************************//
 
 /**
@@ -283,7 +283,7 @@ void led_toggle_task(void*argument)
 
 /**
   * @brief  led to tim2 callback
-  * @note   200ms触发一次中断
+  * @note   100ms触发一次中断
   * @param  void
   * @retval None
   */
