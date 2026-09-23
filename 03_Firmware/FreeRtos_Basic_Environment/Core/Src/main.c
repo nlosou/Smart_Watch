@@ -90,7 +90,9 @@ int main(void)
   MX_GPIO_Init();
   MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
-
+  HAL_NVIC_EnableIRQ(USART1_IRQn);
+  HAL_NVIC_SetPriority(USART1_IRQn, 0, 0);
+  HAL_NVIC_SetPendingIRQ(USART1_IRQn);
   /* USER CODE END 2 */
 
   /* Init scheduler */
@@ -157,6 +159,10 @@ void SystemClock_Config(void)
 }
 
 /* USER CODE BEGIN 4 */
+
+
+
+
 
 /* USER CODE END 4 */
 
