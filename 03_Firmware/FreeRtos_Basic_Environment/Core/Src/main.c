@@ -50,7 +50,6 @@
 
 key_info_t                                  g_key1;
 led_info_t                                  g_led1;
-key_interrupt_data_t          g_key_interrupt_data;
 
 
 EXTI_HandleTypeDef key_exti_handle = {

@@ -33,8 +33,7 @@
 
 //********************************Defines***********************************//
 QueueHandle_t                        key_queue = 0;
-QueueHandle_t                  key_interrupt_queue = NULL;
-key_interrupt_data_t            key_interrupt_data = {0,0};
+QueueHandle_t           key_interrupt_queue = NULL;
 
 
 
@@ -228,10 +227,11 @@ void Key_task(void*argument)
     key_event_t          key_event = KEY_NOT_PRESSED;
     /**     Variables (in task stack)             **/
 
+    key_interrupt_data_t* p_g_key_interrupt_data;
 
     /**     Variables (in os heap)             **/
 
-   key_interrupt_queue = xQueueCreate(2,sizeof(key_interrupt_data_t));
+   key_interrupt_queue = xQueueCreate(2,4);
    key_queue = xQueueCreate(1,sizeof(key_event_t));
 
     /**     Variables (in os heap)             **/
@@ -260,11 +260,11 @@ void Key_task(void*argument)
 
         printf("key task is active\r\n");
         if(pdTRUE == xQueueReceive(key_interrupt_queue,
-                    &key_interrupt_data,
+                    &p_g_key_interrupt_data,
                     portMAX_DELAY))
         {
 
-            if(key_interrupt_data.KEY_EDGE_STATE == FALLING_EDGE)
+            if(p_g_key_interrupt_data->KEY_EDGE_STATE == FALLING_EDGE)
             {
                 printf("FALLING come at [%d] tick\r\n",HAL_GetTick());
             }
@@ -273,7 +273,7 @@ void Key_task(void*argument)
                 printf("RISING come at [%d] tick\r\n",HAL_GetTick());
             }
 
-            key_event = key_check_pressedType(key_interrupt_data);
+            key_event = key_check_pressedType(*p_g_key_interrupt_data);
 
 
             if(key_event == KEY_SHORT_PRESSED)
@@ -313,22 +313,55 @@ void Key_task(void*argument)
   */
 void Key_Interrupt_Handler(void)
 {
-    BaseType_t xHigherPriorityTaskWoken;
 
+    HAL_GPIO_WritePin(Interrupt_trace_GPIO_Port,
+                         Interrupt_trace_Pin,
+                               GPIO_PIN_SET);
+
+    BaseType_t xHigherPriorityTaskWoken;
     xHigherPriorityTaskWoken              =       pdFALSE;
-    g_key_interrupt_data.SYS_CURRENT_TICK = HAL_GetTick();  
+
+    static key_interrupt_data_t          key_interrupt_falling_data = {
+        .KEY_EDGE_STATE = FALLING_EDGE,
+        .SYS_CURRENT_TICK = 0
+    };
+    static key_interrupt_data_t          key_interrupt_rising_data = {
+        .KEY_EDGE_STATE = FALLING_EDGE,
+        .SYS_CURRENT_TICK = 0
+    };
+
+    key_interrupt_data_t* p_key_interrupt_falling_data = &key_interrupt_falling_data;
+    key_interrupt_data_t* p_key_interrupt_rising_data = &key_interrupt_rising_data;
+    p_key_interrupt_falling_data->SYS_CURRENT_TICK = HAL_GetTick();  
+    p_key_interrupt_rising_data->SYS_CURRENT_TICK = HAL_GetTick();  
     
     if(key_exti_config.Trigger == EXTI_TRIGGER_FALLING )
     {
-        g_key_interrupt_data.KEY_EDGE_STATE = FALLING_EDGE;
+        p_key_interrupt_falling_data->KEY_EDGE_STATE = FALLING_EDGE;
         key_exti_config.Trigger = EXTI_TRIGGER_RISING;
+
+        HAL_EXTI_SetConfigLine(&key_exti_handle,&key_exti_config);
+        xQueueSendToBackFromISR(key_interrupt_queue,
+                      &p_key_interrupt_falling_data,
+                         &xHigherPriorityTaskWoken);
+        portYIELD_FROM_ISR(&xHigherPriorityTaskWoken);
+
+
     }
     else if(key_exti_config.Trigger == EXTI_TRIGGER_RISING)
     {
-        g_key_interrupt_data.KEY_EDGE_STATE = RISEING_EDGE;
+        p_key_interrupt_rising_data->KEY_EDGE_STATE = RISEING_EDGE;
         key_exti_config.Trigger = EXTI_TRIGGER_FALLING;
+
+        HAL_EXTI_SetConfigLine(&key_exti_handle,&key_exti_config);
+        xQueueSendToBackFromISR(key_interrupt_queue,
+                      &p_key_interrupt_rising_data,
+                         &xHigherPriorityTaskWoken);
+        portYIELD_FROM_ISR(&xHigherPriorityTaskWoken);
     }    
-    HAL_EXTI_SetConfigLine(&key_exti_handle,&key_exti_config);
-    xQueueSendToBackFromISR(key_interrupt_queue,&g_key_interrupt_data,&xHigherPriorityTaskWoken);
-    portYIELD_FROM_ISR(&xHigherPriorityTaskWoken);
+
+    HAL_GPIO_WritePin(Interrupt_trace_GPIO_Port,
+            Interrupt_trace_Pin,
+            GPIO_PIN_RESET);
+
 }

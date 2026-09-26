@@ -68,11 +68,13 @@ extern EXTI_ConfigTypeDef key_exti_config;
 #define Key_GPIO_Port GPIOA
 #define Led_Pin GPIO_PIN_4
 #define Led_GPIO_Port GPIOA
-
 /* USER CODE BEGIN Private defines */
 
 #define LED_BLUE_Pin                   GPIO_PIN_3
 #define LED_BLUE_GPIO_Port                  GPIOA
+#define Interrupt_trace_Pin            GPIO_PIN_1
+#define Interrupt_trace_GPIO_Port           GPIOA
+
 /* USER CODE END Private defines */
 
 #ifdef __cplusplus
