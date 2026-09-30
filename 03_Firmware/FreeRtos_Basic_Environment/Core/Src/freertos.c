@@ -25,6 +25,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include "elog.h"
 
 /* USER CODE END Includes */
 
@@ -111,14 +112,21 @@ void MX_FREERTOS_Init(void) {
   * @retval None
   */
 /* USER CODE END Header_StartDefaultTask */
-//这里是不是就裸机里面的while(i)吗
 void StartDefaultTask(void *argument)
 {
   /* USER CODE BEGIN StartDefaultTask */
   /* Infinite loop */
+
+  elog_a("ASSERT","This assert");
+  elog_e("error","This error");
+  elog_w("WARN","This warn");
+  elog_i("INFO","This info");
+  elog_d("DEBUG","This debug");
+  elog_v("VERBOSE","This VERBOSE");
+  
   for(;;)
   {
-    printf("%s\r\n","Hello Noser");
+    elog_a("ASSERT","This assert");
     osDelay(1000);
   }
   /* USER CODE END StartDefaultTask */

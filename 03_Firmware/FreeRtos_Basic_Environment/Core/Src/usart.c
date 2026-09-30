@@ -19,6 +19,7 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "usart.h"
+#include "SEGGER_RTT.h"
 
 /* USER CODE BEGIN 0 */
 
@@ -127,7 +128,7 @@ void HAL_UART_MspDeInit(UART_HandleTypeDef* uartHandle)
  ******************************************************************/
  PUTCHAR_PROTOTYPE
  {
-     HAL_UART_Transmit(&huart1, (uint8_t *)&ch,1,0xFFFF);
+     SEGGER_RTT_PutChar(0,ch);
      return ch;
  }
 
