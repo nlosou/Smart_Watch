@@ -13,3 +13,5 @@
 -IDrivers/CMSIS/Device/ST/STM32F4xx/Include
 -IDrivers/CMSIS/Include
 -IMiddlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2
+-IMiddlewares/Third_Party/Segger_RTT/inc
+-IMiddlewares/Third_Party/EasyLogger/inc
