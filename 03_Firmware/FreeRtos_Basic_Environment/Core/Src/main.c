@@ -19,6 +19,9 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "cmsis_os.h"
+#include "adc.h"
+#include "dma.h"
+#include "tim.h"
 #include "usart.h"
 #include "gpio.h"
 
@@ -89,7 +92,10 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
+  MX_DMA_Init();
   MX_USART1_UART_Init();
+  MX_ADC1_Init();
+  MX_TIM2_Init();
   /* USER CODE BEGIN 2 */
   app_elog_init(); 
   /* USER CODE END 2 */
@@ -106,6 +112,7 @@ int main(void)
       while (1)
   {
     /* USER CODE END WHILE */
+
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
@@ -165,7 +172,7 @@ void app_elog_init(void)
     elog_set_fmt(ELOG_LVL_ASSERT,ELOG_FMT_ALL);
     elog_set_fmt(ELOG_LVL_ERROR,ELOG_FMT_LVL |ELOG_FMT_TAG );
     elog_set_fmt(ELOG_LVL_WARN,ELOG_FMT_LVL |ELOG_FMT_TAG );
-    elog_set_fmt(ELOG_LVL_INFO,ELOG_FMT_LVL |ELOG_FMT_TAG );
+    elog_set_fmt(ELOG_LVL_INFO,ELOG_FMT_LVL |ELOG_FMT_TAG | ELOG_FMT_TIME );
     elog_set_fmt(ELOG_LVL_DEBUG,ELOG_FMT_ALL & ~(ELOG_FMT_TIME | ELOG_FMT_P_INFO));
     elog_set_fmt(ELOG_LVL_VERBOSE,ELOG_FMT_ALL);
     elog_start();
@@ -205,6 +212,7 @@ void Error_Handler(void)
   /* User can add his own implementation to report the HAL error return state */
   __disable_irq();
   while (1)
+		
   {
   }
   /* USER CODE END Error_Handler_Debug */

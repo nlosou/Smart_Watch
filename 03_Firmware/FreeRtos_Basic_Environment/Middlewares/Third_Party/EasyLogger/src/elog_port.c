@@ -74,8 +74,9 @@ void elog_port_output(const char *log, size_t size) {
 void elog_port_output_lock(void) {
     
     /* add your code here */
-    vTaskSuspendAll();
-    
+ //   vTaskSuspendAll();
+ 
+	__disable_irq();
 }
 
 /**
@@ -84,7 +85,7 @@ void elog_port_output_lock(void) {
 void elog_port_output_unlock(void) {
     
     /* add your code here */
-    xTaskResumeAll();
+	__enable_irq();
 }
 
 /**
@@ -92,7 +93,7 @@ void elog_port_output_unlock(void) {
  *
  * @return current time
  */
-const char *elog_port_get_time(void) {
+const char *elog_port_get_time(void){
     
     /* add your code here */
     static char current_time[256];
