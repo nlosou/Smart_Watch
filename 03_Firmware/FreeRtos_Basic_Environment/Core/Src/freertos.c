@@ -44,6 +44,9 @@
 /* Private macro -------------------------------------------------------------*/
 /* USER CODE BEGIN PM */
 
+#define BUFFER1_NEED_PROCESS   0xA1
+#define BUFFER2_NEED_PROCESS   0xA2
+
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
@@ -51,8 +54,8 @@
 
 
 
-QueueHandle_t          g_Handle_data_mailbox;
-uint32_t         *p_adc1_data = g_adc1_data_1;
+QueueHandle_t           g_Handle_data_mailbox;
+uint32_t                        DMA_POINT = 0;
 
 /* USER CODE END Variables */
 /* Definitions for defaultTask */
@@ -139,7 +142,7 @@ void MX_FREERTOS_Init(void) {
         elog_e("ERROR","Task_A is created error");
    }
 
-   if(pdPASS == xTaskCreate(Task_B,"Task_B",100,NULL,3,NULL))
+   if(pdPASS == xTaskCreate(Task_B,"Task_B",100,NULL,2,NULL))
    {
         elog_i("INFO","Task_B is created successfully");
    }        
@@ -183,10 +186,11 @@ void StartDefaultTask(void *argument)
 void Task_A(void *argument)
 {
 
-    uint32_t temp;
+  uint32_t temp;
+  uint32_t need_buffer = 0;
   HAL_TIM_Base_Start(&htim2);  
-  
-  if(HAL_OK == HAL_ADC_Start_DMA(&hadc1,p_adc1_data,10))
+  DMA_POINT = 0;
+  if(HAL_OK == HAL_ADC_Start_DMA(&hadc1,buffer_1,10))
   {
     elog_i("INFO","HAL_ADC_Start is Success");
   }
@@ -215,20 +219,24 @@ void Task_A(void *argument)
         if(pdPASS == xQueueReceive(g_adc_dma_conv_complete_mailbox,&temp,portMAX_DELAY))
         {
             //2 重新配置DMA存储位置
-            HAL_ADC_Stop_DMA(&hadc1);
+//          HAL_ADC_Stop_DMA(&hadc1);
             //HAL_ADC_MspDeInit(&hadc1);
             //HAL_ADC_MspInit(&hadc1);
             elog_i("INFO","adc_dma_mail come");
-            if(p_adc1_data == g_adc1_data_1)
+            if(0 == DMA_POINT)
             {
-                p_adc1_data = g_adc1_data_2;
+                DMA_POINT = 1;
+                HAL_ADC_Start_DMA(&hadc1,buffer_2,10);
+                need_buffer = BUFFER1_NEED_PROCESS;
             }
             else
             {
-                p_adc1_data = g_adc1_data_1;
+                DMA_POINT = 0;
+                HAL_ADC_Start_DMA(&hadc1,buffer_1,10);
+                need_buffer = BUFFER2_NEED_PROCESS;
             }
             //3.发送邮箱给任务B
-            if(pdPASS == xQueueOverwrite(g_Handle_data_mailbox,&temp))
+            if(pdPASS == xQueueSendToBack(g_Handle_data_mailbox,&need_buffer,0))
             {
                 elog_i("INFO",
                         "sent info to g_Handle_data__mailbox is successfully");
@@ -248,13 +256,39 @@ void Task_A(void *argument)
     }
 }
 
-void Task_B(void* argument)
+
+
+uint32_t ADC_DATA_Handle(uint32_t *adc_data,uint32_t len)
 {
-    uint32_t temp = 0;
     uint32_t temp_swap = 0;
     uint32_t final_adc = 0;
     uint32_t final_sum = 0;
 
+    for(uint8_t i = 0 ; i < len - 1; i++) 
+    {
+        for(uint8_t j = 0 ; j < len - 1- i ;j++)
+        {
+            if(adc_data[j] >adc_data[j + 1])
+            {
+                temp_swap =adc_data[j];
+                adc_data[j] =adc_data[j + 1];
+                adc_data[j+1] = temp_swap;
+            }
+        }
+        
+    }
+    final_sum = 0;
+    for(uint8_t i = 1 ; i < 9 ; i++) 
+    {
+        final_sum+=adc_data[i];
+    }
+    final_adc = final_sum>>3;
+    return final_adc;
+}
+
+void Task_B(void* argument)
+{
+       uint32_t need_buffer = 0;
 //TEST UNIT
 #if 0
     p_adc1_data[0] = 3423;
@@ -282,43 +316,21 @@ void Task_B(void* argument)
     for(;;)
     {
         //1.任务从g_Handle_data_mailbox获取邮箱
-        if(pdPASS ==xQueueReceive(g_Handle_data_mailbox,&temp,portMAX_DELAY))
+        if(pdPASS ==xQueueReceive(g_Handle_data_mailbox,&need_buffer,portMAX_DELAY))
         {
             
             elog_i("INFO","data handle _mail come");
             //2.处理数据将获得的数据根据去极值平均值整理
-            for(uint8_t i = 0 ; i < 9; i++) 
-            {
-                for(uint8_t j = 0 ; j < 9- i ;j++)
-                {
-                    if(p_adc1_data[j] > p_adc1_data[j + 1])
-                    {
-                        temp_swap = p_adc1_data[j];
-                        p_adc1_data[j] =  p_adc1_data[j + 1];
-                        p_adc1_data[j+1] = temp_swap;
-                    }
-                }
-                
-            }
-            final_sum = 0;
-            for(uint8_t i = 1 ; i < 9 ; i++) 
-            {
-                final_sum+=p_adc1_data[i];
-            }
-            final_adc = final_sum>>3;
             //3.通过RTT打印到Jlink的终端上
-            if(p_adc1_data == g_adc1_data_1)
+            if(BUFFER1_NEED_PROCESS == need_buffer)
             {
-                elog_i("buffer_1","%d",final_adc);
+                elog_i("buffer_1","%d",ADC_DATA_Handle(buffer_1,10));
             }
             else
             {
 
-                elog_i("buffer_2","%d",final_adc);
+                elog_i("buffer_2","%d",ADC_DATA_Handle(buffer_2,10));
             }
-            //4.开启ADC_DMA
-            HAL_ADC_Start_DMA(&hadc1,p_adc1_data,10);
-            elog_i("INFO","Start new sample");
         }
         else
         {

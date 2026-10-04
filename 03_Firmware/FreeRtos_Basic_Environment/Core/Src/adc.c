@@ -24,8 +24,8 @@
 #include "elog.h"
 #include "queue.h"
 
-uint32_t g_adc1_data_1[10] =  {0};
-uint32_t g_adc1_data_2[10] =  {0};
+uint32_t buffer_1[10] =  {0};
+uint32_t buffer_2[10] =  {0};
 QueueHandle_t g_adc_dma_conv_complete_mailbox;
 
 /* USER CODE END 0 */
@@ -112,7 +112,7 @@ void HAL_ADC_MspInit(ADC_HandleTypeDef* adcHandle)
     hdma_adc1.Init.MemInc = DMA_MINC_ENABLE;
     hdma_adc1.Init.PeriphDataAlignment = DMA_PDATAALIGN_WORD;
     hdma_adc1.Init.MemDataAlignment = DMA_MDATAALIGN_WORD;
-    hdma_adc1.Init.Mode = DMA_CIRCULAR;
+    hdma_adc1.Init.Mode = DMA_NORMAL;
     hdma_adc1.Init.Priority = DMA_PRIORITY_MEDIUM;
     hdma_adc1.Init.FIFOMode = DMA_FIFOMODE_DISABLE;
     if (HAL_DMA_Init(&hdma_adc1) != HAL_OK)
@@ -166,9 +166,16 @@ void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef* hadc)
     BaseType_t xHigherPriorityTaskWoken = pdFALSE;
     if(ADC1 == hadc->Instance)
     {
-       xQueueOverwriteFromISR(g_adc_dma_conv_complete_mailbox,&temp,&xHigherPriorityTaskWoken);
+       if(pdPASS ==xQueueSendToBackFromISR(g_adc_dma_conv_complete_mailbox,&temp,&xHigherPriorityTaskWoken))
+       {
+            elog_i("INFO","sent info to adc dma mailbox successfully");
+       }
+       else
+       {
+
+            elog_i("INFO","sent info to adc dma mailbox faile");
+       }
 	   portYIELD_FROM_ISR(&xHigherPriorityTaskWoken);
-       elog_i("INFO","sent info to adc dma mailbox");
     }
     else
     {

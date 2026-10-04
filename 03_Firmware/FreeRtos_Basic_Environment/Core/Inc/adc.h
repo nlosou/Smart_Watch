@@ -38,8 +38,8 @@ extern ADC_HandleTypeDef hadc1;
 
 /* USER CODE BEGIN Private defines */
 
-extern uint32_t g_adc1_data_1[10];
-extern uint32_t g_adc1_data_2[10];
+extern uint32_t buffer_1[10];
+extern uint32_t buffer_2[10];
 
 /* USER CODE END Private defines */
 
