@@ -144,7 +144,7 @@ void MX_FREERTOS_Init(void) {
           NULL, 
           &defaultTask_attributes);
           */
-   if(pdPASS == xTaskCreate(Task_A,"Task_A",100,NULL,2,NULL))
+   if(pdPASS == xTaskCreate(Task_A,"Task_A",100,NULL,3,NULL))
    {
         elog_i("INFO","Task_A is created successfully");
    }        
@@ -154,7 +154,7 @@ void MX_FREERTOS_Init(void) {
         elog_e("ERROR","Task_A is created error");
    }
 
-   if(pdPASS == xTaskCreate(Task_B,"Task_B",100,NULL,3,NULL))
+   if(pdPASS == xTaskCreate(Task_B,"Task_B",100,NULL,2,NULL))
    {
         elog_i("INFO","Task_B is created successfully");
    }        
@@ -231,39 +231,50 @@ void Task_A(void *argument)
         if(pdPASS == xQueueReceive(g_adc_dma_conv_complete_mailbox,&temp,portMAX_DELAY))
         {
             elog_i("INFO","adc_dma_mail come");
-               if(pdTRUE == xSemaphoreTake(xSeamphore,portMAX_DELAY)) 
-               {
-                    //2 重新配置DMA存储位置
-                    if(0 == DMA_POINT)
-                    {
-                        DMA_POINT = 1;
-                        HAL_ADC_Start_DMA(&hadc1,buffer_2,10);
-                        need_buffer = BUFFER1_NEED_PROCESS;
-                    }
-                    else
-                    {
-                        DMA_POINT = 0;
-                        HAL_ADC_Start_DMA(&hadc1,buffer_1,10);
-                        need_buffer = BUFFER2_NEED_PROCESS;
-                    }
-                    //3.发送邮箱给任务B
-                    if(pdPASS == xQueueSendToBack(g_Handle_data_mailbox,&need_buffer,0))
-                    {
-                        elog_i("INFO",
-                                "sent info to g_Handle_data__mailbox is successfully");
-                    }
-                    else
-                    {
+            if(0 == DMA_POINT)
+            {
+                need_buffer = BUFFER1_NEED_PROCESS;
+            }
+            else
+            {
+                need_buffer = BUFFER2_NEED_PROCESS;
+            }
+            //3.发送邮箱给任务B
+            if(pdPASS == xQueueSendToBack(g_Handle_data_mailbox,&need_buffer,0))
+            {
+                elog_i("INFO",
+                        "sent info to g_Handle_data__mailbox is successfully");
+            }
+            else
+            {
 
-                        elog_e("INFO","sent to g_Handle_data__mailbox is error");
-                    }
-                    xSemaphoreGive(xSeamphore);
-               }
+                elog_e("INFO","sent to g_Handle_data__mailbox is error");
+            }
+           if(pdTRUE == xSemaphoreTake(xSeamphore,portMAX_DELAY)) 
+           {
+                //2 重新配置DMA存储位置
+                if(0 == DMA_POINT)
+                {
+                    DMA_POINT = 1;
+                    elog_i("START","adc start scan to buffer_2");
+                    HAL_ADC_Start_DMA(&hadc1,buffer_2,10);
+                }
+                else
+                {
+                    DMA_POINT = 0;
+                    elog_i("START","adc start scan to buffer_1");
+                    HAL_ADC_Start_DMA(&hadc1,buffer_1,10);
+                }
+                xSemaphoreGive(xSeamphore);
+           }
+            else
+            {
+                  elog_e("ERROR","data handle is not received");
+            }
+               
         }
     }
 }
-
-
 
 uint32_t ADC_DATA_Handle(uint32_t *adc_data,uint32_t len)
 {
@@ -347,10 +358,7 @@ void Task_B(void* argument)
                 xSemaphoreGive(xSeamphore);
             }
         }
-
-        
     }
 }
-
 /* USER CODE END Application */
 
