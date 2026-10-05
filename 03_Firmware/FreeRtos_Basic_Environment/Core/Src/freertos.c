@@ -99,7 +99,8 @@ void MX_FREERTOS_Init(void) {
   else
   {
 
-    elog_i("INFO","The semaphore was created successfully.");
+    elog_i("INFO","The semaphore was created error");
+    return;
   }
   /* USER CODE END RTOS_MUTEX */
 
@@ -121,6 +122,7 @@ void MX_FREERTOS_Init(void) {
   else
   {
     elog_e("ERROR","adc1_dam mailbox is create ERROR");
+    return;
   }
 
   g_Handle_data_mailbox = xQueueCreate(1,4);
@@ -133,6 +135,7 @@ void MX_FREERTOS_Init(void) {
   {
 
     elog_e("INFO","handle data mailbox is create error");
+    return;
   }
   /* USER CODE END RTOS_QUEUES */
 
@@ -152,6 +155,7 @@ void MX_FREERTOS_Init(void) {
    {
 
         elog_e("ERROR","Task_A is created error");
+        return;
    }
 
    if(pdPASS == xTaskCreate(Task_B,"Task_B",100,NULL,2,NULL))
@@ -161,6 +165,7 @@ void MX_FREERTOS_Init(void) {
    else
    {
         elog_e("ERROR","Task_B is created error");
+       return; 
    }
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
@@ -250,27 +255,31 @@ void Task_A(void *argument)
 
                 elog_e("INFO","sent to g_Handle_data__mailbox is error");
             }
-           if(pdTRUE == xSemaphoreTake(xSeamphore,portMAX_DELAY)) 
+           if(pdFALSE == xQueuePeek(g_Handle_data_mailbox,&need_buffer,portMAX_DELAY))
            {
-                //2 重新配置DMA存储位置
-                if(0 == DMA_POINT)
-                {
-                    DMA_POINT = 1;
-                    elog_i("START","adc start scan to buffer_2");
-                    HAL_ADC_Start_DMA(&hadc1,buffer_2,10);
-                }
+               if(pdTRUE == xSemaphoreTake(xSeamphore,portMAX_DELAY)) 
+               {
+                    //2 重新配置DMA存储位置
+                    if(0 == DMA_POINT)
+                    {
+                        DMA_POINT = 1;
+                        elog_i("START","adc start scan to buffer_2");
+                        HAL_ADC_Start_DMA(&hadc1,buffer_2,10);
+                    }
+                    else
+                    {
+                        DMA_POINT = 0;
+                        elog_i("START","adc start scan to buffer_1");
+                        HAL_ADC_Start_DMA(&hadc1,buffer_1,10);
+                    }
+                    xSemaphoreGive(xSeamphore);
+               }
                 else
                 {
-                    DMA_POINT = 0;
-                    elog_i("START","adc start scan to buffer_1");
-                    HAL_ADC_Start_DMA(&hadc1,buffer_1,10);
+                      elog_e("ERROR","data handle is not received");
                 }
-                xSemaphoreGive(xSeamphore);
            }
-            else
-            {
-                  elog_e("ERROR","data handle is not received");
-            }
+           
                
         }
     }
