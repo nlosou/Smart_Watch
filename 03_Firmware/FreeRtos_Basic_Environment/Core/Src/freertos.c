@@ -202,40 +202,34 @@ void StartDefaultTask(void *argument)
 
 void Task_A(void *argument)
 {
+    uint32_t temp;
+    uint32_t need_buffer = 0;
+    HAL_StatusTypeDef dma_status;
 
-  uint32_t temp;
-  uint32_t need_buffer = 0;
-  HAL_TIM_Base_Start(&htim2);  
-  DMA_POINT = 0;
-  if(HAL_OK == HAL_ADC_Start_DMA(&hadc1,buffer_1,10))
-  {
-    elog_i("INFO","HAL_ADC_Start is Success");
-  }
-  else
-  {
-    elog_e("error","HAL_ADC_Start is serror");
+    HAL_TIM_Base_Start(&htim2);  
+    DMA_POINT = 0;
 
-  }
-#if 0
-    if(pdPASS == xQueueOverwrite(g_adc_dma_conv_complete_mailbox,&temp))
+    // 首次启动 DMA，也需要检查返回值
+    if(HAL_OK == HAL_ADC_Start_DMA(&hadc1, buffer_1, 10))
     {
-        elog_i("INFO",
-                "sent info to g_adc_dma_conv_complete_mailbox is successfully");
+        elog_i("INFO","HAL_ADC_Start is Success");
     }
     else
     {
-
-        elog_e("INFO","sent to g_adc_dma_conv_complete_mailbox is error");
+        elog_e("error","HAL_ADC_Start is error");
+        // 首次启动失败，任务不能继续等待，应进入错误处理
+        vTaskDelete(NULL); // 或者挂起任务，等待系统复位
+        return;
     }
-#endif
+
     for(;;)
     {
-        //任务A的主要任务就是
-        //1.获取DMA完成中断发过来的邮箱
-        //1.1阻塞等待
-        if(pdPASS == xQueueReceive(g_adc_dma_conv_complete_mailbox,&temp,portMAX_DELAY))
+        // 1. 阻塞等待 DMA 完成中断发过来的邮箱
+        if(pdPASS == xQueueReceive(g_adc_dma_conv_complete_mailbox, &temp, portMAX_DELAY))
         {
             elog_i("INFO","adc_dma_mail come");
+            
+            // 2. 判断当前已完成的是哪个 buffer
             if(0 == DMA_POINT)
             {
                 need_buffer = BUFFER1_NEED_PROCESS;
@@ -244,48 +238,66 @@ void Task_A(void *argument)
             {
                 need_buffer = BUFFER2_NEED_PROCESS;
             }
-            //3.发送邮箱给任务B
-            if(pdPASS == xQueueSendToBack(g_Handle_data_mailbox,&need_buffer,0))
+
+            // 3. 发送邮箱给任务B (根据反馈，如果消费者处理不过来，这里应当降速或停止)
+            // 【修改点1】：发送失败时保留数据等待或丢帧停止采集。这里采用阻塞发送防止覆盖。
+            // 如果希望非阻塞丢帧，改为使用带超时的 xQueueSendToBack(..., pdMS_TO_TICKS(10))
+            // 并在失败时记录丢帧，停止DMA：HAL_ADC_Stop_DMA(&hadc1); continue;
+            if(pdPASS == xQueueSendToBack(g_Handle_data_mailbox, &need_buffer, portMAX_DELAY))
             {
-                elog_i("INFO",
-                        "sent info to g_Handle_data__mailbox is successfully");
+                elog_i("INFO", "sent info to g_Handle_data_mailbox is successfully");
             }
             else
             {
-
-                elog_e("INFO","sent to g_Handle_data__mailbox is error");
+                // 理论上 portMAX_DELAY 不会失败，除非队列被删除。
+                elog_e("ERROR", "sent to g_Handle_data_mailbox is error, drop frame and stop ADC.");
+                HAL_ADC_Stop_DMA(&hadc1);
+                continue; // 停止采集，不重启DMA
             }
-           if(pdFALSE == xQueuePeek(g_Handle_data_mailbox,&need_buffer,portMAX_DELAY))
-           {
-               if(pdTRUE == xSemaphoreTake(xSeamphore,portMAX_DELAY)) 
-               {
-                    //2 重新配置DMA存储位置
-                    if(0 == DMA_POINT)
-                    {
-                        DMA_POINT = 1;
-                        elog_i("START","adc start scan to buffer_2");
-                        HAL_ADC_Start_DMA(&hadc1,buffer_2,10);
-                    }
-                    else
-                    {
-                        DMA_POINT = 0;
-                        elog_i("START","adc start scan to buffer_1");
-                        HAL_ADC_Start_DMA(&hadc1,buffer_1,10);
-                    }
-                    xSemaphoreGive(xSeamphore);
-               }
+
+            // 【修改点2】：移除错误的 xQueuePeek 逻辑。
+            // 替代方案：只有消费者归还信号量（处理完数据），才能继续复用该 Buffer
+            if(pdTRUE == xSemaphoreTake(xSeamphore, portMAX_DELAY)) 
+            {
+                // 2. 重新配置 DMA 存储位置 (乒乓切换)
+                if(0 == DMA_POINT)
+                {
+                    DMA_POINT = 1;
+                    elog_i("START", "adc start scan to buffer_2");
+                    // 【修改点3】：检查 DMA 重启函数的返回值
+                    dma_status = HAL_ADC_Start_DMA(&hadc1, buffer_2, 10);
+                }
                 else
                 {
-                      elog_e("ERROR","data handle is not received");
+                    DMA_POINT = 0;
+                    elog_i("START", "adc start scan to buffer_1");
+                    // 【修改点3】：检查 DMA 重启函数的返回值
+                    dma_status = HAL_ADC_Start_DMA(&hadc1, buffer_1, 10);
                 }
-           }
-           
-               
+
+                // 【修改点4】：失败时不能继续等待一个不会到来的完成通知
+                if (dma_status != HAL_OK) 
+                {
+                    elog_e("ERROR", "HAL_ADC_Start_DMA failed! Stop waiting for completion.");
+                    // 发生严重硬件错误，停止后续采集等待，避免死等
+                    // 可以在这里加入系统级错误处理，或死循环报警
+                    HAL_ADC_Stop_DMA(&hadc1);
+                    vTaskDelay(pdMS_TO_TICKS(1000)); // 降速/延迟重试
+                    // 注意：此处需要根据业务需求决定如何恢复，简单处理为重置状态并重启初始 buffer
+                    DMA_POINT = 0;
+                    HAL_ADC_Start_DMA(&hadc1, buffer_1, 10);
+                }
+            }
+            else
+            {
+                // 如果信号量获取超时（如果设置了超时），说明消费者异常
+                elog_e("ERROR", "data handle is not received (Semaphore timeout)");
+                // 必须停止 DMA，否则会覆盖未处理的数据
+                HAL_ADC_Stop_DMA(&hadc1);
+            }
         }
     }
-}
-
-uint32_t ADC_DATA_Handle(uint32_t *adc_data,uint32_t len)
+}uint32_t ADC_DATA_Handle(uint32_t *adc_data,uint32_t len)
 {
     uint32_t temp_swap = 0;
     uint32_t final_adc = 0;
