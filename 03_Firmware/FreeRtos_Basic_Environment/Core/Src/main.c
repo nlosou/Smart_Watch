@@ -24,7 +24,8 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "SEGGER_RTT.h"
+#include "elog.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -52,7 +53,7 @@
 void SystemClock_Config(void);
 void MX_FREERTOS_Init(void);
 /* USER CODE BEGIN PFP */
-
+void app_elog_init(void);
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -76,7 +77,7 @@ int main(void)
   HAL_Init();
 
   /* USER CODE BEGIN Init */
-
+  SEGGER_RTT_Init();
   /* USER CODE END Init */
 
   /* Configure the system clock */
@@ -90,7 +91,7 @@ int main(void)
   MX_GPIO_Init();
   MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
-
+  app_elog_init(); 
   /* USER CODE END 2 */
 
   /* Init scheduler */
@@ -102,10 +103,9 @@ int main(void)
   /* We should never get here as control is now taken by the scheduler */
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  while (1)
+      while (1)
   {
     /* USER CODE END WHILE */
-
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
@@ -157,6 +157,20 @@ void SystemClock_Config(void)
 }
 
 /* USER CODE BEGIN 4 */
+
+void app_elog_init(void)
+{
+    elog_init(); 
+    elog_set_text_color_enabled(true);
+    elog_set_fmt(ELOG_LVL_ASSERT,ELOG_FMT_ALL);
+    elog_set_fmt(ELOG_LVL_ERROR,ELOG_FMT_LVL |ELOG_FMT_TAG );
+    elog_set_fmt(ELOG_LVL_WARN,ELOG_FMT_LVL |ELOG_FMT_TAG );
+    elog_set_fmt(ELOG_LVL_INFO,ELOG_FMT_LVL |ELOG_FMT_TAG );
+    elog_set_fmt(ELOG_LVL_DEBUG,ELOG_FMT_ALL & ~(ELOG_FMT_TIME | ELOG_FMT_P_INFO));
+    elog_set_fmt(ELOG_LVL_VERBOSE,ELOG_FMT_ALL);
+    elog_start();
+
+}
 
 /* USER CODE END 4 */
 

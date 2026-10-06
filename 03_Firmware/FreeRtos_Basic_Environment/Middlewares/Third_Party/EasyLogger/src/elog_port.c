@@ -27,6 +27,10 @@
  */
  
 #include <elog.h>
+#include <stdio.h>
+#include "FreeRTOS.h"
+#include "task.h"
+#include "stm32f4xx_hal.h"
 
 /**
  * EasyLogger port initialize
@@ -60,6 +64,7 @@ void elog_port_deinit(void) {
 void elog_port_output(const char *log, size_t size) {
     
     /* add your code here */
+    printf("%.*s",size,log);
     
 }
 
@@ -69,6 +74,7 @@ void elog_port_output(const char *log, size_t size) {
 void elog_port_output_lock(void) {
     
     /* add your code here */
+    vTaskSuspendAll();
     
 }
 
@@ -78,7 +84,7 @@ void elog_port_output_lock(void) {
 void elog_port_output_unlock(void) {
     
     /* add your code here */
-    
+    xTaskResumeAll();
 }
 
 /**
@@ -89,6 +95,9 @@ void elog_port_output_unlock(void) {
 const char *elog_port_get_time(void) {
     
     /* add your code here */
+    static char current_time[256];
+    sprintf(current_time,"%d",HAL_GetTick());
+    return  current_time;
     
 }
 
