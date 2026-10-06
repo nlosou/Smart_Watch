@@ -33,3 +33,9 @@
 
 # Keil user-specific GUI state
 /03_Firmware/**/*.uvguix.*
+
+# SciTools Understand 工程缓存目录
+03_Firmware/FreeRtos_Basic_Environment/FreeRtos_Basic_Environment.und/
+
+# Understand HTML 报告目录
+03_Firmware/FreeRtos_Basic_Environment/FreeRtos_Basic_Environment_html/
