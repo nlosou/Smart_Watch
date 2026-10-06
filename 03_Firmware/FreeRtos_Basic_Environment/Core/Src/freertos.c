@@ -26,6 +26,7 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "elog.h"
+#include "uart_parse_task.h"
 
 /* USER CODE END Includes */
 
@@ -46,6 +47,8 @@
 
 /* Private variables ---------------------------------------------------------*/
 /* USER CODE BEGIN Variables */
+
+TaskHandle_t Task_A;
 
 /* USER CODE END Variables */
 /* Definitions for defaultTask */
@@ -93,12 +96,25 @@ void MX_FREERTOS_Init(void) {
 
   /* Create the thread(s) */
   /* creation of defaultTask */
-  defaultTaskHandle = osThreadNew(StartDefaultTask, NULL, &defaultTask_attributes);
+  //defaultTaskHandle = osThreadNew(StartDefaultTask, NULL, &defaultTask_attributes);
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
   /* USER CODE END RTOS_THREADS */
-
+  if(pdPASS == xTaskCreate(
+          Uart_rec_A_task,
+          "Uart_rec_A_task",
+          128*4,
+          NULL,
+          2,
+          &Task_A))
+  {
+    elog_i("Task_A","Task_A was successfully created.");
+  }
+  else
+  {
+    elog_e("Task_A","Task_A creation failed."); 
+  }
   /* USER CODE BEGIN RTOS_EVENTS */
   /* add events, ... */
   /* USER CODE END RTOS_EVENTS */

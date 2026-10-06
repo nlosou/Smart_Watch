@@ -19,9 +19,13 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "usart.h"
-#include "SEGGER_RTT.h"
 
 /* USER CODE BEGIN 0 */
+#include "FreeRTOS.h"
+#include "SEGGER_RTT.h"
+#include "queue.h"
+#include "elog.h"
+#include "uart_parse_task.h"
 
 
 
@@ -84,6 +88,9 @@ void HAL_UART_MspInit(UART_HandleTypeDef* uartHandle)
     GPIO_InitStruct.Alternate = GPIO_AF7_USART1;
     HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
+    /* USART1 interrupt Init */
+    HAL_NVIC_SetPriority(USART1_IRQn, 5, 0);
+    HAL_NVIC_EnableIRQ(USART1_IRQn);
   /* USER CODE BEGIN USART1_MspInit 1 */
 
   /* USER CODE END USART1_MspInit 1 */
@@ -107,6 +114,8 @@ void HAL_UART_MspDeInit(UART_HandleTypeDef* uartHandle)
     */
     HAL_GPIO_DeInit(GPIOA, GPIO_PIN_9|GPIO_PIN_10);
 
+    /* USART1 interrupt Deinit */
+    HAL_NVIC_DisableIRQ(USART1_IRQn);
   /* USER CODE BEGIN USART1_MspDeInit 1 */
 
   /* USER CODE END USART1_MspDeInit 1 */
@@ -132,5 +141,18 @@ void HAL_UART_MspDeInit(UART_HandleTypeDef* uartHandle)
      return ch;
  }
 
+
+/**
+  * @brief  Function implementing the defaultTask thread.
+  * @param  argument: Not used
+  * @retval None
+  */
+void HAL_UART_RxCpltCallback(UART_HandleTypeDef* huart)
+{
+//    elog_i("Inteerupt","uart interrupt is come");
+    static uint32_t data = 0x123; 
+    xQueueSendToBackFromISR(queue_irq_rec_A,&data,NULL);
+     
+}
 
 /* USER CODE END 1 */
