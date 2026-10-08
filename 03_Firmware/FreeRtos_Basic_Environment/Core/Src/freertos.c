@@ -27,6 +27,7 @@
 /* USER CODE BEGIN Includes */
 #include "elog.h"
 #include "uart_parse_task.h"
+#include "bsp_uart_driver.h"
 
 /* USER CODE END Includes */
 
@@ -49,6 +50,7 @@
 /* USER CODE BEGIN Variables */
 
 TaskHandle_t Task_A;
+TaskHandle_t Bsp_uart_driver;
 
 /* USER CODE END Variables */
 /* Definitions for defaultTask */
@@ -89,7 +91,6 @@ void MX_FREERTOS_Init(void) {
   /* USER CODE BEGIN RTOS_TIMERS */
   /* start timers, add new ones, ... */
   /* USER CODE END RTOS_TIMERS */
-
   /* USER CODE BEGIN RTOS_QUEUES */
   /* add queues, ... */
   /* USER CODE END RTOS_QUEUES */
@@ -113,8 +114,26 @@ void MX_FREERTOS_Init(void) {
   }
   else
   {
-    elog_e("Task_A","Task_A creation failed."); 
+    elog_e("Task_A","Task_A creat failed."); 
+    return;
   }
+
+  if(pdPASS == xTaskCreate(
+          uart_driver_fucn,
+          "uart_driver",
+          128*4,
+          NULL,
+          4,
+          &Bsp_uart_driver))
+  {
+    elog_i("Uart_diver","Uart_diver was successfully created.");
+  }
+  else
+  {
+    elog_e("Uart_diver","Uart_diver creat failed."); 
+    return;
+  }
+
   /* USER CODE BEGIN RTOS_EVENTS */
   /* add events, ... */
   /* USER CODE END RTOS_EVENTS */

@@ -142,17 +142,5 @@ void HAL_UART_MspDeInit(UART_HandleTypeDef* uartHandle)
  }
 
 
-/**
-  * @brief  Function implementing the defaultTask thread.
-  * @param  argument: Not used
-  * @retval None
-  */
-void HAL_UART_RxCpltCallback(UART_HandleTypeDef* huart)
-{
-//    elog_i("Inteerupt","uart interrupt is come");
-    static uint32_t data = 0x123; 
-    xQueueSendToBackFromISR(queue_irq_rec_A,&data,NULL);
-     
-}
 
 /* USER CODE END 1 */

@@ -30,7 +30,9 @@
 #include <stdio.h>
 #include "FreeRTOS.h"
 #include "task.h"
+#include "SEGGER_RTT.h"
 #include "stm32f4xx_hal.h"
+
 
 /**
  * EasyLogger port initialize
@@ -64,7 +66,8 @@ void elog_port_deinit(void) {
 void elog_port_output(const char *log, size_t size) {
     
     /* add your code here */
-    printf("%.*s",size,log);
+    //printf("%.*s",size,log);
+    SEGGER_RTT_Write(0,log,size);
     
 }
 
@@ -74,7 +77,7 @@ void elog_port_output(const char *log, size_t size) {
 void elog_port_output_lock(void) {
     
     /* add your code here */
-    vTaskSuspendAll();
+//    vTaskSuspendAll();
     
 }
 
@@ -84,7 +87,7 @@ void elog_port_output_lock(void) {
 void elog_port_output_unlock(void) {
     
     /* add your code here */
-    xTaskResumeAll();
+ //   xTaskResumeAll();
 }
 
 /**

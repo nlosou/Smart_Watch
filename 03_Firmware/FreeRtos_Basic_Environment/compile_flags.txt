@@ -15,5 +15,8 @@
 -IMiddlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2
 -IMiddlewares/Third_Party/FreeRTOS/Source/include
 -IMiddlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F
+-IMiddlewares/mid_ring_buffer/
 -IMiddlewares/Third_Party/Segger_RTT/inc
 -IMiddlewares/Third_Party/EasyLogger/inc
+-IApp/
+-IBsp/Uart

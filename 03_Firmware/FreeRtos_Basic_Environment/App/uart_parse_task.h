@@ -14,7 +14,6 @@
 /* Includes ------------------------------------------------------------------*/
 
 
-extern QueueHandle_t queue_irq_rec_A;
 extern TaskHandle_t Task_A;
 
 void Uart_rec_A_task(void* argument);
