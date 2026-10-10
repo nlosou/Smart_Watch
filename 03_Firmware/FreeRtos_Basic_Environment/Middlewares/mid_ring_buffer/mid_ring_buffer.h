@@ -8,7 +8,7 @@
 
 /* Define macro ------------------------------------------------------------*/
 
-#define RING_BUFFER_SIZE 100
+#define RING_BUFFER_SIZE 10
 typedef uint8_t data_type_t;
 /* Define macro ------------------------------------------------------------*/
 
@@ -68,6 +68,26 @@ uint8_t            get_data(ring_buffer_t* p_ring_buffer,data_type_t* data);
   *         0xFE:缓冲区不存在
   */
 uint8_t         insert_data(ring_buffer_t* p_ring_buffer,data_type_t data);
+
+
+/**
+  * @brief  获取当前head
+  * @param  p_ring_buffer: ring_buffer_t*
+  * @param  *head:获取当前head
+  * @retval 0x00:获取成功
+  *         0xFF:环形缓冲区为空
+  *         0xFE:缓冲区不存在
+  */
+uint8_t            get_current_head(ring_buffer_t* p_ring_buffer,uint32_t* head);
+
+/**
+  * @brief  改变当前head
+  * @param  p_ring_buffer: ring_buffer_t*
+  * @retval 0x00:获取成功
+  *         0xFF:环形缓冲区为空
+  *         0xFE:缓冲区不存在
+  */
+uint8_t            change_head(ring_buffer_t* p_ring_buffer,uint32_t len);
 
 
 #endif

@@ -141,6 +141,7 @@ void Uart_rec_A_task(void* argument)
                         break;
                 }
             }
+            //elog_e("backend","ring buffer is empty");
         }
     }
 }

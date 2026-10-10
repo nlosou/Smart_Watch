@@ -17,6 +17,11 @@
 #define INTEERUPT_TO_FRONT_PARTERN      (0xAAAA)
 #define FRONT_TO_BACKEND_PARTERN        (0xBBBB)
 
+
+
+#define OPEN_SINGLE_BYTE_INTERRUPT           (0)
+#define OPEN_UART_DMA_INTERRUPT              (1)
+
 /*Define Macro*/
 
 
@@ -70,10 +75,10 @@ void uart_driver_fucn(void* argument)
         elog_i("INFO","ring buffer is created successfully");
     }
 
-
+#if OPEN_SINGLE_BYTE_INTERRUPT
     if(HAL_OK == HAL_UART_Receive_IT(&huart1,&g_buffer,1))
     {
-        elog_i("INFO","Uart rx interrupt is successfully");
+        elog_i("INFO","Uart  rx interrupt is successfully");
     }
     else
     {
@@ -81,6 +86,21 @@ void uart_driver_fucn(void* argument)
         elog_e("INFO","Uart rx interrupt is false");
         return;
     }
+#endif
+
+#if OPEN_UART_DMA_INTERRUPT
+    if(HAL_OK ==HAL_UARTEx_ReceiveToIdle_DMA(&huart1,g_ring_buffer->ring_buffer,RING_BUFFER_SIZE))
+    {
+        elog_i("INFO","Uart DMA  rx interrupt is successfully");
+    }
+    else
+    {
+
+        elog_e("INFO","Uart DMA rx interrupt is false");
+        return;
+    }
+#endif
+
 //test ring_buffer Function
 #if 0
     ring_buffer_t*  ring_buffer = NULL;
@@ -287,6 +307,19 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef* huart)
 
 }
 
+/**
+  * @brief  Function implementing the defaultTask thread.
+  * @param  argument: Not used
+  * @retval None
+  */
+void HAL_UARTEx_RxEventCallback(UART_HandleTypeDef* huart1,uint16_t size)
+{
+
+    elog_d("irq","dma half-full full come");
+}
+
+
+
 ring_buffer_t* uart_driver_get_ring_buffer_address(void)
 {
     if(NULL== g_ring_buffer)
@@ -296,3 +329,157 @@ ring_buffer_t* uart_driver_get_ring_buffer_address(void)
     return g_ring_buffer;
     
 }
+
+
+/**
+  * @brief  半满回调
+  * @param  argument: Not used
+  * @retval None
+  */
+
+void dma_half_callback(uint16_t size)
+{
+    //1,获取当前head
+    uint32_t current_head;
+    if(0x00 == get_current_head(g_ring_buffer,&current_head))
+    {
+     //   elog_d("DMA_HALF","current head is [%d]",current_head);
+    }
+    //2,当前dma到达的位置(dma 会不断在 0~RING_BUFFER_SIZE 之间徘徊)
+    uint32_t current_data_pos = RING_BUFFER_SIZE/ 2 ;
+    //elog_d("DMA_HALF","current data pos is [%d]",current_data_pos);
+    //3,计算需要让head移动多少
+    uint32_t current_head_mod = current_head % (RING_BUFFER_SIZE);
+    uint32_t need_move_len = 0 ;
+    if(current_data_pos <current_head_mod)
+    {
+        need_move_len = current_data_pos  + RING_BUFFER_SIZE -current_head_mod ;
+    }
+    else
+    {
+
+        need_move_len = current_data_pos  - current_head_mod;
+    
+    }
+    //elog_d("DMA_HALF","need_move_len is [%d]",need_move_len);
+    //4,移动head
+    if(0x00 == change_head(g_ring_buffer,need_move_len))
+    {
+        
+    }
+    if(0x00 == get_current_head(g_ring_buffer,&current_head))
+    {
+        //elog_d("DMA_HALF","After moving head is [%d]",current_head);
+    }
+
+    //通知前端函数,数据已经就绪
+    uint32_t info_to_front = INTEERUPT_TO_FRONT_PARTERN;
+    if(pdTRUE ==xQueueGenericSendFromISR(queue_irq_front,&info_to_front,NULL,queueOVERWRITE))
+    {
+        //elog_d("irq","irq to front function is successfully");
+    }
+    else
+    {
+
+        //elog_d("irq","irq to front function is falsed");
+    }
+}
+
+
+/**
+  * @brief  全满回调
+  * @param  argument: Not used
+  * @retval None
+  */
+
+void dma_full_callback(uint16_t size)
+{
+    //1,获取当前head
+    uint32_t current_head;
+    if(0x00 == get_current_head(g_ring_buffer,&current_head))
+    {
+      //  elog_d("DMA_FULL","current head is [%d]",current_head);
+    }
+    //2,当前dma到达的位置(dma 会不断在 0~RING_BUFFER_SIZE 之间徘徊)
+    uint32_t current_data_pos = RING_BUFFER_SIZE ;
+    //elog_d("DMA_FULL","current data pos is [%d]",current_data_pos);
+    //3,计算需要让head移动多少
+    uint32_t current_head_mod = current_head % (RING_BUFFER_SIZE);
+    uint32_t need_move_len = 0 ;
+    if(current_data_pos <current_head_mod)
+    {
+        need_move_len = current_data_pos  + RING_BUFFER_SIZE -current_head_mod ;
+    }
+    else
+    {
+
+        need_move_len = current_data_pos  - current_head_mod;
+    
+    }
+    //elog_d("DMA_FULL","need_move_len is [%d]",need_move_len);
+    //4,移动head
+    if(0x00 == change_head(g_ring_buffer,need_move_len))
+    {
+        
+    }
+    if(0x00 == get_current_head(g_ring_buffer,&current_head))
+    {
+     //   elog_d("DMA_FULL","After moving head is [%d]",current_head);
+    }
+
+    //通知前端函数,数据已经就绪
+    uint32_t info_to_front = INTEERUPT_TO_FRONT_PARTERN;
+    if(pdTRUE ==xQueueGenericSendFromISR(queue_irq_front,&info_to_front,NULL,queueOVERWRITE))
+    {
+        //elog_d("irq","irq to front function is successfully");
+    }
+    else
+    {
+
+        //elog_d("irq","irq to front function is falsed");
+    }
+}
+
+/**
+  * @brief  空闲回调
+  * @param  argument: Not used
+  * @retval None
+  */
+void uart_idle_callback(uint16_t size)
+{
+    //1,获取当前head
+    uint32_t current_head;
+    if(0x00 == get_current_head(g_ring_buffer,&current_head))
+    {
+        //elog_d("UART_IDLE","current head is [%d]",current_head);
+    }
+    //2,当前dma到达的位置(dma 会不断在 0~RING_BUFFER_SIZE 之间徘徊)
+    uint32_t current_data_pos = size;
+    //elog_d("UART_IDLE","current data pos is [%d]",current_data_pos);
+
+    //3,计算需要让head移动多少
+    uint32_t current_head_mod = current_head % (RING_BUFFER_SIZE);
+    uint32_t need_move_len = 0 ;
+    if(current_data_pos <current_head_mod)
+    {
+        need_move_len = current_data_pos  + RING_BUFFER_SIZE -current_head_mod ;
+    }
+    else
+    {
+
+        need_move_len = current_data_pos  - current_head_mod;
+    
+    }
+    //elog_d("UART_IDLE","need_move_len is [%d]",need_move_len);
+
+    //4,移动head
+    if(0x00 == change_head(g_ring_buffer,need_move_len))
+    {
+        
+    }
+    if(0x00 == get_current_head(g_ring_buffer,&current_head))
+    {
+        //elog_d("UART_IDLE","After moving head is [%d]",current_head);
+    }
+}
+

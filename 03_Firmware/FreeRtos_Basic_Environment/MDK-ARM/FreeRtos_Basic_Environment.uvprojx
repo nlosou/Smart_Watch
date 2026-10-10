@@ -430,6 +430,11 @@
               <FileType>1</FileType>
               <FilePath>../Core/Src/stm32f4xx_hal_timebase_tim.c</FilePath>
             </File>
+            <File>
+              <FileName>dma.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>\\192.168.122.1\My_Project\Smart_Watch\03_Firmware\FreeRtos_Basic_Environment\Core\Src\dma.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

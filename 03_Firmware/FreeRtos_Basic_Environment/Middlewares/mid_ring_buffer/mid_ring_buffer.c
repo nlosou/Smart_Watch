@@ -75,8 +75,8 @@ uint8_t ring_buffer_is_empty(ring_buffer_t* p_ring_buffer)
         return 0xFF;
     }
     
-    //2.如果环形缓冲区的head+ 1 等于tail,就说明环形缓存区就满了
-    if((p_ring_buffer->head % RING_BUFFER_SIZE) == (p_ring_buffer->tail % RING_BUFFER_SIZE))
+    //2.如果环形缓冲区的head 等于tail,就说明环形缓存区就空了
+    if((p_ring_buffer->head) == (p_ring_buffer->tail))
     {
         return 0x00;
     }
@@ -138,7 +138,46 @@ uint8_t            get_data(ring_buffer_t* p_ring_buffer,data_type_t* data)
     *data = p_ring_buffer->ring_buffer[p_ring_buffer->tail % RING_BUFFER_SIZE];
     p_ring_buffer->tail++;
     return 0x00;
-
 }
+
+/**
+  * @brief  获取当前head
+  * @param  p_ring_buffer: ring_buffer_t*
+  * @param  *head:获取当前head
+  * @retval 0x00:获取成功
+  *         0xFF:环形缓冲区为空
+  *         0xFE:缓冲区不存在
+  */
+uint8_t            get_current_head(ring_buffer_t* p_ring_buffer,uint32_t* head)
+{
+    //1.拿到一个指针需要进行判空
+    if(NULL == p_ring_buffer)
+    {
+        return 0xFE;
+    }
+    //3.获取数据
+    *head= p_ring_buffer->head;
+    return 0x00;
+}
+
+/**
+  * @brief  改变当前head
+  * @param  p_ring_buffer: ring_buffer_t*
+  * @retval 0x00:获取成功
+  *         0xFF:环形缓冲区为空
+  *         0xFE:缓冲区不存在
+  */
+uint8_t            change_head(ring_buffer_t* p_ring_buffer,uint32_t len)
+{
+    //1.拿到一个指针需要进行判空
+    if(NULL == p_ring_buffer)
+    {
+        return 0xFE;
+    }
+    //3.获取数据
+    p_ring_buffer->head+=len;
+    return 0x00;
+}
+
 
 
