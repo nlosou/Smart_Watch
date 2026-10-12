@@ -7,6 +7,7 @@
 #include "queue.h"
 #include "elog.h"
 #include "mid_ring_buffer.h"
+#include "stm32f4xx_hal_uart.h"
 
 /* USER CODE END Includes */
 
@@ -312,12 +313,47 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef* huart)
   * @param  argument: Not used
   * @retval None
   */
-void HAL_UARTEx_RxEventCallback(UART_HandleTypeDef* huart1,uint16_t size)
+void HAL_UARTEx_RxEventCallback(
+    UART_HandleTypeDef *huart,
+    uint16_t Size)
 {
+    if (huart->Instance != USART1) {
+        return;
+    }
 
-    elog_d("irq","dma half-full full come");
+    switch (HAL_UARTEx_GetRxEventType(huart)) {
+    case HAL_UART_RXEVENT_HT:
+        dma_half_callback(Size);
+        break;
+
+    case HAL_UART_RXEVENT_TC:
+        dma_full_callback(Size);
+        break;
+
+    case HAL_UART_RXEVENT_IDLE:
+        uart_idle_callback(Size);
+        break;
+
+    default:
+        break;
+    }
 }
 
+static void uart_notify_data_ready_from_isr(void)
+{
+    uint32_t event = INTEERUPT_TO_FRONT_PARTERN;
+    BaseType_t higher_priority_task_woken = pdFALSE;
+
+    if (NULL != queue_irq_front) {
+        (void)xQueueOverwriteFromISR(
+            queue_irq_front,
+            &event,
+            &higher_priority_task_woken
+        );
+    }
+
+    portYIELD_FROM_ISR(higher_priority_task_woken);
+}
 
 
 ring_buffer_t* uart_driver_get_ring_buffer_address(void)
@@ -373,16 +409,8 @@ void dma_half_callback(uint16_t size)
     }
 
     //通知前端函数,数据已经就绪
-    uint32_t info_to_front = INTEERUPT_TO_FRONT_PARTERN;
-    if(pdTRUE ==xQueueGenericSendFromISR(queue_irq_front,&info_to_front,NULL,queueOVERWRITE))
-    {
-        //elog_d("irq","irq to front function is successfully");
-    }
-    else
-    {
-
-        //elog_d("irq","irq to front function is falsed");
-    }
+    uart_notify_data_ready_from_isr();
+    
 }
 
 
@@ -428,16 +456,7 @@ void dma_full_callback(uint16_t size)
     }
 
     //通知前端函数,数据已经就绪
-    uint32_t info_to_front = INTEERUPT_TO_FRONT_PARTERN;
-    if(pdTRUE ==xQueueGenericSendFromISR(queue_irq_front,&info_to_front,NULL,queueOVERWRITE))
-    {
-        //elog_d("irq","irq to front function is successfully");
-    }
-    else
-    {
-
-        //elog_d("irq","irq to front function is falsed");
-    }
+    uart_notify_data_ready_from_isr();
 }
 
 /**
@@ -481,5 +500,8 @@ void uart_idle_callback(uint16_t size)
     {
         //elog_d("UART_IDLE","After moving head is [%d]",current_head);
     }
+    uart_notify_data_ready_from_isr();
 }
+
+
 

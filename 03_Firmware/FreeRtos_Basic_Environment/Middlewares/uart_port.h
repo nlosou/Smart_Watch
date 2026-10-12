@@ -16,6 +16,9 @@ typedef uint32_t uart_os_tick_t;
 #define UART_OS_WAIT_FOREVER   ((uart_os_tick_t)0xFFFFFFFFU)
 #define UART_OS_NO_WAIT        ((uart_os_tick_t)0U)
 
+#define UART_PROTO_MAX_SUBSCRIBERS  4
+#define UART_PROTO_MAX_FRAME_LEN    32
+
 /* Define macro ------------------------------------------------------------*/
 
 
@@ -31,11 +34,10 @@ typedef enum  {
 /*return value-------------------------------------------------------------*/
 
 typedef struct {
-    uint8_t                      *ring_buffer;
-    uint32_t                             head;
-    uint32_t                             tail;
-}ring_buffer_t;
-
+    uint8_t ring_buffer[RING_BUFFER_SIZE];
+    uint32_t head;
+    uint32_t tail;
+} ring_buffer_t;
 
 typedef struct {
     void *ring_buffer; 
@@ -94,29 +96,81 @@ typedef struct
 struct uart_proto_t;
 
 /* 订阅者回调类型：一帧就绪时，中间件回调上层 */
-typedef uart_proto_fuc_ret_state (*uart_subcriber_f)(struct uart_proto_t* const self);
+
+/* 一个订阅者的回调函数 */
+typedef void (*uart_subscriber_cb_t)(
+    const uint8_t *frame,
+    uint16_t len,
+    void *user_ctx
+);
+
+/* 订阅者信息 */
+typedef struct {
+    uart_subscriber_cb_t callback;//回调函数
+    void *user_ctx;//用户上下文
+} uart_subscriber_t;
 
 /* ---------- 中间件对象 ---------- */
 typedef struct uart_proto_t {
+    uart_ops_t *uart_ops;
+    os_interface_t *os_interface;
+    frame_parse_att_t *frame_parse_att;
+    uart_os_queue_t notify_queue;
 
-    uart_ops_t*                  uart_ops;
-    os_interface_t*          os_interface;
-    frame_parse_att_t*    frame_parse_att;
-    uart_os_queue_t          notify_queue;  
+    uint8_t is_inited;
 
-    /* 运行时状态 */
-    uint8_t              is_inited;
+    /* 多个订阅者 */
+    uart_subscriber_t subscribers[UART_PROTO_MAX_SUBSCRIBERS];
+    uint8_t subscriber_count;
 
-    /* 订阅者回调——上层注册进来 */
-    uart_subcriber_f     uart_subcriber;
 } uart_proto_t;
 
+
 /* ---------- API ---------- */
+
+
+/**
+ * @brief 
+ *
+ * @param self
+ * @param input_arg
+ *
+ * @return 
+ */
 uart_proto_fuc_ret_state uart_proto_init(uart_proto_t *self,
+
                                          uart_proto_input_arg_t* input_arg);
 
+/**
+ * @brief 
+ *用户注册订阅登记感兴趣的模块
+ * @param self
+ * @param callback
+ * @param user_ctx
+ *
+ * @return 
+ */
 uart_proto_fuc_ret_state uart_proto_register_subscriber(
-                                         uart_proto_t *self,
-                                         uart_subcriber_f cb);
+    uart_proto_t *self,
+    uart_subscriber_cb_t callback,
+    void *user_ctx
+);
 
+/**
+ * @brief 
+ *等待接收通知，解析 UART 数据
+ * @param argument
+ */
+void uart_proto_task(void *argument);
+
+/**
+ * @brief 
+ *通知解析任务有新数据可读
+ * @param self
+ *
+ * @return 
+ */
+uart_proto_fuc_ret_state uart_proto_notify_rx_data(
+    uart_proto_t *self
+);
 #endif

@@ -37,21 +37,31 @@ typedef enum {
  * @param  input_arg  : 依赖注入（ops / os / ring_buffer / 解析算法）
  * @retval uart_fuc_ok / uart_fuc_error / uart_fuc_null
  */
-uart_proto_fuc_ret_state uart_proto_init(uart_proto_t* self,
-                                         uart_proto_input_arg_t* input_arg)
+uart_proto_fuc_ret_state uart_proto_init(
+    uart_proto_t *self,
+    uart_proto_input_arg_t *input_arg)
 {
-    if (NULL == self || NULL == input_arg)       return uart_fuc_null;
-    if (NULL == input_arg->uart_ops)             return uart_fuc_error;
-    if (NULL == input_arg->os_interface)         return uart_fuc_error;  /* 需要 OS 抽象 */
+    if ((NULL == self) || (NULL == input_arg)) {
+        return uart_fuc_null;
+    }
 
-    self->uart_ops        = input_arg->uart_ops;
-    self->os_interface    = input_arg->os_interface;
+    if ((NULL == input_arg->uart_ops) ||
+        (NULL == input_arg->os_interface) ||
+        (NULL == input_arg->frame_parse_att) ||
+        (NULL == input_arg->frame_parse_att->ring_buffer)) {
+        return uart_fuc_error;
+    }
+
+    self->uart_ops = input_arg->uart_ops;
+    self->os_interface = input_arg->os_interface;
     self->frame_parse_att = input_arg->frame_parse_att;
-    self->uart_subcriber  = NULL;
-    self->is_inited       = 0;
 
-    /* 由中间件自己创建通知队列 —— 因为它是队列的消费者 */
-    self->notify_queue = self->os_interface->pf_os_queue_create(1, sizeof(uint32_t));
+    self->subscriber_count = 0;
+    self->is_inited = 0;
+
+    self->notify_queue =
+        self->os_interface->pf_os_queue_create(1, sizeof(uint32_t));
+
     if (NULL == self->notify_queue) {
         return uart_fuc_error;
     }
@@ -65,102 +75,167 @@ uart_proto_fuc_ret_state uart_proto_init(uart_proto_t* self,
 }
 
 
-uart_proto_fuc_ret_state uart_proto_register_subscriber(uart_proto_t *self,
-                                                       uart_subcriber_f cb)
+/**
+ * @brief 
+ *登记感兴趣的模块
+ * @param self
+ * @param callback
+ * @param user_ctx
+ *
+ * @return 
+ */
+uart_proto_fuc_ret_state uart_proto_register_subscriber(
+    uart_proto_t *self,
+    uart_subscriber_cb_t callback,
+    void *user_ctx)
 {
-    if (NULL == self || NULL == cb) return uart_fuc_null;
-    self->uart_subcriber = cb;
+    if ((NULL == self) || (NULL == callback)) {
+        return uart_fuc_null;
+    }
+
+    if (self->subscriber_count >= UART_PROTO_MAX_SUBSCRIBERS) {
+        return uart_fuc_error;
+    }
+
+    self->subscribers[self->subscriber_count].callback = callback;
+    self->subscribers[self->subscriber_count].user_ctx = user_ctx;
+    self->subscriber_count++;
+
     return uart_fuc_ok;
 }
-
-void uart_proto_task(void* argument)
+/**
+ * @brief 
+ *发布函数
+ * @param self
+ * @param frame
+ * @param len
+ */
+static void uart_proto_publish_frame(
+    uart_proto_t *self,
+    const uint8_t *frame,
+    uint16_t len)
 {
-    uart_proto_t* self = (uart_proto_t*)argument;
+    if ((NULL == self) || (NULL == frame)) {
+        return;
+    }
 
-    uart_protocol_frame_status_t frame_status =FRAME_HEAD_NOT_DECTED;
-    static uint8_t temp_frame_data[32] = {0};
-    static uint8_t             frame_idx = 0;
-    static uint32_t            frame_sum = 0;
-    int32_t                  pattern = 0;
-    data_type_t               temp_data;
+    for (uint8_t i = 0; i < self->subscriber_count; i++) {
+        uart_subscriber_t *subscriber = &self->subscribers[i];
+
+        if (NULL != subscriber->callback) {
+            subscriber->callback(
+                frame,
+                len,
+                subscriber->user_ctx
+            );
+        }
+    }
+}
+
+/**
+ * @brief 
+ *
+ *等待接收通知，解析 UART 数据
+ * @param argument
+ */
+void uart_proto_task(void *argument)
+{
+    uart_proto_t *self = (uart_proto_t *)argument;
+
+    if ((NULL == self) || (0 == self->is_inited)) {
+        return;
+    }
+
+    ring_buffer_t *rb =
+        (ring_buffer_t *)self->frame_parse_att->ring_buffer;
+
+    uint8_t frame[UART_PROTO_MAX_FRAME_LEN];
+    uint16_t frame_idx = 0;
+    uint8_t in_frame = 0;
+    uint32_t event = 0;
 
     for (;;) {
-        /* 1. 等"数据来了"的通知 —— 走抽象接口 */
+        /* 等待数据到达通知 */
         if (0 != self->os_interface->pf_os_queue_recv(
                      self->notify_queue,
-                     &pattern,
+                     &event,
                      UART_OS_WAIT_FOREVER)) {
             continue;
         }
 
-        /* 2. 状态机主体完全不变 */
-        while (ring_buffer_is_empty(self->frame_parse_att->ring_buffer) == 0x01) {
-            if (0x00 != get_data(self->frame_parse_att->ring_buffer, &temp_data)) {
+        /* 一次通知后，把当前可读的字节全部取出 */
+        while (ring_buffer_is_empty(rb) == 0x01) {
+            uint8_t byte;
+
+            if (0x00 != get_data(rb, &byte)) {
                 break;
             }
-            /* ... 和原来一模一样 ... */
-            switch(frame_status)
-                {
-                    //1.如果检测到某一字节数据为0xFE,就说明是帧头
-                    case FRAME_HEAD_NOT_DECTED:
-                        if(temp_data == FRAME_HEAD_FLAG)
-                        {
-                            frame_status = FRAME_HEAD;
-                            elog_i("backend","frame start");
-                        }
-                        break;
-                    //2.开始连续打印数据,直到遇到0xFF帧尾巴,或者环形缓存区为空
-                    case FRAME_HEAD:
-                        if(temp_data == FRAME_TAIL_FLAG)
-                        {
-                            frame_status = FRAME_HEAD_NOT_DECTED;
-                            elog_i("backend","frame end");
-                            //计算校验和
-                            for(uint8_t idx = 0 ; idx <( frame_idx - 1); idx++) 
-                            {
-                                frame_sum+=temp_frame_data[idx];
-                            }
-                            //验证成功才打印数据
-                            if(frame_sum == temp_frame_data[frame_idx - 1])
-                            {
-                                elog_i("INFO",
-                                        "Data verification successful");
-                                for(uint8_t idx = 0 ; idx <( frame_idx - 1); idx++) 
-                                {
 
-                                    elog_i("backend",
-                                   "frame data is [%x]",
-                                           temp_frame_data[idx] );
-                                }
-                                  elog_i("backend",
-                                   "verification data is  [%x]",
-                                           frame_sum);
-                            }
-                            //验证失败
-                            else
-                            {
-                                elog_e("INFO","Data verification falsed");
-                                elog_e("INFO",
-                                        "calculate sum is %x,get sum from frame is %x",
-                                        frame_sum,temp_frame_data[frame_idx - 1]);
-                            }
-                            for(uint8_t idx = 0 ; idx <( frame_idx); idx++) 
-                            {
-                                temp_frame_data[idx] = 0;
-                            }
-                            frame_idx = 0;
-                            frame_sum = 0;
-                        }    
-                        else
-                        {
-                            temp_frame_data[frame_idx++] = temp_data;
-                            //elog_i("backend","frame data is [%x]",temp_data);
-                        }
-                        break;
+            /* 等待帧头 */
+            if (0 == in_frame) {
+                if (0xFE == byte) {
+                    in_frame = 1;
+                    frame_idx = 0;
                 }
+                continue;
             }
-            //elog_e("backend","ring buffer is empty");
+
+            /* 遇到帧尾：校验并发布 */
+            if (0xFF == byte) {
+                if (frame_idx >= 1) {
+                    uint8_t checksum = 0;
+
+                    /* 最后一个字节是接收到的校验和 */
+                    for (uint16_t i = 0; i < frame_idx - 1; i++) {
+                        checksum =
+                            (uint8_t)(checksum + frame[i]);
+                    }
+
+                    if (checksum == frame[frame_idx - 1]) {
+                        /*
+                         * 发布有效帧。
+                         * 不把最后的校验和传给订阅者。
+                         */
+                        uart_proto_publish_frame(
+                            self,
+                            frame,
+                            frame_idx - 1
+                        );
+                    }
+                }
+
+                in_frame = 0;
+                frame_idx = 0;
+                continue;
+            }
+
+            /* 防止超长帧写越界 */
+            if (frame_idx < sizeof(frame)) {
+                frame[frame_idx++] = byte;
+            } else {
+                /* 超长帧直接丢弃，重新寻找帧头 */
+                in_frame = 0;
+                frame_idx = 0;
+            }
         }
+    }
 }
 
+uart_proto_fuc_ret_state uart_proto_notify_rx_data(
+    uart_proto_t *self)
+{
+    uint32_t event = 1;
 
+    if ((NULL == self) || (0 == self->is_inited)) {
+        return uart_fuc_error;
+    }
+
+    if (0 == self->os_interface->pf_os_queue_send(
+                 self->notify_queue,
+                 &event,
+                 UART_OS_NO_WAIT)) {
+        return uart_fuc_ok;
+    }
+
+    return uart_fuc_error;
+}
