@@ -2,14 +2,16 @@
 #include "uart_parse_task.h"
 #include "elog.h"
 #include "mid_ring_buffer.h"
-
+#include "uart_pubsub.h"
 #include "bsp_uart_driver.h"
 /* USER CODE END Includes */
 
 
 
+
 /*Define Macro*/
 
+#define UART_FRAME_MAX_LEN  32U
 #define FRAME_HEAD_FLAG (0xFE)
 #define FRAME_TAIL_FLAG (0xFF)
 
@@ -27,8 +29,18 @@ typedef enum {
 /* Globle Variables */
 QueueHandle_t queue_front_to_backend= NULL;
 ring_buffer_t* ring_buffer;
+static uart_pubsub_t g_uart_pubsub;
 /* Globle Variables */
 
+static void uart_log_subscriber(
+    const uint8_t *payload,
+    uint16_t len,
+    void *user_ctx);
+
+static void uart_command_subscriber(
+    const uint8_t *payload,
+    uint16_t len,
+    void *user_ctx);
 
 /**
   * @brief  Function implementing the Task_A thread.
@@ -39,6 +51,10 @@ void Uart_rec_A_task(void* argument)
 {
     uint32_t front_to_backend_parten = 0;
     queue_front_to_backend = xQueueCreate(1,4); 
+
+    uint8_t frame_buf[UART_FRAME_MAX_LEN];
+    uint16_t frame_len = 0;
+    uint8_t in_frame = 0;
     uint8_t temp_data = 0;
     if(NULL!=queue_front_to_backend)
     {
@@ -54,94 +70,117 @@ void Uart_rec_A_task(void* argument)
     
     ring_buffer = uart_driver_get_ring_buffer_address();
     elog_i("Task_A","Task_A is active");
+    uart_pubsub_init(&g_uart_pubsub);
+
+    if (UART_PUBSUB_OK != uart_pubsub_subscribe(
+                               0x01,
+                               &g_uart_pubsub,
+                               uart_log_subscriber,
+                               NULL)) {
+        elog_e("UART", "Register log subscriber failed");
+        return;
+    }
+
+    if (UART_PUBSUB_OK != uart_pubsub_subscribe(
+                               0x02,
+                               &g_uart_pubsub,
+                               uart_command_subscriber,
+                               NULL)) {
+        elog_e("UART", "Register command subscriber failed");
+        return;
+    }
+
     for(;;)
     {
         //1.从队列里接收"开始处理数据"通知
-        if(pdTRUE == xQueueReceive(
-                    queue_front_to_backend,
-                    &front_to_backend_parten,
-                    portMAX_DELAY))
+        while (0x01 == ring_buffer_is_empty(ring_buffer)) 
         {
-            elog_d("backend","queue_front to backend is comming [%x]",front_to_backend_parten);
-            //2.开始处理数据(暂时用打印环形缓冲区间数据代替)
-            
-            //进入状态机
-            static uart_protocol_frame_status_t frame_status = FRAME_HEAD_NOT_DECTED;
-            static uint8_t temp_frame_data[32] = {0};
-            static uint8_t             frame_idx = 0;
-            static uint32_t            frame_sum = 0;
-            while(0x00!=ring_buffer_is_empty(ring_buffer))
-            {           
-                if(0x00 == get_data(ring_buffer,&temp_data))
-                {
-                    //elog_i("backend","get_data is [%x]",temp_data);
-                    
-                }
-                else
-                {
-                    elog_e("backend","get_data is falsed");
-                }
-                vTaskDelay(5);
-                switch(frame_status)
-                {
-                    //1.如果检测到某一字节数据为0xFE,就说明是帧头
-                    case FRAME_HEAD_NOT_DECTED:
-                        if(temp_data == FRAME_HEAD_FLAG)
-                        {
-                            frame_status = FRAME_HEAD;
-                            elog_i("backend","frame start");
-                        }
-                        break;
-                    //2.开始连续打印数据,直到遇到0xFF帧尾巴,或者环形缓存区为空
-                    case FRAME_HEAD:
-                        if(temp_data == FRAME_TAIL_FLAG)
-                        {
-                            frame_status = FRAME_HEAD_NOT_DECTED;
-                            elog_i("backend","frame end");
-                            //计算校验和
-                            for(uint8_t idx = 0 ; idx <( frame_idx - 1); idx++) 
-                            {
-                                frame_sum+=temp_frame_data[idx];
-                            }
-                            //验证成功才打印数据
-                            if(frame_sum == temp_frame_data[frame_idx - 1])
-                            {
-                                elog_i("INFO","Data verification successful");
-                                for(uint8_t idx = 0 ; idx <( frame_idx - 1); idx++) 
-                                {
-
-                                    elog_i("backend",
-                                   "frame data is [%x]",
-                                           temp_frame_data[idx] );
-                                }
-                                  elog_i("backend",
-                                   "verification data is  [%x]",
-                                           frame_sum);
-                            }
-                            //验证失败
-                            else
-                            {
-                                elog_e("INFO","Data verification falsed");
-                                elog_e("INFO",
-                                        "calculate sum is %x,get sum from frame is %x",
-                                        frame_sum,temp_frame_data[frame_idx - 1]);
-                            }
-                            for(uint8_t idx = 0 ; idx <( frame_idx); idx++) 
-                            {
-                                temp_frame_data[idx] = 0;
-                            }
-                            frame_idx = 0;
-                            frame_sum = 0;
-                        }    
-                        else
-                        {
-                            temp_frame_data[frame_idx++] = temp_data;
-                            //elog_i("backend","frame data is [%x]",temp_data);
-                        }
-                        break;
-                }
+            if (0x00 != get_data(ring_buffer, &temp_data)) {
+                break;
             }
-            //elog_e("backend","ring buffer is empty");
-        }
+         // 帧头 | CMD | DATA | CHECKSUM | 帧尾
+            /* 尚未找到帧头 */
+            if (0U == in_frame) {
+                if (FRAME_HEAD_FLAG == temp_data) {
+                    in_frame = 1U;
+                    frame_len = 0U;
+                }
+                continue;
+            }
+
+            /* 收到帧尾：验证校验和，然后发布 */
+            if (FRAME_TAIL_FLAG == temp_data) {
+                if (frame_len >= 2U) {
+                    uint8_t checksum = 0U;
+
+                    /*
+                     * frame_buf 最后一个字节是校验和，
+                     * 前面的字节是载荷。
+                     */
+                    for (uint16_t i = 0U; i < frame_len - 1U; i++) {
+                        checksum =
+                            (uint8_t)(checksum + frame_buf[i]);
+                    }
+
+                    if (checksum == frame_buf[frame_len - 1U]) {
+                        /* 关键：只发布校验成功的载荷 */
+                        uart_pubsub_publish(
+                            frame_buf[0],
+                            &g_uart_pubsub,
+                            frame_buf,
+                            frame_len - 1U
+                        );
+                    } else {
+                        elog_w("UART", "Frame checksum failed");
+                    }
+                }
+
+                in_frame = 0U;
+                frame_len = 0U;
+                continue;
+            }
+
+            /* 暂存帧内容，并防止数组越界 */
+            if (frame_len < sizeof(frame_buf)) {
+                frame_buf[frame_len++] = temp_data;
+            } else {
+                /* 超长帧直接丢弃，重新寻找帧头 */
+                in_frame = 0U;
+                frame_len = 0U;
+            }
+        }   
     }
+}
+
+
+/* 订阅者一：记录有效帧 */
+static void uart_log_subscriber(
+    const uint8_t *payload,
+    uint16_t len,
+    void *user_ctx)
+{
+    (void)payload;
+    (void)user_ctx;
+
+    elog_i("UART", "subscriber Valid frame, payload len=%u",
+           (unsigned int)len);
+}
+
+/* 订阅者二：处理应用层命令 */
+static void uart_command_subscriber(
+    const uint8_t *payload,
+    uint16_t len,
+    void *user_ctx)
+{
+    (void)user_ctx;
+
+    if ((NULL == payload) || (0U == len)) {
+        return;
+    }
+
+    /*
+     * 可以在这里根据命令字分发对应的处理逻辑。
+     */
+
+    elog_i("UART","subscriber2 %x",payload[0]);
 }
