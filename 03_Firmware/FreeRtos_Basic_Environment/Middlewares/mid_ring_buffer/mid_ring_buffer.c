@@ -1,8 +1,15 @@
+/**
+ * @file mid_ring_buffer.c
+ * @brief 环形缓冲区操作函数
+ * @author Noser
+ * @version 1.0
+ * @date 2026-10-11
+ */
+
 /* Includes ------------------------------------------------------------------*/
 #include "mid_ring_buffer.h"
-#include "FreeRTOS.h"
-#include "elog.h"
 #include <string.h>
+#include <stdlib.h>
 /* Includes ------------------------------------------------------------------*/
 
 
@@ -17,7 +24,7 @@ ring_buffer_t* create_empty_rintg_buffer(void)
 {
 
     //1.创建指针并申请内存
-    ring_buffer_t* p_ring_buffer = (ring_buffer_t*)pvPortMalloc(
+    ring_buffer_t* p_ring_buffer = (ring_buffer_t*)malloc(
                         sizeof(ring_buffer_t)*RING_BUFFER_SIZE);
 
     //2.判断申请内存是否成功
@@ -178,6 +185,4 @@ uint8_t            change_head(ring_buffer_t* p_ring_buffer,uint32_t len)
     p_ring_buffer->head+=len;
     return 0x00;
 }
-
-
 

@@ -28,6 +28,7 @@
 #include "elog.h"
 #include "uart_parse_task.h"
 #include "bsp_uart_driver.h"
+#include "uart_port.h"
 
 /* USER CODE END Includes */
 
@@ -51,7 +52,7 @@
 
 TaskHandle_t Task_A;
 TaskHandle_t Bsp_uart_driver;
-
+extern uart_ops_t g_uart_ops;
 /* USER CODE END Variables */
 /* Definitions for defaultTask */
 osThreadId_t defaultTaskHandle;
@@ -153,17 +154,10 @@ void StartDefaultTask(void *argument)
   /* USER CODE BEGIN StartDefaultTask */
   /* Infinite loop */
 
-  elog_a("ASSERT","This assert");
-  elog_e("error","This error");
-  elog_w("WARN","This warn");
-  elog_i("INFO","This info");
-  elog_d("DEBUG","This debug");
-  elog_v("VERBOSE","This VERBOSE");
   
   for(;;)
   {
-    elog_a("ASSERT","This assert");
-    osDelay(1000);
+
   }
   /* USER CODE END StartDefaultTask */
 }

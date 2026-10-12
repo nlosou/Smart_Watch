@@ -26,9 +26,7 @@
 #include "queue.h"
 #include "elog.h"
 #include "uart_parse_task.h"
-
-
-
+#include "uart_port.h"
 
 /* USER CODE END 0 */
 
@@ -163,6 +161,53 @@ void HAL_UART_MspDeInit(UART_HandleTypeDef* uartHandle)
      SEGGER_RTT_PutChar(0,ch);
      return ch;
  }
+
+static uint8_t recv_buffer[RING_BUFFER_SIZE];
+ring_buffer_t g__ring_buffer = {
+    .ring_buffer = recv_buffer,
+    .head = 0,
+    .tail = 0,
+};
+static void start_uart_dma(void)
+{
+  __HAL_UART_ENABLE_IT(&huart1, UART_IT_IDLE);
+    HAL_UART_Receive_DMA(&huart1, recv_buffer, sizeof(recv_buffer));
+    return;
+}
+
+static void uart_deinit(void)
+{
+    return;
+}
+
+static void uart_send(void)
+{
+    return;
+}
+static void uart_receive(void)
+{
+    HAL_UART_Receive_DMA(&huart1, recv_buffer, sizeof(recv_buffer));
+    return;
+}
+
+static uint16_t uart_get_counter(void)
+{
+    return ((uint16_t)__HAL_DMA_GET_COUNTER(&hdma_usart1_rx));   
+}
+
+
+
+
+/**
+ * @brief 绑定函数
+ */
+uart_ops_t g_uart_ops = {
+    .pf_uart_init        =   start_uart_dma,
+    .pf_uart_deinit      =      uart_deinit,
+    .pf_uart_send        =        uart_send,
+    .pf_uart_receive     =     uart_receive,
+    .pf_uart_get_counter =  uart_get_counter
+};
 
 
 

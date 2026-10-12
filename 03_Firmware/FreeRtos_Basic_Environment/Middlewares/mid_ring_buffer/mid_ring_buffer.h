@@ -1,22 +1,20 @@
+/**
+ * @file mid_ring_buffer.h
+ * @brief 环形缓冲区函数原型
+ * @author Noser
+ * @version 1.0
+ * @date 2026-10-11
+ */
+
 #ifndef MID_RING_BUFFER_H
 #define MID_RING_BUFFER_H
 
 
 /* Includes ------------------------------------------------------------------*/
 #include <stdint.h>
+#include "uart_port.h"
 /* Includes ------------------------------------------------------------------*/
 
-/* Define macro ------------------------------------------------------------*/
-
-#define RING_BUFFER_SIZE 10
-typedef uint8_t data_type_t;
-/* Define macro ------------------------------------------------------------*/
-
-typedef struct {
-    data_type_t ring_buffer[RING_BUFFER_SIZE];
-    uint32_t                             head;
-    uint32_t                             tail;
-}ring_buffer_t;
 
 
 /**
