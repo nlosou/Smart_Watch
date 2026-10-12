@@ -1,7 +1,6 @@
 /* Includes ------------------------------------------------------------------*/
 #include "mid_ring_buffer.h"
 #include "FreeRTOS.h"
-#include "elog.h"
 #include <string.h>
 /* Includes ------------------------------------------------------------------*/
 
