@@ -106,16 +106,6 @@ typedef struct uart_handler {
 
     void  (*uart_pubsub_init)(struct uart_handler* self);
 
-    void  (*uart_pubsub_subscribe)(struct uart_handler* self,
-                                  uint8_t cmd,
-                                  uart_frame_callback_t callback,
-                                   void *user_ctx
-                                                            );
-    void (*uart_pubsub_publish)(struct uart_handler* self,
-                                uint8_t cmd,
-                                const uint8_t *payload,
-                                uint16_t len
-    );
 }uart_handler_t;
 
 
@@ -159,5 +149,8 @@ void uart_pubsub_publish(
     const uint8_t *payload,
     uint16_t len
 );
+
+
+
 
 #endif

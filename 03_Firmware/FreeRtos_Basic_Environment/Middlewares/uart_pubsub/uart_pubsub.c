@@ -67,11 +67,9 @@ uart_handler_status_t uart_handler_init(uart_handler_t* self,uart_need_arg_t* ne
     {
        return UART_HANDLER_ERROR; 
     }
-
-    self->need_arg->uart_ops       = need_arg->uart_ops;
-    self->need_arg->os_ops         = need_arg->os_ops;
-    self->need_arg->frame_parse    = need_arg->frame_parse;
+    self->need_arg = need_arg;
     
+    uart_pubsub_init(self->subscriber);
 
     return UART_HANDLER_OK;
 }
