@@ -25,11 +25,33 @@
 #include "SEGGER_RTT.h"
 #include "queue.h"
 #include "elog.h"
-#include "uart_parse_task.h"
+#include "stm32f4xx_hal_dma.h"
+#include "stm32f4xx_hal_uart.h"
+#include "uart_pubsub.h"
 
 
 
 
+void stm32_uart_init(void);
+void stm32_uart_deinit(void);
+void stm32_uart_start(void);
+uint32_t stm32_uart_get_counter(void);
+
+extern uart_handler_t g_uart_handler;
+
+
+
+uart_ops_t  g_uart_ops = {
+    .uart_init        = stm32_uart_init,
+    .uart_deinit      = stm32_uart_deinit,
+    .uart_start       = stm32_uart_start,
+    .uart_get_counter = stm32_uart_get_counter
+};
+
+ring_buffer_t g_ring_buffer;
+
+
+ 
 /* USER CODE END 0 */
 
 UART_HandleTypeDef huart1;
@@ -164,6 +186,54 @@ void HAL_UART_MspDeInit(UART_HandleTypeDef* uartHandle)
      return ch;
  }
 
+void stm32_uart_init(void)
+{
+    return;
+}
+void stm32_uart_deinit(void)
+{
+    return;
+}
+void stm32_uart_start(void)
+{
+    
+    if(HAL_OK ==HAL_UARTEx_ReceiveToIdle_DMA(
+                &huart1,
+                g_uart_handler.need_arg->frame_parse->ring_buffer->ring_buffer,
+                RING_BUFFER_SIZE))
+    {
+        elog_d("INFO","Uart DMA  rx interrupt is successfully");
+    }
+    else
+    {
 
+        elog_e("INFO","Uart DMA rx interrupt is false");
+        return;
+    }
+}
+uint32_t stm32_uart_get_counter(void)
+{
+   return __HAL_DMA_GET_COUNTER(&hdma_usart1_rx);
+}
+
+void HAL_UARTEx_RxEventCallback(UART_HandleTypeDef *huart, uint16_t Size)
+{
+
+  //  elog_d("INFO","uart idle");
+    notify_isr_cb(&g_uart_handler);
+}
+
+void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
+{
+
+ //   elog_d("INFO","dma full");
+    notify_isr_cb(&g_uart_handler);
+}
+void HAL_UART_RxHalfCpltCallback(UART_HandleTypeDef *huart)
+{
+
+//    elog_d("INFO","dma half");
+    notify_isr_cb(&g_uart_handler);
+}
 
 /* USER CODE END 1 */

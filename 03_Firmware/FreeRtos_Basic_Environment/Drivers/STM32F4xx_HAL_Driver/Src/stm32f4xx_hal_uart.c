@@ -2532,8 +2532,8 @@ void HAL_UART_IRQHandler(UART_HandleTypeDef *huart)
         huart->RxEventCallback(huart, (huart->RxXferSize - huart->RxXferCount));
 #else
         /*Call legacy weak Rx Event callback*/
-        //HAL_UARTEx_RxEventCallback(huart, (huart->RxXferSize - huart->RxXferCount));
-        uart_idle_callback(huart->RxXferSize - huart->RxXferCount);
+        HAL_UARTEx_RxEventCallback(huart, (huart->RxXferSize - huart->RxXferCount));
+        //uart_idle_callback(huart->RxXferSize - huart->RxXferCount);
 #endif /* USE_HAL_UART_REGISTER_CALLBACKS */
       }
       return;
@@ -3075,7 +3075,8 @@ static void UART_DMAReceiveCplt(DMA_HandleTypeDef *hdma)
 #else
     /*Call legacy weak Rx Event callback*/
     //HAL_UARTEx_RxEventCallback(huart, huart->RxXferSize);
-    dma_full_callback(huart->RxXferSize);
+    HAL_UART_RxCpltCallback(huart);
+    //dma_full_callback(huart->RxXferSize);
 #endif /* USE_HAL_UART_REGISTER_CALLBACKS */
   }
   else
@@ -3111,7 +3112,9 @@ static void UART_DMARxHalfCplt(DMA_HandleTypeDef *hdma)
 #else
     /*Call legacy weak Rx Event callback*/
     //HAL_UARTEx_RxEventCallback(huart, huart->RxXferSize / 2U);
-    dma_half_callback(huart->RxXferSize / 2U);
+
+    HAL_UART_RxHalfCpltCallback(huart);
+    //dma_half_callback(huart->RxXferSize / 2U);
 #endif /* USE_HAL_UART_REGISTER_CALLBACKS */
   }
   else

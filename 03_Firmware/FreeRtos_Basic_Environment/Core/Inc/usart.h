@@ -27,6 +27,7 @@ extern "C" {
 
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
+#include "uart_pubsub.h"
 
 /* USER CODE BEGIN Includes */
 
@@ -35,7 +36,8 @@ extern "C" {
 extern UART_HandleTypeDef huart1;
 
 /* USER CODE BEGIN Private defines */
-
+extern ring_buffer_t g_ring_buffer;
+extern uart_ops_t  g_uart_ops;
 /* USER CODE END Private defines */
 
 void MX_USART1_UART_Init(void);

@@ -4,19 +4,13 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include <stdint.h>
+#include "uart_pubsub.h"
 /* Includes ------------------------------------------------------------------*/
 
 /* Define macro ------------------------------------------------------------*/
 
-#define RING_BUFFER_SIZE 10
 typedef uint8_t data_type_t;
 /* Define macro ------------------------------------------------------------*/
-
-typedef struct {
-    data_type_t ring_buffer[RING_BUFFER_SIZE];
-    uint32_t                             head;
-    uint32_t                             tail;
-}ring_buffer_t;
 
 
 /**

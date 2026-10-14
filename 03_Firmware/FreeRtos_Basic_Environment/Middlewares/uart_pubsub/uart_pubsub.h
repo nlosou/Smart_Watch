@@ -5,12 +5,18 @@
 
 /* USER CODE BEGIN Includes */
 #include <stdint.h>
+#include <stddef.h>
+#include <stdbool.h>
+#include <string.h>
+#include "elog.h"
+
+
 /* USER CODE BEGIN Includes */
 
 /*Define Macro*/
 #define UART_PUBSUB_MAX_SUBSCRIBERS    4U
 #define INDEFINITE_TIME                (0xFFFFFFFFUL)
-#define RING_BUFFER_SIZE 10
+#define RING_BUFFER_SIZE 32
 /*Define Macro*/
 
 /*定义函数类型*/
@@ -22,10 +28,7 @@ typedef void (*uart_frame_callback_t)(
     void *user_ctx
 );
 
-
-
 /*定义函数类型*/
-
 
 typedef enum {
     UART_PUBSUB_OK = 0,
@@ -39,10 +42,11 @@ typedef enum {
 
 
 
+
 typedef struct {
     uint8_t     ring_buffer[RING_BUFFER_SIZE];
-    uint32_t                             head;
-    uint32_t                             tail;
+    volatile uint32_t                             head;
+    volatile uint32_t                             tail;
 }ring_buffer_t;
 
 
@@ -50,32 +54,33 @@ typedef struct {
     void (*uart_init)(void);
     void (*uart_deinit)(void);
     void (*uart_start)(void);
-    void (*uart_get_counter)(void);
+    uint32_t (*uart_get_counter)(void);
 }uart_ops_t;
 
 
 typedef struct {
 
-    void (*os_task_create)(void (*task_code)(void),
+    void (*os_task_create)(void (*task_code)(void*),
                            char *const task_name,
                            const uint32_t StackDepth,
-                           void *argument,
-                           uint16_t task_priority,
-                           void *task_handler);
+                           void *const argument,
+                           uint32_t task_priority,
+                           void **const task_handler);
 
-    void (*os_queue_create)(uint32_t queue_length,uint32_t queue_item_size);
+    void (*os_queue_create)(uint32_t queue_length,uint32_t queue_item_size,void **const queue_handler);
     
     void (*os_queue_receive)(void* queue_hendler,uint8_t* pvBuffer,uint32_t WaitTime);
 
     void (*os_queue_send)(void* queue_hendler,uint8_t* pvBuffer,uint32_t WaitTime);
     
     void (*os_queue_send_isr)(void* queue_hendler,uint8_t* pvBuffer);
+    void* (*os_malloc)(uint32_t size);
 
 }os_ops_t;
 
 typedef struct {
     ring_buffer_t *ring_buffer;    
-    void (*frame_parse_alog)(void);
+    void (*frame_parse_alog)(ring_buffer_t*);
 }frame_parse_t;
 
 
@@ -92,6 +97,7 @@ typedef struct {
     uint8_t count;
 } uart_pubsub_t;
 
+typedef struct uart_proto_priv_data uart_proto_priv_data_t;
 
 typedef struct {
     uart_ops_t*          uart_ops;
@@ -101,7 +107,9 @@ typedef struct {
 
 
 typedef struct uart_handler {
-    uart_need_arg_t*     need_arg;
+    uart_need_arg_t*                     need_arg;
+    uart_proto_priv_data_t  *uart_proto_priv_data; 
+
     uart_pubsub_t*     subscriber;
 
     void  (*uart_pubsub_init)(struct uart_handler* self);
@@ -118,6 +126,14 @@ typedef struct uart_handler {
  */
 void uart_pubsub_init(uart_pubsub_t *pubsub);
 
+/**
+ * @brief 
+ *
+ * @param self
+ * @param need_arg
+ *
+ * @return 
+ */
 uart_handler_status_t uart_handler_init(uart_handler_t* self,uart_need_arg_t* need_arg);
 
 /**
@@ -137,7 +153,7 @@ uart_pubsub_status_t uart_pubsub_subscribe(
 );
 
 /**
- * @brief 
+ * @brief  
  *
  * @param pubsub
  * @param payload
@@ -151,6 +167,11 @@ void uart_pubsub_publish(
 );
 
 
-
+/**
+ * @brief 中断
+ *
+ * @param self
+ */
+uart_handler_status_t notify_isr_cb(uart_handler_t *const self);
 
 #endif
