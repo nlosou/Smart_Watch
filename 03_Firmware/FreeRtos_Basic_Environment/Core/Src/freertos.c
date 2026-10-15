@@ -27,7 +27,6 @@
 /* USER CODE BEGIN Includes */
 #include "elog.h"
 #include "uart_parse_task.h"
-#include "bsp_uart_driver.h"
 #include "queue.h"
 
 /* USER CODE END Includes */
@@ -46,8 +45,9 @@
 /* Private macro -------------------------------------------------------------*/
 /* USER CODE BEGIN PM */
 
-#define FRAME_HEAD_FLAG (0xFE)
-#define FRAME_TAIL_FLAG (0xFF)
+#define FRAME_HEAD_FLAG          (0xFE)
+#define FRAME_TAIL_FLAG          (0xFF)
+#define NOTIFY_UART_PUBSUB_TASK  (0xCC)
 
 
 /* USER CODE END PM */
@@ -308,6 +308,10 @@ void FreeRTOS_queue_receive(void* queue_handler,uint8_t* pvBuffer,uint32_t WaitT
 
         elog_d("queue","get pvBuffer [%x] from queue",*pvBuffer);
     }
+    else
+    {
+        return;
+    }
 }
 
 void FreeRTOS_queue_send(void* queue_hendler,uint8_t* pvBuffer,uint32_t WaitTime)
@@ -324,6 +328,7 @@ void FreeRTOS_queue_send(void* queue_hendler,uint8_t* pvBuffer,uint32_t WaitTime
     {
             
         elog_e("queue","queue sent error");
+        return;
     }
 }
     
@@ -391,6 +396,7 @@ void frame_parse_alog(ring_buffer_t*ring_buffer,uint8_t* payload_buf,uint8_t* pa
     static uint8_t             frame_crc= 0;
     static uint8_t             data_idx = 0 ;
     uint8_t calculate_crc ;
+    uint8_t notify_uart_pubsub_patern = NOTIFY_UART_PUBSUB_TASK;
     while(0x00!=ring_buffer_is_empty(ring_buffer))
     {           
 //        elog_i("backend","current tail is %d",ring_buffer->tail);
@@ -456,6 +462,11 @@ void frame_parse_alog(ring_buffer_t*ring_buffer,uint8_t* payload_buf,uint8_t* pa
                             elog_i("INFO","Data verification successful");
                             data_idx = 0;
                             frame_status = FRAME_HEAD_NOT_DECTED;
+                            //每完成一帧就通知发布线程
+                            g_uart_handler.need_arg->os_ops->os_queue_send(
+                                    get_queue_address(&g_uart_handler),
+                                    &notify_uart_pubsub_patern,
+                                    0);
                     }
                     else
                     {
@@ -472,7 +483,7 @@ void function_cb1(const uint8_t *payload,uint16_t len,void *user_ctx)
 {
     for(uint8_t i = 0 ; i < len ; i++)
     {
-        elog_d("payload","payload[%d] is [%x]",i,payload[i]);
+        elog_e("payload","payload[%d] is [%x]",i,payload[i]);
     }
 }
 
@@ -480,7 +491,7 @@ void function_cb2(const uint8_t *payload,uint16_t len,void *user_ctx)
 {
  for(uint8_t i = 0 ; i < len ; i++)
     {
-        elog_d("payload","payload[%d] is [%x]",i,payload[i]);
+        elog_e("payload","payload[%d] is [%x]",i,payload[i]);
     }
 }
 
@@ -488,7 +499,7 @@ void function_cb3(const uint8_t *payload,uint16_t len,void *user_ctx)
 {
  for(uint8_t i = 0 ; i < len ; i++)
     {
-        elog_d("payload","payload[%d] is [%x]",i,payload[i]);
+        elog_e("payload","payload[%d] is [%x]",i,payload[i]);
     }
 }
 
@@ -496,7 +507,7 @@ void function_cb4(const uint8_t *payload,uint16_t len,void *user_ctx)
 {
  for(uint8_t i = 0 ; i < len ; i++)
     {
-        elog_d("payload","payload[%d] is [%x]",i,payload[i]);
+        elog_e("payload","payload[%d] is [%x]",i,payload[i]);
     }
 }
 

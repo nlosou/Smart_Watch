@@ -10,6 +10,7 @@ typedef struct uart_proto_priv_data
     bool                if_inited;         /* Initialization flag (true = initialized) */
     volatile uint16_t   parse_fail_cnt;
     void                *queue_handle;     /* RTOS queue handle for parsed frame info */
+    void                *queue_handle2;     /* RTOS queue handle for parsed frame info */
     volatile uint16_t   data_counter;      /* DMA receive counter cache (remaining bytes) */
     volatile uint32_t   header;            /* Ring buffer read pointer (total bytes read) */
     volatile uint32_t   tail;              /* Ring buffer write pointer (total bytes parsed) */
@@ -123,6 +124,7 @@ static void uart_parse_task(void* argument)
                 &get_Buffer,
                 INDEFINITE_TIME
                 ); 
+
         elog_d("info","info come from isr");
         //解析
         current_uart_handler->need_arg->frame_parse->frame_parse_alog(
@@ -130,7 +132,26 @@ static void uart_parse_task(void* argument)
                 current_uart_handler->uart_proto_priv_data->payload_buf,
                 &current_uart_handler->uart_proto_priv_data->payload_cnt
                 );
+    }
+}
 
+
+static void uart_publish(void*argument)
+{
+    if(NULL == argument)
+    {
+        return;
+    }
+    uint8_t get_Buffer;
+    uart_handler_t *current_uart_handler = (uart_handler_t*)argument;
+    for(;;)
+    {
+    current_uart_handler->need_arg->os_ops->os_queue_receive(
+                (current_uart_handler->uart_proto_priv_data->queue_handle2),
+                &get_Buffer,
+                INDEFINITE_TIME
+                ); 
+        elog_d("info","start publish come from parsed algo");
         //发布
         current_uart_handler->uart_pubsub_publish(
                 current_uart_handler,
@@ -171,8 +192,17 @@ uart_handler_status_t uart_handler_init(uart_handler_t* self,uart_need_arg_t* ne
                                            self,
                                            9,
                                            NULL);
+    //创建发布线程
+    self->need_arg->os_ops->os_task_create(uart_publish,    
+                                          "uart_publish",
+                                           128,
+                                           self,
+                                           8,
+                                           NULL);
+
     //创建队列
     self->need_arg->os_ops->os_queue_create(1,4,&(self->uart_proto_priv_data->queue_handle));
+    self->need_arg->os_ops->os_queue_create(1,4,&(self->uart_proto_priv_data->queue_handle2));
 
     
     //开启串口DMA
@@ -227,4 +257,11 @@ uart_handler_status_t notify_isr_cb(uart_handler_t *const self)
             &INFO_TO_BACKEND_PATTERN
             ); 
     return UART_HANDLER_OK;
+}
+
+
+
+void *get_queue_address(uart_handler_t *const self)
+{
+    return  self->uart_proto_priv_data->queue_handle2;
 }

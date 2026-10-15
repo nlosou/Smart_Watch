@@ -148,4 +148,7 @@ uart_handler_status_t uart_handler_init(uart_handler_t* self,uart_need_arg_t* ne
  */
 uart_handler_status_t notify_isr_cb(uart_handler_t *const self);
 
+
+void *get_queue_address(uart_handler_t *const self);
+
 #endif

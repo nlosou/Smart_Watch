@@ -634,23 +634,9 @@
         </Group>
         <Group>
           <GroupName>App</GroupName>
-          <Files>
-            <File>
-              <FileName>uart_parse_task.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\App\uart_parse_task.c</FilePath>
-            </File>
-          </Files>
         </Group>
         <Group>
           <GroupName>Bsp</GroupName>
-          <Files>
-            <File>
-              <FileName>bsp_uart_driver.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Bsp\Uart\bsp_uart_driver.c</FilePath>
-            </File>
-          </Files>
         </Group>
         <Group>
           <GroupName>Middleware/Mid_Ring_Buffer</GroupName>
@@ -671,9 +657,6 @@
               <FilePath>..\Middlewares\uart_pubsub\uart_pubsub.c</FilePath>
             </File>
           </Files>
-        </Group>
-        <Group>
-          <GroupName>::CMSIS</GroupName>
         </Group>
       </Groups>
     </Target>
