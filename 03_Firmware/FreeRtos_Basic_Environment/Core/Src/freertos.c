@@ -61,7 +61,10 @@ TaskHandle_t Bsp_uart_driver;
 /*emun Variables*/
 typedef enum {
     FRAME_HEAD_NOT_DECTED,
-    FRAME_HEAD,
+    FRAME_LEN,
+    FRAME_DATAs,
+    FRAME_CRC,
+    FRAME_END,
 }uart_protocol_frame_status_t;
 
 /*emun Variables*/
@@ -87,17 +90,34 @@ void FreeRTOS_create_task(void (*task_code)(void*),
                            uint32_t task_priority,
                            void **const task_handler);
 
-void FreeRTOS_queue_create(uint32_t queue_length,uint32_t queue_item_size,void **const queue_handler);
+void FreeRTOS_queue_create(uint32_t queue_length,
+                           uint32_t queue_item_size,
+                           void **const queue_handler);
     
-void FreeRTOS_queue_receive(void* queue_hendler,uint8_t* pvBuffer,uint32_t WaitTime);
+void FreeRTOS_queue_receive(void* queue_hendler,
+                            uint8_t* pvBuffer,
+                            uint32_t WaitTime);
 
-void FreeRTOS_queue_send(void* queue_hendler,uint8_t* pvBuffer,uint32_t WaitTime);
+void FreeRTOS_queue_send(void* queue_hendler,
+                         uint8_t* pvBuffer,
+                         uint32_t WaitTime);
     
-void FreeRTOS_queue_send_isr(void* queue_hendler,uint8_t* pvBuffer);
+void FreeRTOS_queue_send_isr(void* queue_hendler,
+                            uint8_t* pvBuffer);
 
 void* FreeRTOS_malloc(uint32_t size);
 
-void frame_parse_alog(ring_buffer_t*);
+void frame_parse_alog(ring_buffer_t*,
+                      uint8_t* payload_buf,
+                      uint8_t* payload_cnt);
+
+void function_cb1(const uint8_t *payload,uint16_t len,void *user_ctx);
+
+void function_cb2(const uint8_t *payload,uint16_t len,void *user_ctx);
+
+void function_cb3(const uint8_t *payload,uint16_t len,void *user_ctx);
+
+void function_cb4(const uint8_t *payload,uint16_t len,void *user_ctx);
 
 /* USER CODE END FunctionPrototypes */
 
@@ -156,12 +176,11 @@ void MX_FREERTOS_Init(void) {
 
   /* Create the thread(s) */
   /* creation of defaultTask */
-  //defaultTaskHandle = osThreadNew(StartDefaultTask, NULL, &defaultTask_attributes);
+  defaultTaskHandle = osThreadNew(StartDefaultTask, NULL, &defaultTask_attributes);
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
 
-  uart_handler_init(&g_uart_handler,&g_uart_need_arg);
   /*
    *
   if(pdPASS == xTaskCreate(
@@ -216,9 +235,23 @@ void StartDefaultTask(void *argument)
 {
   /* USER CODE BEGIN StartDefaultTask */
   /* Infinite loop */
+  if(UART_HANDLER_OK == uart_handler_init(&g_uart_handler,&g_uart_need_arg))
+  {   
+      //订阅
+       g_uart_handler.uart_pubsub_subscribe(&g_uart_handler,0x01,function_cb1,NULL); 
+       g_uart_handler.uart_pubsub_subscribe(&g_uart_handler,0x02,function_cb2,NULL); 
+       g_uart_handler.uart_pubsub_subscribe(&g_uart_handler,0x03,function_cb3,NULL); 
+       g_uart_handler.uart_pubsub_subscribe(&g_uart_handler,0x04,function_cb4,NULL); 
+
+  }
+  else
+  {
+        elog_e("error","uart handler init error");
+         }
+
   for(;;)
   {
-     //vTaskDelay(0xFFFFFFFFUL);
+     vTaskDelay(0xFFFFFFFFUL);
   }
   /* USER CODE END StartDefaultTask */
 }
@@ -337,20 +370,27 @@ static uint8_t crc8(const uint8_t *data, uint16_t len)
 }
 
 
+
 /**
  * @brief 
- *帧格式:
- *  0xFE|LEN|DATA0|DATA1|~~|DATA(LEN - 1)|CRC|0xFF
+ *  帧格式:
+ *  0xFE|LEN|CMD|DATA0|DATA1|~~|DATA(LEN - 1)|CRC|0xFF
+ *  其中crc根据LEN CMD 和 DATA0到~DATA(LEN - 1)并通过crc8计算得到
+ *
  * @param ring_buffer
+ * @param payload_buf
+ * @param payload_cnt
  */
-void frame_parse_alog(ring_buffer_t* ring_buffer)
+void frame_parse_alog(ring_buffer_t*ring_buffer,uint8_t* payload_buf,uint8_t* payload_cnt)
 {
     //进入状态机
     static uart_protocol_frame_status_t frame_status = FRAME_HEAD_NOT_DECTED;
     static uint8_t temp_frame_data[32] = {0};
-    static uint8_t             frame_idx = 0;
-    static uint32_t            frame_sum = 0;
     static uint8_t             temp_data = 0;
+    static uint8_t             frame_len = 0;
+    static uint8_t             frame_crc= 0;
+    static uint8_t             data_idx = 0 ;
+    uint8_t calculate_crc ;
     while(0x00!=ring_buffer_is_empty(ring_buffer))
     {           
 //        elog_i("backend","current tail is %d",ring_buffer->tail);
@@ -369,61 +409,96 @@ void frame_parse_alog(ring_buffer_t* ring_buffer)
             case FRAME_HEAD_NOT_DECTED:
                 if(temp_data == FRAME_HEAD_FLAG)
                 {
-                    frame_status = FRAME_HEAD;
+                    frame_status = FRAME_LEN;
                     elog_i("backend","frame start");
                 }
                 break;
-            //2.开始连续打印数据,直到遇到0xFF帧尾巴,或者环形缓存区为空
-            case FRAME_HEAD:
-                //检测到末尾开始计算
-                if(temp_data == FRAME_TAIL_FLAG)
+            case FRAME_LEN:
+                frame_len = temp_data; 
+                temp_frame_data[data_idx++] = temp_data; 
+                frame_status =FRAME_DATAs;
+                break;
+            case FRAME_DATAs:
+                temp_frame_data[data_idx++] = temp_data; 
+                if(data_idx == frame_len + 2)
                 {
-                    frame_status = FRAME_HEAD_NOT_DECTED;
-                    elog_i("backend","frame end");
-                    //计算校验和
-                    for(uint8_t idx = 0 ; idx <( frame_idx - 1); idx++) 
-                    {
-                        frame_sum+=temp_frame_data[idx];
-                    }
-                    //验证成功才打印数据
-                    if(frame_sum == temp_frame_data[frame_idx - 1])
-                    {
-                        elog_i("INFO","Data verification successful");
-                        for(uint8_t idx = 0 ; idx <( frame_idx - 1); idx++) 
-                        {
-
-                            elog_i("backend",
-                           "frame data is [%x]",
-                                   temp_frame_data[idx] );
-                        }
-                          elog_i("backend",
-                           "verification data is  [%x]",
-                                   frame_sum);
-                    }
-                    //验证失败
-                    else
-                    {
-                        elog_e("INFO","Data verification falsed");
-                        elog_e("INFO",
-                                "calculate sum is %x,get sum from frame is %x",
-                                frame_sum,temp_frame_data[frame_idx - 1]);
-                    }
-                    for(uint8_t idx = 0 ; idx <( frame_idx); idx++) 
-                    {
-                        temp_frame_data[idx] = 0;
-                    }
-                    frame_idx = 0;
-                    frame_sum = 0;
-                }    
-                else
-                {
-
-                    temp_frame_data[frame_idx++] = temp_data;
-                    //elog_i("backend","frame data is [%x]",temp_data);
+                    frame_status =FRAME_CRC;
                 }
                 break;
-        }
+            //5,获取完数据后,获取CRC
+            case FRAME_CRC:
+                frame_crc = temp_data;
+                temp_frame_data[data_idx++] = temp_data; 
+                frame_status = FRAME_END;
+                break;
+            //6,获取帧尾巴
+            case FRAME_END:
+                if(temp_data!=FRAME_TAIL_FLAG)
+                {
+                //6.1不是帧尾巴就丢弃数据并之前获得的数据清理掉
+                    elog_e("DATA PARSE","data is not complete");
+                    frame_status = FRAME_HEAD_NOT_DECTED;
+                }
+                else
+                {
+                    elog_d("DATA PARSE","data iscomplete");
+                    calculate_crc = crc8(temp_frame_data,data_idx - 1);   
+                    elog_i("INFO","%x %x",calculate_crc,frame_crc);
+                    if(calculate_crc == frame_crc)
+                    {
+                            
+                            for(uint8_t i = 0 ; i < data_idx ; i++)
+                            {
+                                payload_buf[i] = temp_frame_data[i];
+                            }
+                            *payload_cnt = data_idx;
+                            elog_d("Debug","%d",data_idx);
+                            elog_i("INFO","Data verification successful");
+                            data_idx = 0;
+                            frame_status = FRAME_HEAD_NOT_DECTED;
+                    }
+                    else
+                    {
+                            elog_e("INFO","Data verification falsed");
+                            data_idx = 0;
+                            frame_status = FRAME_HEAD_NOT_DECTED;
+                    }                
+                }
+                break;
+         }
     }    
 }
+void function_cb1(const uint8_t *payload,uint16_t len,void *user_ctx)
+{
+    for(uint8_t i = 0 ; i < len ; i++)
+    {
+        elog_d("payload","payload[%d] is [%x]",i,payload[i]);
+    }
+}
+
+void function_cb2(const uint8_t *payload,uint16_t len,void *user_ctx)
+{
+ for(uint8_t i = 0 ; i < len ; i++)
+    {
+        elog_d("payload","payload[%d] is [%x]",i,payload[i]);
+    }
+}
+
+void function_cb3(const uint8_t *payload,uint16_t len,void *user_ctx)
+{
+ for(uint8_t i = 0 ; i < len ; i++)
+    {
+        elog_d("payload","payload[%d] is [%x]",i,payload[i]);
+    }
+}
+
+void function_cb4(const uint8_t *payload,uint16_t len,void *user_ctx)
+{
+ for(uint8_t i = 0 ; i < len ; i++)
+    {
+        elog_d("payload","payload[%d] is [%x]",i,payload[i]);
+    }
+}
+
 /* USER CODE END Application */
 

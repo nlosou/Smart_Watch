@@ -14,10 +14,14 @@ typedef struct uart_proto_priv_data
     volatile uint32_t   header;            /* Ring buffer read pointer (total bytes read) */
     volatile uint32_t   tail;              /* Ring buffer write pointer (total bytes parsed) */
     uint8_t             *parse_buf;        /* Temporary buffer for frame parsing (linearized ring data) */
-    volatile uint8_t    payload_cnt;       /* Counter for pending frames in queue */
+    uint8_t    payload_cnt;       /* Counter for pending frames in queue */
+    uint8_t    payload_buf[RING_BUFFER_SIZE];       /* Counter for pending frames in queue */
 } uart_proto_priv_data_t;
 
-void uart_pubsub_init(uart_pubsub_t *pubsub)
+
+
+/*
+void  uart_pubsub_init(struct uart_handler* self)
 {
     if (NULL == pubsub) {
         return;
@@ -25,16 +29,30 @@ void uart_pubsub_init(uart_pubsub_t *pubsub)
 
     memset(pubsub, 0, sizeof(*pubsub));
 }
+*/
 
-uart_pubsub_status_t uart_pubsub_subscribe(
+/**
+ * @brief 
+ *
+ * @param self
+ * @param cmd
+ * @param callback
+ * @param user_ctx
+ *
+ * @return 
+ */
+static uart_pubsub_status_t uart_pubsub_subscribe(
+    uart_handler_t* self,
     uint8_t cmd,
-    uart_pubsub_t *pubsub,
     uart_frame_callback_t callback,
     void *user_ctx)
 {
-    if ((NULL == pubsub) || (NULL == callback)) {
+    if ((NULL == self) || (NULL == callback)) 
+    {
         return UART_PUBSUB_ERROR;
     }
+    uart_pubsub_t *pubsub = self->subscriber;
+    
 
     /* 避免重复注册相同的回调和上下文 */
     for (uint8_t i = 0; i < pubsub->count; i++) {
@@ -56,16 +74,28 @@ uart_pubsub_status_t uart_pubsub_subscribe(
     return UART_PUBSUB_OK;
 }
 
-void uart_pubsub_publish(
+/**
+ * @brief 
+ *
+ * @param self
+ * @param cmd
+ * @param data
+ * @param len
+ *
+ * @return 
+ */
+static uart_pubsub_status_t uart_pubsub_publish(
+    uart_handler_t* self,
     uint8_t cmd,
-    uart_pubsub_t *pubsub,
     const uint8_t *data,
     uint16_t len)
 {
-    if (NULL == pubsub) {
-        return;
+    if ((NULL == self)) 
+    {
+        return UART_PUBSUB_ERROR;
     }
-
+    uart_pubsub_t *pubsub = self->subscriber;
+    
     for (uint8_t i = 0; i < pubsub->count; i++) {
         uart_subscriber_t *sub = &pubsub->subscribers[i];
 
@@ -73,6 +103,8 @@ void uart_pubsub_publish(
             sub->callback(data, len, sub->user_ctx);
         }
     }
+
+    return UART_PUBSUB_OK;
 }
 
 static void uart_parse_task(void* argument)
@@ -92,8 +124,19 @@ static void uart_parse_task(void* argument)
                 INDEFINITE_TIME
                 ); 
         elog_d("info","info come from isr");
+        //解析
         current_uart_handler->need_arg->frame_parse->frame_parse_alog(
-                current_uart_handler->need_arg->frame_parse->ring_buffer
+                current_uart_handler->need_arg->frame_parse->ring_buffer,
+                current_uart_handler->uart_proto_priv_data->payload_buf,
+                &current_uart_handler->uart_proto_priv_data->payload_cnt
+                );
+
+        //发布
+        current_uart_handler->uart_pubsub_publish(
+                current_uart_handler,
+                current_uart_handler->uart_proto_priv_data->payload_buf[1],
+                current_uart_handler->uart_proto_priv_data->payload_buf + 1,
+                current_uart_handler->uart_proto_priv_data->payload_buf[0]
                 );
     
     }
@@ -115,6 +158,11 @@ uart_handler_status_t uart_handler_init(uart_handler_t* self,uart_need_arg_t* ne
         return UART_HANDLER_ERROR;
     }
     memset(self->uart_proto_priv_data,0,sizeof(uart_proto_priv_data_t));
+
+
+    self->subscriber            = self->need_arg->os_ops->os_malloc(sizeof(uart_pubsub_t));
+    self->uart_pubsub_subscribe = uart_pubsub_subscribe;
+    self->uart_pubsub_publish   = uart_pubsub_publish;
 
     //创建解析串口任务
     self->need_arg->os_ops->os_task_create(uart_parse_task,    
@@ -148,7 +196,7 @@ uart_handler_status_t notify_isr_cb(uart_handler_t *const self)
      
     uint32_t current_head =self->need_arg->frame_parse->ring_buffer->head;
 
-    elog_d("INFO","current_head is [%d]",current_head);
+  //  elog_d("INFO","current_head is [%d]",current_head);
     //2,当前dma到达的位置(dma 会不断在 0~RING_BUFFER_SIZE 之间徘徊)
 
     uint32_t current_data_pos =RING_BUFFER_SIZE - self->need_arg->uart_ops->uart_get_counter();
@@ -165,13 +213,13 @@ uart_handler_status_t notify_isr_cb(uart_handler_t *const self)
         need_move_len = RING_BUFFER_SIZE + current_data_pos - last_dma_pos;
     
     }
-    elog_d("INFO","need_move_len is [%d]",need_move_len);
+ //   elog_d("INFO","need_move_len is [%d]",need_move_len);
     //2,当前dma到达的位置(dma 会不断在 0~RING_BUFFER_SIZE 之间徘徊)
     //4,移动head
     //self->uart_proto_priv_data->header+=need_move_len;
     self->need_arg->frame_parse->ring_buffer->head+=need_move_len;
     last_dma_pos = current_data_pos;
-    elog_d("INFO","current_head is [%d]",self->need_arg->frame_parse->ring_buffer->head);
+//    elog_d("INFO","current_head is [%d]",self->need_arg->frame_parse->ring_buffer->head);
 
     //5通知解析任务
     self->need_arg->os_ops->os_queue_send_isr(

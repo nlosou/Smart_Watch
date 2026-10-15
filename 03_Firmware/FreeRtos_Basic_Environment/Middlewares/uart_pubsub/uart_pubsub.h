@@ -80,7 +80,7 @@ typedef struct {
 
 typedef struct {
     ring_buffer_t *ring_buffer;    
-    void (*frame_parse_alog)(ring_buffer_t*);
+    void (*frame_parse_alog)(ring_buffer_t*,uint8_t* payload_buf,uint8_t* payload_cnt);
 }frame_parse_t;
 
 
@@ -112,19 +112,24 @@ typedef struct uart_handler {
 
     uart_pubsub_t*     subscriber;
 
-    void  (*uart_pubsub_init)(struct uart_handler* self);
+    uart_pubsub_status_t (*uart_pubsub_subscribe)(
+        struct uart_handler* self,
+        uint8_t cmd,
+        uart_frame_callback_t callback,
+        void *user_ctx
+    );
+
+    uart_pubsub_status_t (*uart_pubsub_publish)(
+        struct uart_handler* self,
+        uint8_t cmd,
+        const uint8_t *payload,
+        uint16_t len
+    );
+
+
 
 }uart_handler_t;
 
-
-
-
-/**
- * @brief 
- *
- * @param pubsub
- */
-void uart_pubsub_init(uart_pubsub_t *pubsub);
 
 /**
  * @brief 
@@ -135,37 +140,6 @@ void uart_pubsub_init(uart_pubsub_t *pubsub);
  * @return 
  */
 uart_handler_status_t uart_handler_init(uart_handler_t* self,uart_need_arg_t* need_arg);
-
-/**
- * @brief 
- *
- * @param pubsub
- * @param callback
- * @param user_ctx
- *
- * @return 
- */
-uart_pubsub_status_t uart_pubsub_subscribe(
-    uint8_t cmd,
-    uart_pubsub_t *pubsub,
-    uart_frame_callback_t callback,
-    void *user_ctx
-);
-
-/**
- * @brief  
- *
- * @param pubsub
- * @param payload
- * @param len
- */
-void uart_pubsub_publish(
-    uint8_t cmd,
-    uart_pubsub_t *pubsub,
-    const uint8_t *payload,
-    uint16_t len
-);
-
 
 /**
  * @brief 中断
