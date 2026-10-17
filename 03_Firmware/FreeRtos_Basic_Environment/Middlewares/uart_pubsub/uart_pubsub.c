@@ -156,7 +156,7 @@ static void uart_publish(void*argument)
         current_uart_handler->uart_pubsub_publish(
                 current_uart_handler,
                 current_uart_handler->uart_proto_priv_data->payload_buf[1],
-                current_uart_handler->uart_proto_priv_data->payload_buf + 1,
+                current_uart_handler->uart_proto_priv_data->payload_buf + 2,
                 current_uart_handler->uart_proto_priv_data->payload_buf[0]
                 );
     
@@ -185,6 +185,11 @@ uart_handler_status_t uart_handler_init(uart_handler_t* self,uart_need_arg_t* ne
     self->uart_pubsub_subscribe = uart_pubsub_subscribe;
     self->uart_pubsub_publish   = uart_pubsub_publish;
 
+     //创建队列
+    self->need_arg->os_ops->os_queue_create(1,4,&(self->uart_proto_priv_data->queue_handle));
+    self->need_arg->os_ops->os_queue_create(1,4,&(self->uart_proto_priv_data->queue_handle2));
+
+
     //创建解析串口任务
     self->need_arg->os_ops->os_task_create(uart_parse_task,    
                                           "uart_parse_task",
@@ -200,11 +205,7 @@ uart_handler_status_t uart_handler_init(uart_handler_t* self,uart_need_arg_t* ne
                                            8,
                                            NULL);
 
-    //创建队列
-    self->need_arg->os_ops->os_queue_create(1,4,&(self->uart_proto_priv_data->queue_handle));
-    self->need_arg->os_ops->os_queue_create(1,4,&(self->uart_proto_priv_data->queue_handle2));
-
-    
+       
     //开启串口DMA
     self->need_arg->uart_ops->uart_start();     
 
@@ -226,7 +227,7 @@ uart_handler_status_t notify_isr_cb(uart_handler_t *const self)
      
     uint32_t current_head =self->need_arg->frame_parse->ring_buffer->head;
 
-  //  elog_d("INFO","current_head is [%d]",current_head);
+    //elog_d("INFO","current_head is [%d]",current_head);
     //2,当前dma到达的位置(dma 会不断在 0~RING_BUFFER_SIZE 之间徘徊)
 
     uint32_t current_data_pos =RING_BUFFER_SIZE - self->need_arg->uart_ops->uart_get_counter();
@@ -243,13 +244,13 @@ uart_handler_status_t notify_isr_cb(uart_handler_t *const self)
         need_move_len = RING_BUFFER_SIZE + current_data_pos - last_dma_pos;
     
     }
- //   elog_d("INFO","need_move_len is [%d]",need_move_len);
+    //elog_d("INFO","need_move_len is [%d]",need_move_len);
     //2,当前dma到达的位置(dma 会不断在 0~RING_BUFFER_SIZE 之间徘徊)
     //4,移动head
     //self->uart_proto_priv_data->header+=need_move_len;
     self->need_arg->frame_parse->ring_buffer->head+=need_move_len;
     last_dma_pos = current_data_pos;
-//    elog_d("INFO","current_head is [%d]",self->need_arg->frame_parse->ring_buffer->head);
+    //elog_d("INFO","current_head is [%d]",self->need_arg->frame_parse->ring_buffer->head);
 
     //5通知解析任务
     self->need_arg->os_ops->os_queue_send_isr(

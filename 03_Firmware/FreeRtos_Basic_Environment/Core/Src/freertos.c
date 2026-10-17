@@ -26,8 +26,8 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "elog.h"
-#include "uart_parse_task.h"
 #include "queue.h"
+#include "mid_ring_buffer.h"
 
 /* USER CODE END Includes */
 #include "usart.h"
@@ -390,7 +390,7 @@ void frame_parse_alog(ring_buffer_t*ring_buffer,uint8_t* payload_buf,uint8_t* pa
 {
     //进入状态机
     static uart_protocol_frame_status_t frame_status = FRAME_HEAD_NOT_DECTED;
-    static uint8_t temp_frame_data[32] = {0};
+    static uint8_t temp_frame_data[RING_BUFFER_SIZE*2] = {0};
     static uint8_t             temp_data = 0;
     static uint8_t             frame_len = 0;
     static uint8_t             frame_crc= 0;
@@ -408,7 +408,7 @@ void frame_parse_alog(ring_buffer_t*ring_buffer,uint8_t* payload_buf,uint8_t* pa
         {
             elog_e("backend","get_data is falsed");
         }
-        vTaskDelay(5);
+        vTaskDelay(2);
         switch(frame_status)
         {
             //1.如果检测到某一字节数据为0xFE,就说明是帧头
@@ -458,7 +458,7 @@ void frame_parse_alog(ring_buffer_t*ring_buffer,uint8_t* payload_buf,uint8_t* pa
                                 payload_buf[i] = temp_frame_data[i];
                             }
                             *payload_cnt = data_idx;
-                            elog_d("Debug","%d",data_idx);
+                            //elog_d("Debug","%d",data_idx);
                             elog_i("INFO","Data verification successful");
                             data_idx = 0;
                             frame_status = FRAME_HEAD_NOT_DECTED;
@@ -481,6 +481,7 @@ void frame_parse_alog(ring_buffer_t*ring_buffer,uint8_t* payload_buf,uint8_t* pa
 }
 void function_cb1(const uint8_t *payload,uint16_t len,void *user_ctx)
 {
+    //elog_e("payload","function_cb1 start");
     for(uint8_t i = 0 ; i < len ; i++)
     {
         elog_e("payload","payload[%d] is [%x]",i,payload[i]);
@@ -489,6 +490,7 @@ void function_cb1(const uint8_t *payload,uint16_t len,void *user_ctx)
 
 void function_cb2(const uint8_t *payload,uint16_t len,void *user_ctx)
 {
+    //elog_e("payload","function_cb2 start");
  for(uint8_t i = 0 ; i < len ; i++)
     {
         elog_e("payload","payload[%d] is [%x]",i,payload[i]);
@@ -497,6 +499,7 @@ void function_cb2(const uint8_t *payload,uint16_t len,void *user_ctx)
 
 void function_cb3(const uint8_t *payload,uint16_t len,void *user_ctx)
 {
+    //elog_e("payload","function_cb3 start");
  for(uint8_t i = 0 ; i < len ; i++)
     {
         elog_e("payload","payload[%d] is [%x]",i,payload[i]);
@@ -505,6 +508,7 @@ void function_cb3(const uint8_t *payload,uint16_t len,void *user_ctx)
 
 void function_cb4(const uint8_t *payload,uint16_t len,void *user_ctx)
 {
+    //elog_e("payload","function_cb3 start");
  for(uint8_t i = 0 ; i < len ; i++)
     {
         elog_e("payload","payload[%d] is [%x]",i,payload[i]);
