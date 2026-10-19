@@ -255,22 +255,27 @@ uart_handler_status_t uart_handler_init(uart_handler_t* self,uart_need_arg_t* ne
 
     /* 创建解析串口任务 */
     //创建解析串口任务
-    self->need_arg->os_ops->os_task_create(uart_parse_task,    
+    if(UART_OS_OK != self->need_arg->os_ops->os_task_create(uart_parse_task,    
                                           "uart_parse_task",
                                            128,
                                            self,
                                            9,
-                                           NULL);
+                                           NULL))
+    {
+        goto err_cleanup;
+    }
     /* 创建发布任务 */
     //创建发布线程
-    self->need_arg->os_ops->os_task_create(uart_publish,    
+    if(UART_OS_OK!=self->need_arg->os_ops->os_task_create(uart_publish,    
                                           "uart_publish",
                                            128,
                                            self,
                                            8,
-                                           NULL);
+                                           NULL))
+    {
+        goto err_cleanup;
+    }
 
-       
     /* 启动底层 UART/DMA 接收 */
     //开启串口DMA
     self->need_arg->uart_ops->uart_start();     

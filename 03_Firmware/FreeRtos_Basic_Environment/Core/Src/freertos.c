@@ -107,7 +107,7 @@ const osThreadAttr_t defaultTask_attributes = {
 /* USER CODE BEGIN FunctionPrototypes */
 
 /* 创建 FreeRTOS 任务，供 UART 发布-订阅模块通过函数指针调用 */
-void FreeRTOS_create_task(void (*task_code)(void*),
+uart_os_status_t FreeRTOS_create_task(void (*task_code)(void*),
                            char *const task_name,
                            const uint32_t StackDepth,
                            void *const argument,
@@ -115,7 +115,7 @@ void FreeRTOS_create_task(void (*task_code)(void*),
                            void **const task_handler);
 
 /* 创建 FreeRTOS 队列 */
-void FreeRTOS_queue_create(uint32_t queue_length,
+uart_os_status_t FreeRTOS_queue_create(uint32_t queue_length,
                            uint32_t queue_item_size,
                            void **const queue_handler);
     
@@ -322,7 +322,7 @@ void StartDefaultTask(void *argument)
  * @param task_priority 任务优先级
  * @param task_handler 任务句柄输出指针
  */
-void FreeRTOS_create_task(void (*task_code)(void*),
+uart_os_status_t FreeRTOS_create_task(void (*task_code)(void*),
                            char *const task_name,
                            const uint32_t StackDepth,
                            void *const argument,
@@ -338,12 +338,13 @@ void FreeRTOS_create_task(void (*task_code)(void*),
                              (TaskHandle_t*)task_handler))
     {
         elog_d("TASK","%s task create successfully!",task_name);
+        return UART_OS_OK;
     }
     else
     {
 
         elog_e("TASK","%s task create failed",task_name);
-        return;
+        return UART_OS_ERROR;
     }
 }
 
@@ -354,7 +355,7 @@ void FreeRTOS_create_task(void (*task_code)(void*),
  * @param queue_item_size 单个队列项大小（字节）
  * @param queue_handler  队列句柄输出指针
  */
-void FreeRTOS_queue_create(uint32_t queue_length,uint32_t queue_item_size,void **const queue_handler)
+uart_os_status_t FreeRTOS_queue_create(uint32_t queue_length,uint32_t queue_item_size,void **const queue_handler)
 {
    /* 创建队列，成功后保存句柄 */
    QueueHandle_t   temp_queue_handler =  xQueueCreate(queue_length,queue_item_size);
@@ -362,12 +363,14 @@ void FreeRTOS_queue_create(uint32_t queue_length,uint32_t queue_item_size,void *
    {
         *queue_handler = temp_queue_handler;       
         elog_d("queue","queue create successfully");
+        return UART_OS_OK;
    }
    else
    {
 
         elog_e("queue","queue create failed");
-        return;
+
+        return UART_OS_ERROR;
    }
 
 }
@@ -521,7 +524,7 @@ void frame_parse_alog(ring_buffer_t*ring_buffer,uint8_t* payload_buf,uint8_t* pa
     /* 帧解析状态机及临时缓存均为静态变量，跨多次调用保持状态 */
     static uart_protocol_frame_status_t frame_status = FRAME_HEAD_NOT_DECTED;
     /** 暂存帧长度、命令字、数据和 CRC 的临时缓冲 */
-    static uint8_t temp_frame_data[RING_BUFFER_SIZE*2] = {0};
+    static uint8_t temp_frame_data[RING_BUFFER_SIZE] = {0};
     /** 当前从环形缓冲区取出的一个字节 */
     static uint8_t             temp_data = 0;
     /** 帧头之后接收到的帧长度字段 */
@@ -561,6 +564,14 @@ void frame_parse_alog(ring_buffer_t*ring_buffer,uint8_t* payload_buf,uint8_t* pa
             /* 接收并保存帧长度字段 */
             case FRAME_LEN:
                 frame_len = temp_data; 
+                //超过最大buffer长度,丢弃
+                if(frame_len + 3 >RING_BUFFER_SIZE)
+                {
+                    frame_status = FRAME_HEAD_NOT_DECTED;
+                    data_idx = 0;
+                    elog_e("backend","data len too long");
+                    break;
+                }
                 temp_frame_data[data_idx++] = temp_data; 
                 frame_status =FRAME_DATAs;
                 break;
@@ -587,6 +598,7 @@ void frame_parse_alog(ring_buffer_t*ring_buffer,uint8_t* payload_buf,uint8_t* pa
                 //6.1不是帧尾巴就丢弃数据并之前获得的数据清理掉
                     elog_e("DATA PARSE","data is not complete");
                     frame_status = FRAME_HEAD_NOT_DECTED;
+                    data_idx = 0;
                 }
                 else
                 {

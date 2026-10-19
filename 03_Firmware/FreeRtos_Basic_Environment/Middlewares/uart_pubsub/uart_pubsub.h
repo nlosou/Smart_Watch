@@ -69,8 +69,10 @@ typedef enum {
     UART_HANDLER_ERROR = -1
 } uart_handler_status_t;
 
-
-
+typedef enum {
+    UART_OS_OK = 0,
+    UART_OS_ERROR = -1
+} uart_os_status_t;
 
 /**
  * @brief 底层 UART DMA 接收环形缓冲区描述。
@@ -110,7 +112,7 @@ typedef struct {
 typedef struct {
 
     /** 创建任务 */
-    void (*os_task_create)(void (*task_code)(void*),
+    uart_os_status_t (*os_task_create)(void (*task_code)(void*),
                            char *const task_name,
                            const uint32_t StackDepth,
                            void *const argument,
@@ -118,7 +120,7 @@ typedef struct {
                            void **const task_handler);
 
     /** 创建队列 */
-    void (*os_queue_create)(uint32_t queue_length,uint32_t queue_item_size,void **const queue_handler);
+    uart_os_status_t (*os_queue_create)(uint32_t queue_length,uint32_t queue_item_size,void **const queue_handler);
     
     /** 阻塞接收队列数据 */
     void (*os_queue_receive)(void* queue_hendler,uint8_t* pvBuffer,uint32_t WaitTime);
