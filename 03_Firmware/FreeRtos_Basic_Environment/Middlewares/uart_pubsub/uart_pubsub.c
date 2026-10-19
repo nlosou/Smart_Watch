@@ -230,18 +230,25 @@ uart_handler_status_t uart_handler_init(uart_handler_t* self,uart_need_arg_t* ne
     self->uart_proto_priv_data = self->need_arg->os_ops->os_malloc(sizeof(uart_proto_priv_data_t))  ;
     if(NULL == self->uart_proto_priv_data)
     {
-        return UART_HANDLER_ERROR;
+        goto err_cleanup;
     }
     memset(self->uart_proto_priv_data,0,sizeof(uart_proto_priv_data_t));
 
 
     /* 分配订阅表并绑定发布-订阅方法 */
     self->subscriber            = self->need_arg->os_ops->os_malloc(sizeof(uart_pubsub_t));
+    if(NULL == self->subscriber)
+    {
+        goto err_cleanup;
+    }
+    memset(self->uart_proto_priv_data,0,sizeof(uart_pubsub_t));
+
     self->uart_pubsub_subscribe = uart_pubsub_subscribe;
     self->uart_pubsub_publish   = uart_pubsub_publish;
 
     /* 创建 ISR -> 解析任务、解析任务 -> 发布任务 两个通知队列 */
      //创建队列
+     
     self->need_arg->os_ops->os_queue_create(1,4,&(self->uart_proto_priv_data->queue_handle));
     self->need_arg->os_ops->os_queue_create(1,4,&(self->uart_proto_priv_data->queue_handle2));
 
@@ -270,8 +277,22 @@ uart_handler_status_t uart_handler_init(uart_handler_t* self,uart_need_arg_t* ne
 
     //uart_pubsub_init(self->subscriber);
     
-
     return UART_HANDLER_OK;
+err_cleanup:
+    if(self->uart_proto_priv_data)
+    {
+
+        self->need_arg->os_ops->os_free(self->uart_proto_priv_data);
+        self->uart_proto_priv_data = NULL;
+    }
+
+    if(self->subscriber)
+    {
+
+        self->need_arg->os_ops->os_free(self->subscriber);
+        self->subscriber = NULL;
+    }
+    return UART_HANDLER_ERROR;
 }
 
 /**
