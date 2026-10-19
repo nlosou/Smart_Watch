@@ -547,7 +547,6 @@ void frame_parse_alog(ring_buffer_t*ring_buffer,uint8_t* payload_buf,uint8_t* pa
             elog_e("backend","get_data is falsed");
         }
         /* 解析流程为状态机驱动，为避免独占 CPU，此处短暂让出执行权 */
-        vTaskDelay(2);
         switch(frame_status)
         {
             //1.如果检测到某一字节数据为0xFE,就说明是帧头
