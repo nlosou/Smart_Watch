@@ -40,6 +40,7 @@ void Uart_rec_A_task(void* argument)
     uint32_t front_to_backend_parten = 0;
     queue_front_to_backend = xQueueCreate(1,4); 
     uint8_t temp_data = 0;
+    static uint32_t parse_false = 0;
     if(NULL!=queue_front_to_backend)
     {
 
@@ -81,7 +82,7 @@ void Uart_rec_A_task(void* argument)
                 {
                     elog_e("backend","get_data is falsed");
                 }
-                vTaskDelay(5);
+
                 switch(frame_status)
                 {
                     //1.如果检测到某一字节数据为0xFE,就说明是帧头
@@ -137,6 +138,19 @@ void Uart_rec_A_task(void* argument)
                         {
                             temp_frame_data[frame_idx++] = temp_data;
                             //elog_i("backend","frame data is [%x]",temp_data);
+                            if(frame_idx>RING_BUFFER_SIZE)
+                            {
+                                //记录错误计数
+                                parse_false++;
+                                for(uint8_t idx = 0 ; idx <( frame_idx); idx++) 
+                                {
+                                    temp_frame_data[idx] = 0;
+                                }
+                                frame_idx = 0;
+                                frame_sum = 0;
+
+                                break;   
+                            }
                         }
                         break;
                 }
