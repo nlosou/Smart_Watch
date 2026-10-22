@@ -10,6 +10,7 @@
 #include "tim.h"
 #include "gpio.h"
 #include "SEGGER_RTT.h"
+#include "elog.h"
 // 全局定义 STM32F411xE 或者 STM32F401xx
 // 当前定义 STM32F411xE
 
@@ -29,6 +30,7 @@ RCC_ClocksTypeDef RCC_Clocks;
 
 /* Private function prototypes -----------------------------------------------*/
 
+void app_elog_init(void);
 /* Private functions ---------------------------------------------------------*/
  /*
   *power by WeAct Studio
@@ -47,6 +49,7 @@ int main(void)
      when HSE clock fails *****************************************************/
   RCC_ClockSecuritySystemCmd(ENABLE);
 	SEGGER_RTT_Init();
+    app_elog_init();
  /*!< At this stage the microcontroller clock setting is already configured, 
        this is done through SystemInit() function which is called from startup
        files before to branch to application main.
@@ -65,8 +68,7 @@ int main(void)
 	
   GPIO_Config();
   TIM_Config();   
-	
-	SEGGER_RTT_printf(0,"hello bootloader");
+  elog_i("INFO","hello");
   /* Infinite loop */
   while (1)
   {
@@ -149,6 +151,21 @@ void assert_failed(uint8_t* file, uint32_t line)
   }
 }
 #endif
+
+void app_elog_init(void)
+{
+    elog_init(); 
+    elog_set_text_color_enabled(true);
+    elog_set_fmt(ELOG_LVL_ASSERT,ELOG_FMT_ALL);
+    elog_set_fmt(ELOG_LVL_ERROR,ELOG_FMT_LVL |ELOG_FMT_TAG );
+    elog_set_fmt(ELOG_LVL_WARN,ELOG_FMT_LVL |ELOG_FMT_TAG );
+    elog_set_fmt(ELOG_LVL_INFO,ELOG_FMT_LVL |ELOG_FMT_TAG );
+    elog_set_fmt(ELOG_LVL_DEBUG,ELOG_FMT_ALL & ~(ELOG_FMT_TIME | ELOG_FMT_P_INFO));
+    elog_set_fmt(ELOG_LVL_VERBOSE,ELOG_FMT_ALL);
+    elog_start();
+
+}
+
 
 /**
   * @}
