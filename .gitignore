@@ -47,3 +47,7 @@
 /03_Firmware/**/EventRecorderStub.scvd
 /03_Firmware/**/*.bak
 /03_Firmware/**/*.iex
+
+# clangd 缓存
+.cache/
+**/.cache/

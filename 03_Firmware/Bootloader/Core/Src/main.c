@@ -23,16 +23,18 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include <stdio.h>
 
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
-
+typedef void (*pFunction)(void);
 /* USER CODE END PTD */
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
+#define APP_FLASH_ADDR 0x8019000
 
 /* USER CODE END PD */
 
@@ -44,10 +46,14 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
-
+static pFunction JumpToApplication;
+static uint32_t JumpAddress;
+void DisablePeripherals(void);
+void JumpToApp(void);
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
+
 void SystemClock_Config(void);
 /* USER CODE BEGIN PFP */
 
@@ -65,7 +71,7 @@ void SystemClock_Config(void);
 int main(void)
 {
   /* USER CODE BEGIN 1 */
-
+  SCB->VTOR = 0x08000000 | 0x0; 
   /* USER CODE END 1 */
 
   /* MCU Configuration--------------------------------------------------------*/
@@ -88,7 +94,8 @@ int main(void)
   MX_GPIO_Init();
   MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
-
+  DisablePeripherals();
+  JumpToApp();
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -150,6 +157,42 @@ void SystemClock_Config(void)
 
 /* USER CODE BEGIN 4 */
 
+void DisablePeripherals(void)
+{
+    __HAL_RCC_RTC_DISABLE();
+    __disable_irq();
+}
+
+void JumpToApp(void)
+{
+    uint16_t i;
+    uint32_t jumpAddr,armAddr;
+    //读取APP前4个字节数据
+    armAddr=*(uint32_t *)APP_FLASH_ADDR;
+    for(i=0;i<5000;++i)
+    {
+        printf("bootloader running...\r\n");
+    }
+    /*
+     * RAM地址范围是0x20000000~0x2001FFFF
+     * 表示应用程序的入口地址在 RAM 的有效范围内（即在 0x20000000 到 0x2001FFFF 之间）
+     * APP_FLASH_ADDR前四个字节的内容：表示应用程序的初始栈顶指针（SP）地址
+     * __IO的作用是告诉编译器和开发者某个变量或指针是与硬件寄存器或内存映射外设相关的，
+     * 确保编译器在处理这些变量时不会进行优化，从而保证每次访问都能读取或写入最新的值。
+     */
+    if (((*(__IO uint32_t*)APP_FLASH_ADDR) & 0x2FFE0000 ) == 0x20000000)
+    {
+        // 获取应用程序的入口地址（复位向量）
+        jumpAddr = *(__IO uint32_t*) (APP_FLASH_ADDR + 4); //PC指针地址
+        // 将函数指针. 应用程序的入口地址
+        JumpToApplication=(pFunction)jumpAddr;
+        // 设置栈顶指针为应用程序的初始值
+        __set_MSP(*(__IO uint32_t*) APP_FLASH_ADDR);
+        // 跳转到应用程序，开始执行
+        JumpToApplication();
+    }
+    return;
+}
 /* USER CODE END 4 */
 
 /**
