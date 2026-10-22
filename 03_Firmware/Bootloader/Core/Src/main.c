@@ -1,216 +1,136 @@
-/* USER CODE BEGIN Header */
 /**
   ******************************************************************************
-  * @file           : main.c
-  * @brief          : Main program body
-  ******************************************************************************
-  * @attention
-  *
-  * Copyright (c) 2026 STMicroelectronics.
-  * All rights reserved.
-  *
-  * This software is licensed under terms that can be found in the LICENSE file
-  * in the root directory of this software component.
-  * If no LICENSE file comes with this software, it is provided AS-IS.
-  *
+	WeAct 微行创新 
+	>> 标准库实例例程
   ******************************************************************************
   */
-/* USER CODE END Header */
+
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
-#include "usart.h"
+#include "tim.h"
 #include "gpio.h"
+#include "SEGGER_RTT.h"
+// 全局定义 STM32F411xE 或者 STM32F401xx
+// 当前定义 STM32F411xE
 
-/* Private includes ----------------------------------------------------------*/
-/* USER CODE BEGIN Includes */
-#include <stdio.h>
+// STM32F411 外部晶振25Mhz，考虑到USB使用，内部频率设置为96Mhz
+// 需要100mhz,自行修改system_stm32f4xx.c
 
-/* USER CODE END Includes */
+/** @addtogroup Template_Project
+  * @{
+  */ 
 
 /* Private typedef -----------------------------------------------------------*/
-/* USER CODE BEGIN PTD */
-typedef void (*pFunction)(void);
-/* USER CODE END PTD */
-
 /* Private define ------------------------------------------------------------*/
-/* USER CODE BEGIN PD */
-#define APP_FLASH_ADDR 0x8019000
-
-/* USER CODE END PD */
-
 /* Private macro -------------------------------------------------------------*/
-/* USER CODE BEGIN PM */
-
-/* USER CODE END PM */
-
 /* Private variables ---------------------------------------------------------*/
-
-/* USER CODE BEGIN PV */
-static pFunction JumpToApplication;
-static uint32_t JumpAddress;
-void DisablePeripherals(void);
-void JumpToApp(void);
-/* USER CODE END PV */
+static __IO uint32_t uwTimingDelay;
+RCC_ClocksTypeDef RCC_Clocks;
 
 /* Private function prototypes -----------------------------------------------*/
 
-void SystemClock_Config(void);
-/* USER CODE BEGIN PFP */
-
-/* USER CODE END PFP */
-
-/* Private user code ---------------------------------------------------------*/
-/* USER CODE BEGIN 0 */
-
-/* USER CODE END 0 */
-
+/* Private functions ---------------------------------------------------------*/
+ /*
+  *power by WeAct Studio
+  *The board with `WeAct` Logo && `version number` is our board, quality guarantee. 
+  *For more information please visit: https://github.com/WeActTC/MiniF4-STM32F4x1
+  *更多信息请访问：https://gitee.com/WeActTC/MiniF4-STM32F4x1
+  */
 /**
-  * @brief  The application entry point.
-  * @retval int
+  * @brief  Main program
+  * @param  None
+  * @retval None
   */
 int main(void)
 {
-  /* USER CODE BEGIN 1 */
-  SCB->VTOR = 0x08000000 | 0x0; 
-  /* USER CODE END 1 */
+	/* Enable Clock Security System(CSS): this will generate an NMI exception
+     when HSE clock fails *****************************************************/
+  RCC_ClockSecuritySystemCmd(ENABLE);
+	SEGGER_RTT_Init();
+ /*!< At this stage the microcontroller clock setting is already configured, 
+       this is done through SystemInit() function which is called from startup
+       files before to branch to application main.
+       To reconfigure the default setting of SystemInit() function, 
+       refer to system_stm32f4xx.c file */
 
-  /* MCU Configuration--------------------------------------------------------*/
-
-  /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
-  HAL_Init();
-
-  /* USER CODE BEGIN Init */
-
-  /* USER CODE END Init */
-
-  /* Configure the system clock */
-  SystemClock_Config();
-
-  /* USER CODE BEGIN SysInit */
-
-  /* USER CODE END SysInit */
-
-  /* Initialize all configured peripherals */
-  MX_GPIO_Init();
-  MX_USART1_UART_Init();
-  /* USER CODE BEGIN 2 */
-  DisablePeripherals();
-  JumpToApp();
-  /* USER CODE END 2 */
-
+  /* SysTick end of count event each 1ms */
+  SystemCoreClockUpdate();
+  RCC_GetClocksFreq(&RCC_Clocks);
+  SysTick_Config(RCC_Clocks.HCLK_Frequency / 1000);
+  
+	
+  /* Add your application code here */
+  /* Insert 50 ms delay */
+  Delay(50);
+	
+  GPIO_Config();
+  TIM_Config();   
+	
+	SEGGER_RTT_printf(0,"hello bootloader");
   /* Infinite loop */
-  /* USER CODE BEGIN WHILE */
   while (1)
   {
-    /* USER CODE END WHILE */
+#if soft_pwm
+		/* C13 呼吸灯测试 */
+		static uint8_t pwmset;
+		static uint16_t time;
+		static uint8_t timeflag;
+		static uint8_t timecount;
 
-    /* USER CODE BEGIN 3 */
-  }
-  /* USER CODE END 3 */
+		 /* 呼吸灯 */
+		if(timeflag == 0)
+		{
+			time ++;
+			if(time >= 1600) timeflag = 1;
+		}
+		else
+		{
+			time --;
+			if(time == 0) timeflag = 0;
+		}
+
+		/* 占空比设置 */
+		pwmset = time/80;
+
+		/* 20ms 脉宽 */
+		if(timecount > 20) timecount = 0;
+		else timecount ++;
+
+		if(timecount >= pwmset ) GPIO_SetBits(LED_C13_PORT,LED_C13_PIN);
+		else GPIO_ResetBits(LED_C13_PORT,LED_C13_PIN);
+		
+		Delay(1);
+#endif
+	}
 }
 
 /**
-  * @brief System Clock Configuration
+  * @brief  Inserts a delay time.
+  * @param  nTime: specifies the delay time length, in milliseconds.
   * @retval None
   */
-void SystemClock_Config(void)
-{
-  RCC_OscInitTypeDef RCC_OscInitStruct = {0};
-  RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
+void Delay(__IO uint32_t nTime)
+{ 
+  uwTimingDelay = nTime;
 
-  /** Configure the main internal regulator output voltage
-  */
-  __HAL_RCC_PWR_CLK_ENABLE();
-  __HAL_PWR_VOLTAGESCALING_CONFIG(PWR_REGULATOR_VOLTAGE_SCALE1);
-
-  /** Initializes the RCC Oscillators according to the specified parameters
-  * in the RCC_OscInitTypeDef structure.
-  */
-  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI;
-  RCC_OscInitStruct.HSIState = RCC_HSI_ON;
-  RCC_OscInitStruct.HSICalibrationValue = RCC_HSICALIBRATION_DEFAULT;
-  RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
-  RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSI;
-  RCC_OscInitStruct.PLL.PLLM = 8;
-  RCC_OscInitStruct.PLL.PLLN = 100;
-  RCC_OscInitStruct.PLL.PLLP = RCC_PLLP_DIV2;
-  RCC_OscInitStruct.PLL.PLLQ = 4;
-  if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
-  {
-    Error_Handler();
-  }
-
-  /** Initializes the CPU, AHB and APB buses clocks
-  */
-  RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
-                              |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
-  RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
-  RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
-  RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV2;
-  RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV1;
-
-  if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_3) != HAL_OK)
-  {
-    Error_Handler();
-  }
+  while(uwTimingDelay != 0);
 }
-
-/* USER CODE BEGIN 4 */
-
-void DisablePeripherals(void)
-{
-    __HAL_RCC_RTC_DISABLE();
-    __disable_irq();
-}
-
-void JumpToApp(void)
-{
-    uint16_t i;
-    uint32_t jumpAddr,armAddr;
-    //读取APP前4个字节数据
-    armAddr=*(uint32_t *)APP_FLASH_ADDR;
-    for(i=0;i<5000;++i)
-    {
-        printf("bootloader running...\r\n");
-    }
-    /*
-     * RAM地址范围是0x20000000~0x2001FFFF
-     * 表示应用程序的入口地址在 RAM 的有效范围内（即在 0x20000000 到 0x2001FFFF 之间）
-     * APP_FLASH_ADDR前四个字节的内容：表示应用程序的初始栈顶指针（SP）地址
-     * __IO的作用是告诉编译器和开发者某个变量或指针是与硬件寄存器或内存映射外设相关的，
-     * 确保编译器在处理这些变量时不会进行优化，从而保证每次访问都能读取或写入最新的值。
-     */
-    if (((*(__IO uint32_t*)APP_FLASH_ADDR) & 0x2FFE0000 ) == 0x20000000)
-    {
-        // 获取应用程序的入口地址（复位向量）
-        jumpAddr = *(__IO uint32_t*) (APP_FLASH_ADDR + 4); //PC指针地址
-        // 将函数指针. 应用程序的入口地址
-        JumpToApplication=(pFunction)jumpAddr;
-        // 设置栈顶指针为应用程序的初始值
-        __set_MSP(*(__IO uint32_t*) APP_FLASH_ADDR);
-        // 跳转到应用程序，开始执行
-        JumpToApplication();
-    }
-    return;
-}
-/* USER CODE END 4 */
 
 /**
-  * @brief  This function is executed in case of error occurrence.
+  * @brief  Decrements the TimingDelay variable.
+  * @param  None
   * @retval None
   */
-void Error_Handler(void)
+void TimingDelay_Decrement(void)
 {
-  /* USER CODE BEGIN Error_Handler_Debug */
-  /* User can add his own implementation to report the HAL error return state */
-  __disable_irq();
-  while (1)
-  {
+  if (uwTimingDelay != 0x00)
+  { 
+    uwTimingDelay--;
   }
-  /* USER CODE END Error_Handler_Debug */
 }
 
 #ifdef  USE_FULL_ASSERT
+
 /**
   * @brief  Reports the name of the source file and the source line number
   *         where the assert_param error has occurred.
@@ -218,11 +138,21 @@ void Error_Handler(void)
   * @param  line: assert_param error line source number
   * @retval None
   */
-void assert_failed(uint8_t *file, uint32_t line)
-{
-  /* USER CODE BEGIN 6 */
+void assert_failed(uint8_t* file, uint32_t line)
+{ 
   /* User can add his own implementation to report the file name and line number,
      ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
-  /* USER CODE END 6 */
+
+  /* Infinite loop */
+  while (1)
+  {
+  }
 }
-#endif /* USE_FULL_ASSERT */
+#endif
+
+/**
+  * @}
+  */
+
+
+/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
