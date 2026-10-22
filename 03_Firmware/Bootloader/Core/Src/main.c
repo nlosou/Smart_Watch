@@ -11,6 +11,7 @@
 #include "gpio.h"
 #include "SEGGER_RTT.h"
 #include "elog.h"
+#include "boot_manager.h"
 // 全局定义 STM32F411xE 或者 STM32F401xx
 // 当前定义 STM32F411xE
 
@@ -23,6 +24,9 @@
 
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
+
+
+//App addresss
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
 static __IO uint32_t uwTimingDelay;
@@ -31,6 +35,8 @@ RCC_ClocksTypeDef RCC_Clocks;
 /* Private function prototypes -----------------------------------------------*/
 
 void app_elog_init(void);
+void jump_to_app(void);
+    
 /* Private functions ---------------------------------------------------------*/
  /*
   *power by WeAct Studio
@@ -50,6 +56,7 @@ int main(void)
   RCC_ClockSecuritySystemCmd(ENABLE);
 	SEGGER_RTT_Init();
     app_elog_init();
+	elog_i("INFO","Bootloader running.......");
  /*!< At this stage the microcontroller clock setting is already configured, 
        this is done through SystemInit() function which is called from startup
        files before to branch to application main.
@@ -61,48 +68,52 @@ int main(void)
   RCC_GetClocksFreq(&RCC_Clocks);
   SysTick_Config(RCC_Clocks.HCLK_Frequency / 1000);
   
-	
+
   /* Add your application code here */
   /* Insert 50 ms delay */
   Delay(50);
 	
   GPIO_Config();
+	GPIO_SetBits(LED_C13_PORT,LED_C13_PIN);
+	Delay(1000);
   TIM_Config();   
-  elog_i("INFO","hello");
+  
+  jump_to_app();
+	elog_e("ERROR","App jump false!!!");
   /* Infinite loop */
   while (1)
   {
-#if soft_pwm
-		/* C13 呼吸灯测试 */
-		static uint8_t pwmset;
-		static uint16_t time;
-		static uint8_t timeflag;
-		static uint8_t timecount;
+//#if soft_pwm
+//		/* C13 呼吸灯测试 */
+//		static uint8_t pwmset;
+//		static uint16_t time;
+//		static uint8_t timeflag;
+//		static uint8_t timecount;
 
-		 /* 呼吸灯 */
-		if(timeflag == 0)
-		{
-			time ++;
-			if(time >= 1600) timeflag = 1;
-		}
-		else
-		{
-			time --;
-			if(time == 0) timeflag = 0;
-		}
+//		 /* 呼吸灯 */
+//		if(timeflag == 0)
+//		{
+//			time ++;
+//			if(time >= 1600) timeflag = 1;
+//		}
+//		else
+//		{
+//			time --;
+//			if(time == 0) timeflag = 0;
+//		}
 
-		/* 占空比设置 */
-		pwmset = time/80;
+//		/* 占空比设置 */
+//		pwmset = time/80;
 
-		/* 20ms 脉宽 */
-		if(timecount > 20) timecount = 0;
-		else timecount ++;
+//		/* 20ms 脉宽 */
+//		if(timecount > 20) timecount = 0;
+//		else timecount ++;
 
-		if(timecount >= pwmset ) GPIO_SetBits(LED_C13_PORT,LED_C13_PIN);
-		else GPIO_ResetBits(LED_C13_PORT,LED_C13_PIN);
-		
-		Delay(1);
-#endif
+//		if(timecount >= pwmset ) GPIO_SetBits(LED_C13_PORT,LED_C13_PIN);
+//		else GPIO_ResetBits(LED_C13_PORT,LED_C13_PIN);
+//		
+//		Delay(1);
+//#endif
 	}
 }
 
