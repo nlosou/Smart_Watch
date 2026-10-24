@@ -68,8 +68,10 @@ void app_elog_init(void);
 int main(void)
 {
   /* USER CODE BEGIN 1 */
-  SCB->VTOR = FLASH_BASE| 0x19000; 
-  __enable_irq();
+	SysTick->CTRL = 0;      
+	HAL_DeInit();           
+	HAL_Init();             
+	__enable_irq();         
   /* USER CODE END 1 */
 
   /* MCU Configuration--------------------------------------------------------*/
@@ -78,7 +80,7 @@ int main(void)
   HAL_Init();
 
   /* USER CODE BEGIN Init */
-  SEGGER_RTT_Init();
+  //SEGGER_RTT_Init();
   /* USER CODE END Init */
 
   /* Configure the system clock */
@@ -93,15 +95,16 @@ int main(void)
   MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
   app_elog_init(); 
+
+  elog_i("INFO","App Start");
   /* USER CODE END 2 */
 
   /* Init scheduler */
-  osKernelInitialize();  /* Call init function for freertos objects (in freertos.c) */
-  MX_FREERTOS_Init();
+//  osKernelInitialize();  /* Call init function for freertos objects (in freertos.c) */
+//  MX_FREERTOS_Init();
 
-  elog_i("INFO","hello noser");
-  /* Start scheduler */
-  osKernelStart();
+//  /* Start scheduler */
+//  osKernelStart();
   /* We should never get here as control is now taken by the scheduler */
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
