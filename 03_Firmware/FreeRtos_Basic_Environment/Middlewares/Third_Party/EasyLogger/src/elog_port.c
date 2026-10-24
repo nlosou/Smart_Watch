@@ -27,10 +27,10 @@
  */
  
 #include <elog.h>
-#include <stdio.h>
 #include "FreeRTOS.h"
 #include "task.h"
 #include "stm32f4xx_hal.h"
+#include "SEGGER_RTT.h"
 
 /**
  * EasyLogger port initialize
@@ -64,8 +64,8 @@ void elog_port_deinit(void) {
 void elog_port_output(const char *log, size_t size) {
     
     /* add your code here */
-    printf("%.*s",size,log);
     
+    SEGGER_RTT_Write(0, log, size);  
 }
 
 /**

@@ -8,10 +8,11 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "tim.h"
-#include "gpio.h"
 #include "SEGGER_RTT.h"
 #include "elog.h"
 #include "boot_manager.h"
+#include "key.h"
+#include "led.h"
 // 全局定义 STM32F411xE 或者 STM32F401xx
 // 当前定义 STM32F411xE
 
@@ -29,15 +30,26 @@
 //App addresss
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
+
+
+
 static __IO uint32_t uwTimingDelay;
 RCC_ClocksTypeDef RCC_Clocks;
+
+extern key_handler_t  key_handler;
+extern key_need_arg_t key_need_arg;
+
+extern led_handler_t  led_handler;
+extern led_need_arg_t led_need_arg;
 
 /* Private function prototypes -----------------------------------------------*/
 
 void app_elog_init(void);
 void jump_to_app(void);
-    
+
 /* Private functions ---------------------------------------------------------*/
+
+ 
  /*
   *power by WeAct Studio
   *The board with `WeAct` Logo && `version number` is our board, quality guarantee. 
@@ -56,7 +68,6 @@ int main(void)
   RCC_ClockSecuritySystemCmd(ENABLE);
 	SEGGER_RTT_Init();
     app_elog_init();
-	elog_i("INFO","Bootloader running.......");
  /*!< At this stage the microcontroller clock setting is already configured, 
        this is done through SystemInit() function which is called from startup
        files before to branch to application main.
@@ -71,49 +82,28 @@ int main(void)
 
   /* Add your application code here */
   /* Insert 50 ms delay */
-  Delay(50);
-	
-  GPIO_Config();
-	GPIO_SetBits(LED_C13_PORT,LED_C13_PIN);
-	Delay(1000);
+  elog_i("INFO","Bootloader running.......");
+
+  key_handler_init(&key_handler,&key_need_arg);
+  led_handler_init(&led_handler,&led_need_arg);
   TIM_Config();   
-  
-  jump_to_app();
-	elog_e("ERROR","App jump false!!!");
+  //jump_to_app();
   /* Infinite loop */
+  uint32_t flag = 0;
   while (1)
   {
-//#if soft_pwm
-//		/* C13 呼吸灯测试 */
-//		static uint8_t pwmset;
-//		static uint16_t time;
-//		static uint8_t timeflag;
-//		static uint8_t timecount;
-
-//		 /* 呼吸灯 */
-//		if(timeflag == 0)
-//		{
-//			time ++;
-//			if(time >= 1600) timeflag = 1;
-//		}
-//		else
-//		{
-//			time --;
-//			if(time == 0) timeflag = 0;
-//		}
-
-//		/* 占空比设置 */
-//		pwmset = time/80;
-
-//		/* 20ms 脉宽 */
-//		if(timecount > 20) timecount = 0;
-//		else timecount ++;
-
-//		if(timecount >= pwmset ) GPIO_SetBits(LED_C13_PORT,LED_C13_PIN);
-//		else GPIO_ResetBits(LED_C13_PORT,LED_C13_PIN);
-//		
-//		Delay(1);
-//#endif
+      if(KEY_HANDLER_OK == key_handler.key_scan(&key_handler))
+      {
+            elog_i("INFO", "key press");            
+            flag = 0;
+      }
+      if(flag == 1)
+      {
+          led_handler.led_breathring(&led_handler);
+         //led_handler.led_need_arg->led_ops->led_toggle(led_handler.led_need_arg->led_info->GPOIx,
+          //       led_handler.led_need_arg->led_info->GPIO_Pin
+           //      );
+      }
 	}
 }
 
@@ -174,9 +164,7 @@ void app_elog_init(void)
     elog_set_fmt(ELOG_LVL_DEBUG,ELOG_FMT_ALL & ~(ELOG_FMT_TIME | ELOG_FMT_P_INFO));
     elog_set_fmt(ELOG_LVL_VERBOSE,ELOG_FMT_ALL);
     elog_start();
-
 }
-
 
 /**
   * @}

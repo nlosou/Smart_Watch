@@ -341,7 +341,7 @@
               <MiscControls></MiscControls>
               <Define>USE_STDPERIPH_DRIVER,STM32F411xE</Define>
               <Undefine></Undefine>
-              <IncludePath>..\MDK-ARM;..\Core\Inc;..\Drivers\STM32F4xx_StdPeriph_Driver\inc;..\Drivers\CMSIS\Device\ST\STM32F4xx\Include;..\Middlerwares\Segger_RTT\inc;..\Middlerwares\EasyLogger\inc;..\Task\Boot_Manager</IncludePath>
+              <IncludePath>..\MDK-ARM;..\Core\Inc;..\Drivers\STM32F4xx_StdPeriph_Driver\inc;..\Drivers\CMSIS\Device\ST\STM32F4xx\Include;..\Middlerwares\Segger_RTT\inc;..\Middlerwares\EasyLogger\inc;..\Task\Boot_Manager;..\Bsp\key;..\Bsp\Led</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -1571,7 +1571,14 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>Bsp</GroupName>
+          <GroupName>Bsp/key</GroupName>
+          <Files>
+            <File>
+              <FileName>key.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Bsp\key\key.c</FilePath>
+            </File>
+          </Files>
         </Group>
         <Group>
           <GroupName>Middlerwares/Segger_RTT</GroupName>
@@ -1625,6 +1632,16 @@
               <FileName>boot_manager.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\Task\Boot_Manager\boot_manager.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Bsp/Led</GroupName>
+          <Files>
+            <File>
+              <FileName>led.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Bsp\Led\led.c</FilePath>
             </File>
           </Files>
         </Group>
