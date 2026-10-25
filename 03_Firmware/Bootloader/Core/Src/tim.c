@@ -50,35 +50,6 @@ void TIM_Config(void)
 
 void TIM3_IT_Update_Callback()
 {
-#if !soft_pwm
-	/* C13 ºôÎüµÆ²âÊÔ */
-	static uint8_t pwmset;
-	static uint16_t time;
-	static uint8_t timeflag;
-	static uint8_t timecount;
 
-	 /* ºôÎüµÆ */
-	if(timeflag == 0)
-	{
-		time ++;
-		if(time >= 16000) timeflag = 1;
-	}
-	else
-	{
-		time --;
-		if(time == 0) timeflag = 0;
-	}
-
-	/* Õ¼¿Õ±ÈÉèÖÃ */
-	pwmset = time/320;
-
-	/* 5ms Âö¿í */
-	if(timecount > 50) timecount = 0;
-	else timecount ++;
-
-	if(timecount >= pwmset ) GPIO_SetBits(LED_C13_PORT,LED_C13_PIN);
-	else GPIO_ResetBits(LED_C13_PORT,LED_C13_PIN);
-	//GPIO_ToggleBits(LED_C13_PORT,LED_C13_PIN);
-#endif
 }
 

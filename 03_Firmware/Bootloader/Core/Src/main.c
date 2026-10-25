@@ -13,6 +13,9 @@
 #include "boot_manager.h"
 #include "key.h"
 #include "led.h"
+#include "usart.h"
+#include "Flash.h"
+#include "ymodem.h"
 // 全局定义 STM32F411xE 或者 STM32F401xx
 // 当前定义 STM32F411xE
 
@@ -61,6 +64,8 @@ void jump_to_app(void);
   * @param  None
   * @retval None
   */
+	
+uint8_t temp_data[1024] = {0};
 int main(void)
 {
 	/* Enable Clock Security System(CSS): this will generate an NMI exception
@@ -79,11 +84,15 @@ int main(void)
   RCC_GetClocksFreq(&RCC_Clocks);
   SysTick_Config(RCC_Clocks.HCLK_Frequency / 1000);
   
-
+//	EreaseAppSector(FLASH_Sector_3);
+//	Flash_Write(0x0800C000,0xAA);
+  
   /* Add your application code here */
   /* Insert 50 ms delay */
   elog_i("INFO","Bootloader running.......");
-
+  USART1_Init();
+  USART_SendChar(USART1,0xAA);
+	 Ymodem_Receive(temp_data);
   key_handler_init(&key_handler,&key_need_arg);
   led_handler_init(&led_handler,&led_need_arg);
   TIM_Config();   
@@ -95,9 +104,10 @@ int main(void)
       if(KEY_HANDLER_OK == key_handler.key_scan(&key_handler))
       {
             elog_i("INFO", "key press");            
-            flag = 0;
+            flag = 1;
+				    USART_SendChar(USART1,0xAA);
       }
-      if(flag == 1)
+      if(flag)
       {
           led_handler.led_breathring(&led_handler);
          //led_handler.led_need_arg->led_ops->led_toggle(led_handler.led_need_arg->led_info->GPOIx,

@@ -54,6 +54,7 @@ led_handler_status_t led_handler_init(led_handler_t* self,led_need_arg_t* extern
 
     self->led_breathring = led_breathring;
     LED_OPS->led_init(LED_INFO->GPOIx,LED_INFO->GPIO_Pin);
+    LED_OPS->led_off(LED_INFO->GPOIx,LED_INFO->GPIO_Pin);
     return LED_HANDLER_OK;
 }
 

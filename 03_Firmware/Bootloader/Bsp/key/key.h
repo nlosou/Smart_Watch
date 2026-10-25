@@ -16,6 +16,10 @@ typedef enum {
 }key_level;
 
 
+
+/**
+ * @brief 函数返回状态
+ */
 typedef enum {
     KEY_HANDLER_ERROR,
     KEY_HANDLER_OK,
