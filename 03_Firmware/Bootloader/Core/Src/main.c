@@ -92,11 +92,9 @@ int main(void)
   elog_i("INFO","Bootloader running.......");
   USART1_Init();
   USART_SendChar(USART1,0xAA);
-	 Ymodem_Receive(temp_data);
   key_handler_init(&key_handler,&key_need_arg);
   led_handler_init(&led_handler,&led_need_arg);
   TIM_Config();   
-  //jump_to_app();
   /* Infinite loop */
   uint32_t flag = 0;
   while (1)
@@ -105,11 +103,14 @@ int main(void)
       {
             elog_i("INFO", "key press");            
             flag = 1;
-				    USART_SendChar(USART1,0xAA);
+            if(0!=Ymodem_Receive(temp_data))
+            {
+                jump_to_app();
+            }
       }
       if(flag)
       {
-          led_handler.led_breathring(&led_handler);
+          //led_handler.led_breathring(&led_handler);
          //led_handler.led_need_arg->led_ops->led_toggle(led_handler.led_need_arg->led_info->GPOIx,
           //       led_handler.led_need_arg->led_info->GPIO_Pin
            //      );

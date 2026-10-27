@@ -25,6 +25,7 @@
   
 /* Includes ------------------------------------------------------------------*/
 #include "common.h"
+#include "Flash.h"
 //#include "stm32f10x_flash.h"
 
 /* Private typedef -----------------------------------------------------------*/
@@ -149,7 +150,7 @@ int32_t Ymodem_Receive (uint8_t *buf)
   /* Initialize FlashDestination variable */
   FlashDestination = BackAppAddress;
 
-  for (session_done = 0, errors = 0, session_begin = 0; ;)//³õÊ¼»¯±äÁ¿£¬½øÈëÑ­»·
+  for (session_done = 0, errors = 0, session_begin = 0; ;)//Â³ÃµÃŠÂ¼Â»Â¯Â±Ã¤ÃÂ¿Â£Â¬Â½Ã¸ÃˆÃ«Ã‘Â­Â»Â·
   {
     for (packets_received = 0, file_done = 0, buf_ptr = buf; ;)
     {
@@ -203,13 +204,15 @@ int32_t Ymodem_Receive (uint8_t *buf)
                       Send_Byte(CA);
                       return -1;
                     }
+                    //æ“¦é™¤æ•°æ®
 
+                    Flash_erase(ApplicationAddress,size);                     
                     /* Erase the needed pages where the user application will be loaded */
                     /* Define the number of page to be erased */
 //                    NbrOfPage = FLASH_PagesMask(size);
 
                     /* Erase the FLASH pages */
-										//²Á³ıApp
+										//Â²ÃÂ³Ã½App
 //                    for (EraseCounter = 0; (EraseCounter < NbrOfPage) && (FLASHStatus == FLASH_COMPLETE); EraseCounter++)
 //                    {
 //                      FLASHStatus = FLASH_ErasePage(FlashDestination + (PageSize * EraseCounter));
@@ -229,23 +232,24 @@ int32_t Ymodem_Receive (uint8_t *buf)
                 /* Data packet */
                 else
                 {
-//                  memcpy(buf_ptr, packet_data + PACKET_HEADER, packet_length);
-//                  RamSource = (uint32_t)buf;
-//                  for (j = 0;(j < packet_length) && (FlashDestination <  BackAppAddress + size);j += 4)
-//                  {
-//                    /* Program the data received into STM32F10x Flash */
-//                    FLASH_ProgramWord(FlashDestination, *(uint32_t*)RamSource);
-
-//                    if (*(uint32_t*)FlashDestination != *(uint32_t*)RamSource)
-//                    {
-//                      /* End session */
-//                      Send_Byte(CA);
-//                      Send_Byte(CA);
-//                      return -2;
-//                    }
-//                    FlashDestination += 4;
-//                    RamSource += 4;
-//                  }
+                  memcpy(buf_ptr, packet_data + PACKET_HEADER, packet_length);
+                  RamSource = (uint32_t)buf;
+                  for (j = 0;(j < packet_length) && (FlashDestination <  BackAppAddress + size);j += 4)
+                  {
+                    /* Program the data received into STM32F10x Flash */
+                    //FLASH_ProgramWord(FlashDestination, *(uint32_t*)RamSource);
+                    Flash_Write(FlashDestination,*(uint32_t*)RamSource);
+                    if (*(uint32_t*)FlashDestination != *(uint32_t*)RamSource)
+                    {
+                      /* End session */
+                      Send_Byte(CA);
+                      Send_Byte(CA);
+                      return -2;
+                    }
+                    FlashDestination += 4;
+                    RamSource += 4;
+                  }
+                  
                   Send_Byte(ACK);
                 }
                 packets_received ++;
