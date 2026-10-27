@@ -117,12 +117,12 @@ void StartDefaultTask(void *argument)
   /* USER CODE BEGIN StartDefaultTask */
   /* Infinite loop */
 
-  elog_a("ASSERT","This assert");
-  elog_e("error","This error");
-  elog_w("WARN","This warn");
-  elog_i("INFO","This info");
-  elog_d("DEBUG","This debug");
-  elog_v("VERBOSE","This VERBOSE");
+//  elog_a("ASSERT","This assert");
+//  elog_e("error","This error");
+//  elog_w("WARN","This warn");
+//  elog_i("INFO","This info");
+//  elog_d("DEBUG","This debug");
+//  elog_v("VERBOSE","This VERBOSE");
   
   for(;;)
   {

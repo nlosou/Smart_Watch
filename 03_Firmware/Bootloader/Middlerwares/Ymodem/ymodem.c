@@ -40,6 +40,7 @@ uint32_t NbrOfPage = 0;
 FLASH_Status FLASHStatus = FLASH_COMPLETE;
 uint32_t RamSource;
 extern uint8_t tab_1024[1024];
+extern uint32_t app_size;
 
 /* Private function prototypes -----------------------------------------------*/
 /* Private functions ---------------------------------------------------------*/
@@ -204,19 +205,10 @@ int32_t Ymodem_Receive (uint8_t *buf)
                       Send_Byte(CA);
                       return -1;
                     }
+                    app_size = size;
                     //擦除数据
 
-                    Flash_erase(ApplicationAddress,size);                     
-                    /* Erase the needed pages where the user application will be loaded */
-                    /* Define the number of page to be erased */
-//                    NbrOfPage = FLASH_PagesMask(size);
-
-                    /* Erase the FLASH pages */
-										//²Á³ýApp
-//                    for (EraseCounter = 0; (EraseCounter < NbrOfPage) && (FLASHStatus == FLASH_COMPLETE); EraseCounter++)
-//                    {
-//                      FLASHStatus = FLASH_ErasePage(FlashDestination + (PageSize * EraseCounter));
-//                    }
+                    Flash_erase(BackAppAddress,size);                     
                     Send_Byte(ACK);
                     Send_Byte(CRC16);
                   }

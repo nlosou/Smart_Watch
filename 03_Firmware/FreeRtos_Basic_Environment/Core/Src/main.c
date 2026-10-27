@@ -68,16 +68,16 @@ void app_elog_init(void);
 int main(void)
 {
   /* USER CODE BEGIN 1 */
-	SysTick->CTRL = 0;      
-	HAL_DeInit();           
-	HAL_Init();             
+//	SysTick->CTRL = 0;      
+//	HAL_DeInit();      
+//	HAL_Init();	
 	__enable_irq();         
   /* USER CODE END 1 */
 
   /* MCU Configuration--------------------------------------------------------*/
 
   /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
-  HAL_Init();
+ 
 
   /* USER CODE BEGIN Init */
   //SEGGER_RTT_Init();
@@ -108,7 +108,10 @@ int main(void)
   /* We should never get here as control is now taken by the scheduler */
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-      while (1)
+	
+	
+	
+  while (1)
   {
     /* USER CODE END WHILE */
 		HAL_GPIO_TogglePin(Led_Red_GPIO_Port,Led_Red_Pin);

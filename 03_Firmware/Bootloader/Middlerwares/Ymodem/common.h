@@ -27,7 +27,7 @@ typedef  void (*pFunction)(void);
 //* 宏 ------------------------------------------------------------------------*/
 #define CMD_STRING_SIZE       128
 
-#define BackAppAddress     0x08008000   //下载的升级包存储位置
+#define BackAppAddress     0x08044000   //下载的升级包存储位置
 
 #define ApplicationAddress 0x08008000   //运行的APP存储位置
 //#if defined (STM32F10X_MD) || defined (STM32F10X_MD_VL)

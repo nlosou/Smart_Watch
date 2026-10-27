@@ -1,4 +1,5 @@
 #include "boot_manager.h"
+#include "Flash.h"
 
 
 /*! \brief 跳转
@@ -49,4 +50,32 @@ void jump_to_app(void)
         Jump_To_Application = (pFunction) JumpAddress;
         Jump_To_Application();
     }
+}
+
+
+/**
+ * @brief 备份区代码保存到运行区
+ */
+uint32_t app_size;
+int8_t back_to_app(void)
+{ 
+
+    if(app_size== 0)
+    {
+        return -1;
+    }
+    if(app_size> (BACK_FLASH_ADDR - APP_FLASH_ADDR)) 
+    {
+        return -1;
+    }
+    uint32_t app_address  = APP_FLASH_ADDR;
+    uint32_t back_address = BACK_FLASH_ADDR;
+
+    for( ; back_address<BACK_FLASH_ADDR + app_size; back_address+=4) 
+    {
+       Flash_Write(app_address,*(uint32_t*)back_address);  
+       app_address+=4;
+    }
+    return 0;
+
 }

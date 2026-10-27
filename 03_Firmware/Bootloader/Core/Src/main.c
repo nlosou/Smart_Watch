@@ -94,28 +94,32 @@ int main(void)
   USART_SendChar(USART1,0xAA);
   key_handler_init(&key_handler,&key_need_arg);
   led_handler_init(&led_handler,&led_need_arg);
-  TIM_Config();   
+  //TIM_Config();   
+  if(KEY_HANDLER_OK == key_handler.key_scan(&key_handler))
+  {
+        elog_i("INFO", "Start Download to back flash.......");            
+        Ymodem_Receive(temp_data);
+        back_to_app();
+  }
+
+  jump_to_app();
   /* Infinite loop */
-  uint32_t flag = 0;
   while (1)
   {
+      elog_e("ERROR","vail false,please press key to Download app");
       if(KEY_HANDLER_OK == key_handler.key_scan(&key_handler))
       {
-            elog_i("INFO", "key press");            
-            flag = 1;
-            if(0!=Ymodem_Receive(temp_data))
+            Ymodem_Receive(temp_data);
+            if(0 == back_to_app())
             {
                 jump_to_app();
             }
       }
-      if(flag)
+      else
       {
-          //led_handler.led_breathring(&led_handler);
-         //led_handler.led_need_arg->led_ops->led_toggle(led_handler.led_need_arg->led_info->GPOIx,
-          //       led_handler.led_need_arg->led_info->GPIO_Pin
-           //      );
+          Delay(50);
       }
-	}
+  }
 }
 
 /**
