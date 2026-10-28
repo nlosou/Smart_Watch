@@ -40,7 +40,7 @@ uint32_t NbrOfPage = 0;
 FLASH_Status FLASHStatus = FLASH_COMPLETE;
 uint32_t RamSource;
 extern uint8_t tab_1024[1024];
-extern uint32_t app_size;
+
 
 /* Private function prototypes -----------------------------------------------*/
 /* Private functions ---------------------------------------------------------*/
@@ -205,7 +205,7 @@ int32_t Ymodem_Receive (uint8_t *buf)
                       Send_Byte(CA);
                       return -1;
                     }
-                    app_size = size;
+                    
                     //擦除数据
 
                     Flash_erase(BackAppAddress,size);                     

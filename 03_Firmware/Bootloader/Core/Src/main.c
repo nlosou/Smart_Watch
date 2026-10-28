@@ -16,6 +16,8 @@
 #include "usart.h"
 #include "Flash.h"
 #include "ymodem.h"
+#include "AES.h"
+#include <string.h>
 // 全局定义 STM32F411xE 或者 STM32F401xx
 // 当前定义 STM32F411xE
 
@@ -95,13 +97,29 @@ int main(void)
   key_handler_init(&key_handler,&key_need_arg);
   led_handler_init(&led_handler,&led_need_arg);
   //TIM_Config();   
+  int32_t temp_app_size = 0;
   if(KEY_HANDLER_OK == key_handler.key_scan(&key_handler))
   {
         elog_i("INFO", "Start Download to back flash.......");            
-        Ymodem_Receive(temp_data);
-        back_to_app();
+        temp_app_size = Ymodem_Receive(temp_data);
+        back_to_app(temp_app_size);
   }
 
+#if 0
+unsigned char tmep[16];
+unsigned char descryptbuf[16];
+unsigned char AES128key[16] = "123456789abcdefa";//秘钥
+unsigned char AES_IV[16]= "0102030405123456";//向量表
+// 确保在解密前，把你要验证的那 16 个字节填进去
+unsigned char test_cipher[16] = {
+    0x45, 0x54, 0x77, 0x21, 0x70, 0x1D, 0xC7, 0x9C, 
+    0x5B, 0xAC, 0x5F, 0x02, 0xCD, 0xF1, 0x80, 0xD3
+};
+
+AES_Init(AES128key); // 确保初始化
+AES_Decrypt(test_cipher, descryptbuf, 16, AES_IV);
+	elog_i("Decrypt","%s",descryptbuf);
+#endif 
   jump_to_app();
   /* Infinite loop */
   while (1)
@@ -109,8 +127,8 @@ int main(void)
       elog_e("ERROR","vail false,please press key to Download app");
       if(KEY_HANDLER_OK == key_handler.key_scan(&key_handler))
       {
-            Ymodem_Receive(temp_data);
-            if(0 == back_to_app())
+            temp_app_size = Ymodem_Receive(temp_data);
+            if(0 == back_to_app(temp_app_size))
             {
                 jump_to_app();
             }

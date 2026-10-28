@@ -341,7 +341,7 @@
               <MiscControls></MiscControls>
               <Define>USE_STDPERIPH_DRIVER,STM32F411xE</Define>
               <Undefine></Undefine>
-              <IncludePath>..\MDK-ARM;..\Core\Inc;..\Drivers\STM32F4xx_StdPeriph_Driver\inc;..\Drivers\CMSIS\Device\ST\STM32F4xx\Include;..\Middlerwares\Segger_RTT\inc;..\Middlerwares\EasyLogger\inc;..\Task\Boot_Manager;..\Bsp\key;..\Bsp\Led;..\Bsp\Usart;..\Middlerwares\Ymodem;..\Bsp\Flash</IncludePath>
+              <IncludePath>..\MDK-ARM;..\Core\Inc;..\Drivers\STM32F4xx_StdPeriph_Driver\inc;..\Drivers\CMSIS\Device\ST\STM32F4xx\Include;..\Middlerwares\Segger_RTT\inc;..\Middlerwares\EasyLogger\inc;..\Task\Boot_Manager;..\Bsp\key;..\Bsp\Led;..\Bsp\Usart;..\Middlerwares\Ymodem;..\Bsp\Flash;..\Algo\AES</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -1677,6 +1677,16 @@
               <FileName>Flash.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\Bsp\Flash\Flash.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Algo/AES</GroupName>
+          <Files>
+            <File>
+              <FileName>AES.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Algo\AES\AES.c</FilePath>
             </File>
           </Files>
         </Group>

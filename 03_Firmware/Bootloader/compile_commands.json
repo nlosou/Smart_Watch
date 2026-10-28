@@ -1,6 +1,6 @@
 [
     {
-        "command": "arm-none-eabi-gcc -c /home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Core/Src/main.c -D__GNUC__ -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/MDK-ARM -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Core/Inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/CMSIS/Device/ST/STM32F4xx/Include -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Segger_RTT/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/EasyLogger/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Task/Boot_Manager -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/key -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Led -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash -DUSE_STDPERIPH_DRIVER -DSTM32F411xE",
+        "command": "arm-none-eabi-gcc -c /home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Core/Src/main.c -D__GNUC__ -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/MDK-ARM -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Core/Inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/CMSIS/Device/ST/STM32F4xx/Include -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Segger_RTT/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/EasyLogger/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Task/Boot_Manager -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/key -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Led -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Algo/AES -DUSE_STDPERIPH_DRIVER -DSTM32F411xE",
         "arguments": [
             "arm-none-eabi-gcc",
             "-c",
@@ -18,6 +18,7 @@
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart",
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem",
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash",
+            "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Algo/AES",
             "-DUSE_STDPERIPH_DRIVER",
             "-DSTM32F411xE"
         ],
@@ -25,7 +26,7 @@
         "file": "/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Core/Src/main.c"
     },
     {
-        "command": "arm-none-eabi-gcc -c /home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Core/Src/tim.c -D__GNUC__ -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/MDK-ARM -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Core/Inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/CMSIS/Device/ST/STM32F4xx/Include -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Segger_RTT/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/EasyLogger/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Task/Boot_Manager -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/key -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Led -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash -DUSE_STDPERIPH_DRIVER -DSTM32F411xE",
+        "command": "arm-none-eabi-gcc -c /home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Core/Src/tim.c -D__GNUC__ -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/MDK-ARM -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Core/Inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/CMSIS/Device/ST/STM32F4xx/Include -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Segger_RTT/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/EasyLogger/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Task/Boot_Manager -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/key -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Led -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Algo/AES -DUSE_STDPERIPH_DRIVER -DSTM32F411xE",
         "arguments": [
             "arm-none-eabi-gcc",
             "-c",
@@ -43,6 +44,7 @@
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart",
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem",
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash",
+            "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Algo/AES",
             "-DUSE_STDPERIPH_DRIVER",
             "-DSTM32F411xE"
         ],
@@ -50,7 +52,7 @@
         "file": "/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Core/Src/tim.c"
     },
     {
-        "command": "arm-none-eabi-gcc -c /home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Core/Src/gpio.c -D__GNUC__ -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/MDK-ARM -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Core/Inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/CMSIS/Device/ST/STM32F4xx/Include -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Segger_RTT/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/EasyLogger/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Task/Boot_Manager -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/key -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Led -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash -DUSE_STDPERIPH_DRIVER -DSTM32F411xE",
+        "command": "arm-none-eabi-gcc -c /home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Core/Src/gpio.c -D__GNUC__ -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/MDK-ARM -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Core/Inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/CMSIS/Device/ST/STM32F4xx/Include -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Segger_RTT/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/EasyLogger/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Task/Boot_Manager -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/key -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Led -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Algo/AES -DUSE_STDPERIPH_DRIVER -DSTM32F411xE",
         "arguments": [
             "arm-none-eabi-gcc",
             "-c",
@@ -68,6 +70,7 @@
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart",
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem",
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash",
+            "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Algo/AES",
             "-DUSE_STDPERIPH_DRIVER",
             "-DSTM32F411xE"
         ],
@@ -75,7 +78,7 @@
         "file": "/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Core/Src/gpio.c"
     },
     {
-        "command": "arm-none-eabi-gcc -c /home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Core/Src/stm32f4xx_it.c -D__GNUC__ -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/MDK-ARM -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Core/Inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/CMSIS/Device/ST/STM32F4xx/Include -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Segger_RTT/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/EasyLogger/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Task/Boot_Manager -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/key -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Led -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash -DUSE_STDPERIPH_DRIVER -DSTM32F411xE",
+        "command": "arm-none-eabi-gcc -c /home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Core/Src/stm32f4xx_it.c -D__GNUC__ -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/MDK-ARM -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Core/Inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/CMSIS/Device/ST/STM32F4xx/Include -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Segger_RTT/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/EasyLogger/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Task/Boot_Manager -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/key -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Led -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Algo/AES -DUSE_STDPERIPH_DRIVER -DSTM32F411xE",
         "arguments": [
             "arm-none-eabi-gcc",
             "-c",
@@ -93,6 +96,7 @@
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart",
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem",
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash",
+            "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Algo/AES",
             "-DUSE_STDPERIPH_DRIVER",
             "-DSTM32F411xE"
         ],
@@ -100,7 +104,7 @@
         "file": "/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Core/Src/stm32f4xx_it.c"
     },
     {
-        "command": "arm-none-eabi-gcc -c /home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Core/Inc/stm32f4xx_conf.h -D__GNUC__ -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/MDK-ARM -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Core/Inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/CMSIS/Device/ST/STM32F4xx/Include -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Segger_RTT/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/EasyLogger/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Task/Boot_Manager -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/key -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Led -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash -DUSE_STDPERIPH_DRIVER -DSTM32F411xE",
+        "command": "arm-none-eabi-gcc -c /home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Core/Inc/stm32f4xx_conf.h -D__GNUC__ -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/MDK-ARM -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Core/Inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/CMSIS/Device/ST/STM32F4xx/Include -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Segger_RTT/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/EasyLogger/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Task/Boot_Manager -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/key -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Led -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Algo/AES -DUSE_STDPERIPH_DRIVER -DSTM32F411xE",
         "arguments": [
             "arm-none-eabi-gcc",
             "-c",
@@ -118,6 +122,7 @@
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart",
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem",
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash",
+            "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Algo/AES",
             "-DUSE_STDPERIPH_DRIVER",
             "-DSTM32F411xE"
         ],
@@ -125,7 +130,7 @@
         "file": "/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Core/Inc/stm32f4xx_conf.h"
     },
     {
-        "command": "arm-none-eabi-gcc -c /home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/MDK-ARM/startup_stm32f411xe.s -D__GNUC__ -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/MDK-ARM -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Core/Inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/CMSIS/Device/ST/STM32F4xx/Include -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Segger_RTT/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/EasyLogger/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Task/Boot_Manager -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/key -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Led -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash -DUSE_STDPERIPH_DRIVER -DSTM32F411xE",
+        "command": "arm-none-eabi-gcc -c /home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/MDK-ARM/startup_stm32f411xe.s -D__GNUC__ -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/MDK-ARM -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Core/Inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/CMSIS/Device/ST/STM32F4xx/Include -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Segger_RTT/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/EasyLogger/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Task/Boot_Manager -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/key -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Led -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Algo/AES -DUSE_STDPERIPH_DRIVER -DSTM32F411xE",
         "arguments": [
             "arm-none-eabi-gcc",
             "-c",
@@ -143,6 +148,7 @@
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart",
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem",
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash",
+            "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Algo/AES",
             "-DUSE_STDPERIPH_DRIVER",
             "-DSTM32F411xE"
         ],
@@ -150,7 +156,7 @@
         "file": "/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/MDK-ARM/startup_stm32f411xe.s"
     },
     {
-        "command": "arm-none-eabi-gcc -c /home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Core/Src/system_stm32f4xx.c -D__GNUC__ -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/MDK-ARM -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Core/Inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/CMSIS/Device/ST/STM32F4xx/Include -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Segger_RTT/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/EasyLogger/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Task/Boot_Manager -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/key -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Led -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash -DUSE_STDPERIPH_DRIVER -DSTM32F411xE",
+        "command": "arm-none-eabi-gcc -c /home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Core/Src/system_stm32f4xx.c -D__GNUC__ -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/MDK-ARM -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Core/Inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/CMSIS/Device/ST/STM32F4xx/Include -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Segger_RTT/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/EasyLogger/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Task/Boot_Manager -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/key -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Led -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Algo/AES -DUSE_STDPERIPH_DRIVER -DSTM32F411xE",
         "arguments": [
             "arm-none-eabi-gcc",
             "-c",
@@ -168,6 +174,7 @@
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart",
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem",
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash",
+            "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Algo/AES",
             "-DUSE_STDPERIPH_DRIVER",
             "-DSTM32F411xE"
         ],
@@ -175,7 +182,7 @@
         "file": "/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Core/Src/system_stm32f4xx.c"
     },
     {
-        "command": "arm-none-eabi-gcc -c /home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/src/misc.c -D__GNUC__ -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/MDK-ARM -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Core/Inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/CMSIS/Device/ST/STM32F4xx/Include -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Segger_RTT/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/EasyLogger/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Task/Boot_Manager -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/key -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Led -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash -DUSE_STDPERIPH_DRIVER -DSTM32F411xE",
+        "command": "arm-none-eabi-gcc -c /home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/src/misc.c -D__GNUC__ -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/MDK-ARM -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Core/Inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/CMSIS/Device/ST/STM32F4xx/Include -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Segger_RTT/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/EasyLogger/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Task/Boot_Manager -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/key -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Led -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Algo/AES -DUSE_STDPERIPH_DRIVER -DSTM32F411xE",
         "arguments": [
             "arm-none-eabi-gcc",
             "-c",
@@ -193,6 +200,7 @@
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart",
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem",
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash",
+            "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Algo/AES",
             "-DUSE_STDPERIPH_DRIVER",
             "-DSTM32F411xE"
         ],
@@ -200,7 +208,7 @@
         "file": "/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/src/misc.c"
     },
     {
-        "command": "arm-none-eabi-gcc -c /home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_adc.c -D__GNUC__ -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/MDK-ARM -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Core/Inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/CMSIS/Device/ST/STM32F4xx/Include -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Segger_RTT/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/EasyLogger/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Task/Boot_Manager -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/key -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Led -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash -DUSE_STDPERIPH_DRIVER -DSTM32F411xE",
+        "command": "arm-none-eabi-gcc -c /home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_adc.c -D__GNUC__ -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/MDK-ARM -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Core/Inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/CMSIS/Device/ST/STM32F4xx/Include -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Segger_RTT/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/EasyLogger/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Task/Boot_Manager -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/key -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Led -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Algo/AES -DUSE_STDPERIPH_DRIVER -DSTM32F411xE",
         "arguments": [
             "arm-none-eabi-gcc",
             "-c",
@@ -218,6 +226,7 @@
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart",
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem",
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash",
+            "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Algo/AES",
             "-DUSE_STDPERIPH_DRIVER",
             "-DSTM32F411xE"
         ],
@@ -225,7 +234,7 @@
         "file": "/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_adc.c"
     },
     {
-        "command": "arm-none-eabi-gcc -c /home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_can.c -D__GNUC__ -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/MDK-ARM -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Core/Inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/CMSIS/Device/ST/STM32F4xx/Include -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Segger_RTT/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/EasyLogger/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Task/Boot_Manager -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/key -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Led -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash -DUSE_STDPERIPH_DRIVER -DSTM32F411xE",
+        "command": "arm-none-eabi-gcc -c /home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_can.c -D__GNUC__ -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/MDK-ARM -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Core/Inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/CMSIS/Device/ST/STM32F4xx/Include -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Segger_RTT/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/EasyLogger/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Task/Boot_Manager -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/key -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Led -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Algo/AES -DUSE_STDPERIPH_DRIVER -DSTM32F411xE",
         "arguments": [
             "arm-none-eabi-gcc",
             "-c",
@@ -243,6 +252,7 @@
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart",
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem",
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash",
+            "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Algo/AES",
             "-DUSE_STDPERIPH_DRIVER",
             "-DSTM32F411xE"
         ],
@@ -250,7 +260,7 @@
         "file": "/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_can.c"
     },
     {
-        "command": "arm-none-eabi-gcc -c /home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_cec.c -D__GNUC__ -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/MDK-ARM -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Core/Inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/CMSIS/Device/ST/STM32F4xx/Include -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Segger_RTT/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/EasyLogger/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Task/Boot_Manager -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/key -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Led -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash -DUSE_STDPERIPH_DRIVER -DSTM32F411xE",
+        "command": "arm-none-eabi-gcc -c /home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_cec.c -D__GNUC__ -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/MDK-ARM -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Core/Inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/CMSIS/Device/ST/STM32F4xx/Include -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Segger_RTT/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/EasyLogger/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Task/Boot_Manager -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/key -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Led -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Algo/AES -DUSE_STDPERIPH_DRIVER -DSTM32F411xE",
         "arguments": [
             "arm-none-eabi-gcc",
             "-c",
@@ -268,6 +278,7 @@
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart",
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem",
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash",
+            "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Algo/AES",
             "-DUSE_STDPERIPH_DRIVER",
             "-DSTM32F411xE"
         ],
@@ -275,7 +286,7 @@
         "file": "/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_cec.c"
     },
     {
-        "command": "arm-none-eabi-gcc -c /home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_crc.c -D__GNUC__ -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/MDK-ARM -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Core/Inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/CMSIS/Device/ST/STM32F4xx/Include -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Segger_RTT/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/EasyLogger/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Task/Boot_Manager -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/key -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Led -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash -DUSE_STDPERIPH_DRIVER -DSTM32F411xE",
+        "command": "arm-none-eabi-gcc -c /home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_crc.c -D__GNUC__ -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/MDK-ARM -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Core/Inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/CMSIS/Device/ST/STM32F4xx/Include -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Segger_RTT/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/EasyLogger/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Task/Boot_Manager -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/key -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Led -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Algo/AES -DUSE_STDPERIPH_DRIVER -DSTM32F411xE",
         "arguments": [
             "arm-none-eabi-gcc",
             "-c",
@@ -293,6 +304,7 @@
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart",
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem",
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash",
+            "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Algo/AES",
             "-DUSE_STDPERIPH_DRIVER",
             "-DSTM32F411xE"
         ],
@@ -300,7 +312,7 @@
         "file": "/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_crc.c"
     },
     {
-        "command": "arm-none-eabi-gcc -c /home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_cryp.c -D__GNUC__ -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/MDK-ARM -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Core/Inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/CMSIS/Device/ST/STM32F4xx/Include -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Segger_RTT/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/EasyLogger/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Task/Boot_Manager -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/key -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Led -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash -DUSE_STDPERIPH_DRIVER -DSTM32F411xE",
+        "command": "arm-none-eabi-gcc -c /home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_cryp.c -D__GNUC__ -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/MDK-ARM -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Core/Inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/CMSIS/Device/ST/STM32F4xx/Include -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Segger_RTT/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/EasyLogger/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Task/Boot_Manager -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/key -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Led -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Algo/AES -DUSE_STDPERIPH_DRIVER -DSTM32F411xE",
         "arguments": [
             "arm-none-eabi-gcc",
             "-c",
@@ -318,6 +330,7 @@
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart",
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem",
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash",
+            "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Algo/AES",
             "-DUSE_STDPERIPH_DRIVER",
             "-DSTM32F411xE"
         ],
@@ -325,7 +338,7 @@
         "file": "/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_cryp.c"
     },
     {
-        "command": "arm-none-eabi-gcc -c /home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_cryp_aes.c -D__GNUC__ -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/MDK-ARM -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Core/Inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/CMSIS/Device/ST/STM32F4xx/Include -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Segger_RTT/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/EasyLogger/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Task/Boot_Manager -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/key -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Led -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash -DUSE_STDPERIPH_DRIVER -DSTM32F411xE",
+        "command": "arm-none-eabi-gcc -c /home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_cryp_aes.c -D__GNUC__ -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/MDK-ARM -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Core/Inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/CMSIS/Device/ST/STM32F4xx/Include -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Segger_RTT/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/EasyLogger/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Task/Boot_Manager -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/key -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Led -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Algo/AES -DUSE_STDPERIPH_DRIVER -DSTM32F411xE",
         "arguments": [
             "arm-none-eabi-gcc",
             "-c",
@@ -343,6 +356,7 @@
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart",
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem",
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash",
+            "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Algo/AES",
             "-DUSE_STDPERIPH_DRIVER",
             "-DSTM32F411xE"
         ],
@@ -350,7 +364,7 @@
         "file": "/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_cryp_aes.c"
     },
     {
-        "command": "arm-none-eabi-gcc -c /home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_cryp_des.c -D__GNUC__ -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/MDK-ARM -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Core/Inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/CMSIS/Device/ST/STM32F4xx/Include -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Segger_RTT/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/EasyLogger/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Task/Boot_Manager -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/key -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Led -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash -DUSE_STDPERIPH_DRIVER -DSTM32F411xE",
+        "command": "arm-none-eabi-gcc -c /home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_cryp_des.c -D__GNUC__ -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/MDK-ARM -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Core/Inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/CMSIS/Device/ST/STM32F4xx/Include -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Segger_RTT/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/EasyLogger/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Task/Boot_Manager -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/key -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Led -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Algo/AES -DUSE_STDPERIPH_DRIVER -DSTM32F411xE",
         "arguments": [
             "arm-none-eabi-gcc",
             "-c",
@@ -368,6 +382,7 @@
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart",
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem",
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash",
+            "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Algo/AES",
             "-DUSE_STDPERIPH_DRIVER",
             "-DSTM32F411xE"
         ],
@@ -375,7 +390,7 @@
         "file": "/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_cryp_des.c"
     },
     {
-        "command": "arm-none-eabi-gcc -c /home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_cryp_tdes.c -D__GNUC__ -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/MDK-ARM -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Core/Inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/CMSIS/Device/ST/STM32F4xx/Include -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Segger_RTT/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/EasyLogger/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Task/Boot_Manager -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/key -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Led -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash -DUSE_STDPERIPH_DRIVER -DSTM32F411xE",
+        "command": "arm-none-eabi-gcc -c /home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_cryp_tdes.c -D__GNUC__ -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/MDK-ARM -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Core/Inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/CMSIS/Device/ST/STM32F4xx/Include -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Segger_RTT/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/EasyLogger/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Task/Boot_Manager -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/key -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Led -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Algo/AES -DUSE_STDPERIPH_DRIVER -DSTM32F411xE",
         "arguments": [
             "arm-none-eabi-gcc",
             "-c",
@@ -393,6 +408,7 @@
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart",
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem",
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash",
+            "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Algo/AES",
             "-DUSE_STDPERIPH_DRIVER",
             "-DSTM32F411xE"
         ],
@@ -400,7 +416,7 @@
         "file": "/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_cryp_tdes.c"
     },
     {
-        "command": "arm-none-eabi-gcc -c /home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c -D__GNUC__ -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/MDK-ARM -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Core/Inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/CMSIS/Device/ST/STM32F4xx/Include -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Segger_RTT/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/EasyLogger/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Task/Boot_Manager -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/key -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Led -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash -DUSE_STDPERIPH_DRIVER -DSTM32F411xE",
+        "command": "arm-none-eabi-gcc -c /home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c -D__GNUC__ -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/MDK-ARM -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Core/Inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/CMSIS/Device/ST/STM32F4xx/Include -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Segger_RTT/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/EasyLogger/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Task/Boot_Manager -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/key -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Led -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Algo/AES -DUSE_STDPERIPH_DRIVER -DSTM32F411xE",
         "arguments": [
             "arm-none-eabi-gcc",
             "-c",
@@ -418,6 +434,7 @@
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart",
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem",
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash",
+            "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Algo/AES",
             "-DUSE_STDPERIPH_DRIVER",
             "-DSTM32F411xE"
         ],
@@ -425,7 +442,7 @@
         "file": "/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c"
     },
     {
-        "command": "arm-none-eabi-gcc -c /home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c -D__GNUC__ -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/MDK-ARM -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Core/Inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/CMSIS/Device/ST/STM32F4xx/Include -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Segger_RTT/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/EasyLogger/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Task/Boot_Manager -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/key -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Led -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash -DUSE_STDPERIPH_DRIVER -DSTM32F411xE",
+        "command": "arm-none-eabi-gcc -c /home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c -D__GNUC__ -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/MDK-ARM -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Core/Inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/CMSIS/Device/ST/STM32F4xx/Include -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Segger_RTT/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/EasyLogger/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Task/Boot_Manager -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/key -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Led -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Algo/AES -DUSE_STDPERIPH_DRIVER -DSTM32F411xE",
         "arguments": [
             "arm-none-eabi-gcc",
             "-c",
@@ -443,6 +460,7 @@
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart",
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem",
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash",
+            "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Algo/AES",
             "-DUSE_STDPERIPH_DRIVER",
             "-DSTM32F411xE"
         ],
@@ -450,7 +468,7 @@
         "file": "/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c"
     },
     {
-        "command": "arm-none-eabi-gcc -c /home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dcmi.c -D__GNUC__ -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/MDK-ARM -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Core/Inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/CMSIS/Device/ST/STM32F4xx/Include -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Segger_RTT/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/EasyLogger/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Task/Boot_Manager -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/key -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Led -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash -DUSE_STDPERIPH_DRIVER -DSTM32F411xE",
+        "command": "arm-none-eabi-gcc -c /home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dcmi.c -D__GNUC__ -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/MDK-ARM -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Core/Inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/CMSIS/Device/ST/STM32F4xx/Include -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Segger_RTT/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/EasyLogger/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Task/Boot_Manager -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/key -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Led -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Algo/AES -DUSE_STDPERIPH_DRIVER -DSTM32F411xE",
         "arguments": [
             "arm-none-eabi-gcc",
             "-c",
@@ -468,6 +486,7 @@
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart",
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem",
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash",
+            "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Algo/AES",
             "-DUSE_STDPERIPH_DRIVER",
             "-DSTM32F411xE"
         ],
@@ -475,7 +494,7 @@
         "file": "/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dcmi.c"
     },
     {
-        "command": "arm-none-eabi-gcc -c /home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dfsdm.c -D__GNUC__ -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/MDK-ARM -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Core/Inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/CMSIS/Device/ST/STM32F4xx/Include -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Segger_RTT/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/EasyLogger/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Task/Boot_Manager -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/key -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Led -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash -DUSE_STDPERIPH_DRIVER -DSTM32F411xE",
+        "command": "arm-none-eabi-gcc -c /home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dfsdm.c -D__GNUC__ -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/MDK-ARM -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Core/Inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/CMSIS/Device/ST/STM32F4xx/Include -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Segger_RTT/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/EasyLogger/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Task/Boot_Manager -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/key -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Led -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Algo/AES -DUSE_STDPERIPH_DRIVER -DSTM32F411xE",
         "arguments": [
             "arm-none-eabi-gcc",
             "-c",
@@ -493,6 +512,7 @@
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart",
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem",
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash",
+            "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Algo/AES",
             "-DUSE_STDPERIPH_DRIVER",
             "-DSTM32F411xE"
         ],
@@ -500,7 +520,7 @@
         "file": "/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dfsdm.c"
     },
     {
-        "command": "arm-none-eabi-gcc -c /home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dma.c -D__GNUC__ -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/MDK-ARM -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Core/Inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/CMSIS/Device/ST/STM32F4xx/Include -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Segger_RTT/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/EasyLogger/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Task/Boot_Manager -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/key -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Led -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash -DUSE_STDPERIPH_DRIVER -DSTM32F411xE",
+        "command": "arm-none-eabi-gcc -c /home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dma.c -D__GNUC__ -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/MDK-ARM -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Core/Inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/CMSIS/Device/ST/STM32F4xx/Include -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Segger_RTT/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/EasyLogger/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Task/Boot_Manager -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/key -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Led -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Algo/AES -DUSE_STDPERIPH_DRIVER -DSTM32F411xE",
         "arguments": [
             "arm-none-eabi-gcc",
             "-c",
@@ -518,6 +538,7 @@
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart",
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem",
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash",
+            "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Algo/AES",
             "-DUSE_STDPERIPH_DRIVER",
             "-DSTM32F411xE"
         ],
@@ -525,7 +546,7 @@
         "file": "/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dma.c"
     },
     {
-        "command": "arm-none-eabi-gcc -c /home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dma2d.c -D__GNUC__ -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/MDK-ARM -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Core/Inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/CMSIS/Device/ST/STM32F4xx/Include -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Segger_RTT/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/EasyLogger/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Task/Boot_Manager -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/key -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Led -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash -DUSE_STDPERIPH_DRIVER -DSTM32F411xE",
+        "command": "arm-none-eabi-gcc -c /home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dma2d.c -D__GNUC__ -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/MDK-ARM -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Core/Inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/CMSIS/Device/ST/STM32F4xx/Include -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Segger_RTT/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/EasyLogger/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Task/Boot_Manager -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/key -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Led -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Algo/AES -DUSE_STDPERIPH_DRIVER -DSTM32F411xE",
         "arguments": [
             "arm-none-eabi-gcc",
             "-c",
@@ -543,6 +564,7 @@
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart",
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem",
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash",
+            "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Algo/AES",
             "-DUSE_STDPERIPH_DRIVER",
             "-DSTM32F411xE"
         ],
@@ -550,7 +572,7 @@
         "file": "/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dma2d.c"
     },
     {
-        "command": "arm-none-eabi-gcc -c /home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dsi.c -D__GNUC__ -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/MDK-ARM -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Core/Inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/CMSIS/Device/ST/STM32F4xx/Include -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Segger_RTT/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/EasyLogger/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Task/Boot_Manager -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/key -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Led -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash -DUSE_STDPERIPH_DRIVER -DSTM32F411xE",
+        "command": "arm-none-eabi-gcc -c /home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dsi.c -D__GNUC__ -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/MDK-ARM -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Core/Inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/CMSIS/Device/ST/STM32F4xx/Include -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Segger_RTT/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/EasyLogger/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Task/Boot_Manager -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/key -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Led -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Algo/AES -DUSE_STDPERIPH_DRIVER -DSTM32F411xE",
         "arguments": [
             "arm-none-eabi-gcc",
             "-c",
@@ -568,6 +590,7 @@
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart",
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem",
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash",
+            "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Algo/AES",
             "-DUSE_STDPERIPH_DRIVER",
             "-DSTM32F411xE"
         ],
@@ -575,7 +598,7 @@
         "file": "/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dsi.c"
     },
     {
-        "command": "arm-none-eabi-gcc -c /home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_exti.c -D__GNUC__ -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/MDK-ARM -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Core/Inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/CMSIS/Device/ST/STM32F4xx/Include -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Segger_RTT/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/EasyLogger/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Task/Boot_Manager -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/key -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Led -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash -DUSE_STDPERIPH_DRIVER -DSTM32F411xE",
+        "command": "arm-none-eabi-gcc -c /home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_exti.c -D__GNUC__ -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/MDK-ARM -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Core/Inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/CMSIS/Device/ST/STM32F4xx/Include -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Segger_RTT/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/EasyLogger/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Task/Boot_Manager -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/key -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Led -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Algo/AES -DUSE_STDPERIPH_DRIVER -DSTM32F411xE",
         "arguments": [
             "arm-none-eabi-gcc",
             "-c",
@@ -593,6 +616,7 @@
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart",
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem",
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash",
+            "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Algo/AES",
             "-DUSE_STDPERIPH_DRIVER",
             "-DSTM32F411xE"
         ],
@@ -600,7 +624,7 @@
         "file": "/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_exti.c"
     },
     {
-        "command": "arm-none-eabi-gcc -c /home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_flash.c -D__GNUC__ -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/MDK-ARM -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Core/Inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/CMSIS/Device/ST/STM32F4xx/Include -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Segger_RTT/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/EasyLogger/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Task/Boot_Manager -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/key -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Led -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash -DUSE_STDPERIPH_DRIVER -DSTM32F411xE",
+        "command": "arm-none-eabi-gcc -c /home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_flash.c -D__GNUC__ -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/MDK-ARM -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Core/Inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/CMSIS/Device/ST/STM32F4xx/Include -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Segger_RTT/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/EasyLogger/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Task/Boot_Manager -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/key -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Led -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Algo/AES -DUSE_STDPERIPH_DRIVER -DSTM32F411xE",
         "arguments": [
             "arm-none-eabi-gcc",
             "-c",
@@ -618,6 +642,7 @@
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart",
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem",
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash",
+            "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Algo/AES",
             "-DUSE_STDPERIPH_DRIVER",
             "-DSTM32F411xE"
         ],
@@ -625,7 +650,7 @@
         "file": "/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_flash.c"
     },
     {
-        "command": "arm-none-eabi-gcc -c /home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_flash_ramfunc.c -D__GNUC__ -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/MDK-ARM -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Core/Inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/CMSIS/Device/ST/STM32F4xx/Include -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Segger_RTT/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/EasyLogger/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Task/Boot_Manager -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/key -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Led -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash -DUSE_STDPERIPH_DRIVER -DSTM32F411xE",
+        "command": "arm-none-eabi-gcc -c /home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_flash_ramfunc.c -D__GNUC__ -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/MDK-ARM -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Core/Inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/CMSIS/Device/ST/STM32F4xx/Include -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Segger_RTT/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/EasyLogger/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Task/Boot_Manager -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/key -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Led -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Algo/AES -DUSE_STDPERIPH_DRIVER -DSTM32F411xE",
         "arguments": [
             "arm-none-eabi-gcc",
             "-c",
@@ -643,6 +668,7 @@
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart",
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem",
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash",
+            "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Algo/AES",
             "-DUSE_STDPERIPH_DRIVER",
             "-DSTM32F411xE"
         ],
@@ -650,7 +676,7 @@
         "file": "/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_flash_ramfunc.c"
     },
     {
-        "command": "arm-none-eabi-gcc -c /home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_fmc.c -D__GNUC__ -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/MDK-ARM -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Core/Inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/CMSIS/Device/ST/STM32F4xx/Include -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Segger_RTT/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/EasyLogger/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Task/Boot_Manager -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/key -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Led -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash -DUSE_STDPERIPH_DRIVER -DSTM32F411xE",
+        "command": "arm-none-eabi-gcc -c /home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_fmc.c -D__GNUC__ -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/MDK-ARM -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Core/Inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/CMSIS/Device/ST/STM32F4xx/Include -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Segger_RTT/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/EasyLogger/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Task/Boot_Manager -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/key -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Led -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Algo/AES -DUSE_STDPERIPH_DRIVER -DSTM32F411xE",
         "arguments": [
             "arm-none-eabi-gcc",
             "-c",
@@ -668,6 +694,7 @@
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart",
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem",
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash",
+            "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Algo/AES",
             "-DUSE_STDPERIPH_DRIVER",
             "-DSTM32F411xE"
         ],
@@ -675,7 +702,7 @@
         "file": "/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_fmc.c"
     },
     {
-        "command": "arm-none-eabi-gcc -c /home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_fmpi2c.c -D__GNUC__ -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/MDK-ARM -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Core/Inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/CMSIS/Device/ST/STM32F4xx/Include -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Segger_RTT/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/EasyLogger/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Task/Boot_Manager -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/key -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Led -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash -DUSE_STDPERIPH_DRIVER -DSTM32F411xE",
+        "command": "arm-none-eabi-gcc -c /home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_fmpi2c.c -D__GNUC__ -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/MDK-ARM -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Core/Inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/CMSIS/Device/ST/STM32F4xx/Include -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Segger_RTT/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/EasyLogger/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Task/Boot_Manager -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/key -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Led -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Algo/AES -DUSE_STDPERIPH_DRIVER -DSTM32F411xE",
         "arguments": [
             "arm-none-eabi-gcc",
             "-c",
@@ -693,6 +720,7 @@
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart",
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem",
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash",
+            "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Algo/AES",
             "-DUSE_STDPERIPH_DRIVER",
             "-DSTM32F411xE"
         ],
@@ -700,7 +728,7 @@
         "file": "/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_fmpi2c.c"
     },
     {
-        "command": "arm-none-eabi-gcc -c /home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_fsmc.c -D__GNUC__ -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/MDK-ARM -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Core/Inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/CMSIS/Device/ST/STM32F4xx/Include -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Segger_RTT/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/EasyLogger/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Task/Boot_Manager -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/key -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Led -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash -DUSE_STDPERIPH_DRIVER -DSTM32F411xE",
+        "command": "arm-none-eabi-gcc -c /home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_fsmc.c -D__GNUC__ -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/MDK-ARM -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Core/Inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/CMSIS/Device/ST/STM32F4xx/Include -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Segger_RTT/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/EasyLogger/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Task/Boot_Manager -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/key -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Led -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Algo/AES -DUSE_STDPERIPH_DRIVER -DSTM32F411xE",
         "arguments": [
             "arm-none-eabi-gcc",
             "-c",
@@ -718,6 +746,7 @@
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart",
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem",
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash",
+            "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Algo/AES",
             "-DUSE_STDPERIPH_DRIVER",
             "-DSTM32F411xE"
         ],
@@ -725,7 +754,7 @@
         "file": "/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_fsmc.c"
     },
     {
-        "command": "arm-none-eabi-gcc -c /home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_gpio.c -D__GNUC__ -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/MDK-ARM -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Core/Inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/CMSIS/Device/ST/STM32F4xx/Include -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Segger_RTT/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/EasyLogger/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Task/Boot_Manager -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/key -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Led -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash -DUSE_STDPERIPH_DRIVER -DSTM32F411xE",
+        "command": "arm-none-eabi-gcc -c /home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_gpio.c -D__GNUC__ -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/MDK-ARM -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Core/Inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/CMSIS/Device/ST/STM32F4xx/Include -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Segger_RTT/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/EasyLogger/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Task/Boot_Manager -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/key -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Led -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Algo/AES -DUSE_STDPERIPH_DRIVER -DSTM32F411xE",
         "arguments": [
             "arm-none-eabi-gcc",
             "-c",
@@ -743,6 +772,7 @@
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart",
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem",
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash",
+            "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Algo/AES",
             "-DUSE_STDPERIPH_DRIVER",
             "-DSTM32F411xE"
         ],
@@ -750,7 +780,7 @@
         "file": "/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_gpio.c"
     },
     {
-        "command": "arm-none-eabi-gcc -c /home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_hash.c -D__GNUC__ -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/MDK-ARM -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Core/Inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/CMSIS/Device/ST/STM32F4xx/Include -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Segger_RTT/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/EasyLogger/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Task/Boot_Manager -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/key -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Led -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash -DUSE_STDPERIPH_DRIVER -DSTM32F411xE",
+        "command": "arm-none-eabi-gcc -c /home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_hash.c -D__GNUC__ -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/MDK-ARM -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Core/Inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/CMSIS/Device/ST/STM32F4xx/Include -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Segger_RTT/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/EasyLogger/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Task/Boot_Manager -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/key -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Led -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Algo/AES -DUSE_STDPERIPH_DRIVER -DSTM32F411xE",
         "arguments": [
             "arm-none-eabi-gcc",
             "-c",
@@ -768,6 +798,7 @@
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart",
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem",
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash",
+            "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Algo/AES",
             "-DUSE_STDPERIPH_DRIVER",
             "-DSTM32F411xE"
         ],
@@ -775,7 +806,7 @@
         "file": "/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_hash.c"
     },
     {
-        "command": "arm-none-eabi-gcc -c /home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_hash_md5.c -D__GNUC__ -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/MDK-ARM -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Core/Inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/CMSIS/Device/ST/STM32F4xx/Include -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Segger_RTT/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/EasyLogger/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Task/Boot_Manager -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/key -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Led -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash -DUSE_STDPERIPH_DRIVER -DSTM32F411xE",
+        "command": "arm-none-eabi-gcc -c /home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_hash_md5.c -D__GNUC__ -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/MDK-ARM -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Core/Inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/CMSIS/Device/ST/STM32F4xx/Include -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Segger_RTT/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/EasyLogger/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Task/Boot_Manager -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/key -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Led -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Algo/AES -DUSE_STDPERIPH_DRIVER -DSTM32F411xE",
         "arguments": [
             "arm-none-eabi-gcc",
             "-c",
@@ -793,6 +824,7 @@
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart",
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem",
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash",
+            "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Algo/AES",
             "-DUSE_STDPERIPH_DRIVER",
             "-DSTM32F411xE"
         ],
@@ -800,7 +832,7 @@
         "file": "/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_hash_md5.c"
     },
     {
-        "command": "arm-none-eabi-gcc -c /home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_hash_sha1.c -D__GNUC__ -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/MDK-ARM -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Core/Inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/CMSIS/Device/ST/STM32F4xx/Include -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Segger_RTT/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/EasyLogger/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Task/Boot_Manager -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/key -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Led -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash -DUSE_STDPERIPH_DRIVER -DSTM32F411xE",
+        "command": "arm-none-eabi-gcc -c /home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_hash_sha1.c -D__GNUC__ -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/MDK-ARM -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Core/Inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/CMSIS/Device/ST/STM32F4xx/Include -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Segger_RTT/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/EasyLogger/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Task/Boot_Manager -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/key -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Led -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Algo/AES -DUSE_STDPERIPH_DRIVER -DSTM32F411xE",
         "arguments": [
             "arm-none-eabi-gcc",
             "-c",
@@ -818,6 +850,7 @@
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart",
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem",
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash",
+            "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Algo/AES",
             "-DUSE_STDPERIPH_DRIVER",
             "-DSTM32F411xE"
         ],
@@ -825,7 +858,7 @@
         "file": "/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_hash_sha1.c"
     },
     {
-        "command": "arm-none-eabi-gcc -c /home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_i2c.c -D__GNUC__ -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/MDK-ARM -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Core/Inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/CMSIS/Device/ST/STM32F4xx/Include -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Segger_RTT/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/EasyLogger/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Task/Boot_Manager -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/key -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Led -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash -DUSE_STDPERIPH_DRIVER -DSTM32F411xE",
+        "command": "arm-none-eabi-gcc -c /home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_i2c.c -D__GNUC__ -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/MDK-ARM -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Core/Inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/CMSIS/Device/ST/STM32F4xx/Include -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Segger_RTT/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/EasyLogger/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Task/Boot_Manager -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/key -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Led -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Algo/AES -DUSE_STDPERIPH_DRIVER -DSTM32F411xE",
         "arguments": [
             "arm-none-eabi-gcc",
             "-c",
@@ -843,6 +876,7 @@
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart",
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem",
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash",
+            "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Algo/AES",
             "-DUSE_STDPERIPH_DRIVER",
             "-DSTM32F411xE"
         ],
@@ -850,7 +884,7 @@
         "file": "/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_i2c.c"
     },
     {
-        "command": "arm-none-eabi-gcc -c /home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_iwdg.c -D__GNUC__ -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/MDK-ARM -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Core/Inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/CMSIS/Device/ST/STM32F4xx/Include -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Segger_RTT/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/EasyLogger/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Task/Boot_Manager -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/key -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Led -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash -DUSE_STDPERIPH_DRIVER -DSTM32F411xE",
+        "command": "arm-none-eabi-gcc -c /home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_iwdg.c -D__GNUC__ -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/MDK-ARM -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Core/Inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/CMSIS/Device/ST/STM32F4xx/Include -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Segger_RTT/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/EasyLogger/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Task/Boot_Manager -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/key -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Led -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Algo/AES -DUSE_STDPERIPH_DRIVER -DSTM32F411xE",
         "arguments": [
             "arm-none-eabi-gcc",
             "-c",
@@ -868,6 +902,7 @@
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart",
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem",
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash",
+            "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Algo/AES",
             "-DUSE_STDPERIPH_DRIVER",
             "-DSTM32F411xE"
         ],
@@ -875,7 +910,7 @@
         "file": "/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_iwdg.c"
     },
     {
-        "command": "arm-none-eabi-gcc -c /home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_lptim.c -D__GNUC__ -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/MDK-ARM -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Core/Inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/CMSIS/Device/ST/STM32F4xx/Include -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Segger_RTT/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/EasyLogger/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Task/Boot_Manager -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/key -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Led -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash -DUSE_STDPERIPH_DRIVER -DSTM32F411xE",
+        "command": "arm-none-eabi-gcc -c /home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_lptim.c -D__GNUC__ -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/MDK-ARM -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Core/Inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/CMSIS/Device/ST/STM32F4xx/Include -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Segger_RTT/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/EasyLogger/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Task/Boot_Manager -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/key -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Led -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Algo/AES -DUSE_STDPERIPH_DRIVER -DSTM32F411xE",
         "arguments": [
             "arm-none-eabi-gcc",
             "-c",
@@ -893,6 +928,7 @@
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart",
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem",
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash",
+            "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Algo/AES",
             "-DUSE_STDPERIPH_DRIVER",
             "-DSTM32F411xE"
         ],
@@ -900,7 +936,7 @@
         "file": "/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_lptim.c"
     },
     {
-        "command": "arm-none-eabi-gcc -c /home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_ltdc.c -D__GNUC__ -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/MDK-ARM -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Core/Inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/CMSIS/Device/ST/STM32F4xx/Include -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Segger_RTT/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/EasyLogger/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Task/Boot_Manager -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/key -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Led -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash -DUSE_STDPERIPH_DRIVER -DSTM32F411xE",
+        "command": "arm-none-eabi-gcc -c /home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_ltdc.c -D__GNUC__ -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/MDK-ARM -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Core/Inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/CMSIS/Device/ST/STM32F4xx/Include -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Segger_RTT/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/EasyLogger/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Task/Boot_Manager -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/key -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Led -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Algo/AES -DUSE_STDPERIPH_DRIVER -DSTM32F411xE",
         "arguments": [
             "arm-none-eabi-gcc",
             "-c",
@@ -918,6 +954,7 @@
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart",
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem",
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash",
+            "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Algo/AES",
             "-DUSE_STDPERIPH_DRIVER",
             "-DSTM32F411xE"
         ],
@@ -925,7 +962,7 @@
         "file": "/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_ltdc.c"
     },
     {
-        "command": "arm-none-eabi-gcc -c /home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_pwr.c -D__GNUC__ -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/MDK-ARM -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Core/Inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/CMSIS/Device/ST/STM32F4xx/Include -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Segger_RTT/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/EasyLogger/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Task/Boot_Manager -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/key -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Led -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash -DUSE_STDPERIPH_DRIVER -DSTM32F411xE",
+        "command": "arm-none-eabi-gcc -c /home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_pwr.c -D__GNUC__ -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/MDK-ARM -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Core/Inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/CMSIS/Device/ST/STM32F4xx/Include -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Segger_RTT/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/EasyLogger/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Task/Boot_Manager -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/key -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Led -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Algo/AES -DUSE_STDPERIPH_DRIVER -DSTM32F411xE",
         "arguments": [
             "arm-none-eabi-gcc",
             "-c",
@@ -943,6 +980,7 @@
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart",
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem",
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash",
+            "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Algo/AES",
             "-DUSE_STDPERIPH_DRIVER",
             "-DSTM32F411xE"
         ],
@@ -950,7 +988,7 @@
         "file": "/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_pwr.c"
     },
     {
-        "command": "arm-none-eabi-gcc -c /home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_qspi.c -D__GNUC__ -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/MDK-ARM -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Core/Inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/CMSIS/Device/ST/STM32F4xx/Include -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Segger_RTT/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/EasyLogger/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Task/Boot_Manager -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/key -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Led -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash -DUSE_STDPERIPH_DRIVER -DSTM32F411xE",
+        "command": "arm-none-eabi-gcc -c /home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_qspi.c -D__GNUC__ -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/MDK-ARM -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Core/Inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/CMSIS/Device/ST/STM32F4xx/Include -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Segger_RTT/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/EasyLogger/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Task/Boot_Manager -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/key -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Led -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Algo/AES -DUSE_STDPERIPH_DRIVER -DSTM32F411xE",
         "arguments": [
             "arm-none-eabi-gcc",
             "-c",
@@ -968,6 +1006,7 @@
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart",
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem",
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash",
+            "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Algo/AES",
             "-DUSE_STDPERIPH_DRIVER",
             "-DSTM32F411xE"
         ],
@@ -975,7 +1014,7 @@
         "file": "/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_qspi.c"
     },
     {
-        "command": "arm-none-eabi-gcc -c /home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_rcc.c -D__GNUC__ -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/MDK-ARM -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Core/Inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/CMSIS/Device/ST/STM32F4xx/Include -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Segger_RTT/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/EasyLogger/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Task/Boot_Manager -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/key -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Led -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash -DUSE_STDPERIPH_DRIVER -DSTM32F411xE",
+        "command": "arm-none-eabi-gcc -c /home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_rcc.c -D__GNUC__ -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/MDK-ARM -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Core/Inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/CMSIS/Device/ST/STM32F4xx/Include -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Segger_RTT/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/EasyLogger/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Task/Boot_Manager -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/key -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Led -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Algo/AES -DUSE_STDPERIPH_DRIVER -DSTM32F411xE",
         "arguments": [
             "arm-none-eabi-gcc",
             "-c",
@@ -993,6 +1032,7 @@
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart",
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem",
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash",
+            "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Algo/AES",
             "-DUSE_STDPERIPH_DRIVER",
             "-DSTM32F411xE"
         ],
@@ -1000,7 +1040,7 @@
         "file": "/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_rcc.c"
     },
     {
-        "command": "arm-none-eabi-gcc -c /home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_rng.c -D__GNUC__ -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/MDK-ARM -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Core/Inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/CMSIS/Device/ST/STM32F4xx/Include -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Segger_RTT/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/EasyLogger/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Task/Boot_Manager -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/key -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Led -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash -DUSE_STDPERIPH_DRIVER -DSTM32F411xE",
+        "command": "arm-none-eabi-gcc -c /home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_rng.c -D__GNUC__ -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/MDK-ARM -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Core/Inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/CMSIS/Device/ST/STM32F4xx/Include -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Segger_RTT/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/EasyLogger/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Task/Boot_Manager -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/key -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Led -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Algo/AES -DUSE_STDPERIPH_DRIVER -DSTM32F411xE",
         "arguments": [
             "arm-none-eabi-gcc",
             "-c",
@@ -1018,6 +1058,7 @@
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart",
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem",
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash",
+            "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Algo/AES",
             "-DUSE_STDPERIPH_DRIVER",
             "-DSTM32F411xE"
         ],
@@ -1025,7 +1066,7 @@
         "file": "/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_rng.c"
     },
     {
-        "command": "arm-none-eabi-gcc -c /home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_rtc.c -D__GNUC__ -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/MDK-ARM -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Core/Inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/CMSIS/Device/ST/STM32F4xx/Include -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Segger_RTT/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/EasyLogger/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Task/Boot_Manager -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/key -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Led -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash -DUSE_STDPERIPH_DRIVER -DSTM32F411xE",
+        "command": "arm-none-eabi-gcc -c /home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_rtc.c -D__GNUC__ -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/MDK-ARM -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Core/Inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/CMSIS/Device/ST/STM32F4xx/Include -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Segger_RTT/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/EasyLogger/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Task/Boot_Manager -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/key -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Led -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Algo/AES -DUSE_STDPERIPH_DRIVER -DSTM32F411xE",
         "arguments": [
             "arm-none-eabi-gcc",
             "-c",
@@ -1043,6 +1084,7 @@
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart",
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem",
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash",
+            "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Algo/AES",
             "-DUSE_STDPERIPH_DRIVER",
             "-DSTM32F411xE"
         ],
@@ -1050,7 +1092,7 @@
         "file": "/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_rtc.c"
     },
     {
-        "command": "arm-none-eabi-gcc -c /home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sai.c -D__GNUC__ -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/MDK-ARM -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Core/Inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/CMSIS/Device/ST/STM32F4xx/Include -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Segger_RTT/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/EasyLogger/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Task/Boot_Manager -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/key -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Led -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash -DUSE_STDPERIPH_DRIVER -DSTM32F411xE",
+        "command": "arm-none-eabi-gcc -c /home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sai.c -D__GNUC__ -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/MDK-ARM -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Core/Inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/CMSIS/Device/ST/STM32F4xx/Include -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Segger_RTT/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/EasyLogger/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Task/Boot_Manager -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/key -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Led -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Algo/AES -DUSE_STDPERIPH_DRIVER -DSTM32F411xE",
         "arguments": [
             "arm-none-eabi-gcc",
             "-c",
@@ -1068,6 +1110,7 @@
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart",
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem",
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash",
+            "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Algo/AES",
             "-DUSE_STDPERIPH_DRIVER",
             "-DSTM32F411xE"
         ],
@@ -1075,7 +1118,7 @@
         "file": "/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sai.c"
     },
     {
-        "command": "arm-none-eabi-gcc -c /home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c -D__GNUC__ -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/MDK-ARM -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Core/Inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/CMSIS/Device/ST/STM32F4xx/Include -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Segger_RTT/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/EasyLogger/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Task/Boot_Manager -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/key -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Led -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash -DUSE_STDPERIPH_DRIVER -DSTM32F411xE",
+        "command": "arm-none-eabi-gcc -c /home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c -D__GNUC__ -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/MDK-ARM -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Core/Inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/CMSIS/Device/ST/STM32F4xx/Include -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Segger_RTT/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/EasyLogger/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Task/Boot_Manager -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/key -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Led -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Algo/AES -DUSE_STDPERIPH_DRIVER -DSTM32F411xE",
         "arguments": [
             "arm-none-eabi-gcc",
             "-c",
@@ -1093,6 +1136,7 @@
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart",
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem",
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash",
+            "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Algo/AES",
             "-DUSE_STDPERIPH_DRIVER",
             "-DSTM32F411xE"
         ],
@@ -1100,7 +1144,7 @@
         "file": "/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c"
     },
     {
-        "command": "arm-none-eabi-gcc -c /home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_spdifrx.c -D__GNUC__ -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/MDK-ARM -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Core/Inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/CMSIS/Device/ST/STM32F4xx/Include -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Segger_RTT/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/EasyLogger/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Task/Boot_Manager -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/key -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Led -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash -DUSE_STDPERIPH_DRIVER -DSTM32F411xE",
+        "command": "arm-none-eabi-gcc -c /home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_spdifrx.c -D__GNUC__ -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/MDK-ARM -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Core/Inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/CMSIS/Device/ST/STM32F4xx/Include -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Segger_RTT/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/EasyLogger/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Task/Boot_Manager -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/key -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Led -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Algo/AES -DUSE_STDPERIPH_DRIVER -DSTM32F411xE",
         "arguments": [
             "arm-none-eabi-gcc",
             "-c",
@@ -1118,6 +1162,7 @@
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart",
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem",
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash",
+            "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Algo/AES",
             "-DUSE_STDPERIPH_DRIVER",
             "-DSTM32F411xE"
         ],
@@ -1125,7 +1170,7 @@
         "file": "/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_spdifrx.c"
     },
     {
-        "command": "arm-none-eabi-gcc -c /home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_spi.c -D__GNUC__ -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/MDK-ARM -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Core/Inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/CMSIS/Device/ST/STM32F4xx/Include -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Segger_RTT/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/EasyLogger/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Task/Boot_Manager -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/key -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Led -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash -DUSE_STDPERIPH_DRIVER -DSTM32F411xE",
+        "command": "arm-none-eabi-gcc -c /home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_spi.c -D__GNUC__ -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/MDK-ARM -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Core/Inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/CMSIS/Device/ST/STM32F4xx/Include -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Segger_RTT/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/EasyLogger/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Task/Boot_Manager -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/key -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Led -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Algo/AES -DUSE_STDPERIPH_DRIVER -DSTM32F411xE",
         "arguments": [
             "arm-none-eabi-gcc",
             "-c",
@@ -1143,6 +1188,7 @@
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart",
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem",
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash",
+            "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Algo/AES",
             "-DUSE_STDPERIPH_DRIVER",
             "-DSTM32F411xE"
         ],
@@ -1150,7 +1196,7 @@
         "file": "/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_spi.c"
     },
     {
-        "command": "arm-none-eabi-gcc -c /home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_syscfg.c -D__GNUC__ -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/MDK-ARM -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Core/Inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/CMSIS/Device/ST/STM32F4xx/Include -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Segger_RTT/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/EasyLogger/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Task/Boot_Manager -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/key -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Led -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash -DUSE_STDPERIPH_DRIVER -DSTM32F411xE",
+        "command": "arm-none-eabi-gcc -c /home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_syscfg.c -D__GNUC__ -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/MDK-ARM -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Core/Inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/CMSIS/Device/ST/STM32F4xx/Include -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Segger_RTT/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/EasyLogger/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Task/Boot_Manager -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/key -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Led -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Algo/AES -DUSE_STDPERIPH_DRIVER -DSTM32F411xE",
         "arguments": [
             "arm-none-eabi-gcc",
             "-c",
@@ -1168,6 +1214,7 @@
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart",
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem",
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash",
+            "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Algo/AES",
             "-DUSE_STDPERIPH_DRIVER",
             "-DSTM32F411xE"
         ],
@@ -1175,7 +1222,7 @@
         "file": "/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_syscfg.c"
     },
     {
-        "command": "arm-none-eabi-gcc -c /home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_tim.c -D__GNUC__ -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/MDK-ARM -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Core/Inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/CMSIS/Device/ST/STM32F4xx/Include -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Segger_RTT/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/EasyLogger/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Task/Boot_Manager -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/key -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Led -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash -DUSE_STDPERIPH_DRIVER -DSTM32F411xE",
+        "command": "arm-none-eabi-gcc -c /home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_tim.c -D__GNUC__ -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/MDK-ARM -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Core/Inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/CMSIS/Device/ST/STM32F4xx/Include -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Segger_RTT/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/EasyLogger/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Task/Boot_Manager -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/key -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Led -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Algo/AES -DUSE_STDPERIPH_DRIVER -DSTM32F411xE",
         "arguments": [
             "arm-none-eabi-gcc",
             "-c",
@@ -1193,6 +1240,7 @@
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart",
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem",
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash",
+            "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Algo/AES",
             "-DUSE_STDPERIPH_DRIVER",
             "-DSTM32F411xE"
         ],
@@ -1200,7 +1248,7 @@
         "file": "/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_tim.c"
     },
     {
-        "command": "arm-none-eabi-gcc -c /home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_usart.c -D__GNUC__ -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/MDK-ARM -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Core/Inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/CMSIS/Device/ST/STM32F4xx/Include -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Segger_RTT/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/EasyLogger/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Task/Boot_Manager -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/key -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Led -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash -DUSE_STDPERIPH_DRIVER -DSTM32F411xE",
+        "command": "arm-none-eabi-gcc -c /home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_usart.c -D__GNUC__ -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/MDK-ARM -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Core/Inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/CMSIS/Device/ST/STM32F4xx/Include -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Segger_RTT/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/EasyLogger/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Task/Boot_Manager -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/key -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Led -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Algo/AES -DUSE_STDPERIPH_DRIVER -DSTM32F411xE",
         "arguments": [
             "arm-none-eabi-gcc",
             "-c",
@@ -1218,6 +1266,7 @@
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart",
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem",
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash",
+            "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Algo/AES",
             "-DUSE_STDPERIPH_DRIVER",
             "-DSTM32F411xE"
         ],
@@ -1225,7 +1274,7 @@
         "file": "/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_usart.c"
     },
     {
-        "command": "arm-none-eabi-gcc -c /home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_wwdg.c -D__GNUC__ -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/MDK-ARM -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Core/Inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/CMSIS/Device/ST/STM32F4xx/Include -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Segger_RTT/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/EasyLogger/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Task/Boot_Manager -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/key -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Led -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash -DUSE_STDPERIPH_DRIVER -DSTM32F411xE",
+        "command": "arm-none-eabi-gcc -c /home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_wwdg.c -D__GNUC__ -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/MDK-ARM -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Core/Inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/CMSIS/Device/ST/STM32F4xx/Include -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Segger_RTT/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/EasyLogger/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Task/Boot_Manager -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/key -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Led -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Algo/AES -DUSE_STDPERIPH_DRIVER -DSTM32F411xE",
         "arguments": [
             "arm-none-eabi-gcc",
             "-c",
@@ -1243,6 +1292,7 @@
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart",
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem",
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash",
+            "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Algo/AES",
             "-DUSE_STDPERIPH_DRIVER",
             "-DSTM32F411xE"
         ],
@@ -1250,7 +1300,7 @@
         "file": "/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_wwdg.c"
     },
     {
-        "command": "arm-none-eabi-gcc -c /home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/key/key.c -D__GNUC__ -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/MDK-ARM -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Core/Inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/CMSIS/Device/ST/STM32F4xx/Include -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Segger_RTT/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/EasyLogger/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Task/Boot_Manager -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/key -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Led -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash -DUSE_STDPERIPH_DRIVER -DSTM32F411xE",
+        "command": "arm-none-eabi-gcc -c /home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/key/key.c -D__GNUC__ -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/MDK-ARM -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Core/Inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/CMSIS/Device/ST/STM32F4xx/Include -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Segger_RTT/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/EasyLogger/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Task/Boot_Manager -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/key -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Led -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Algo/AES -DUSE_STDPERIPH_DRIVER -DSTM32F411xE",
         "arguments": [
             "arm-none-eabi-gcc",
             "-c",
@@ -1268,6 +1318,7 @@
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart",
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem",
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash",
+            "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Algo/AES",
             "-DUSE_STDPERIPH_DRIVER",
             "-DSTM32F411xE"
         ],
@@ -1275,7 +1326,7 @@
         "file": "/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/key/key.c"
     },
     {
-        "command": "arm-none-eabi-gcc -c /home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Segger_RTT/src/SEGGER_RTT.c -D__GNUC__ -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/MDK-ARM -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Core/Inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/CMSIS/Device/ST/STM32F4xx/Include -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Segger_RTT/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/EasyLogger/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Task/Boot_Manager -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/key -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Led -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash -DUSE_STDPERIPH_DRIVER -DSTM32F411xE",
+        "command": "arm-none-eabi-gcc -c /home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Segger_RTT/src/SEGGER_RTT.c -D__GNUC__ -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/MDK-ARM -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Core/Inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/CMSIS/Device/ST/STM32F4xx/Include -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Segger_RTT/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/EasyLogger/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Task/Boot_Manager -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/key -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Led -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Algo/AES -DUSE_STDPERIPH_DRIVER -DSTM32F411xE",
         "arguments": [
             "arm-none-eabi-gcc",
             "-c",
@@ -1293,6 +1344,7 @@
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart",
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem",
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash",
+            "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Algo/AES",
             "-DUSE_STDPERIPH_DRIVER",
             "-DSTM32F411xE"
         ],
@@ -1300,7 +1352,7 @@
         "file": "/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Segger_RTT/src/SEGGER_RTT.c"
     },
     {
-        "command": "arm-none-eabi-gcc -c /home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Segger_RTT/src/SEGGER_RTT_printf.c -D__GNUC__ -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/MDK-ARM -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Core/Inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/CMSIS/Device/ST/STM32F4xx/Include -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Segger_RTT/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/EasyLogger/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Task/Boot_Manager -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/key -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Led -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash -DUSE_STDPERIPH_DRIVER -DSTM32F411xE",
+        "command": "arm-none-eabi-gcc -c /home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Segger_RTT/src/SEGGER_RTT_printf.c -D__GNUC__ -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/MDK-ARM -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Core/Inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/CMSIS/Device/ST/STM32F4xx/Include -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Segger_RTT/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/EasyLogger/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Task/Boot_Manager -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/key -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Led -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Algo/AES -DUSE_STDPERIPH_DRIVER -DSTM32F411xE",
         "arguments": [
             "arm-none-eabi-gcc",
             "-c",
@@ -1318,6 +1370,7 @@
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart",
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem",
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash",
+            "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Algo/AES",
             "-DUSE_STDPERIPH_DRIVER",
             "-DSTM32F411xE"
         ],
@@ -1325,7 +1378,7 @@
         "file": "/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Segger_RTT/src/SEGGER_RTT_printf.c"
     },
     {
-        "command": "arm-none-eabi-gcc -c /home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/EasyLogger/src/elog.c -D__GNUC__ -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/MDK-ARM -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Core/Inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/CMSIS/Device/ST/STM32F4xx/Include -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Segger_RTT/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/EasyLogger/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Task/Boot_Manager -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/key -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Led -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash -DUSE_STDPERIPH_DRIVER -DSTM32F411xE",
+        "command": "arm-none-eabi-gcc -c /home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/EasyLogger/src/elog.c -D__GNUC__ -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/MDK-ARM -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Core/Inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/CMSIS/Device/ST/STM32F4xx/Include -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Segger_RTT/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/EasyLogger/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Task/Boot_Manager -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/key -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Led -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Algo/AES -DUSE_STDPERIPH_DRIVER -DSTM32F411xE",
         "arguments": [
             "arm-none-eabi-gcc",
             "-c",
@@ -1343,6 +1396,7 @@
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart",
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem",
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash",
+            "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Algo/AES",
             "-DUSE_STDPERIPH_DRIVER",
             "-DSTM32F411xE"
         ],
@@ -1350,7 +1404,7 @@
         "file": "/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/EasyLogger/src/elog.c"
     },
     {
-        "command": "arm-none-eabi-gcc -c /home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/EasyLogger/src/elog_async.c -D__GNUC__ -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/MDK-ARM -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Core/Inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/CMSIS/Device/ST/STM32F4xx/Include -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Segger_RTT/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/EasyLogger/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Task/Boot_Manager -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/key -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Led -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash -DUSE_STDPERIPH_DRIVER -DSTM32F411xE",
+        "command": "arm-none-eabi-gcc -c /home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/EasyLogger/src/elog_async.c -D__GNUC__ -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/MDK-ARM -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Core/Inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/CMSIS/Device/ST/STM32F4xx/Include -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Segger_RTT/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/EasyLogger/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Task/Boot_Manager -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/key -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Led -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Algo/AES -DUSE_STDPERIPH_DRIVER -DSTM32F411xE",
         "arguments": [
             "arm-none-eabi-gcc",
             "-c",
@@ -1368,6 +1422,7 @@
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart",
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem",
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash",
+            "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Algo/AES",
             "-DUSE_STDPERIPH_DRIVER",
             "-DSTM32F411xE"
         ],
@@ -1375,7 +1430,7 @@
         "file": "/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/EasyLogger/src/elog_async.c"
     },
     {
-        "command": "arm-none-eabi-gcc -c /home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/EasyLogger/src/elog_buf.c -D__GNUC__ -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/MDK-ARM -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Core/Inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/CMSIS/Device/ST/STM32F4xx/Include -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Segger_RTT/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/EasyLogger/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Task/Boot_Manager -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/key -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Led -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash -DUSE_STDPERIPH_DRIVER -DSTM32F411xE",
+        "command": "arm-none-eabi-gcc -c /home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/EasyLogger/src/elog_buf.c -D__GNUC__ -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/MDK-ARM -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Core/Inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/CMSIS/Device/ST/STM32F4xx/Include -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Segger_RTT/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/EasyLogger/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Task/Boot_Manager -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/key -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Led -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Algo/AES -DUSE_STDPERIPH_DRIVER -DSTM32F411xE",
         "arguments": [
             "arm-none-eabi-gcc",
             "-c",
@@ -1393,6 +1448,7 @@
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart",
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem",
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash",
+            "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Algo/AES",
             "-DUSE_STDPERIPH_DRIVER",
             "-DSTM32F411xE"
         ],
@@ -1400,7 +1456,7 @@
         "file": "/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/EasyLogger/src/elog_buf.c"
     },
     {
-        "command": "arm-none-eabi-gcc -c /home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/EasyLogger/src/elog_port.c -D__GNUC__ -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/MDK-ARM -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Core/Inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/CMSIS/Device/ST/STM32F4xx/Include -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Segger_RTT/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/EasyLogger/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Task/Boot_Manager -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/key -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Led -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash -DUSE_STDPERIPH_DRIVER -DSTM32F411xE",
+        "command": "arm-none-eabi-gcc -c /home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/EasyLogger/src/elog_port.c -D__GNUC__ -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/MDK-ARM -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Core/Inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/CMSIS/Device/ST/STM32F4xx/Include -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Segger_RTT/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/EasyLogger/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Task/Boot_Manager -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/key -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Led -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Algo/AES -DUSE_STDPERIPH_DRIVER -DSTM32F411xE",
         "arguments": [
             "arm-none-eabi-gcc",
             "-c",
@@ -1418,6 +1474,7 @@
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart",
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem",
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash",
+            "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Algo/AES",
             "-DUSE_STDPERIPH_DRIVER",
             "-DSTM32F411xE"
         ],
@@ -1425,7 +1482,7 @@
         "file": "/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/EasyLogger/src/elog_port.c"
     },
     {
-        "command": "arm-none-eabi-gcc -c /home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/EasyLogger/src/elog_utils.c -D__GNUC__ -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/MDK-ARM -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Core/Inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/CMSIS/Device/ST/STM32F4xx/Include -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Segger_RTT/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/EasyLogger/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Task/Boot_Manager -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/key -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Led -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash -DUSE_STDPERIPH_DRIVER -DSTM32F411xE",
+        "command": "arm-none-eabi-gcc -c /home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/EasyLogger/src/elog_utils.c -D__GNUC__ -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/MDK-ARM -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Core/Inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/CMSIS/Device/ST/STM32F4xx/Include -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Segger_RTT/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/EasyLogger/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Task/Boot_Manager -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/key -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Led -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Algo/AES -DUSE_STDPERIPH_DRIVER -DSTM32F411xE",
         "arguments": [
             "arm-none-eabi-gcc",
             "-c",
@@ -1443,6 +1500,7 @@
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart",
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem",
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash",
+            "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Algo/AES",
             "-DUSE_STDPERIPH_DRIVER",
             "-DSTM32F411xE"
         ],
@@ -1450,7 +1508,7 @@
         "file": "/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/EasyLogger/src/elog_utils.c"
     },
     {
-        "command": "arm-none-eabi-gcc -c /home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Task/Boot_Manager/boot_manager.c -D__GNUC__ -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/MDK-ARM -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Core/Inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/CMSIS/Device/ST/STM32F4xx/Include -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Segger_RTT/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/EasyLogger/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Task/Boot_Manager -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/key -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Led -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash -DUSE_STDPERIPH_DRIVER -DSTM32F411xE",
+        "command": "arm-none-eabi-gcc -c /home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Task/Boot_Manager/boot_manager.c -D__GNUC__ -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/MDK-ARM -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Core/Inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/CMSIS/Device/ST/STM32F4xx/Include -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Segger_RTT/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/EasyLogger/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Task/Boot_Manager -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/key -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Led -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Algo/AES -DUSE_STDPERIPH_DRIVER -DSTM32F411xE",
         "arguments": [
             "arm-none-eabi-gcc",
             "-c",
@@ -1468,6 +1526,7 @@
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart",
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem",
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash",
+            "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Algo/AES",
             "-DUSE_STDPERIPH_DRIVER",
             "-DSTM32F411xE"
         ],
@@ -1475,7 +1534,7 @@
         "file": "/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Task/Boot_Manager/boot_manager.c"
     },
     {
-        "command": "arm-none-eabi-gcc -c /home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Led/led.c -D__GNUC__ -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/MDK-ARM -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Core/Inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/CMSIS/Device/ST/STM32F4xx/Include -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Segger_RTT/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/EasyLogger/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Task/Boot_Manager -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/key -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Led -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash -DUSE_STDPERIPH_DRIVER -DSTM32F411xE",
+        "command": "arm-none-eabi-gcc -c /home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Led/led.c -D__GNUC__ -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/MDK-ARM -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Core/Inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/CMSIS/Device/ST/STM32F4xx/Include -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Segger_RTT/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/EasyLogger/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Task/Boot_Manager -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/key -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Led -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Algo/AES -DUSE_STDPERIPH_DRIVER -DSTM32F411xE",
         "arguments": [
             "arm-none-eabi-gcc",
             "-c",
@@ -1493,6 +1552,7 @@
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart",
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem",
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash",
+            "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Algo/AES",
             "-DUSE_STDPERIPH_DRIVER",
             "-DSTM32F411xE"
         ],
@@ -1500,7 +1560,7 @@
         "file": "/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Led/led.c"
     },
     {
-        "command": "arm-none-eabi-gcc -c /home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart/usart.c -D__GNUC__ -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/MDK-ARM -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Core/Inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/CMSIS/Device/ST/STM32F4xx/Include -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Segger_RTT/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/EasyLogger/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Task/Boot_Manager -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/key -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Led -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash -DUSE_STDPERIPH_DRIVER -DSTM32F411xE",
+        "command": "arm-none-eabi-gcc -c /home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart/usart.c -D__GNUC__ -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/MDK-ARM -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Core/Inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/CMSIS/Device/ST/STM32F4xx/Include -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Segger_RTT/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/EasyLogger/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Task/Boot_Manager -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/key -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Led -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Algo/AES -DUSE_STDPERIPH_DRIVER -DSTM32F411xE",
         "arguments": [
             "arm-none-eabi-gcc",
             "-c",
@@ -1518,6 +1578,7 @@
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart",
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem",
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash",
+            "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Algo/AES",
             "-DUSE_STDPERIPH_DRIVER",
             "-DSTM32F411xE"
         ],
@@ -1525,7 +1586,7 @@
         "file": "/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart/usart.c"
     },
     {
-        "command": "arm-none-eabi-gcc -c /home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem/ymodem.c -D__GNUC__ -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/MDK-ARM -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Core/Inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/CMSIS/Device/ST/STM32F4xx/Include -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Segger_RTT/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/EasyLogger/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Task/Boot_Manager -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/key -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Led -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash -DUSE_STDPERIPH_DRIVER -DSTM32F411xE",
+        "command": "arm-none-eabi-gcc -c /home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem/ymodem.c -D__GNUC__ -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/MDK-ARM -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Core/Inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/CMSIS/Device/ST/STM32F4xx/Include -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Segger_RTT/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/EasyLogger/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Task/Boot_Manager -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/key -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Led -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Algo/AES -DUSE_STDPERIPH_DRIVER -DSTM32F411xE",
         "arguments": [
             "arm-none-eabi-gcc",
             "-c",
@@ -1543,6 +1604,7 @@
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart",
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem",
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash",
+            "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Algo/AES",
             "-DUSE_STDPERIPH_DRIVER",
             "-DSTM32F411xE"
         ],
@@ -1550,7 +1612,7 @@
         "file": "/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem/ymodem.c"
     },
     {
-        "command": "arm-none-eabi-gcc -c /home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem/common.c -D__GNUC__ -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/MDK-ARM -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Core/Inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/CMSIS/Device/ST/STM32F4xx/Include -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Segger_RTT/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/EasyLogger/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Task/Boot_Manager -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/key -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Led -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash -DUSE_STDPERIPH_DRIVER -DSTM32F411xE",
+        "command": "arm-none-eabi-gcc -c /home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem/common.c -D__GNUC__ -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/MDK-ARM -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Core/Inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/CMSIS/Device/ST/STM32F4xx/Include -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Segger_RTT/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/EasyLogger/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Task/Boot_Manager -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/key -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Led -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Algo/AES -DUSE_STDPERIPH_DRIVER -DSTM32F411xE",
         "arguments": [
             "arm-none-eabi-gcc",
             "-c",
@@ -1568,6 +1630,7 @@
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart",
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem",
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash",
+            "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Algo/AES",
             "-DUSE_STDPERIPH_DRIVER",
             "-DSTM32F411xE"
         ],
@@ -1575,7 +1638,7 @@
         "file": "/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem/common.c"
     },
     {
-        "command": "arm-none-eabi-gcc -c /home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash/Flash.c -D__GNUC__ -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/MDK-ARM -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Core/Inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/CMSIS/Device/ST/STM32F4xx/Include -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Segger_RTT/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/EasyLogger/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Task/Boot_Manager -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/key -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Led -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash -DUSE_STDPERIPH_DRIVER -DSTM32F411xE",
+        "command": "arm-none-eabi-gcc -c /home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash/Flash.c -D__GNUC__ -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/MDK-ARM -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Core/Inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/CMSIS/Device/ST/STM32F4xx/Include -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Segger_RTT/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/EasyLogger/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Task/Boot_Manager -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/key -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Led -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Algo/AES -DUSE_STDPERIPH_DRIVER -DSTM32F411xE",
         "arguments": [
             "arm-none-eabi-gcc",
             "-c",
@@ -1593,10 +1656,37 @@
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart",
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem",
             "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash",
+            "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Algo/AES",
             "-DUSE_STDPERIPH_DRIVER",
             "-DSTM32F411xE"
         ],
         "directory": "/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/MDK-ARM",
         "file": "/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash/Flash.c"
+    },
+    {
+        "command": "arm-none-eabi-gcc -c /home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Algo/AES/AES.c -D__GNUC__ -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/MDK-ARM -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Core/Inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/CMSIS/Device/ST/STM32F4xx/Include -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Segger_RTT/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/EasyLogger/inc -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Task/Boot_Manager -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/key -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Led -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash -I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Algo/AES -DUSE_STDPERIPH_DRIVER -DSTM32F411xE",
+        "arguments": [
+            "arm-none-eabi-gcc",
+            "-c",
+            "/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Algo/AES/AES.c",
+            "-D__GNUC__",
+            "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/MDK-ARM",
+            "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Core/Inc",
+            "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/STM32F4xx_StdPeriph_Driver/inc",
+            "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Drivers/CMSIS/Device/ST/STM32F4xx/Include",
+            "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Segger_RTT/inc",
+            "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/EasyLogger/inc",
+            "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Task/Boot_Manager",
+            "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/key",
+            "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Led",
+            "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Usart",
+            "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Middlerwares/Ymodem",
+            "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Bsp/Flash",
+            "-I/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Algo/AES",
+            "-DUSE_STDPERIPH_DRIVER",
+            "-DSTM32F411xE"
+        ],
+        "directory": "/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/MDK-ARM",
+        "file": "/home/noser/My_Project/Smart_Watch/03_Firmware/Bootloader/Algo/AES/AES.c"
     }
 ]
