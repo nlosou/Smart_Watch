@@ -151,8 +151,8 @@ int32_t Ymodem_Receive (uint8_t *buf)
   static uint8_t packet_data[PACKET_1K_SIZE + PACKET_OVERHEAD], file_size[FILE_SIZE_LENGTH], *file_ptr, *buf_ptr;
   int32_t i, j, packet_length, session_done, file_done, packets_received, errors, session_begin, size = 0;
 
+  W25Q64_Init();
   /* Initialize FlashDestination variable */
-  FlashDestination = BackAppAddress;
 
   for (session_done = 0, errors = 0, session_begin = 0; ;)//³õÊ¼»¯±äÁ¿£¬½øÈëÑ­»·
   {

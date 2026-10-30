@@ -115,7 +115,6 @@ int main(void)
   /* Infinite loop */
   while (1)
   {
-      /*
       elog_e("ERROR","vail false,please press key to Download app");
       if(KEY_HANDLER_OK == key_handler.key_scan(&key_handler))
       {
@@ -129,7 +128,6 @@ int main(void)
       {
           Delay(50);
       }
-      */
   }
 }
 
