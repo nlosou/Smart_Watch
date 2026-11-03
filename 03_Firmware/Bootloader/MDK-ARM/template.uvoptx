@@ -148,45 +148,12 @@
           <Name>UL2CM3(-S0 -C0 -P0 ) -FN1 -FC1000 -FD20000000 -FF0STM32F4xx_512 -FL080000 -FS08000000 -FP0($$Device:STM32F411CEUx$CMSIS\Flash\STM32F4xx_512.FLM)</Name>
         </SetRegEntry>
       </TargetDriverDllRegistry>
-      <Breakpoint>
-        <Bp>
-          <Number>0</Number>
-          <Type>0</Type>
-          <LineNumber>69</LineNumber>
-          <EnabledFlag>1</EnabledFlag>
-          <Address>134230372</Address>
-          <ByteObject>0</ByteObject>
-          <HtxType>0</HtxType>
-          <ManyObjects>0</ManyObjects>
-          <SizeOfObject>0</SizeOfObject>
-          <BreakByAccess>0</BreakByAccess>
-          <BreakIfRCount>1</BreakIfRCount>
-          <Filename>..\Task\Boot_Manager\boot_manager.c</Filename>
-          <ExecCommand></ExecCommand>
-          <Expression>\\Bootloader\../Task/Boot_Manager/boot_manager.c\69</Expression>
-        </Bp>
-        <Bp>
-          <Number>1</Number>
-          <Type>0</Type>
-          <LineNumber>114</LineNumber>
-          <EnabledFlag>1</EnabledFlag>
-          <Address>134234714</Address>
-          <ByteObject>0</ByteObject>
-          <HtxType>0</HtxType>
-          <ManyObjects>0</ManyObjects>
-          <SizeOfObject>0</SizeOfObject>
-          <BreakByAccess>0</BreakByAccess>
-          <BreakIfRCount>1</BreakIfRCount>
-          <Filename>..\Core\Src\main.c</Filename>
-          <ExecCommand></ExecCommand>
-          <Expression>\\Bootloader\../Core/Src/main.c\114</Expression>
-        </Bp>
-      </Breakpoint>
+      <Breakpoint/>
       <WatchWindow1>
         <Ww>
           <count>0</count>
           <WinNumber>1</WinNumber>
-          <ItemText>w25q64xx_data</ItemText>
+          <ItemText>AT24C02_ADDR_W</ItemText>
         </Ww>
         <Ww>
           <count>1</count>
@@ -198,28 +165,83 @@
           <WinNumber>1</WinNumber>
           <ItemText>descryptbuf</ItemText>
         </Ww>
+        <Ww>
+          <count>3</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>address</ItemText>
+        </Ww>
+        <Ww>
+          <count>4</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>lastevent</ItemText>
+        </Ww>
+        <Ww>
+          <count>5</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>descryptbuf</ItemText>
+        </Ww>
+        <Ww>
+          <count>6</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>s_st_W25Q_Handler_1</ItemText>
+        </Ww>
+        <Ww>
+          <count>7</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>App_size</ItemText>
+        </Ww>
+        <Ww>
+          <count>8</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>packet_data</ItemText>
+        </Ww>
+        <Ww>
+          <count>9</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>temp_w25q_data</ItemText>
+        </Ww>
+        <Ww>
+          <count>10</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>w25q64xx_data</ItemText>
+        </Ww>
+        <Ww>
+          <count>11</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>data_index</ItemText>
+        </Ww>
+        <Ww>
+          <count>12</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>Remaining_App_size</ItemText>
+        </Ww>
+        <Ww>
+          <count>13</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>s_st_W25Q_Handler_1.write_databuf_index</ItemText>
+        </Ww>
       </WatchWindow1>
       <MemoryWindow1>
         <Mm>
           <WinNumber>1</WinNumber>
           <SubType>1</SubType>
-          <ItemText>0x20001428</ItemText>
+          <ItemText>0x20003509 </ItemText>
           <AccSizeX>0</AccSizeX>
         </Mm>
       </MemoryWindow1>
       <MemoryWindow2>
         <Mm>
           <WinNumber>2</WinNumber>
-          <SubType>0</SubType>
-          <ItemText>0x20000FC0</ItemText>
+          <SubType>1</SubType>
+          <ItemText>0x08008000</ItemText>
           <AccSizeX>0</AccSizeX>
         </Mm>
       </MemoryWindow2>
       <MemoryWindow3>
         <Mm>
           <WinNumber>3</WinNumber>
-          <SubType>0</SubType>
-          <ItemText>0x20003964 </ItemText>
+          <SubType>1</SubType>
+          <ItemText>0x20007550</ItemText>
           <AccSizeX>0</AccSizeX>
         </Mm>
       </MemoryWindow3>
@@ -940,7 +962,7 @@
   </Group>
 
   <Group>
-    <GroupName>Middlerwares/Segger_RTT</GroupName>
+    <GroupName>Bsp/Led</GroupName>
     <tvExp>0</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
@@ -952,14 +974,138 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
+      <PathWithFileName>..\Bsp\Led\led.c</PathWithFileName>
+      <FilenameWithoutPath>led.c</FilenameWithoutPath>
+      <RteFlg>0</RteFlg>
+      <bShared>0</bShared>
+    </File>
+  </Group>
+
+  <Group>
+    <GroupName>Bsp/Usart</GroupName>
+    <tvExp>0</tvExp>
+    <tvExpOptDlg>0</tvExpOptDlg>
+    <cbSel>0</cbSel>
+    <RteFlg>0</RteFlg>
+    <File>
+      <GroupNumber>7</GroupNumber>
+      <FileNumber>54</FileNumber>
+      <FileType>1</FileType>
+      <tvExp>0</tvExp>
+      <tvExpOptDlg>0</tvExpOptDlg>
+      <bDave2>0</bDave2>
+      <PathWithFileName>..\Bsp\Usart\usart.c</PathWithFileName>
+      <FilenameWithoutPath>usart.c</FilenameWithoutPath>
+      <RteFlg>0</RteFlg>
+      <bShared>0</bShared>
+    </File>
+  </Group>
+
+  <Group>
+    <GroupName>Bsp/Flash</GroupName>
+    <tvExp>0</tvExp>
+    <tvExpOptDlg>0</tvExpOptDlg>
+    <cbSel>0</cbSel>
+    <RteFlg>0</RteFlg>
+    <File>
+      <GroupNumber>8</GroupNumber>
+      <FileNumber>55</FileNumber>
+      <FileType>1</FileType>
+      <tvExp>0</tvExp>
+      <tvExpOptDlg>0</tvExpOptDlg>
+      <bDave2>0</bDave2>
+      <PathWithFileName>..\Bsp\Flash\Flash.c</PathWithFileName>
+      <FilenameWithoutPath>Flash.c</FilenameWithoutPath>
+      <RteFlg>0</RteFlg>
+      <bShared>0</bShared>
+    </File>
+  </Group>
+
+  <Group>
+    <GroupName>Bsp/W25Qxx</GroupName>
+    <tvExp>0</tvExp>
+    <tvExpOptDlg>0</tvExpOptDlg>
+    <cbSel>0</cbSel>
+    <RteFlg>0</RteFlg>
+    <File>
+      <GroupNumber>9</GroupNumber>
+      <FileNumber>56</FileNumber>
+      <FileType>1</FileType>
+      <tvExp>0</tvExp>
+      <tvExpOptDlg>0</tvExpOptDlg>
+      <bDave2>0</bDave2>
+      <PathWithFileName>..\Bsp\W25Qxx\W25Qxx.c</PathWithFileName>
+      <FilenameWithoutPath>W25Qxx.c</FilenameWithoutPath>
+      <RteFlg>0</RteFlg>
+      <bShared>0</bShared>
+    </File>
+    <File>
+      <GroupNumber>9</GroupNumber>
+      <FileNumber>57</FileNumber>
+      <FileType>1</FileType>
+      <tvExp>0</tvExp>
+      <tvExpOptDlg>0</tvExpOptDlg>
+      <bDave2>0</bDave2>
+      <PathWithFileName>..\Bsp\W25Qxx\W25Qxx_handler.c</PathWithFileName>
+      <FilenameWithoutPath>W25Qxx_handler.c</FilenameWithoutPath>
+      <RteFlg>0</RteFlg>
+      <bShared>0</bShared>
+    </File>
+  </Group>
+
+  <Group>
+    <GroupName>Bsp/AT24C02</GroupName>
+    <tvExp>0</tvExp>
+    <tvExpOptDlg>0</tvExpOptDlg>
+    <cbSel>0</cbSel>
+    <RteFlg>0</RteFlg>
+    <File>
+      <GroupNumber>10</GroupNumber>
+      <FileNumber>58</FileNumber>
+      <FileType>1</FileType>
+      <tvExp>0</tvExp>
+      <tvExpOptDlg>0</tvExpOptDlg>
+      <bDave2>0</bDave2>
+      <PathWithFileName>..\Bsp\AT24Cxx_Driver\AT24Cxx_Driver\AT24Cxx_Driver.c</PathWithFileName>
+      <FilenameWithoutPath>AT24Cxx_Driver.c</FilenameWithoutPath>
+      <RteFlg>0</RteFlg>
+      <bShared>0</bShared>
+    </File>
+    <File>
+      <GroupNumber>10</GroupNumber>
+      <FileNumber>59</FileNumber>
+      <FileType>1</FileType>
+      <tvExp>0</tvExp>
+      <tvExpOptDlg>0</tvExpOptDlg>
+      <bDave2>0</bDave2>
+      <PathWithFileName>..\Bsp\AT24Cxx_Driver\AT24Cxx_Driver\iic.c</PathWithFileName>
+      <FilenameWithoutPath>iic.c</FilenameWithoutPath>
+      <RteFlg>0</RteFlg>
+      <bShared>0</bShared>
+    </File>
+  </Group>
+
+  <Group>
+    <GroupName>Middlerwares/Segger_RTT</GroupName>
+    <tvExp>0</tvExp>
+    <tvExpOptDlg>0</tvExpOptDlg>
+    <cbSel>0</cbSel>
+    <RteFlg>0</RteFlg>
+    <File>
+      <GroupNumber>11</GroupNumber>
+      <FileNumber>60</FileNumber>
+      <FileType>1</FileType>
+      <tvExp>0</tvExp>
+      <tvExpOptDlg>0</tvExpOptDlg>
+      <bDave2>0</bDave2>
       <PathWithFileName>..\Middlerwares\Segger_RTT\src\SEGGER_RTT.c</PathWithFileName>
       <FilenameWithoutPath>SEGGER_RTT.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
     <File>
-      <GroupNumber>6</GroupNumber>
-      <FileNumber>54</FileNumber>
+      <GroupNumber>11</GroupNumber>
+      <FileNumber>61</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
@@ -978,8 +1124,8 @@
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
     <File>
-      <GroupNumber>7</GroupNumber>
-      <FileNumber>55</FileNumber>
+      <GroupNumber>12</GroupNumber>
+      <FileNumber>62</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
@@ -990,8 +1136,8 @@
       <bShared>0</bShared>
     </File>
     <File>
-      <GroupNumber>7</GroupNumber>
-      <FileNumber>56</FileNumber>
+      <GroupNumber>12</GroupNumber>
+      <FileNumber>63</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
@@ -1002,8 +1148,8 @@
       <bShared>0</bShared>
     </File>
     <File>
-      <GroupNumber>7</GroupNumber>
-      <FileNumber>57</FileNumber>
+      <GroupNumber>12</GroupNumber>
+      <FileNumber>64</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
@@ -1014,8 +1160,8 @@
       <bShared>0</bShared>
     </File>
     <File>
-      <GroupNumber>7</GroupNumber>
-      <FileNumber>58</FileNumber>
+      <GroupNumber>12</GroupNumber>
+      <FileNumber>65</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
@@ -1026,8 +1172,8 @@
       <bShared>0</bShared>
     </File>
     <File>
-      <GroupNumber>7</GroupNumber>
-      <FileNumber>59</FileNumber>
+      <GroupNumber>12</GroupNumber>
+      <FileNumber>66</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
@@ -1040,74 +1186,14 @@
   </Group>
 
   <Group>
-    <GroupName>Task/Boot_Manager</GroupName>
-    <tvExp>0</tvExp>
-    <tvExpOptDlg>0</tvExpOptDlg>
-    <cbSel>0</cbSel>
-    <RteFlg>0</RteFlg>
-    <File>
-      <GroupNumber>8</GroupNumber>
-      <FileNumber>60</FileNumber>
-      <FileType>1</FileType>
-      <tvExp>1</tvExp>
-      <tvExpOptDlg>0</tvExpOptDlg>
-      <bDave2>0</bDave2>
-      <PathWithFileName>..\Task\Boot_Manager\boot_manager.c</PathWithFileName>
-      <FilenameWithoutPath>boot_manager.c</FilenameWithoutPath>
-      <RteFlg>0</RteFlg>
-      <bShared>0</bShared>
-    </File>
-  </Group>
-
-  <Group>
-    <GroupName>Bsp/Led</GroupName>
-    <tvExp>0</tvExp>
-    <tvExpOptDlg>0</tvExpOptDlg>
-    <cbSel>0</cbSel>
-    <RteFlg>0</RteFlg>
-    <File>
-      <GroupNumber>9</GroupNumber>
-      <FileNumber>61</FileNumber>
-      <FileType>1</FileType>
-      <tvExp>0</tvExp>
-      <tvExpOptDlg>0</tvExpOptDlg>
-      <bDave2>0</bDave2>
-      <PathWithFileName>..\Bsp\Led\led.c</PathWithFileName>
-      <FilenameWithoutPath>led.c</FilenameWithoutPath>
-      <RteFlg>0</RteFlg>
-      <bShared>0</bShared>
-    </File>
-  </Group>
-
-  <Group>
-    <GroupName>Bsp/Usart</GroupName>
-    <tvExp>1</tvExp>
-    <tvExpOptDlg>0</tvExpOptDlg>
-    <cbSel>0</cbSel>
-    <RteFlg>0</RteFlg>
-    <File>
-      <GroupNumber>10</GroupNumber>
-      <FileNumber>62</FileNumber>
-      <FileType>1</FileType>
-      <tvExp>0</tvExp>
-      <tvExpOptDlg>0</tvExpOptDlg>
-      <bDave2>0</bDave2>
-      <PathWithFileName>..\Bsp\Usart\usart.c</PathWithFileName>
-      <FilenameWithoutPath>usart.c</FilenameWithoutPath>
-      <RteFlg>0</RteFlg>
-      <bShared>0</bShared>
-    </File>
-  </Group>
-
-  <Group>
     <GroupName>Middlerwares/Ymodem</GroupName>
-    <tvExp>1</tvExp>
+    <tvExp>0</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
     <File>
-      <GroupNumber>11</GroupNumber>
-      <FileNumber>63</FileNumber>
+      <GroupNumber>13</GroupNumber>
+      <FileNumber>67</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
@@ -1118,8 +1204,8 @@
       <bShared>0</bShared>
     </File>
     <File>
-      <GroupNumber>11</GroupNumber>
-      <FileNumber>64</FileNumber>
+      <GroupNumber>13</GroupNumber>
+      <FileNumber>68</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
@@ -1132,20 +1218,20 @@
   </Group>
 
   <Group>
-    <GroupName>Bsp/Flash</GroupName>
-    <tvExp>0</tvExp>
+    <GroupName>Task/Boot_Manager</GroupName>
+    <tvExp>1</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
     <File>
-      <GroupNumber>12</GroupNumber>
-      <FileNumber>65</FileNumber>
+      <GroupNumber>14</GroupNumber>
+      <FileNumber>69</FileNumber>
       <FileType>1</FileType>
-      <tvExp>0</tvExp>
+      <tvExp>1</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\Bsp\Flash\Flash.c</PathWithFileName>
-      <FilenameWithoutPath>Flash.c</FilenameWithoutPath>
+      <PathWithFileName>..\Task\Boot_Manager\boot_manager.c</PathWithFileName>
+      <FilenameWithoutPath>boot_manager.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -1158,46 +1244,14 @@
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
     <File>
-      <GroupNumber>13</GroupNumber>
-      <FileNumber>66</FileNumber>
+      <GroupNumber>15</GroupNumber>
+      <FileNumber>70</FileNumber>
       <FileType>1</FileType>
       <tvExp>1</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
       <PathWithFileName>..\Algo\AES\AES.c</PathWithFileName>
       <FilenameWithoutPath>AES.c</FilenameWithoutPath>
-      <RteFlg>0</RteFlg>
-      <bShared>0</bShared>
-    </File>
-  </Group>
-
-  <Group>
-    <GroupName>Bsp/W25Qxx</GroupName>
-    <tvExp>1</tvExp>
-    <tvExpOptDlg>0</tvExpOptDlg>
-    <cbSel>0</cbSel>
-    <RteFlg>0</RteFlg>
-    <File>
-      <GroupNumber>14</GroupNumber>
-      <FileNumber>67</FileNumber>
-      <FileType>1</FileType>
-      <tvExp>0</tvExp>
-      <tvExpOptDlg>0</tvExpOptDlg>
-      <bDave2>0</bDave2>
-      <PathWithFileName>..\Bsp\W25Qxx\W25Qxx.c</PathWithFileName>
-      <FilenameWithoutPath>W25Qxx.c</FilenameWithoutPath>
-      <RteFlg>0</RteFlg>
-      <bShared>0</bShared>
-    </File>
-    <File>
-      <GroupNumber>14</GroupNumber>
-      <FileNumber>68</FileNumber>
-      <FileType>1</FileType>
-      <tvExp>0</tvExp>
-      <tvExpOptDlg>0</tvExpOptDlg>
-      <bDave2>0</bDave2>
-      <PathWithFileName>..\Bsp\W25Qxx\W25Qxx_handler.c</PathWithFileName>
-      <FilenameWithoutPath>W25Qxx_handler.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>

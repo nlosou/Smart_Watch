@@ -341,7 +341,7 @@
               <MiscControls></MiscControls>
               <Define>USE_STDPERIPH_DRIVER,STM32F411xE</Define>
               <Undefine></Undefine>
-              <IncludePath>..\MDK-ARM;..\Core\Inc;..\Drivers\STM32F4xx_StdPeriph_Driver\inc;..\Drivers\CMSIS\Device\ST\STM32F4xx\Include;..\Middlerwares\Segger_RTT\inc;..\Middlerwares\EasyLogger\inc;..\Task\Boot_Manager;..\Bsp\key;..\Bsp\Led;..\Bsp\Usart;..\Middlerwares\Ymodem;..\Bsp\Flash;..\Algo\AES;..\Bsp\W25Qxx</IncludePath>
+              <IncludePath>..\MDK-ARM;..\Core\Inc;..\Drivers\STM32F4xx_StdPeriph_Driver\inc;..\Drivers\CMSIS\Device\ST\STM32F4xx\Include;..\Middlerwares\Segger_RTT\inc;..\Middlerwares\EasyLogger\inc;..\Task\Boot_Manager;..\Bsp\key;..\Bsp\Led;..\Bsp\Usart;..\Middlerwares\Ymodem;..\Bsp\Flash;..\Algo\AES;..\Bsp\W25Qxx;..\Bsp\AT24C02;..\Bsp\AT24Cxx_Driver\AT24Cxx_Driver</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -1586,6 +1586,66 @@
           </Files>
         </Group>
         <Group>
+          <GroupName>Bsp/Led</GroupName>
+          <Files>
+            <File>
+              <FileName>led.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Bsp\Led\led.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Bsp/Usart</GroupName>
+          <Files>
+            <File>
+              <FileName>usart.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Bsp\Usart\usart.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Bsp/Flash</GroupName>
+          <Files>
+            <File>
+              <FileName>Flash.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Bsp\Flash\Flash.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Bsp/W25Qxx</GroupName>
+          <Files>
+            <File>
+              <FileName>W25Qxx.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Bsp\W25Qxx\W25Qxx.c</FilePath>
+            </File>
+            <File>
+              <FileName>W25Qxx_handler.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Bsp\W25Qxx\W25Qxx_handler.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Bsp/AT24C02</GroupName>
+          <Files>
+            <File>
+              <FileName>AT24Cxx_Driver.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Bsp\AT24Cxx_Driver\AT24Cxx_Driver\AT24Cxx_Driver.c</FilePath>
+            </File>
+            <File>
+              <FileName>iic.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Bsp\AT24Cxx_Driver\AT24Cxx_Driver\iic.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
           <GroupName>Middlerwares/Segger_RTT</GroupName>
           <Files>
             <File>
@@ -1631,36 +1691,6 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>Task/Boot_Manager</GroupName>
-          <Files>
-            <File>
-              <FileName>boot_manager.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Task\Boot_Manager\boot_manager.c</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>Bsp/Led</GroupName>
-          <Files>
-            <File>
-              <FileName>led.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Bsp\Led\led.c</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>Bsp/Usart</GroupName>
-          <Files>
-            <File>
-              <FileName>usart.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Bsp\Usart\usart.c</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
           <GroupName>Middlerwares/Ymodem</GroupName>
           <Files>
             <File>
@@ -1676,12 +1706,12 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>Bsp/Flash</GroupName>
+          <GroupName>Task/Boot_Manager</GroupName>
           <Files>
             <File>
-              <FileName>Flash.c</FileName>
+              <FileName>boot_manager.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\Bsp\Flash\Flash.c</FilePath>
+              <FilePath>..\Task\Boot_Manager\boot_manager.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1692,21 +1722,6 @@
               <FileName>AES.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\Algo\AES\AES.c</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>Bsp/W25Qxx</GroupName>
-          <Files>
-            <File>
-              <FileName>W25Qxx.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Bsp\W25Qxx\W25Qxx.c</FilePath>
-            </File>
-            <File>
-              <FileName>W25Qxx_handler.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Bsp\W25Qxx\W25Qxx_handler.c</FilePath>
             </File>
           </Files>
         </Group>

@@ -15,11 +15,12 @@
 #include "led.h"
 #include "usart.h"
 #include "Flash.h"
-#include "ymodem.h"
 #include "AES.h"
 #include <string.h>
 #include "spi.h"
 #include "W25Qxx_handler.h"
+#include "iic.h"
+#include "AT24Cxx_Driver.h"
 // 全局定义 STM32F411xE 或者 STM32F401xx
 // 当前定义 STM32F411xE
 
@@ -31,6 +32,7 @@
   */ 
 
 /* Private typedef -----------------------------------------------------------*/
+
 /* Private define ------------------------------------------------------------*/
 
 
@@ -48,6 +50,7 @@ extern key_need_arg_t key_need_arg;
 
 extern led_handler_t  led_handler;
 extern led_need_arg_t led_need_arg;
+
 
 /* Private function prototypes -----------------------------------------------*/
 
@@ -99,35 +102,42 @@ int main(void)
   key_handler_init(&key_handler,&key_need_arg);
   led_handler_init(&led_handler,&led_need_arg);
   //TIM_Config();   
-  int32_t temp_app_size = 0;
   SPI1_Init();
-  W25Q64_Init();	
-
+  ee_CheckOk();
+  W25Q64_Init();
+         
+  
+    
+  /*
   if(KEY_HANDLER_OK == key_handler.key_scan(&key_handler))
   {
-        elog_i("INFO", "Start Download to back flash.......");            
-        temp_app_size = Ymodem_Receive(temp_data);
-
-        back_to_app(temp_app_size);
+                back_to_app(temp_app_size);
   }
 
-  jump_to_app();
+  */
   /* Infinite loop */
+
+  //Ota_SateManger();
+  jump_to_app();
   while (1)
   {
+      /*
       elog_e("ERROR","vail false,please press key to Download app");
       if(KEY_HANDLER_OK == key_handler.key_scan(&key_handler))
       {
             temp_app_size = Ymodem_Receive(temp_data);
             if(0 == back_to_app(temp_app_size))
             {
-                jump_to_app();
             }
       }
       else
       {
           Delay(50);
       }
+      */
+
+
+      
   }
 }
 

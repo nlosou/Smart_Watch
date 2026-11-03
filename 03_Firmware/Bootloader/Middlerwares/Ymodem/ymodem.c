@@ -260,6 +260,7 @@ int32_t Ymodem_Receive (uint8_t *buf)
       if (file_done != 0)
       {
           W25Q64_WriteData_End();
+
           /*
           W25Q64_ReadData(temp_w25q_data,(uint16_t*)&packet_length);
           if(*buf_ptr != *temp_w25q_data)
