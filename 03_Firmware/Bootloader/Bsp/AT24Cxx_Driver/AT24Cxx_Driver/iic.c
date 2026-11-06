@@ -14,7 +14,7 @@ static void i2c_cfgGpio(void)
 
   /*Configure GPIO pin : PtPin */
   GPIO_InitStruct.GPIO_Pin = EEPROM_I2C_SCL_PIN|EEPROM_I2C_SDA_PIN;
-  GPIO_InitStruct.GPIO_Mode = GPIO_Mode_AF;
+  GPIO_InitStruct.GPIO_Mode = GPIO_Mode_OUT;
   GPIO_InitStruct.GPIO_PuPd = GPIO_PuPd_UP;
   GPIO_InitStruct.GPIO_Speed = GPIO_High_Speed;
 	GPIO_InitStruct.GPIO_OType = GPIO_OType_OD;

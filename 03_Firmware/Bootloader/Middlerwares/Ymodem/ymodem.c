@@ -230,7 +230,7 @@ int32_t Ymodem_Receive (uint8_t *buf)
                 {
                   memcpy(buf_ptr, packet_data + PACKET_HEADER, packet_length);
 
-                  W25Q64_WriteData(buf_ptr,packet_length);
+                  W25Q64_WriteData(BLOCK_A,buf_ptr,packet_length);
                   
                   Send_Byte(ACK);
                 }
@@ -259,7 +259,7 @@ int32_t Ymodem_Receive (uint8_t *buf)
       }
       if (file_done != 0)
       {
-          W25Q64_WriteData_End();
+          W25Q64_WriteData_End(BLOCK_A);
 
           /*
           W25Q64_ReadData(temp_w25q_data,(uint16_t*)&packet_length);

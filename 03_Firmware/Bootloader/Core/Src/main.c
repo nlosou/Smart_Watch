@@ -21,6 +21,7 @@
 #include "W25Qxx_handler.h"
 #include "iic.h"
 #include "AT24Cxx_Driver.h"
+#include "lwdg.h"
 // 全局定义 STM32F411xE 或者 STM32F401xx
 // 当前定义 STM32F411xE
 
@@ -50,8 +51,8 @@ extern key_need_arg_t key_need_arg;
 
 extern led_handler_t  led_handler;
 extern led_need_arg_t led_need_arg;
-
-
+extern uint8_t  ota_status;
+uint32_t g_JumpInit __attribute__((at(0x2001FFF0), zero_init));
 /* Private function prototypes -----------------------------------------------*/
 
 void app_elog_init(void);
@@ -75,6 +76,15 @@ void jump_to_app(void);
 uint8_t temp_data[1024] = {0};
 int main(void)
 {
+    if(g_JumpInit == 0x55AA55AA)
+    {
+        g_JumpInit = 0xFFFFFFFF;
+        jump_to_app();
+    }
+    else
+    {
+
+    }
 	/* Enable Clock Security System(CSS): this will generate an NMI exception
      when HSE clock fails *****************************************************/
   RCC_ClockSecuritySystemCmd(ENABLE);
@@ -105,6 +115,7 @@ int main(void)
   SPI1_Init();
   ee_CheckOk();
   W25Q64_Init();
+  //IWDG_Init(IWDG_Prescaler_64,3000);
          
   
     
@@ -117,10 +128,12 @@ int main(void)
   */
   /* Infinite loop */
 
-  //Ota_SateManger();
-  jump_to_app();
+
+ ee_ReadBytes((uint8_t*)&ota_status,0x00,1);
   while (1)
   {
+
+      Ota_SateManger();
       /*
       elog_e("ERROR","vail false,please press key to Download app");
       if(KEY_HANDLER_OK == key_handler.key_scan(&key_handler))

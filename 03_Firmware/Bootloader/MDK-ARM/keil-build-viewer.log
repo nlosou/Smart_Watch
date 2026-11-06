@@ -1,0 +1,199 @@
+
+=================================================== keil-build-viewer v1.6 ==================================================
+ 
+[Search keil project] 1 item(s)
+	C:\Users\Noser\Desktop\Smart_Watch\03_Firmware\Bootloader\MDK-ARM\template.uvprojx
+
+[User input] 
+[Current folder] C:\Users\Noser\Desktop\Smart_Watch\03_Firmware\Bootloader\MDK-ARM
+[Encoding] 936
+[Keil project path] C:\Users\Noser\Desktop\Smart_Watch\03_Firmware\Bootloader\MDK-ARM\template.uvprojx
+[Keil project name] template.uvprojx
+[Is keil v4] 0
+[target name] STM32F4x1
+[final target name] STM32F4x1
+
+[Device] STM32F411CEUx
+[Target name] 
+[Output name] Bootloader
+[Output path] .\Objects\
+[Listing path] .\Listings\
+[Is has pack] 1
+[Is enbale LTO] 0
+[Is has user library] 0
+[Is custom scatter file] 0
+
+[template.uvprojx]  [STM32F4x1]  [STM32F411CEUx]  [LTO disable]
+ 
+[memory info]
+[name] IRAM [base addr] 0x20000000 [size] 0x00020000 [type] 1 [off-chip] 0 [is pack] 1 [ID] 2 
+[name] IROM [base addr] 0x08000000 [size] 0x00080000 [type] 2 [off-chip] 0 [is pack] 1 [ID] 3 
+
+
+[map file path] C:\Users\Noser\Desktop\Smart_Watch\03_Firmware\Bootloader\MDK-ARM\Listings\Bootloader.map
+
+[region info]
+[load region] LR_IROM1
+	[execution region] ER_IROM1, 0x08000000, 0x00008000, 0x000055AC [memory type] 2 [memory ID] 3
+
+	[execution region] RW_IRAM1, 0x20000000, 0x0001FFF0, 0x00005DD8 [memory type] 1 [memory ID] 2
+		[ZI block] addr: 0x20000108, size: 0x00005CD0 (23760)
+
+[load region] LR$$.ARM.__AT_0x2001FFF0
+	[execution region] ER$$.ARM.__AT_0x2001FFF0, 0x2001FFF0, 0x00000004, 0x00000004 [memory type] 1 [memory ID] 2
+		[ZI block] addr: 0x2001FFF0, size: 0x00000004 (4)
+
+
+[object name max length] 25
+[object path max length] 67
+
+[object in map file]
+[object name] aes.o                      [path] ..\Algo\AES\AES.c
+[object name] at24cxx_driver.o           [path] ..\Bsp\AT24Cxx_Driver\AT24Cxx_Driver\AT24Cxx_Driver.c
+[object name] boot_manager.o             [path] ..\Task\Boot_Manager\boot_manager.c
+[object name] common.o                   [path] ..\Middlerwares\Ymodem\common.c
+[object name] elog.o                     [path] ..\Middlerwares\EasyLogger\src\elog.c
+[object name] elog_async.o               [path] ..\Middlerwares\EasyLogger\src\elog_async.c
+[object name] elog_port.o                [path] ..\Middlerwares\EasyLogger\src\elog_port.c
+[object name] elog_utils.o               [path] ..\Middlerwares\EasyLogger\src\elog_utils.c
+[object name] flash.o                    [path] ..\Bsp\Flash\Flash.c
+[object name] gpio.o                     [path] ..\Core\Src\gpio.c
+[object name] iic.o                      [path] ..\Bsp\AT24Cxx_Driver\AT24Cxx_Driver\iic.c
+[object name] key.o                      [path] ..\Bsp\key\key.c
+[object name] led.o                      [path] ..\Bsp\Led\led.c
+[object name] lwdg.o                     [path] ..\Core\Src\lwdg.c
+[object name] main.o                     [path] ..\Core\Src\main.c
+[object name] segger_rtt.o               [path] ..\Middlerwares\Segger_RTT\src\SEGGER_RTT.c
+[object name] spi.o                      [path] ..\Core\Src\spi.c
+[object name] startup_stm32f411xe.o      [path] .\startup_stm32f411xe.s
+[object name] stm32f4xx_flash.o          [path] ..\Drivers\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_flash.c
+[object name] stm32f4xx_gpio.o           [path] ..\Drivers\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_gpio.c
+[object name] stm32f4xx_it.o             [path] ..\Core\Src\stm32f4xx_it.c
+[object name] stm32f4xx_iwdg.o           [path] ..\Drivers\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_iwdg.c
+[object name] stm32f4xx_rcc.o            [path] ..\Drivers\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_rcc.c
+[object name] stm32f4xx_spi.o            [path] ..\Drivers\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_spi.c
+[object name] stm32f4xx_tim.o            [path] ..\Drivers\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_tim.c
+[object name] stm32f4xx_usart.o          [path] ..\Drivers\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_usart.c
+[object name] system_stm32f4xx.o         [path] ..\Core\Src\system_stm32f4xx.c
+[object name] tim.o                      [path] ..\Core\Src\tim.c
+[object name] usart.o                    [path] ..\Bsp\Usart\usart.c
+[object name] w25qxx.o                   [path] ..\Bsp\W25Qxx\W25Qxx.c
+[object name] w25qxx_handler.o           [path] ..\Bsp\W25Qxx\W25Qxx_handler.c
+[object name] ymodem.o                   [path] ..\Middlerwares\Ymodem\ymodem.c
+
+[file path in keil project]
+[old name] main.c                     [type] 1   [path] ..\Core\Src\main.c
+[old name] tim.c                      [type] 1   [path] ..\Core\Src\tim.c
+[old name] gpio.c                     [type] 1   [path] ..\Core\Src\gpio.c
+[old name] stm32f4xx_it.c             [type] 1   [path] ..\Core\Src\stm32f4xx_it.c
+[old name] spi.c                      [type] 1   [path] ..\Core\Src\spi.c
+[old name] lwdg.c                     [type] 1   [path] ..\Core\Src\lwdg.c
+[old name] startup_stm32f411xe.s      [type] 1   [path] .\startup_stm32f411xe.s
+[old name] system_stm32f4xx.c         [type] 1   [path] ..\Core\Src\system_stm32f4xx.c
+[old name] misc.c                     [type] 1   [path] ..\Drivers\STM32F4xx_StdPeriph_Driver\src\misc.c
+[old name] stm32f4xx_adc.c            [type] 1   [path] ..\Drivers\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_adc.c
+[old name] stm32f4xx_crc.c            [type] 1   [path] ..\Drivers\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_crc.c
+[old name] stm32f4xx_cryp.c           [type] 1   [path] ..\Drivers\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_cryp.c
+[old name] stm32f4xx_cryp_aes.c       [type] 1   [path] ..\Drivers\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_cryp_aes.c
+[old name] stm32f4xx_cryp_des.c       [type] 1   [path] ..\Drivers\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_cryp_des.c
+[old name] stm32f4xx_cryp_tdes.c      [type] 1   [path] ..\Drivers\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_cryp_tdes.c
+[old name] stm32f4xx_dac.c            [type] 1   [path] ..\Drivers\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_dac.c
+[old name] stm32f4xx_dbgmcu.c         [type] 1   [path] ..\Drivers\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_dbgmcu.c
+[old name] stm32f4xx_dma.c            [type] 1   [path] ..\Drivers\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_dma.c
+[old name] stm32f4xx_exti.c           [type] 1   [path] ..\Drivers\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_exti.c
+[old name] stm32f4xx_flash.c          [type] 1   [path] ..\Drivers\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_flash.c
+[old name] stm32f4xx_flash_ramfunc.c  [type] 1   [path] ..\Drivers\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_flash_ramfunc.c
+[old name] stm32f4xx_gpio.c           [type] 1   [path] ..\Drivers\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_gpio.c
+[old name] stm32f4xx_i2c.c            [type] 1   [path] ..\Drivers\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_i2c.c
+[old name] stm32f4xx_iwdg.c           [type] 1   [path] ..\Drivers\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_iwdg.c
+[old name] stm32f4xx_pwr.c            [type] 1   [path] ..\Drivers\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_pwr.c
+[old name] stm32f4xx_rcc.c            [type] 1   [path] ..\Drivers\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_rcc.c
+[old name] stm32f4xx_rtc.c            [type] 1   [path] ..\Drivers\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_rtc.c
+[old name] stm32f4xx_sdio.c           [type] 1   [path] ..\Drivers\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_sdio.c
+[old name] stm32f4xx_spi.c            [type] 1   [path] ..\Drivers\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_spi.c
+[old name] stm32f4xx_syscfg.c         [type] 1   [path] ..\Drivers\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_syscfg.c
+[old name] stm32f4xx_tim.c            [type] 1   [path] ..\Drivers\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_tim.c
+[old name] stm32f4xx_usart.c          [type] 1   [path] ..\Drivers\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_usart.c
+[old name] stm32f4xx_wwdg.c           [type] 1   [path] ..\Drivers\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_wwdg.c
+[old name] key.c                      [type] 1   [path] ..\Bsp\key\key.c
+[old name] led.c                      [type] 1   [path] ..\Bsp\Led\led.c
+[old name] usart.c                    [type] 1   [path] ..\Bsp\Usart\usart.c
+[old name] Flash.c                    [type] 1   [path] ..\Bsp\Flash\Flash.c
+[old name] W25Qxx.c                   [type] 1   [path] ..\Bsp\W25Qxx\W25Qxx.c
+[old name] W25Qxx_handler.c           [type] 1   [path] ..\Bsp\W25Qxx\W25Qxx_handler.c
+[old name] AT24Cxx_Driver.c           [type] 1   [path] ..\Bsp\AT24Cxx_Driver\AT24Cxx_Driver\AT24Cxx_Driver.c
+[old name] iic.c                      [type] 1   [path] ..\Bsp\AT24Cxx_Driver\AT24Cxx_Driver\iic.c
+[old name] SEGGER_RTT.c               [type] 1   [path] ..\Middlerwares\Segger_RTT\src\SEGGER_RTT.c
+[old name] SEGGER_RTT_printf.c        [type] 1   [path] ..\Middlerwares\Segger_RTT\src\SEGGER_RTT_printf.c
+[old name] elog.c                     [type] 1   [path] ..\Middlerwares\EasyLogger\src\elog.c
+[old name] elog_async.c               [type] 1   [path] ..\Middlerwares\EasyLogger\src\elog_async.c
+[old name] elog_buf.c                 [type] 1   [path] ..\Middlerwares\EasyLogger\src\elog_buf.c
+[old name] elog_port.c                [type] 1   [path] ..\Middlerwares\EasyLogger\src\elog_port.c
+[old name] elog_utils.c               [type] 1   [path] ..\Middlerwares\EasyLogger\src\elog_utils.c
+[old name] ymodem.c                   [type] 1   [path] ..\Middlerwares\Ymodem\ymodem.c
+[old name] common.c                   [type] 1   [path] ..\Middlerwares\Ymodem\common.c
+[old name] boot_manager.c             [type] 1   [path] ..\Task\Boot_Manager\boot_manager.c
+[old name] AES.c                      [type] 1   [path] ..\Algo\AES\AES.c
+
+[record region info]
+[load region] LR_IROM1
+	[execution region] ER_IROM1, 0x08000000, 0x00008000, 0x000055AC [type] 2 [ID] 3
+	[execution region] RW_IRAM1, 0x20000000, 0x0001FFF0, 0x00005DD8 [type] 1 [ID] 2
+[load region] LR$$.ARM.__AT_0x2001FFF0
+	[execution region] ER$$.ARM.__AT_0x2001FFF0, 0x2001FFF0, 0x00000004, 0x00000004 [type] 1 [ID] 2
+-------------------------------------------------------------------------------------------------------------------------------
+                                 FILE(s)                                |         RAM (byte)       |       FLASH (byte)       |
+-------------------------------------------------------------------------------------------------------------------------------
+..\Algo\AES\AES.c():                                                    |         176              |        1266              |
+..\Bsp\AT24Cxx_Driver\AT24Cxx_Driver\AT24Cxx_Driver.c():                |           0              |         262              |
+..\Task\Boot_Manager\boot_manager.c():                                  |        5159              |        2002              |
+..\Middlerwares\Ymodem\common.c():                                      |           0              |         312              |
+..\Middlerwares\EasyLogger\src\elog.c():                                |        1324              |        3229              |
+..\Middlerwares\EasyLogger\src\elog_async.c():                          |           0              |           0              |
+..\Middlerwares\EasyLogger\src\elog_port.c():                           |         256              |          38              |
+..\Middlerwares\EasyLogger\src\elog_utils.c():                          |           0              |         303              |
+..\Bsp\Flash\Flash.c():                                                 |           0              |         374              |
+..\Core\Src\gpio.c():                                                   |          80              |         304              |
+..\Bsp\AT24Cxx_Driver\AT24Cxx_Driver\iic.c():                           |           0              |         526              |
+..\Bsp\key\key.c():                                                     |           0              |         120              |
+..\Bsp\Led\led.c():                                                     |           6              |         266              |
+..\Core\Src\lwdg.c():                                                   |           0              |          36              |
+..\Core\Src\main.c():                                                   |        1048              |         431              |
+..\Middlerwares\Segger_RTT\src\SEGGER_RTT.c():                          |        1208              |         575              |
+..\Core\Src\spi.c():                                                    |           0              |         628              |
+.\startup_stm32f411xe.s():                                              |        1024              |         444              |
+..\Drivers\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_flash.c():          |           0              |         390              |
+..\Drivers\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_gpio.c():           |           0              |         258              |
+..\Core\Src\stm32f4xx_it.c():                                           |           4              |          84              |
+..\Drivers\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_iwdg.c():           |           0              |          68              |
+..\Drivers\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_rcc.c():            |          16              |         356              |
+..\Drivers\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_spi.c():            |           0              |         118              |
+..\Drivers\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_tim.c():            |           0              |          40              |
+..\Drivers\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_usart.c():          |           0              |         270              |
+..\Core\Src\system_stm32f4xx.c():                                       |          20              |         524              |
+..\Core\Src\tim.c():                                                    |           0              |           2              |
+..\Bsp\Usart\usart.c():                                                 |           0              |         202              |
+..\Bsp\W25Qxx\W25Qxx.c():                                               |          28              |         816              |
+..\Bsp\W25Qxx\W25Qxx_handler.c():                                       |        8232              |        1188              |
+..\Middlerwares\Ymodem\ymodem.c():                                      |        5433              |         732              |
+-------------------------------------------------------------------------------------------------------------------------------
+[memory print mode]: 0
+LR_IROM1
+        RAM 1                             [0x20000000 | 0x00020000 (131072)]
+                [zi start] 1   [zi end] 9
+                RW_IRAM1                  [0x20000000]|¡ö¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ_________________________________________| (  23.4 KB / 127.9 KB )  18.3%  
+ 
+        FLASH 1                           [0x08000000 | 0x00080000 (524288)]
+                ER_IROM1                  [0x08000000]|¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö_________________| (  21.4 KB /  32.0 KB )  66.9%  
+ 
+LR$$.ARM.__AT_0x2001FFF0
+        RAM 1                             [0x20000000 | 0x00020000 (131072)]
+                [zi start] 0   [zi end] 50
+                ER$$.ARM.__AT_0x2001FFF0  [0x2001FFF0]|¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ| (        4 /        4 ) 100.0%  
+ 
+[htm file path] C:\Users\Noser\Desktop\Smart_Watch\03_Firmware\Bootloader\MDK-ARM\Objects\Bootloader.htm
+Maximum Stack Usage =        312 bytes + Unknown(Cycles, Untraceable Function Pointers)
+ 
+=============================================================================================================================
+
+run time: 0.229 s

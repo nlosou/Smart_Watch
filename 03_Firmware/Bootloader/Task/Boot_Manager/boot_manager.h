@@ -11,8 +11,10 @@
 #define    NO_APP_NEED_TO_UPDATE   0x00
 #define    APP_DOWNLOADING         0x11
 #define    APP_REQ_UPDATE          0x22
+#define    APP_FIRST_CHECK_START   0x33
+#define    APP_FIRST_CHECK         0x44
 #define    DOWNLOAD                0xAA
-
+#define    CODE_ROLLBACK           0xBB
 
 typedef void (*pFunction)(void);
 /**

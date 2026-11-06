@@ -49,11 +49,14 @@ typedef struct
 /* Exported macro ------------------------------------------------------------*/
 #define EXTERN_Flash
 
+#define BLOCK_A         0
+#define BLOCK_B         1
+#define BLOCK_SIZE      0xFFFF
 /* Exported functions ------------------------------------------------------- */
 void W25Q64_Init(void);
 u8 W25Q64_EraseChip(void);
-
-u8 W25Q64_WriteData(u8 *data, u32 length);
-u8 W25Q64_WriteData_End(void);
-u8 W25Q64_ReadData(u8 *data, u16 *length);
+u8 W25Q64_WriteData(u8 block_index, u8 *data, u32 length);
+u8 W25Q64_WriteData_End(u8 block_index);
+u8 W25Q64_ReadData(u8 block_index, u8 *data, u16 *length);
 #endif /* __FLASH_H */
+
