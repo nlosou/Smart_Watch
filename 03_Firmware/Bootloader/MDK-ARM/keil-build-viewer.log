@@ -34,7 +34,7 @@
 
 [region info]
 [load region] LR_IROM1
-	[execution region] ER_IROM1, 0x08000000, 0x00008000, 0x000055AC [memory type] 2 [memory ID] 3
+	[execution region] ER_IROM1, 0x08000000, 0x00008000, 0x0000562C [memory type] 2 [memory ID] 3
 
 	[execution region] RW_IRAM1, 0x20000000, 0x0001FFF0, 0x00005DD8 [memory type] 1 [memory ID] 2
 		[ZI block] addr: 0x20000108, size: 0x00005CD0 (23760)
@@ -63,6 +63,7 @@
 [object name] led.o                      [path] ..\Bsp\Led\led.c
 [object name] lwdg.o                     [path] ..\Core\Src\lwdg.c
 [object name] main.o                     [path] ..\Core\Src\main.c
+[object name] misc.o                     [path] ..\Drivers\STM32F4xx_StdPeriph_Driver\src\misc.c
 [object name] segger_rtt.o               [path] ..\Middlerwares\Segger_RTT\src\SEGGER_RTT.c
 [object name] spi.o                      [path] ..\Core\Src\spi.c
 [object name] startup_stm32f411xe.o      [path] .\startup_stm32f411xe.s
@@ -137,7 +138,7 @@
 
 [record region info]
 [load region] LR_IROM1
-	[execution region] ER_IROM1, 0x08000000, 0x00008000, 0x000055AC [type] 2 [ID] 3
+	[execution region] ER_IROM1, 0x08000000, 0x00008000, 0x00005634 [type] 2 [ID] 3
 	[execution region] RW_IRAM1, 0x20000000, 0x0001FFF0, 0x00005DD8 [type] 1 [ID] 2
 [load region] LR$$.ARM.__AT_0x2001FFF0
 	[execution region] ER$$.ARM.__AT_0x2001FFF0, 0x2001FFF0, 0x00000004, 0x00000004 [type] 1 [ID] 2
@@ -146,7 +147,7 @@
 -------------------------------------------------------------------------------------------------------------------------------
 ..\Algo\AES\AES.c():                                                    |         176              |        1266              |
 ..\Bsp\AT24Cxx_Driver\AT24Cxx_Driver\AT24Cxx_Driver.c():                |           0              |         262              |
-..\Task\Boot_Manager\boot_manager.c():                                  |        5159              |        2002              |
+..\Task\Boot_Manager\boot_manager.c():                                  |        5159              |        2018  [-8]        |
 ..\Middlerwares\Ymodem\common.c():                                      |           0              |         312              |
 ..\Middlerwares\EasyLogger\src\elog.c():                                |        1324              |        3229              |
 ..\Middlerwares\EasyLogger\src\elog_async.c():                          |           0              |           0              |
@@ -159,6 +160,7 @@
 ..\Bsp\Led\led.c():                                                     |           6              |         266              |
 ..\Core\Src\lwdg.c():                                                   |           0              |          36              |
 ..\Core\Src\main.c():                                                   |        1048              |         431              |
+..\Drivers\STM32F4xx_StdPeriph_Driver\src\misc.c():                     |           0              |          20              |
 ..\Middlerwares\Segger_RTT\src\SEGGER_RTT.c():                          |        1208              |         575              |
 ..\Core\Src\spi.c():                                                    |           0              |         628              |
 .\startup_stm32f411xe.s():                                              |        1024              |         444              |
@@ -166,7 +168,7 @@
 ..\Drivers\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_gpio.c():           |           0              |         258              |
 ..\Core\Src\stm32f4xx_it.c():                                           |           4              |          84              |
 ..\Drivers\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_iwdg.c():           |           0              |          68              |
-..\Drivers\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_rcc.c():            |          16              |         356              |
+..\Drivers\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_rcc.c():            |          16              |         448              |
 ..\Drivers\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_spi.c():            |           0              |         118              |
 ..\Drivers\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_tim.c():            |           0              |          40              |
 ..\Drivers\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_usart.c():          |           0              |         270              |
@@ -184,7 +186,7 @@ LR_IROM1
                 RW_IRAM1                  [0x20000000]|¡ö¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ_________________________________________| (  23.4 KB / 127.9 KB )  18.3%  
  
         FLASH 1                           [0x08000000 | 0x00080000 (524288)]
-                ER_IROM1                  [0x08000000]|¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö_________________| (  21.4 KB /  32.0 KB )  66.9%  
+                ER_IROM1                  [0x08000000]|¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö_________________| (  21.5 KB /  32.0 KB )  67.3%  [-8]
  
 LR$$.ARM.__AT_0x2001FFF0
         RAM 1                             [0x20000000 | 0x00020000 (131072)]
@@ -196,4 +198,4 @@ Maximum Stack Usage =        312 bytes + Unknown(Cycles, Untraceable Function Po
  
 =============================================================================================================================
 
-run time: 0.229 s
+run time: 0.235 s

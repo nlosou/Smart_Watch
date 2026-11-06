@@ -152,23 +152,7 @@
         <Bp>
           <Number>0</Number>
           <Type>0</Type>
-          <LineNumber>415</LineNumber>
-          <EnabledFlag>1</EnabledFlag>
-          <Address>134221492</Address>
-          <ByteObject>0</ByteObject>
-          <HtxType>0</HtxType>
-          <ManyObjects>0</ManyObjects>
-          <SizeOfObject>0</SizeOfObject>
-          <BreakByAccess>0</BreakByAccess>
-          <BreakIfRCount>1</BreakIfRCount>
-          <Filename>..\Task\Boot_Manager\boot_manager.c</Filename>
-          <ExecCommand></ExecCommand>
-          <Expression>\\Bootloader\../Task/Boot_Manager/boot_manager.c\415</Expression>
-        </Bp>
-        <Bp>
-          <Number>1</Number>
-          <Type>0</Type>
-          <LineNumber>439</LineNumber>
+          <LineNumber>444</LineNumber>
           <EnabledFlag>1</EnabledFlag>
           <Address>134221614</Address>
           <ByteObject>0</ByteObject>
@@ -179,7 +163,39 @@
           <BreakIfRCount>1</BreakIfRCount>
           <Filename>..\Task\Boot_Manager\boot_manager.c</Filename>
           <ExecCommand></ExecCommand>
-          <Expression>\\Bootloader\../Task/Boot_Manager/boot_manager.c\439</Expression>
+          <Expression>\\Bootloader\../Task/Boot_Manager/boot_manager.c\444</Expression>
+        </Bp>
+        <Bp>
+          <Number>1</Number>
+          <Type>0</Type>
+          <LineNumber>453</LineNumber>
+          <EnabledFlag>1</EnabledFlag>
+          <Address>134221652</Address>
+          <ByteObject>0</ByteObject>
+          <HtxType>0</HtxType>
+          <ManyObjects>0</ManyObjects>
+          <SizeOfObject>0</SizeOfObject>
+          <BreakByAccess>0</BreakByAccess>
+          <BreakIfRCount>1</BreakIfRCount>
+          <Filename>..\Task\Boot_Manager\boot_manager.c</Filename>
+          <ExecCommand></ExecCommand>
+          <Expression>\\Bootloader\../Task/Boot_Manager/boot_manager.c\453</Expression>
+        </Bp>
+        <Bp>
+          <Number>2</Number>
+          <Type>0</Type>
+          <LineNumber>265</LineNumber>
+          <EnabledFlag>1</EnabledFlag>
+          <Address>0</Address>
+          <ByteObject>0</ByteObject>
+          <HtxType>0</HtxType>
+          <ManyObjects>0</ManyObjects>
+          <SizeOfObject>0</SizeOfObject>
+          <BreakByAccess>0</BreakByAccess>
+          <BreakIfRCount>0</BreakIfRCount>
+          <Filename>..\Task\Boot_Manager\boot_manager.c</Filename>
+          <ExecCommand></ExecCommand>
+          <Expression></Expression>
         </Bp>
       </Breakpoint>
       <WatchWindow1>
@@ -222,8 +238,8 @@
       <MemoryWindow1>
         <Mm>
           <WinNumber>1</WinNumber>
-          <SubType>0</SubType>
-          <ItemText>0x20004521</ItemText>
+          <SubType>1</SubType>
+          <ItemText>0x20004521 </ItemText>
           <AccSizeX>0</AccSizeX>
         </Mm>
       </MemoryWindow1>

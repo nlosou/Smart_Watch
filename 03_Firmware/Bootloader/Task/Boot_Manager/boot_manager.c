@@ -52,9 +52,9 @@ void jump_to_app(void)
     if(((*(__IO uint32_t *)APP_FLASH_ADDR) & 0x2FFE0000) == 0x20000000)
     {
          //屏蔽所有中断，防止在跳转过程中，中断干扰出现异常 */
-        //__disable_irq();
-        //NVIC_SetVectorTable(NVIC_VectTab_FLASH, 0x8000);
-        //RCC_DeInit();
+        __disable_irq();
+        NVIC_SetVectorTable(NVIC_VectTab_FLASH, 0x8000);
+        RCC_DeInit();
 
         /* 用户代码区第二个 字 为程序开始地址(复位地址) */
         JumpAddress = *(__IO uint32_t *) (APP_FLASH_ADDR+ 4);
@@ -453,7 +453,6 @@ void Ota_SateManger(void)
             if( 0!=back_to_w25Qxx_back(temp_app_size))
             {
                 elog_e("INFO", "Parse False!!");            
-                jump_to_app();
                 //跳转失败回滚代码
                 ota_status = CODE_ROLLBACK;
                 return;
@@ -499,6 +498,7 @@ void Ota_SateManger(void)
             }
             ota_status = APP_FIRST_CHECK_START;
             ee_WriteBytes(&ota_status,0x00,1);
+            g_JumpInit = 0x55AA55AA;
             System_SoftwareReset();
         }
           break;

@@ -1,7 +1,7 @@
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   Object Name
        754          0        512          0        176          0   aes.o
        262          0          0          0          0          0   at24cxx_driver.o
-      1912          0         51         39       5120          0   boot_manager.o
+      1928          0         51         39       5120          0   boot_manager.o
        312          0          0          0          0          0   common.o
       2880          0        297         52       1272          0   elog.o
          0          0          0          0          0          0   elog_async.o
@@ -14,6 +14,7 @@
        260          0          0          6          0          0   led.o
         36          0          0          0          0          0   lwdg.o
        422          0          5          4       1044          0   main.o
+        20          0          0          0          0          0   misc.o
        558          0         17          0       1208          0   segger_rtt.o
        628          0          0          0          0          0   spi.o
         36          0        408          0       1024          0   startup_stm32f411xe.o
@@ -21,7 +22,7 @@
        258          0          0          0          0          0   stm32f4xx_gpio.o
         80          0          0          4          0          0   stm32f4xx_it.o
         68          0          0          0          0          0   stm32f4xx_iwdg.o
-       340          0          0         16          0          0   stm32f4xx_rcc.o
+       432          0          0         16          0          0   stm32f4xx_rcc.o
        118          0          0          0          0          0   stm32f4xx_spi.o
         40          0          0          0          0          0   stm32f4xx_tim.o
        270          0          0          0          0          0   stm32f4xx_usart.o
@@ -37,7 +38,7 @@ Memory Map of the image
 
 	Load Region LR_IROM1 
 
-		Execution Region ER_IROM1 (Exec base: 0x08000000, Size: 0x000055AC, Max: 0x00008000, END)
+		Execution Region ER_IROM1 (Exec base: 0x08000000, Size: 0x0000562C, Max: 0x00008000, END)
 
 		Execution Region RW_IRAM1 (Exec base: 0x20000000, Size: 0x00005DD8, Max: 0x0001FFF0, END)
 
