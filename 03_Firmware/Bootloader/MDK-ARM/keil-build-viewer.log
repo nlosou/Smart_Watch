@@ -34,7 +34,7 @@
 
 [region info]
 [load region] LR_IROM1
-	[execution region] ER_IROM1, 0x08000000, 0x00008000, 0x0000562C [memory type] 2 [memory ID] 3
+	[execution region] ER_IROM1, 0x08000000, 0x00008000, 0x0000569C [memory type] 2 [memory ID] 3
 
 	[execution region] RW_IRAM1, 0x20000000, 0x0001FFF0, 0x00005DD8 [memory type] 1 [memory ID] 2
 		[ZI block] addr: 0x20000108, size: 0x00005CD0 (23760)
@@ -138,7 +138,7 @@
 
 [record region info]
 [load region] LR_IROM1
-	[execution region] ER_IROM1, 0x08000000, 0x00008000, 0x00005634 [type] 2 [ID] 3
+	[execution region] ER_IROM1, 0x08000000, 0x00008000, 0x0000569C [type] 2 [ID] 3
 	[execution region] RW_IRAM1, 0x20000000, 0x0001FFF0, 0x00005DD8 [type] 1 [ID] 2
 [load region] LR$$.ARM.__AT_0x2001FFF0
 	[execution region] ER$$.ARM.__AT_0x2001FFF0, 0x2001FFF0, 0x00000004, 0x00000004 [type] 1 [ID] 2
@@ -147,7 +147,7 @@
 -------------------------------------------------------------------------------------------------------------------------------
 ..\Algo\AES\AES.c():                                                    |         176              |        1266              |
 ..\Bsp\AT24Cxx_Driver\AT24Cxx_Driver\AT24Cxx_Driver.c():                |           0              |         262              |
-..\Task\Boot_Manager\boot_manager.c():                                  |        5159              |        2018  [-8]        |
+..\Task\Boot_Manager\boot_manager.c():                                  |        5159              |        2054              |
 ..\Middlerwares\Ymodem\common.c():                                      |           0              |         312              |
 ..\Middlerwares\EasyLogger\src\elog.c():                                |        1324              |        3229              |
 ..\Middlerwares\EasyLogger\src\elog_async.c():                          |           0              |           0              |
@@ -176,7 +176,7 @@
 ..\Core\Src\tim.c():                                                    |           0              |           2              |
 ..\Bsp\Usart\usart.c():                                                 |           0              |         202              |
 ..\Bsp\W25Qxx\W25Qxx.c():                                               |          28              |         816              |
-..\Bsp\W25Qxx\W25Qxx_handler.c():                                       |        8232              |        1188              |
+..\Bsp\W25Qxx\W25Qxx_handler.c():                                       |        8232              |        1264              |
 ..\Middlerwares\Ymodem\ymodem.c():                                      |        5433              |         732              |
 -------------------------------------------------------------------------------------------------------------------------------
 [memory print mode]: 0
@@ -186,7 +186,7 @@ LR_IROM1
                 RW_IRAM1                  [0x20000000]|¡ö¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ_________________________________________| (  23.4 KB / 127.9 KB )  18.3%  
  
         FLASH 1                           [0x08000000 | 0x00080000 (524288)]
-                ER_IROM1                  [0x08000000]|¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö_________________| (  21.5 KB /  32.0 KB )  67.3%  [-8]
+                ER_IROM1                  [0x08000000]|¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö_________________| (  21.6 KB /  32.0 KB )  67.7%  
  
 LR$$.ARM.__AT_0x2001FFF0
         RAM 1                             [0x20000000 | 0x00020000 (131072)]
@@ -198,4 +198,4 @@ Maximum Stack Usage =        312 bytes + Unknown(Cycles, Untraceable Function Po
  
 =============================================================================================================================
 
-run time: 0.235 s
+run time: 0.226 s

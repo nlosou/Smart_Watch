@@ -435,13 +435,18 @@ void Ota_SateManger(void)
       case APP_DOWNLOADING:
          elog_e("ERROR","Download false!!!");
          //合法就跳转
+         
+         ota_status = NO_APP_NEED_TO_UPDATE;
+         ee_WriteBytes(&ota_status,0x00,1);
          jump_to_app();
          elog_e("ERROR","App data broken");
          //不合法就跳转到下载状态
          ota_status = DOWNLOAD;
           break;
       case APP_REQ_UPDATE:
+            //这里获取的大小是,密文的大小
             ee_ReadBytes(need_upate_app_size,0x01,4);
+            
             //解密并写入B区间
             //配置W25Qxx从A区读取,解密并写入B区间
             // 将 4 个字节整合成 32 位无符号整型
@@ -450,11 +455,13 @@ void Ota_SateManger(void)
                     ((int32_t)need_upate_app_size[2] << 16) | 
                     ((int32_t)need_upate_app_size[3] << 24);
 
+           SetBlockParmeter(BLOCK_A,temp_app_size);
             if( 0!=back_to_w25Qxx_back(temp_app_size))
             {
                 elog_e("INFO", "Parse False!!");            
                 //跳转失败回滚代码
-                ota_status = CODE_ROLLBACK;
+                ota_status = NO_APP_NEED_TO_UPDATE;
+                ee_WriteBytes(&ota_status,0x00,1);
                 return;
 
             }
@@ -506,7 +513,7 @@ void Ota_SateManger(void)
             //读取当前app的size
         ee_ReadBytes(back_app_size,0x05,4);
             // 将 4 个字节整合成 32 位无符号整型
-        back_app_size_temp= (int32_t)back_app_size[0] | 
+          back_app_size_temp= (int32_t)back_app_size[0] | 
                 ((int32_t)back_app_size[1] << 8) | 
                 ((int32_t)back_app_size[2] << 16) | 
                 ((int32_t)back_app_size[3] << 24);

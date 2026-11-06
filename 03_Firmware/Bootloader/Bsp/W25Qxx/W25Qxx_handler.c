@@ -212,3 +212,16 @@ u8 W25Q64_ReadData(u8 block_index, u8 *data, u16 *length)
     }
 }
 
+
+/**
+ * @brief 
+ *
+ * @param block_index
+ * @param app_size
+ */
+void SetBlockParmeter(u8 block_index,uint32_t app_size)
+{
+    s_ast_W25Q_Handler[block_index].write_index = app_size;
+    s_ast_W25Q_Handler[block_index].write_databuf_index = app_size % BLOCK_SIZE;
+    s_ast_W25Q_Handler[block_index].write_sector_index = app_size / BLOCK_SIZE;
+}

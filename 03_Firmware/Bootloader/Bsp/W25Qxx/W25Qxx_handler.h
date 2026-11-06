@@ -51,12 +51,13 @@ typedef struct
 
 #define BLOCK_A         0
 #define BLOCK_B         1
-#define BLOCK_SIZE      0xFFFF
+#define BLOCK_SIZE      0x1000
 /* Exported functions ------------------------------------------------------- */
 void W25Q64_Init(void);
 u8 W25Q64_EraseChip(void);
 u8 W25Q64_WriteData(u8 block_index, u8 *data, u32 length);
 u8 W25Q64_WriteData_End(u8 block_index);
 u8 W25Q64_ReadData(u8 block_index, u8 *data, u16 *length);
+void SetBlockParmeter(u8 block_index,uint32_t app_size);
 #endif /* __FLASH_H */
 
