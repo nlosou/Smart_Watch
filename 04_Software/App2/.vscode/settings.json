@@ -1,0 +1,14 @@
+{
+    "files.associations": {
+        "w25qxx.h": "c",
+        "gpio.h": "c",
+        "stm32f4xx_hal.h": "c",
+        "task.h": "c",
+        "freertos.h": "c",
+        "ymodem.h": "c",
+        "swc_ota.h": "c",
+        "main.h": "c",
+        "queue.h": "c",
+        "usart.h": "c"
+    }
+}

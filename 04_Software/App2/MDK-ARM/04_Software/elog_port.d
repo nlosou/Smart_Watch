@@ -1,0 +1,11 @@
+04_software\elog_port.o: ..\Middlewares\Third_Party\EasyLogger\src\elog_port.c
+04_software\elog_port.o: ..\Middlewares\Third_Party\EasyLogger\inc\elog.h
+04_software\elog_port.o: ..\Middlewares\Third_Party\EasyLogger\inc\elog_cfg.h
+04_software\elog_port.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+04_software\elog_port.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
+04_software\elog_port.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
+04_software\elog_port.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+04_software\elog_port.o: ..\Middlewares\Third_Party\Segger_RTT\inc\SEGGER_RTT.h
+04_software\elog_port.o: ..\Middlewares\Third_Party\Segger_RTT\inc\SEGGER_RTT_Conf.h
+04_software\elog_port.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
+04_software\elog_port.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdarg.h
