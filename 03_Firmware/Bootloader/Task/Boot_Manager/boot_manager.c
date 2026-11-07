@@ -12,13 +12,14 @@
 /* Includes ------------------------------------------------------------------*/
 #include "boot_manager.h"
 #include "Flash.h"
-#include "W25Qxx_handler.h"
 #include "elog.h"
 #include "key.h"
 #include "AES.h"
 #include "AT24Cxx_Driver.h"
 #include "ymodem.h"
 #include "lwdg.h"
+#include "w25qxx_Handler.h"
+
 /* Includes ------------------------------------------------------------------*/
 
 extern key_handler_t  key_handler;
@@ -378,7 +379,7 @@ int8_t App_to_w25Qxx_back(int32_t app_size)
 
     uint32_t* read_addr =(uint32_t*) APP_FLASH_ADDR;
     
-    for(uint32_t i = 0 ; i < app_size ; i++)
+    for(uint32_t i = 0 ; i < app_size ; i+=4)
     {
         W25Q64_WriteData(BLOCK_A,(uint8_t*)read_addr,4);
         read_addr++;
@@ -491,23 +492,21 @@ void Ota_SateManger(void)
             elog_e("INFO", "Parse False!!");            
             jump_to_app();
             //跳转失败回滚代码
-            ota_status = CODE_ROLLBACK;
+            ota_status = NO_APP_NEED_TO_UPDATE;
+            return;
 
         }
-        else
+        //把B区代码安装在片上Flash中
+        if(0!=OTA_InstallApp(payload_app_size))    
         {
-            //把B区代码安装在片上Flash中
-            if(0!=OTA_InstallApp(payload_app_size))    
-            {
-                ota_status = CODE_ROLLBACK;
-                return;
-                
-            }
-            ota_status = APP_FIRST_CHECK_START;
-            ee_WriteBytes(&ota_status,0x00,1);
-            g_JumpInit = 0x55AA55AA;
-            System_SoftwareReset();
+            ota_status = CODE_ROLLBACK;
+            return;
+            
         }
+        ota_status = APP_FIRST_CHECK_START;
+        ee_WriteBytes(&ota_status,0x00,1);
+        g_JumpInit = 0x55AA55AA;
+        System_SoftwareReset();
           break;
       case CODE_ROLLBACK:
             //读取当前app的size
@@ -609,7 +608,7 @@ int8_t OTA_InstallApp(uint32_t new_app_size)
     // 5. 校验片上 Flash 中的新固件
 
     // 6. 更新 EEPROM 中的 App 大小
-    ee_WriteBytes((uint8_t*)&payload_app_size,0x01,4);
+    ee_WriteBytes((uint8_t*)&payload_app_size,0x05,4);
     // 7. 标记升级成功
      //将B区间代码写入片上Flash中
         

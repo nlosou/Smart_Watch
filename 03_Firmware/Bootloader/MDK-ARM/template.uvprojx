@@ -341,7 +341,7 @@
               <MiscControls></MiscControls>
               <Define>USE_STDPERIPH_DRIVER,STM32F411xE</Define>
               <Undefine></Undefine>
-              <IncludePath>..\MDK-ARM;..\Core\Inc;..\Drivers\STM32F4xx_StdPeriph_Driver\inc;..\Drivers\CMSIS\Device\ST\STM32F4xx\Include;..\Middlerwares\Segger_RTT\inc;..\Middlerwares\EasyLogger\inc;..\Task\Boot_Manager;..\Bsp\key;..\Bsp\Led;..\Bsp\Usart;..\Middlerwares\Ymodem;..\Bsp\Flash;..\Algo\AES;..\Bsp\W25Qxx;..\Bsp\AT24C02;..\Bsp\AT24Cxx_Driver\AT24Cxx_Driver</IncludePath>
+              <IncludePath>..\MDK-ARM;..\Core\Inc;..\Drivers\STM32F4xx_StdPeriph_Driver\inc;..\Drivers\CMSIS\Device\ST\STM32F4xx\Include;..\Middlerwares\Segger_RTT\inc;..\Middlerwares\EasyLogger\inc;..\Task\Boot_Manager;..\Bsp\key;..\Bsp\Led;..\Bsp\Usart;..\Middlerwares\Ymodem;..\Bsp\Flash;..\Algo\AES;..\Bsp\W25Qxx;..\Bsp\AT24C02;..\Bsp\AT24Cxx_Driver\AT24Cxx_Driver;..\Middlerwares\SFUD\Inc;..\Middlerwares\SFUD</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -1707,6 +1707,31 @@
               <FileName>common.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\Middlerwares\Ymodem\common.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Middlerwares/SFUD</GroupName>
+          <Files>
+            <File>
+              <FileName>sfud_port.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Middlerwares\SFUD\Port\sfud_port.c</FilePath>
+            </File>
+            <File>
+              <FileName>sfud.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Middlerwares\SFUD\Src\sfud.c</FilePath>
+            </File>
+            <File>
+              <FileName>sfud_sfdp.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Middlerwares\SFUD\Src\sfud_sfdp.c</FilePath>
+            </File>
+            <File>
+              <FileName>sfud_adapter.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Middlerwares\SFUD\sfud_adapter.c</FilePath>
             </File>
           </Files>
         </Group>

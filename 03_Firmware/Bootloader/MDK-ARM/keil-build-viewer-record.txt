@@ -16,8 +16,12 @@
        422          0          5          4       1044          0   main.o
         20          0          0          0          0          0   misc.o
        558          0         17          0       1208          0   segger_rtt.o
+      3512          0       1341        116        261          0   sfud.o
+        64          0          0         20          0          0   sfud_adapter.o
+       224          0          0          0          0          0   sfud_port.o
+      1302          0        323          0          0          0   sfud_sfdp.o
        628          0          0          0          0          0   spi.o
-        36          0        408          0       1024          0   startup_stm32f411xe.o
+        36          0        408          0       1536          0   startup_stm32f411xe.o
        390          0          0          0          0          0   stm32f4xx_flash.o
        258          0          0          0          0          0   stm32f4xx_gpio.o
         80          0          0          4          0          0   stm32f4xx_it.o
@@ -29,8 +33,7 @@
        504          0          0         20          0          0   system_stm32f4xx.o
          2          0          0          0          0          0   tim.o
        202          0          0          0          0          0   usart.o
-       816          0          0          0         28          0   w25qxx.o
-      1264          0          0          0       8232          0   w25qxx_handler.o
+      1084          0          0          0       8232          0   w25qxx_handler.o
        696          0          0         36       5397          0   ymodem.o
 Object Totals
 
@@ -38,9 +41,9 @@ Memory Map of the image
 
 	Load Region LR_IROM1 
 
-		Execution Region ER_IROM1 (Exec base: 0x08000000, Size: 0x0000569C, Max: 0x00008000, END)
+		Execution Region ER_IROM1 (Exec base: 0x08000000, Size: 0x00006618, Max: 0x00008000, END)
 
-		Execution Region RW_IRAM1 (Exec base: 0x20000000, Size: 0x00005DD8, Max: 0x0001FFF0, END)
+		Execution Region RW_IRAM1 (Exec base: 0x20000000, Size: 0x00006148, Max: 0x0001FFF0, END)
 
 	Load Region LR$$.ARM.__AT_0x2001FFF0 
 
