@@ -19,16 +19,12 @@
 #include "ymodem.h"
 #include "lwdg.h"
 #include "w25qxx_Handler.h"
-
+#include "sfud_adapter.h"  
 /* Includes ------------------------------------------------------------------*/
 
 extern key_handler_t  key_handler;
 extern key_need_arg_t key_need_arg;
 uint32_t payload_app_size;
-
-
-
-
 
 
 /* Private function prototypes -----------------------------------------------*/

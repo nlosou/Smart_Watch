@@ -61,31 +61,15 @@ static sfud_err spi_write_read(const sfud_spi *spi, const uint8_t *write_buf, si
     }
 
     if(read_size > 0)
-    {
+		{
+			memset(read_buf, 0xFF, read_size);
 
-        uint8_t *dummy_data = (uint8_t*)malloc(read_size);
-        if(dummy_data == NULL)
-        {
-            result = SFUD_ERR_WRITE;
-            goto    exti;
-        }
-
-        memset(dummy_data,0xff,read_size);
-
-
-        if(!SPI1_ReadByte(dummy_data,read_size,1000))
-        {
-            result = SFUD_ERR_TIMEOUT;
-            free(dummy_data);
-            goto exti;
-        }
-        
-        memcpy(read_buf,dummy_data,read_size);
-        
-        free(dummy_data);
-
-        
-    }
+			if(!SPI1_ReadByte(read_buf, read_size, 1000))
+			{
+					result = SFUD_ERR_TIMEOUT;
+					goto exti;
+			}
+		}
 
 exti:
     GPIO_SetBits(F_CS_GPIO_Port,F_CS_Pin);

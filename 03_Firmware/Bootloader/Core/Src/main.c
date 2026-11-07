@@ -74,8 +74,11 @@ void jump_to_app(void);
   */
 	
 uint8_t temp_data[1024] = {0};
+//uint8_t test_data[4096] = {0xAA};
+//uint8_t read_data[4096] = {0xAA};
 int main(void)
 {
+//    memset(test_data, 0xAA, sizeof(test_data));
     if(g_JumpInit == 0x55AA55AA)
     {
         g_JumpInit = 0xFFFFFFFF;
@@ -118,6 +121,10 @@ int main(void)
   //IWDG_Init(IWDG_Prescaler_64,3000);
          
   
+//  uint16_t length = 0;
+//  W25Q64_WriteData(0,test_data,4096);
+
+//  W25Q64_ReadData(0,read_data,&length);
     
   /*
   if(KEY_HANDLER_OK == key_handler.key_scan(&key_handler))

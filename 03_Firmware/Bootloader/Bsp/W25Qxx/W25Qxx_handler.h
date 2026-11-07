@@ -49,9 +49,6 @@ typedef struct
 /* Exported macro ------------------------------------------------------------*/
 #define EXTERN_Flash
 
-#define BLOCK_A         0
-#define BLOCK_B         1
-#define BLOCK_SIZE      0x1000
 /* Exported functions ------------------------------------------------------- */
 void W25Q64_Init(void);
 u8 W25Q64_EraseChip(void);

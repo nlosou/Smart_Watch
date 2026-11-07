@@ -3,6 +3,7 @@
 
 #include "main.h"
 #include "inc/sfud.h"
+#include "w25qxx_Handler.h"
 
 // 保持与原有接口兼容的宏定义
 #define BLOCK_A         0

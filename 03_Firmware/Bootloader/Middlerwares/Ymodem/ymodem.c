@@ -25,7 +25,7 @@
   
 /* Includes ------------------------------------------------------------------*/
 #include "common.h"
-#include "W25Qxx_Handler.h"
+#include "sfud_adapter.h"
 //#include "stm32f10x_flash.h"
 
 /* Private typedef -----------------------------------------------------------*/
