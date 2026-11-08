@@ -125,7 +125,6 @@ int main(void)
         System_SoftwareReset();
   }
   W25Q64_Init();
-	ee_Erase();
   /* USER CODE END 2 */
 
   /* Init scheduler */

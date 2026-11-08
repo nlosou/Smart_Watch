@@ -39,6 +39,7 @@
 #define u16 uint16_t
 #define u32 uint32_t
 
+#define BLOCK_SIZE 10000
 typedef struct 
 {
     u8  databuf[4096];           //按找4096个数据进行读写设置
@@ -60,4 +61,6 @@ u8 W25Q64_EraseChip(void);
 u8 W25Q64_WriteData(u8 *data, u32 length);
 u8 W25Q64_WriteData_End(void);
 u8 W25Q64_ReadData(u8 *data, u16 *length);
+void SetBlockParmeter(uint32_t app_size);
+void W25Q64_ResetBlockState(void);
 #endif /* __FLASH_H */

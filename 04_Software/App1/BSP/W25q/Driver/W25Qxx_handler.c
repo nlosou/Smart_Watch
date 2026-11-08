@@ -178,3 +178,26 @@ u8 W25Q64_ReadData(u8 *data, u16 *length)
         return 1;
     }
 }
+void SetBlockParmeter(uint32_t app_size)
+{
+    s_st_W25Q_Handler_1.write_index = app_size;
+    s_st_W25Q_Handler_1.write_databuf_index = app_size % BLOCK_SIZE;
+    s_st_W25Q_Handler_1.write_sector_index = app_size / BLOCK_SIZE;
+}
+void W25Q64_ResetBlockState(void)
+{
+
+    st_W25Q_Handler *handler = &s_st_W25Q_Handler_1;
+
+    handler->write_databuf_index = 0;
+    handler->write_index = 0;
+    handler->write_sector_index = 0;
+
+    handler->read_index = 0;
+    handler->read_sector_index = 0;
+
+    memset(handler->databuf, 0, sizeof(handler->databuf));
+
+//    // 同时复位 SFUD 适配层中与该 BLOCK 有关的状态。
+//    SFUD_SetBlockParmeter(block_index, 0);
+}
