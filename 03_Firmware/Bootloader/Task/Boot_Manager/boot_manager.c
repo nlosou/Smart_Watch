@@ -453,7 +453,7 @@ void Ota_SateManger(void)
                     ((int32_t)need_upate_app_size[2] << 16) | 
                     ((int32_t)need_upate_app_size[3] << 24);
 
-//           SetBlockParmeter(BLOCK_A,temp_app_size);
+            SetBlockParmeter(BLOCK_A,temp_app_size);
             if( 0!=back_to_w25Qxx_back(temp_app_size,&payload_app_size))
             {
                 elog_e("INFO", "Parse False!!");            

@@ -34,13 +34,28 @@ static st_W25Q_Handler s_ast_W25Q_Handler[2];
 /* Private functions ---------------------------------------------------------*/
 /* extern variables ---------------------------------------------------------*/
 
-void SetBlockParmeter(u8 block_index,uint32_t app_size)
+
+
+
+void SetBlockParmeter(uint8_t block_index, uint32_t app_size)
 {
-    s_ast_W25Q_Handler[block_index].write_index = app_size;
-    s_ast_W25Q_Handler[block_index].write_databuf_index = app_size % BLOCK_SIZE;
-    s_ast_W25Q_Handler[block_index].write_sector_index = app_size / BLOCK_SIZE;
-    
-    // 同时设置SFUD适配层的块参数
+    if(block_index >= 2 || app_size > BLOCK_SIZE)
+        return;
+
+    st_W25Q_Handler *handler = &s_ast_W25Q_Handler[block_index];
+
+    handler->write_index = app_size;
+
+    // 按照4KB计算完整扇区数量
+    handler->write_sector_index = app_size / 4096;
+
+    // 当前没有待写入的RAM缓冲数据
+    handler->write_databuf_index = 0;
+
+    // 重置读取游标
+    handler->read_index = 0;
+    handler->read_sector_index = 0;
+
     SFUD_SetBlockParmeter(block_index, app_size);
 }
 

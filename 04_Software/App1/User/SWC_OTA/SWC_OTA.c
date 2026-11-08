@@ -129,7 +129,6 @@ void ota_task_runnable(void *argument)
               
               break;
           case OtaDownload:
-						W25Q64_ResetBlockState();
               //1,接受app数据
               get_app_size = Ymodem_Receive(g_au8_YmodemRec_A,g_au8_YmodemRec_B);
               if( 0 <get_app_size)
@@ -151,7 +150,7 @@ void ota_task_runnable(void *argument)
                     vSemaphoreDelete(Semaphore_ExtFlashState);
 
 									  //SetBlockParmeter(get_app_size);				
-										W25Q64_ReadData(test_data,&length);				
+														
 														
                     at24_ota_status = 0x22;
                     ee_WriteBytes(&at24_ota_status,0x00,1);
@@ -207,6 +206,7 @@ void ota_task_runnable(void *argument)
               
               break;
           case OtaEnd:
+						  W25Q64_ReadData(test_data,&length);
               if( 1 == key_scan())
               {
                   //进入软复位
