@@ -24,13 +24,12 @@
 
 extern key_handler_t  key_handler;
 extern key_need_arg_t key_need_arg;
-uint32_t payload_app_size;
 
 
 /* Private function prototypes -----------------------------------------------*/
 
 int8_t OTA_BackupCurrentApp(void);
-int8_t OTA_InstallApp(uint32_t new_app_size);
+int8_t OTA_InstallApp(int32_t payload_app_size);
 extern uint32_t  g_JumpInit;
 /* Private functions ---------------------------------------------------------*/
 /*! \brief 跳转
@@ -232,17 +231,19 @@ int8_t blockA_to_app(int32_t app_size)
 
 
 
+
 /**
- * @brief 将BLOCK_A上的密文搬运到BLOCK_B上
+ * @brief 解析A区的代码到B区间
  *
- * @param app_size
+ * @param ciphertext_size 密文大小
+ * @param payload_app_size 返回明文app大小
  *
  * @return 
  */
-int8_t back_to_w25Qxx_back(int32_t app_size)
+int8_t back_to_w25Qxx_back(int32_t ciphertext_size,int32_t* payload_app_size)
 { 
-    if(app_size <= 0) return -1;
-    if(app_size > (BACK_FLASH_ADDR - APP_FLASH_ADDR)) return -1;
+    if(ciphertext_size<= 0) return -1;
+    if(ciphertext_size> (BACK_FLASH_ADDR - APP_FLASH_ADDR)) return -1;
 
     
     uint8_t descryptbuf[16];
@@ -272,7 +273,7 @@ int8_t back_to_w25Qxx_back(int32_t app_size)
         return -2; // 长度不合法，可能解密错误或头部格式不对
     }
 
-    payload_app_size = App_size;
+    *payload_app_size = App_size;
     // ---------------- 3. 循环解密并写入 ----------------
     uint32_t total_blocks = (App_size + 15) / 16; // 向上取整计算块数
     uint32_t remain_size = App_size;
@@ -364,7 +365,7 @@ int8_t App_to_w25Qxx_back(int32_t app_size)
 { 
     if(app_size <= 0) return -1;
     if(app_size > (BACK_FLASH_ADDR - APP_FLASH_ADDR)) return -1;
-
+     
     uint32_t app_address  = APP_FLASH_ADDR;
     //uint32_t back_address = BACK_FLASH_ADDR;
     
@@ -399,7 +400,7 @@ void Ota_SateManger(void)
     uint8_t need_upate_app_size[4]   = {0};
     uint8_t back_app_size[4] = {0};
     int32_t back_app_size_temp;
-
+    int32_t payload_app_size;
 #if 0
     ota_status = DOWNLOAD;
 #endif
@@ -452,8 +453,8 @@ void Ota_SateManger(void)
                     ((int32_t)need_upate_app_size[2] << 16) | 
                     ((int32_t)need_upate_app_size[3] << 24);
 
-           SetBlockParmeter(BLOCK_A,temp_app_size);
-            if( 0!=back_to_w25Qxx_back(temp_app_size))
+//           SetBlockParmeter(BLOCK_A,temp_app_size);
+            if( 0!=back_to_w25Qxx_back(temp_app_size,&payload_app_size))
             {
                 elog_e("INFO", "Parse False!!");            
                 //跳转失败回滚代码
@@ -483,7 +484,7 @@ void Ota_SateManger(void)
 
         //解密并写入B区间
         //配置W25Qxx从A区读取,解密并写入B区间
-        if( 0!=back_to_w25Qxx_back(temp_app_size))
+        if( 0!=back_to_w25Qxx_back(temp_app_size,&payload_app_size))
         {
             elog_e("INFO", "Parse False!!");            
             jump_to_app();
@@ -568,13 +569,14 @@ int8_t OTA_BackupCurrentApp(void)
         return -1;
     }
 
+		W25Q64_ResetBlockState(BLOCK_A);
     // 备份当前 App 到 W25Qxx
     if (App_to_w25Qxx_back(old_app_size) != 0)
     {
         elog_e("OTA", "Backup App Failed!");
         return -1;
     }
-
+		 ee_WriteBytes((uint8_t*)&old_app_size,0x09,4);
     // TODO: 校验备份数据，例如比较 CRC32
     // if (W25Qxx_BackupVerify(old_app_size) != 0)
     // {
@@ -584,7 +586,7 @@ int8_t OTA_BackupCurrentApp(void)
     return 0;
 }
 
-int8_t OTA_InstallApp(uint32_t new_app_size)
+int8_t OTA_InstallApp(int32_t payload_app_size)
 {
     // 1. 校验 W25Qxx B 区的新固件
     // 2. 备份当前 App
@@ -596,6 +598,7 @@ int8_t OTA_InstallApp(uint32_t new_app_size)
     }
     // 3. 持久化升级进行中的状态
     // 4. 将 B 区固件写入片上 Flash
+//		SetBlockParmeter(BLOCK_B,payload_app_size);
     if( 0 != back_to_app(payload_app_size))
     {
         elog_i("INFO", "B Are to App");            

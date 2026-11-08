@@ -118,6 +118,8 @@ int main(void)
   SPI1_Init();
   ee_CheckOk();
   W25Q64_Init();
+//	uint8_t ee_data = 0x00;
+//	ee_WriteBytes(&ee_data,0x00,1);
   //IWDG_Init(IWDG_Prescaler_64,3000);
          
   

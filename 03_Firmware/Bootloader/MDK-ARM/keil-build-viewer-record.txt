@@ -1,7 +1,7 @@
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   Object Name
        754          0        512          0        176          0   aes.o
        262          0          0          0          0          0   at24cxx_driver.o
-      1964          0         51         39       5120          0   boot_manager.o
+      1964          0         51         35       5120          0   boot_manager.o
        312          0          0          0          0          0   common.o
       2880          0        297         52       1272          0   elog.o
          0          0          0          0          0          0   elog_async.o
@@ -33,7 +33,7 @@
        504          0          0         20          0          0   system_stm32f4xx.o
          2          0          0          0          0          0   tim.o
        202          0          0          0          0          0   usart.o
-      1084          0          0          0       8232          0   w25qxx_handler.o
+      1080          0          0          0       8232          0   w25qxx_handler.o
        696          0          0         36       5397          0   ymodem.o
 Object Totals
 
@@ -41,7 +41,7 @@ Memory Map of the image
 
 	Load Region LR_IROM1 
 
-		Execution Region ER_IROM1 (Exec base: 0x08000000, Size: 0x00006534, Max: 0x00008000, END)
+		Execution Region ER_IROM1 (Exec base: 0x08000000, Size: 0x00006530, Max: 0x00008000, END)
 
 		Execution Region RW_IRAM1 (Exec base: 0x20000000, Size: 0x00005F40, Max: 0x0001FFF0, END)
 

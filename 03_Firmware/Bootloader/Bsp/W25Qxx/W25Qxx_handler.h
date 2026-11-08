@@ -35,6 +35,11 @@
 一个扇区 = 16个Pag = 4096 byte
 一个块 = 16个扇区 = 64KB
 */
+
+#define u8 uint8_t
+#define u16 uint16_t
+#define u32 uint32_t
+
 typedef struct 
 {
     u8  databuf[4096];           //按找4096个数据进行读写设置
@@ -56,5 +61,6 @@ u8 W25Q64_WriteData(u8 block_index, u8 *data, u32 length);
 u8 W25Q64_WriteData_End(u8 block_index);
 u8 W25Q64_ReadData(u8 block_index, u8 *data, u16 *length);
 void SetBlockParmeter(u8 block_index,uint32_t app_size);
+void W25Q64_ResetBlockState(u8 block_index);
 #endif /* __FLASH_H */
 
