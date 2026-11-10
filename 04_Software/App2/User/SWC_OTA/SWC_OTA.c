@@ -71,6 +71,8 @@ void download_app_task(void*argument);
 /* Private functions ---------------------------------------------------------*/
 /* extern variables ---------------------------------------------------------*/
 
+uint8_t test_data[4096];
+uint16_t length = 0;
 void ota_task_runnable(void *argument)
 {
   /* USER CODE BEGIN key_task_runnable */
@@ -102,7 +104,7 @@ void ota_task_runnable(void *argument)
                               NULL,
                               &download_task_attributes);
                       //创建队列
-                      Q_App_address= xQueueCreate(1,sizeof(uint16_t));
+                      Q_App_address= xQueueCreate(1,sizeof(AppDataPacket_t));
                       //创建二值信号量
                       Semaphore_ExtFlashState =xSemaphoreCreateMutex();
                       at24_ota_status = 0x11;
@@ -147,14 +149,14 @@ void ota_task_runnable(void *argument)
                     vQueueDelete(Q_App_address);
                     vSemaphoreDelete(Semaphore_ExtFlashState);
 
+									  //SetBlockParmeter(get_app_size);				
 														
-										static uint8_t temp[4096] = {0};
-										static uint16_t temp_length;
-										W25Q64_ReadData(temp ,&temp_length);
+														
                     at24_ota_status = 0x22;
                     ee_WriteBytes(&at24_ota_status,0x00,1);
 
-                    ee_ReadBytes(&at24_ota_status,0x01,1);
+										
+                    ee_ReadBytes(&at24_ota_status,0x00,1);
 
                     ee_WriteBytes((uint8_t*)&get_app_size,0x01,4);
                     uint8_t temp_get_at24[4] = {0};
@@ -204,6 +206,7 @@ void ota_task_runnable(void *argument)
               
               break;
           case OtaEnd:
+						  W25Q64_ReadData(test_data,&length);
               if( 1 == key_scan())
               {
                   //进入软复位
@@ -251,23 +254,24 @@ static int8_t key_scan(void)
 
 void download_app_task(void*argument)
 {
+  AppDataPacket_t recv_packet;
   uint8_t * pu8_data = NULL;
   int32_t * pu32_size = NULL;
   //第一帧数据一定是数据的长度
-  xQueueReceive(Q_App_address,&pu32_size,portMAX_DELAY);
+  xQueueReceive(Q_App_address,&recv_packet,portMAX_DELAY);
   //需要擦除掉flash size对应的所有扇区
   //TODO:
   xSemaphoreGive(Semaphore_ExtFlashState);
   while(1)
   {
-    xQueueReceive(Q_App_address,&pu8_data,portMAX_DELAY);
-    xSemaphoreTake(Semaphore_ExtFlashState,0);
-    if(pu8_data == NULL)
-    {
-      continue;
-    }
+    xQueueReceive(Q_App_address, &recv_packet, portMAX_DELAY);
+    xSemaphoreTake(Semaphore_ExtFlashState,portMAX_DELAY);
     //执行写入W25q的逻辑
-    W25Q64_WriteData(pu8_data + 0x20000000,(uint32_t)packet_length);
+    if(NULL!=recv_packet.data_ptr)
+    {
+
+        W25Q64_WriteData(recv_packet.data_ptr , recv_packet.length);
+    }
     xSemaphoreGive(Semaphore_ExtFlashState);
   }
 }

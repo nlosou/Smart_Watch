@@ -98,15 +98,16 @@ void ota_task_runnable(void *argument)
                   if(0x11 == s_ota_cmd[0] && 0x22 == s_ota_cmd[1] && 0x33 == s_ota_cmd[2]) 
                   {
                       s_ota_current_status = OtaDownload ;
+                      //创建队列
+                      Q_App_address= xQueueCreate(1,sizeof(AppDataPacket_t));
+                      //创建二值信号量
+                      Semaphore_ExtFlashState =xSemaphoreCreateMutex();
                       //创建任务
                       download_taskHandle= osThreadNew(
                               download_app_task,
                               NULL,
                               &download_task_attributes);
-                      //创建队列
-                      Q_App_address= xQueueCreate(1,sizeof(uint16_t));
-                      //创建二值信号量
-                      Semaphore_ExtFlashState =xSemaphoreCreateMutex();
+
                       at24_ota_status = 0x11;
                       ee_WriteBytes(&at24_ota_status,0x00,1);
                   }
@@ -155,13 +156,7 @@ void ota_task_runnable(void *argument)
                     at24_ota_status = 0x22;
                     ee_WriteBytes(&at24_ota_status,0x00,1);
 
-										
-                    ee_ReadBytes(&at24_ota_status,0x00,1);
-
                     ee_WriteBytes((uint8_t*)&get_app_size,0x01,4);
-                    uint8_t temp_get_at24[4] = {0};
-                    ee_ReadBytes(temp_get_at24,0x01,4);
-                    HAL_UART_Transmit(&huart1,temp_get_at24,4,1000);
               }
               else
               {
@@ -254,23 +249,24 @@ static int8_t key_scan(void)
 
 void download_app_task(void*argument)
 {
+  AppDataPacket_t recv_packet;
   uint8_t * pu8_data = NULL;
   int32_t * pu32_size = NULL;
   //第一帧数据一定是数据的长度
-  xQueueReceive(Q_App_address,&pu32_size,portMAX_DELAY);
+  xQueueReceive(Q_App_address,&recv_packet,portMAX_DELAY);
   //需要擦除掉flash size对应的所有扇区
   //TODO:
   xSemaphoreGive(Semaphore_ExtFlashState);
   while(1)
   {
-    xQueueReceive(Q_App_address,&pu8_data,portMAX_DELAY);
-    xSemaphoreTake(Semaphore_ExtFlashState,0);
-    if(pu8_data == NULL)
-    {
-      continue;
-    }
+    xQueueReceive(Q_App_address, &recv_packet, portMAX_DELAY);
+    xSemaphoreTake(Semaphore_ExtFlashState,portMAX_DELAY);
     //执行写入W25q的逻辑
-    W25Q64_WriteData(pu8_data + 0x20000000,(uint32_t)packet_length);
+    if(NULL!=recv_packet.data_ptr)
+    {
+
+        W25Q64_WriteData(recv_packet.data_ptr , recv_packet.length);
+    }
     xSemaphoreGive(Semaphore_ExtFlashState);
   }
 }

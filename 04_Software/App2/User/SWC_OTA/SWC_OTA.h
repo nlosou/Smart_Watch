@@ -38,6 +38,10 @@ typedef enum {
     OtaEnd 
 }ota_status_t;
 
+typedef struct {
+    uint8_t *data_ptr;
+    uint32_t length;
+} AppDataPacket_t;
 
 /* Exported variable --------------------------------------------------------*/
 

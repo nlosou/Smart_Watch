@@ -25,6 +25,7 @@
 #include "ymodem.h"
 #include "queue.h"
 #include "semphr.h"
+#include "SWC_OTA.h"
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
 /* Private macro -------------------------------------------------------------*/
@@ -191,9 +192,10 @@ int32_t Ymodem_Receive (uint8_t *buf1,uint8_t *buf2)
                     Str2Int(file_size, &size);
                     //size = (uint32_t)atoi((char *)file_size);
                     //需要擦除某些W25q的扇区，根据size的大小决定
-                    int32_t * pu32_size = &size;
-                    //通知download_app_task处理起始帧
-                    xQueueSend(Q_App_address,&pu32_size,0);
+                    AppDataPacket_t packet;
+                    packet.data_ptr = NULL;      // 用 NULL 表示这是第一包
+                    packet.length = (uint32_t)size; // 传入文件大小
+                    xQueueSend(Q_App_address, &packet, portMAX_DELAY);                 
                     if(packet_data == buf1)
                     {
                         packet_data = buf2;
@@ -218,12 +220,13 @@ int32_t Ymodem_Receive (uint8_t *buf1,uint8_t *buf2)
                 /* Data packet */
                 else
                 {
-    			  packet_data += PACKET_HEADER;
-                  xQueueSend(Q_App_address,&packet_data,0);
-				  packet_data -= PACKET_HEADER;
-									
-                  xSemaphoreTake(Semaphore_ExtFlashState,portMAX_DELAY);
-                  xSemaphoreGive(Semaphore_ExtFlashState);
+                    AppDataPacket_t new_packet;
+                    new_packet.data_ptr = packet_data + PACKET_HEADER;
+                    new_packet.length = packet_length;
+                    xQueueSend(Q_App_address, &new_packet, portMAX_DELAY);
+
+                    xSemaphoreTake(Semaphore_ExtFlashState,portMAX_DELAY);
+                    xSemaphoreGive(Semaphore_ExtFlashState);
 
                   if(packet_data == buf1)
                   {

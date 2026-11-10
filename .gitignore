@@ -15,6 +15,13 @@
 /03_Firmware/**/*.crf
 /03_Firmware/**/*.lnp
 
+/04_Software/**/*.o
+/04_Software/**/*.obj
+/04_Software/**/*.d
+/04_Software/**/*.dep
+/04_Software/**/*.crf
+/04_Software/**/*.lnp
+
 # Linker / debug outputs
 /03_Firmware/**/*.axf
 /03_Firmware/**/*.elf
@@ -49,10 +56,23 @@
 /03_Firmware/**/EventRecorderStub.scvd
 /03_Firmware/**/*.bak
 /03_Firmware/**/*.iex
-
+/03_Firmware/Bootloader/.vscode/
 # clangd 缓存
 .cache/
 **/.cache/
+
+# ===== Keil MDK 编译输出目录（整目录忽略，最推荐）=====
+/04_Software/**/MDK-ARM/04_Software/
+
+# ===== MDK-ARM 根目录下的零散生成物/日志/界面布局 =====
+/04_Software/**/MDK-ARM/*.bin
+/04_Software/**/MDK-ARM/*.axf
+/04_Software/**/MDK-ARM/*.hex
+/04_Software/**/MDK-ARM/*.map
+/04_Software/**/MDK-ARM/*.htm
+/04_Software/**/MDK-ARM/*.dep
+/04_Software/**/MDK-ARM/*.uvguix.*
+/04_Software/**/MDK-ARM/JLinkLog.txt
 
 # Editor backup files
 *~

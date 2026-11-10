@@ -432,10 +432,9 @@ void Ota_SateManger(void)
           break;
       case APP_DOWNLOADING:
          elog_e("ERROR","Download false!!!");
-         //合法就跳转
-         
          ota_status = NO_APP_NEED_TO_UPDATE;
          ee_WriteBytes(&ota_status,0x00,1);
+         //合法就跳转
          jump_to_app();
          elog_e("ERROR","App data broken");
          //不合法就跳转到下载状态
@@ -457,7 +456,7 @@ void Ota_SateManger(void)
             if( 0!=back_to_w25Qxx_back(temp_app_size,&payload_app_size))
             {
                 elog_e("INFO", "Parse False!!");            
-                //跳转失败回滚代码
+                
                 ota_status = NO_APP_NEED_TO_UPDATE;
                 ee_WriteBytes(&ota_status,0x00,1);
                 return;
@@ -488,7 +487,6 @@ void Ota_SateManger(void)
         {
             elog_e("INFO", "Parse False!!");            
             jump_to_app();
-            //跳转失败回滚代码
             ota_status = NO_APP_NEED_TO_UPDATE;
             return;
 
@@ -507,7 +505,7 @@ void Ota_SateManger(void)
           break;
       case CODE_ROLLBACK:
             //读取当前app的size
-        ee_ReadBytes(back_app_size,0x05,4);
+        ee_ReadBytes(back_app_size,0x09,4);
             // 将 4 个字节整合成 32 位无符号整型
           back_app_size_temp= (int32_t)back_app_size[0] | 
                 ((int32_t)back_app_size[1] << 8) | 
