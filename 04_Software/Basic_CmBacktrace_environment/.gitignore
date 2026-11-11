@@ -1,0 +1,45 @@
+# ================================================================
+# Basic_CmBacktrace_environment  (.gitignore)
+# 排除 Keil MDK-ARM 编译/调试生成物，保留源码与工程配置
+# ================================================================
+
+# -------- Keil MDK-ARM 构建输出目录（产物集中在此）--------
+# 里面包含 .axf/.hex/.map/.sct/.o/.d/.crf/.dep/.lnp/.htm/.build_log 等
+MDK-ARM/Basic_CmBacktrace_environment/
+
+# -------- MDK-ARM 根目录下散落的编译/列表产物 --------
+MDK-ARM/*.o
+MDK-ARM/*.d
+MDK-ARM/*.crf
+MDK-ARM/*.dep
+MDK-ARM/*.lnp
+MDK-ARM/*.lst
+MDK-ARM/*.axf
+MDK-ARM/*.elf
+MDK-ARM/*.hex
+MDK-ARM/*.bin
+MDK-ARM/*.map
+MDK-ARM/*.sct
+MDK-ARM/*.htm
+MDK-ARM/*.build_log.htm
+
+# -------- Keil 用户界面布局（个人环境相关）--------
+# 例：Basic_CmBacktrace_environment.uvguix.Noser
+MDK-ARM/*.uvguix
+MDK-ARM/*.uvguix.*
+
+# -------- J-Link 调试日志与会话配置 --------
+MDK-ARM/JLinkLog.txt
+MDK-ARM/JLinkSettings.ini
+
+# -------- 调试器配置（IDE 生成；若团队需要统一调试参数可删掉此行）--------
+MDK-ARM/DebugConfig/
+
+# -------- CubeMX / 编辑器备份文件 --------
+*.ioc.bak
+*.bak
+*~
+
+# -------- 操作系统杂项 --------
+.DS_Store
+Thumbs.db
