@@ -341,7 +341,7 @@
               <MiscControls></MiscControls>
               <Define>USE_HAL_DRIVER,STM32F411xE</Define>
               <Undefine></Undefine>
-              <IncludePath>../Core/Inc;../Drivers/STM32F4xx_HAL_Driver/Inc;../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy;../Middlewares/Third_Party/FreeRTOS/Source/include;../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2;../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F;../Drivers/CMSIS/Device/ST/STM32F4xx/Include;../Drivers/CMSIS/Include;../Middlewares/Third_Party/EasyLogger/inc;../Middlewares/Third_Party/Segger_RTT/inc</IncludePath>
+              <IncludePath>../Core/Inc;../Drivers/STM32F4xx_HAL_Driver/Inc;../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy;../Middlewares/Third_Party/FreeRTOS/Source/include;../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2;../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F;../Drivers/CMSIS/Device/ST/STM32F4xx/Include;../Drivers/CMSIS/Include;../Middlewares/Third_Party/EasyLogger/inc;../Middlewares/Third_Party/Segger_RTT/inc;..\Middlewares\Third_Party\Systemview\Inc</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -545,7 +545,7 @@
             <File>
               <FileName>tim.c</FileName>
               <FileType>1</FileType>
-              <FilePath>\\192.168.122.1\My_Project\Smart_Watch\03_Firmware\FreeRtos_Basic_Environment\Core\Src\tim.c</FilePath>
+              <FilePath>..\Core\Src\tim.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -909,6 +909,26 @@
               <FileName>SEGGER_RTT_printf.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\Middlewares\Third_Party\Segger_RTT\src\SEGGER_RTT_printf.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Middleware/Segger_Systemview</GroupName>
+          <Files>
+            <File>
+              <FileName>SEGGER_SYSVIEW.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Middlewares\Third_Party\Systemview\Src\SEGGER_SYSVIEW.c</FilePath>
+            </File>
+            <File>
+              <FileName>SEGGER_SYSVIEW_Config_FreeRTOS.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Middlewares\Third_Party\Systemview\Src\SEGGER_SYSVIEW_Config_FreeRTOS.c</FilePath>
+            </File>
+            <File>
+              <FileName>SEGGER_SYSVIEW_FreeRTOS.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Middlewares\Third_Party\Systemview\Src\SEGGER_SYSVIEW_FreeRTOS.c</FilePath>
             </File>
           </Files>
         </Group>

@@ -24,6 +24,7 @@
 #include "tim.h"
 #include "usart.h"
 #include "gpio.h"
+#include "SEGGER_SYSVIEW.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -98,6 +99,7 @@ int main(void)
   MX_TIM2_Init();
   /* USER CODE BEGIN 2 */
   app_elog_init(); 
+  SEGGER_SYSVIEW_Conf();
   /* USER CODE END 2 */
 
   /* Init scheduler */

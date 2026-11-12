@@ -91,17 +91,18 @@ void MX_FREERTOS_Init(void) {
 
   /* USER CODE BEGIN RTOS_MUTEX */
   /* add mutexes, ... */
-  xSeamphore = xSemaphoreCreateMutex();
-  if(NULL != xSeamphore )
-  {
-    elog_i("INFO","The semaphore was created successfully.");
-  }
-  else
-  {
-
-    elog_i("INFO","The semaphore was created error");
-    return;
-  }
+  /* USER CODE BEGIN RTOS_MUTEX */
+    xSeamphore = xSemaphoreCreateBinary();   /* 初始为空 */
+    if (NULL != xSeamphore)
+    {
+        elog_i("INFO", "The semaphore was created successfully.");
+    }
+    else
+    {
+        elog_e("ERROR", "The semaphore was created error");
+        return;
+    }
+/* USER CODE END RTOS_MUTEX */
   /* USER CODE END RTOS_MUTEX */
 
   /* USER CODE BEGIN RTOS_SEMAPHORES */
@@ -354,12 +355,6 @@ void Task_B(void* argument)
     //任务B
     for(;;)
     {
-        //1.任务从g_Handle_data_mailbox获取邮箱
-        if(pdTRUE == xQueuePeek(g_Handle_data_mailbox,&need_buffer,portMAX_DELAY))
-        {
-
-            if(pdTRUE == xSemaphoreTake(xSeamphore,portMAX_DELAY)) 
-            {
                 if(pdPASS ==xQueueReceive(g_Handle_data_mailbox,&need_buffer,portMAX_DELAY))
                 {
                     
@@ -377,8 +372,6 @@ void Task_B(void* argument)
                     }
                 }
                 xSemaphoreGive(xSeamphore);
-            }
-        }
     }
 }
 /* USER CODE END Application */

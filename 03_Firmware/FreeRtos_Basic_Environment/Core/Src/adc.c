@@ -168,18 +168,15 @@ void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef* hadc)
     {
        if(pdPASS ==xQueueSendToBackFromISR(g_adc_dma_conv_complete_mailbox,&temp,&xHigherPriorityTaskWoken))
        {
-            elog_i("INFO","sent info to adc dma mailbox successfully");
        }
        else
        {
 
-            elog_i("INFO","sent info to adc dma mailbox faile");
        }
 	   portYIELD_FROM_ISR(&xHigherPriorityTaskWoken);
     }
     else
     {
-       elog_e("ERROR","Conv error");
     }
 }
 
