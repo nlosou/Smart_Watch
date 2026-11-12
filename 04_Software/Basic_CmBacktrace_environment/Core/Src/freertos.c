@@ -105,6 +105,77 @@ void MX_FREERTOS_Init(void) {
 }
 
 /* USER CODE BEGIN Header_StartDefaultTask */
+__attribute__ ((used, section ("myflash"))) 
+void flash_function_pre()
+{
+	int i = 0;
+	i = i / 3;
+	return;
+}
+
+void flash_function()
+{
+	int i = 0;
+	i = i / 3;
+	return;
+}
+
+__attribute__ ((used, section ("myram"))) 
+void sram_function(void)
+{
+	int i = 0;
+	i = i / 3;
+	return;
+}
+
+__attribute__ ((used, section ("myram"))) 
+void sram_function_pre(void)
+{
+	int i = 0;
+	i = i / 3;
+	return;
+}
+
+uint32_t call_flash_func_time_record(void)
+{
+	uint32_t start_tick = HAL_GetTick();
+	uint32_t end_tick = 0;
+	uint32_t i_counter = 10000000;
+	void (* volatile fpointer_1)(void) = flash_function;
+	void (* volatile fpointer_2)(void) = flash_function_pre;
+	
+	while( i_counter > 0 )
+	{
+		fpointer_1();
+		fpointer_2();
+		i_counter --;
+	}
+	
+	end_tick = HAL_GetTick();
+	
+	return (end_tick - start_tick);
+}
+
+__attribute__ ((used, section ("myram"))) 
+uint32_t call_sram_func_time_record(void)
+{
+	uint32_t start_tick = HAL_GetTick();
+	uint32_t end_tick = 0;
+	uint32_t i_counter = 10000000;
+	void (* volatile fpointer_1)(void) = sram_function;
+	void (* volatile fpointer_2)(void) = sram_function_pre;
+	
+	while( i_counter > 0 )
+	{
+		fpointer_1();
+		fpointer_2();
+		i_counter --;
+	}
+	
+	end_tick = HAL_GetTick();
+	
+	return (end_tick - start_tick);
+}
 /**
   * @brief  Function implementing the defaultTask thread.
   * @param  argument: Not used
@@ -115,10 +186,12 @@ void StartDefaultTask(void *argument)
 {
   /* USER CODE BEGIN StartDefaultTask */
   /* Infinite loop */
-	fault_test();
+//	fault_test();
   for(;;)
   {
-    osDelay(1);
+		SEGGER_RTT_printf(0,"flash time is %d\r\n",call_flash_func_time_record());
+		SEGGER_RTT_printf(0,"sram time is %d\r\n",call_sram_func_time_record());
+    osDelay(1000);
   }
   /* USER CODE END StartDefaultTask */
 }
