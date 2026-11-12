@@ -186,11 +186,10 @@ void StartDefaultTask(void *argument)
 {
   /* USER CODE BEGIN StartDefaultTask */
   /* Infinite loop */
-//	fault_test();
+	fault_test();
   for(;;)
   {
-		SEGGER_RTT_printf(0,"flash time is %d\r\n",call_flash_func_time_record());
-		SEGGER_RTT_printf(0,"sram time is %d\r\n",call_sram_func_time_record());
+		
     osDelay(1000);
   }
   /* USER CODE END StartDefaultTask */
