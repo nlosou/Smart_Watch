@@ -50,7 +50,16 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
+extern int Load$$RW_IRAM1$$Base;
+extern int Load$$RW_IRAM1$$Limit;
 
+extern int Image$$RW_IRAM1$$RW$$Base;
+extern int Image$$RW_IRAM1$$RW$$Limit;
+
+extern int Image$$RW_IRAM1$$ZI$$Base;
+extern int Image$$RW_IRAM1$$ZI$$Limit;
+
+uint32_t g_test_data = 0x55;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -58,6 +67,53 @@ void SystemClock_Config(void);
 void MX_FREERTOS_Init(void);
 /* USER CODE BEGIN PFP */
 void app_elog_init(void);
+
+void my_memroycopy(uint32_t* secure,uint32_t* des,uint32_t size)
+{
+    if(NULL == secure || NULL == des)
+    {
+        //TODO:应该直接直接进入HardFault
+        return;
+
+    }
+    uint32_t idx          = 0;
+    uint32_t* temp_secure = secure;
+    uint32_t* temp_des    = des;
+
+    while(idx < size)
+    {
+        *temp_des= *temp_secure;
+        temp_des++;
+        temp_secure++;
+        idx++;
+    }
+
+}
+
+void my_zeroinit(uint32_t* des,uint32_t size)
+{
+    if(NULL == des)
+    {
+        //TODO:应该直接直接进入HardFault
+        return;
+
+    }
+    uint32_t idx          = 0;
+    uint32_t* temp_des    = des;
+
+    while(idx < size)
+    {
+        *temp_des= 0;
+        temp_des++;
+        idx++;
+    }
+
+}
+void c_envir_init(void)
+{
+
+}
+
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -71,8 +127,9 @@ void app_elog_init(void);
   */
 int main(void)
 {
+  my_memroycopy((uint32_t*)&Load$$RW_IRAM1$$Base,(uint32_t*)&Image$$RW_IRAM1$$RW$$Base,(uint32_t)(&Image$$RW_IRAM1$$RW$$Limit - &Image$$RW_IRAM1$$RW$$Base));
   /* USER CODE BEGIN 1 */
-
+  my_zeroinit((uint32_t*)&Image$$RW_IRAM1$$ZI$$Base,(uint32_t)(&Image$$RW_IRAM1$$ZI$$Limit - &Image$$RW_IRAM1$$ZI$$Base));
   /* USER CODE END 1 */
 
   /* MCU Configuration--------------------------------------------------------*/
@@ -99,15 +156,25 @@ int main(void)
   MX_TIM2_Init();
   /* USER CODE BEGIN 2 */
   app_elog_init(); 
-  SEGGER_SYSVIEW_Conf();
+  //SEGGER_SYSVIEW_Conf();
+  
+  elog_i("INFO","g_test_data is %d",g_test_data);
+  elog_i("INFO","Load$$RW_IRAM1$$Base = [0x%x]",&Load$$RW_IRAM1$$Base);
+  elog_i("INFO","Load$$RW_IRAM1$$Limit= [0x%x]",&Load$$RW_IRAM1$$Limit);
+
+  elog_i("INFO","Image RW Base = [0x0%x]",&Image$$RW_IRAM1$$RW$$Base);
+  elog_i("INFO","Image RW Limit = [0x0%x]",&Image$$RW_IRAM1$$RW$$Limit);
+
+  elog_i("INFO","Image ZI Base = [0x0%x]",&Image$$RW_IRAM1$$ZI$$Base);
+  elog_i("INFO","Image ZI Limit = [0x0%x]",&Image$$RW_IRAM1$$ZI$$Limit);
   /* USER CODE END 2 */
 
   /* Init scheduler */
-  osKernelInitialize();  /* Call init function for freertos objects (in freertos.c) */
-  MX_FREERTOS_Init();
+  //osKernelInitialize();  /* Call init function for freertos objects (in freertos.c) */
+  //MX_FREERTOS_Init();
 
   /* Start scheduler */
-  osKernelStart();
+  //osKernelStart();
   /* We should never get here as control is now taken by the scheduler */
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
