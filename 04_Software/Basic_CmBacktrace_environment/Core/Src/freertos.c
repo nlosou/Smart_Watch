@@ -26,6 +26,7 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "SEGGER_RTT.h"
+#include "bsp_led_drive.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -105,77 +106,57 @@ void MX_FREERTOS_Init(void) {
 }
 
 /* USER CODE BEGIN Header_StartDefaultTask */
-__attribute__ ((used, section ("myflash"))) 
-void flash_function_pre()
+
+/*TEST UNIT1*/
+/*绑定具体实现*/
+#if 1
+
+bsp_led_drive_t test_led;
+
+LED_status_t led_on(void)
 {
-	int i = 0;
-	i = i / 3;
-	return;
+#ifdef DEBUG
+        DEBUG_OUT("led on");
+#endif
+
+    return LED_OK;
+}
+LED_status_t led_off(void)
+{
+#ifdef DEBUG
+        DEBUG_OUT("led off");
+#endif
+
+    return LED_OK;
 }
 
-void flash_function()
+led_operation_t led_test_operation = {
+    .pf_led_on = led_on,
+    .pf_led_off = led_off
+};
+
+LED_status_t FreeRTOS_delay_ms(const uint32_t time)
 {
-	int i = 0;
-	i = i / 3;
-	return;
+    vTaskDelay(time);
+    return LED_OK;
+}
+os_api_t os_test = {
+    .pf_os_delay_ms = FreeRTOS_delay_ms,
+};
+
+LED_status_t get_time_test(uint32_t* const time)
+{
+    *time = HAL_GetTick();
+    return LED_OK;
 }
 
-__attribute__ ((used, section ("myram"))) 
-void sram_function(void)
-{
-	int i = 0;
-	i = i / 3;
-	return;
-}
+get_time_base_t get_time_base_test = {
+    .pf_get_time_base = get_time_test
+};
 
-__attribute__ ((used, section ("myram"))) 
-void sram_function_pre(void)
-{
-	int i = 0;
-	i = i / 3;
-	return;
-}
+#endif
 
-uint32_t call_flash_func_time_record(void)
-{
-	uint32_t start_tick = HAL_GetTick();
-	uint32_t end_tick = 0;
-	uint32_t i_counter = 10000000;
-	void (* volatile fpointer_1)(void) = flash_function;
-	void (* volatile fpointer_2)(void) = flash_function_pre;
-	
-	while( i_counter > 0 )
-	{
-		fpointer_1();
-		fpointer_2();
-		i_counter --;
-	}
-	
-	end_tick = HAL_GetTick();
-	
-	return (end_tick - start_tick);
-}
 
-__attribute__ ((used, section ("myram"))) 
-uint32_t call_sram_func_time_record(void)
-{
-	uint32_t start_tick = HAL_GetTick();
-	uint32_t end_tick = 0;
-	uint32_t i_counter = 10000000;
-	void (* volatile fpointer_1)(void) = sram_function;
-	void (* volatile fpointer_2)(void) = sram_function_pre;
-	
-	while( i_counter > 0 )
-	{
-		fpointer_1();
-		fpointer_2();
-		i_counter --;
-	}
-	
-	end_tick = HAL_GetTick();
-	
-	return (end_tick - start_tick);
-}
 /**
   * @brief  Function implementing the defaultTask thread.
   * @param  argument: Not used
@@ -186,11 +167,16 @@ void StartDefaultTask(void *argument)
 {
   /* USER CODE BEGIN StartDefaultTask */
   /* Infinite loop */
-	fault_test();
+  led_driver_inst(
+          &test_led,
+          &led_test_operation,
+          &os_test,
+          &get_time_base_test);
+  test_led.p_led_ops_inst->pf_led_on();
   for(;;)
   {
 		
-    osDelay(1000);
+    osDelay(1);
   }
   /* USER CODE END StartDefaultTask */
 }
