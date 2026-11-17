@@ -1,8 +1,28 @@
-/**
+/* Copyright (C) 
+ * 2026 - Noser
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 2
+ * of the License, or (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ * ))
+ *
  * @file bsp_led_drive.c
+ *
  * @par dependencies
  * bsp_led_drive.h
+ *
  * @brief 
+ * TODO:need ai write docs
+ *
  * @author Noser
  * @version 1
  * @date 2026-11-16
@@ -15,7 +35,16 @@
 
 
 
-
+/**
+ * @brief 
+ *
+ * TODO:need ai write docs
+ * @param self
+ *
+ * TODO:need ai write docs
+ * @return 
+ * TODO:need ai write docs
+ */
 LED_status_t led_driver_init(bsp_led_drive_t *const self)
 {
     LED_status_t ret = LED_OK;
@@ -38,7 +67,22 @@ LED_status_t led_driver_init(bsp_led_drive_t *const self)
 }
 
 
-
+/**
+ * @brief 
+ * TODO:need ai write docs
+ *
+ * @param self
+ * TODO:need ai write docs
+ * @param led_ops
+ * TODO:need ai write docs
+ * @param os_ops_api
+ * TODO:need ai write docs
+ * @param get_time_base
+ * TODO:need ai write docs
+ *
+ * @return 
+ * TODO:need ai write docs
+ */
 LED_status_t led_driver_inst(bsp_led_drive_t *const         self,
                              led_operation_t *const      led_ops,
 #ifdef OS_SUPPROT

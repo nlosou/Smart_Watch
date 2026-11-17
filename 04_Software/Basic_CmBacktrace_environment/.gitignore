@@ -39,6 +39,7 @@ MDK-ARM/DebugConfig/
 *.ioc.bak
 *.bak
 *~
+*.swp
 
 # -------- 操作系统杂项 --------
 .DS_Store
