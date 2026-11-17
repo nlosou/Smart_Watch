@@ -55,8 +55,8 @@ typedef struct bsp_led_drive bsp_led_drive_t;
 typedef enum
 {
    PROPORTON_1_3 = 0,                                      /* TODO:need ai write docs*/
-   PROPORTON_1_2 = 0,                                      /* TODO:need ai write docs*/
-   PROPORTON_1_1 = 0,                                      /* TODO:need ai write docs*/
+   PROPORTON_1_2 = 1,                                      /* TODO:need ai write docs*/
+   PROPORTON_1_1 = 2,                                      /* TODO:need ai write docs*/
    PROPORTON_x_x = 0xFF,                                   /* TODO:need ai write docs*/
 }time_proporton_on_off_t;
 

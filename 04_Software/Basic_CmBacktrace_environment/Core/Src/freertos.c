@@ -173,7 +173,8 @@ void StartDefaultTask(void *argument)
           &os_test,
           &get_time_base_test);
 
-  test_led.p_led_ops_inst->pf_led_on();
+  test_led.pf_led_controler(&test_led,500,5,PROPORTON_1_2);
+
   for(;;)
   {
 		
