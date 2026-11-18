@@ -341,7 +341,7 @@
               <MiscControls></MiscControls>
               <Define>USE_HAL_DRIVER,STM32F411xE</Define>
               <Undefine></Undefine>
-              <IncludePath>../Core/Inc;../Drivers/STM32F4xx_HAL_Driver/Inc;../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy;../Middlewares/Third_Party/FreeRTOS/Source/include;../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2;../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F;../Drivers/CMSIS/Device/ST/STM32F4xx/Include;../Drivers/CMSIS/Include;..\Middlewares\Third_Party\Cmbacktrace;..\Middlewares\Third_Party\Cmbacktrace\fault_handler\keil;..\Middlewares\Third_Party\Segger_RTT\inc;..\Bsp\Bsp_Led\Inc</IncludePath>
+              <IncludePath>../Core/Inc;../Drivers/STM32F4xx_HAL_Driver/Inc;../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy;../Middlewares/Third_Party/FreeRTOS/Source/include;../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2;../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F;../Drivers/CMSIS/Device/ST/STM32F4xx/Include;../Drivers/CMSIS/Include;..\Middlewares\Third_Party\Cmbacktrace;..\Middlewares\Third_Party\Cmbacktrace\fault_handler\keil;..\Middlewares\Third_Party\Segger_RTT\inc;..\Bsp\Bsp_Led\handler\Inc;..\Bsp\Bsp_Led\drive\Inc</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -618,7 +618,12 @@
             <File>
               <FileName>bsp_led_drive.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\Bsp\Bsp_Led\Src\bsp_led_drive.c</FilePath>
+              <FilePath>..\Bsp\Bsp_Led\drive\Src\bsp_led_drive.c</FilePath>
+            </File>
+            <File>
+              <FileName>Bsp_led_handler.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Bsp\Bsp_Led\handler\Src\Bsp_led_handler.c</FilePath>
             </File>
           </Files>
         </Group>

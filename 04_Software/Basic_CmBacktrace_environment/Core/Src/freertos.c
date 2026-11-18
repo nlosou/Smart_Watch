@@ -27,6 +27,8 @@
 /* USER CODE BEGIN Includes */
 #include "SEGGER_RTT.h"
 #include "bsp_led_drive.h"
+#include "Bsp_led_handler.h"
+#include "queue.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -109,6 +111,7 @@ void MX_FREERTOS_Init(void) {
 
 /*TEST UNIT1*/
 /*绑定具体实现*/
+
 #if 1
 
 bsp_led_drive_t test_led;
@@ -156,6 +159,115 @@ get_time_base_t get_time_base_test = {
 
 #endif
 
+#if 1
+bsp_led_handler_t test_handler;
+
+/* TODO:need ai write docs*/
+HANDLER_LED_status_t (freertos_queue_create)(const uint32_t  queue_lenth,
+                                          const uint32_t queue_item_size,
+                                         void ** const     queue_handler)
+{
+
+    HANDLER_LED_status_t ret = HANDLER_LED_OK;
+    if(NULL == queue_handler || NULL == *queue_handler)
+    {
+
+#ifdef DEBUG
+        DEBUG_OUT("arg is null");
+#endif
+        ret = HANDLER_LED_ERRORPARAMETER;
+        return ret;
+    }
+    *queue_handler =  xQueueCreate(10,sizeof(uint32_t));
+
+    if(NULL == *queue_handler)
+    {
+
+#ifdef DEBUG
+        DEBUG_OUT("Queue create fasle");
+#endif
+        ret = HANDLER_LED_ERRORNOMEMORY;
+        return ret;
+    }
+    
+    return ret;
+
+}
+
+HANDLER_LED_status_t os_delay_ms(const uint32_t time)
+{
+    vTaskDelay(time);
+    return HANDLER_LED_OK;
+}
+/* TODO:need ai write docs*/
+HANDLER_LED_status_t (os_queue_delete)(void * const queue_handler)
+{
+
+}
+
+/* TODO:need ai write docs*/
+HANDLER_LED_status_t (os_queue_sent)(void * const queue_handler,
+                                     void * const         iteme,
+                                     uint32_t          time_out)
+{
+
+}
+
+/* TODO:need ai write docs*/
+HANDLER_LED_status_t (os_queue_recevie)(void * const queue_handler,
+                                        void * const         iteme,
+                                         uint32_t         time_out)
+{
+
+}
+
+/* TODO:need ai write docs*/
+HANDLER_LED_status_t  (os_critical_enter)(void)
+{
+
+}
+
+/* TODO:need ai write docs*/
+HANDLER_LED_status_t  (os_critical_exti)(void)
+{
+
+}
+
+handler_led_os_api_t led_handler_api = {
+    .pf_os_delay_ms = os_delay_ms,
+    .pf_os_critical_enter = os_critical_enter,
+    .pf_os_critical_exti = os_critical_exti,
+    .pf_os_queue_create = freertos_queue_create,
+    .pf_os_queue_delete = os_queue_delete,
+    .pf_os_queue_sent = os_queue_sent,
+    .pf_os_queue_recevie = os_queue_recevie
+};
+
+
+/* TODO:need ai write docs*/
+
+HANDLER_LED_status_t (handler_get_time_base)(uint32_t* const time)
+{
+    HANDLER_LED_status_t ret = HANDLER_LED_OK;
+    if(NULL == time)
+    {
+#ifdef DEBUG
+    DEBUG_OUT("pointer is null");
+#endif
+    ret = HANDLER_LED_ERRORRESOURCE;
+    return ret;
+    }
+
+     *time = xTaskGetTickCount();
+     return ret;
+}
+
+handler_led_get_time_base_t led_handler_get_time_base = {
+    .pf_get_time_base = handler_get_time_base
+};
+
+#endif
+
 
 /**
   * @brief  Function implementing the defaultTask thread.
@@ -167,14 +279,29 @@ void StartDefaultTask(void *argument)
 {
   /* USER CODE BEGIN StartDefaultTask */
   /* Infinite loop */
+  bsp_led_drive_t  test_drive1;
+  bsp_led_drive_t  test_drive2;
   led_driver_inst(
-          &test_led,
+          &test_drive1,
           &led_test_operation,
           &os_test,
           &get_time_base_test);
 
-  test_led.pf_led_controler(&test_led,500,5,PROPORTON_1_2);
+led_driver_inst(
+          &test_drive2,
+          &led_test_operation,
+          &os_test,
+          &get_time_base_test);
 
+
+  led_handler_inst(&test_handler,
+          &led_handler_api,
+          &led_handler_get_time_base);
+
+  uint32_t idx =0;
+  uint32_t idx2 =0;
+  test_handler.pf_led_mount(&test_drive1,&test_handler,&idx);
+  test_handler.pf_led_mount(&test_drive2,&test_handler,&idx2);
   for(;;)
   {
 		
