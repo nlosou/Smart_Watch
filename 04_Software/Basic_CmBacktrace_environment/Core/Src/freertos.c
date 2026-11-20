@@ -163,21 +163,12 @@ get_time_base_t get_time_base_test = {
 bsp_led_handler_t test_handler;
 
 /* TODO:need ai write docs*/
-HANDLER_LED_status_t (freertos_queue_create)(const uint32_t  queue_lenth,
+HANDLER_LED_status_t (os_queue_create)(const uint32_t  queue_lenth,
                                           const uint32_t queue_item_size,
                                          void ** const     queue_handler)
 {
 
     HANDLER_LED_status_t ret = HANDLER_LED_OK;
-    if(NULL == queue_handler || NULL == *queue_handler)
-    {
-
-#ifdef DEBUG
-        DEBUG_OUT("arg is null");
-#endif
-        ret = HANDLER_LED_ERRORPARAMETER;
-        return ret;
-    }
     *queue_handler =  xQueueCreate(10,sizeof(uint32_t));
 
     if(NULL == *queue_handler)
@@ -189,6 +180,10 @@ HANDLER_LED_status_t (freertos_queue_create)(const uint32_t  queue_lenth,
         ret = HANDLER_LED_ERRORNOMEMORY;
         return ret;
     }
+
+ #ifdef DEBUG
+        DEBUG_OUT("Queue create successful");
+#endif
     
     return ret;
 
@@ -202,7 +197,18 @@ HANDLER_LED_status_t os_delay_ms(const uint32_t time)
 /* TODO:need ai write docs*/
 HANDLER_LED_status_t (os_queue_delete)(void * const queue_handler)
 {
+    HANDLER_LED_status_t ret = HANDLER_LED_OK;
+    if(NULL == queue_handler)
+    {
+#ifdef DEBUG
+        DEBUG_OUT("queue_handler is null");
+#endif
+        ret = HANDLER_LED_ERRORRESOURCE;
+        return ret;
+    }
 
+    vQueueDelete((QueueHandle_t)queue_handler);
+    return ret;
 }
 
 /* TODO:need ai write docs*/
@@ -210,6 +216,33 @@ HANDLER_LED_status_t (os_queue_sent)(void * const queue_handler,
                                      void * const         iteme,
                                      uint32_t          time_out)
 {
+    HANDLER_LED_status_t ret = HANDLER_LED_OK;
+    if(NULL == queue_handler||NULL == iteme)
+    {
+#ifdef DEBUG
+        DEBUG_OUT("queue_handler is null or iteme is null");
+#endif
+        ret = HANDLER_LED_ERRORRESOURCE;
+        return ret;
+    }
+    BaseType_t ret_queue = 0;
+    ret_queue = xQueueSend((QueueHandle_t)queue_handler,iteme,time_out);
+    if(pdTRUE != ret_queue)
+    {
+
+#ifdef DEBUG
+        DEBUG_OUT("os queue sent is false");
+#endif
+        ret = HANDLER_LED_ERRORRESOURCE;
+        return ret;
+ 
+    }
+    
+#ifdef DEBUG
+        DEBUG_OUT("os queue sent is successful");
+#endif
+ 
+    return ret;
 
 }
 
@@ -219,29 +252,60 @@ HANDLER_LED_status_t (os_queue_recevie)(void * const queue_handler,
                                          uint32_t         time_out)
 {
 
+    HANDLER_LED_status_t ret = HANDLER_LED_OK;
+    if(NULL == queue_handler||NULL == iteme)
+    {
+#ifdef DEBUG
+        DEBUG_OUT("queue_handler is null or iteme is null");
+#endif
+        ret = HANDLER_LED_ERRORRESOURCE;
+        return ret;
+    }
+
+    BaseType_t queue_ret = xQueueReceive((QueueHandle_t)queue_handler,
+                                                              iteme,
+                                                      time_out);
+    if (pdTRUE != queue_ret)
+    {
+        
+#ifdef DEBUG
+        DEBUG_OUT("queue recevie is false");
+#endif
+        ret = HANDLER_LED_ERRORRESOURCE;
+        return ret;
+    }
+    
+#ifdef DEBUG
+        DEBUG_OUT("queue receive is successful");
+#endif
+ 
+    return ret;
+    
 }
 
 /* TODO:need ai write docs*/
 HANDLER_LED_status_t  (os_critical_enter)(void)
 {
-
+#ifdef DEBUG
+        DEBUG_OUT("critical enter");
+#endif
+ 
+    HANDLER_LED_status_t ret = HANDLER_LED_OK;
+	taskENTER_CRITICAL();
+    return ret;
 }
 
 /* TODO:need ai write docs*/
 HANDLER_LED_status_t  (os_critical_exti)(void)
 {
-
+#ifdef DEBUG
+        DEBUG_OUT("critical exti");
+#endif
+ 
+    HANDLER_LED_status_t ret = HANDLER_LED_OK;
+	taskEXIT_CRITICAL();
+    return ret;
 }
-
-handler_led_os_api_t led_handler_api = {
-    .pf_os_delay_ms = os_delay_ms,
-    .pf_os_critical_enter = os_critical_enter,
-    .pf_os_critical_exti = os_critical_exti,
-    .pf_os_queue_create = freertos_queue_create,
-    .pf_os_queue_delete = os_queue_delete,
-    .pf_os_queue_sent = os_queue_sent,
-    .pf_os_queue_recevie = os_queue_recevie
-};
 
 
 /* TODO:need ai write docs*/
@@ -262,8 +326,95 @@ HANDLER_LED_status_t (handler_get_time_base)(uint32_t* const time)
      return ret;
 }
 
+HANDLER_LED_status_t handler_led_os_task_create(
+                                              void * const       task_code,
+                                              const char * const task_name,
+                                              uint32_t     task_stack_size,
+                                          void     * const      parameters,
+                                          uint32_t                priority,
+                                          void    **const     task_handler)
+
+{
+
+    HANDLER_LED_status_t ret = HANDLER_LED_OK;
+    if(NULL == task_code||
+       NULL == task_name||
+       NULL == parameters
+       )
+    {
+
+#ifdef DEBUG
+        DEBUG_OUT("arg is null");
+#endif
+        ret = HANDLER_LED_ERRORPARAMETER;
+        return ret;
+    }
+
+      if(pdPASS !=  xTaskCreate(task_code,
+                                    task_name,
+                        task_stack_size,
+                             parameters,
+                                 priority,
+          (TaskHandle_t*)task_handler))
+      {
+#ifdef DEBUG
+        DEBUG_OUT("task create fasle");
+#endif
+        ret = HANDLER_LED_ERRORNOMEMORY;
+        return ret;
+ 
+       }
+
+#ifdef DEBUG
+        DEBUG_OUT("task create successful");
+#endif
+
+        return ret;
+}
+
+HANDLER_LED_status_t (os_task_delete)(void * const task_handler)
+{
+    HANDLER_LED_status_t ret = HANDLER_LED_OK;
+    if(NULL == task_handler)
+    {
+#ifdef DEBUG
+        DEBUG_OUT("task _handler is null");
+#endif
+        ret = HANDLER_LED_ERRORRESOURCE;
+        return ret;
+    }
+
+    vQueueDelete((QueueHandle_t)task_handler);
+
+#ifdef DEBUG
+        DEBUG_OUT("task _handler is delete successfully");
+#endif
+ 
+    return ret;
+}
+handler_led_os_delay_t      led_handler_os_delay      = {
+    .pf_os_delay_ms   = os_delay_ms,
+};
+
 handler_led_get_time_base_t led_handler_get_time_base = {
     .pf_get_time_base = handler_get_time_base
+};
+
+handler_led_os_queue_t     led_handler_os_queue       = {
+    .pf_os_queue_create  = os_queue_create,
+    .pf_os_queue_delete  = os_queue_delete,
+    .pf_os_queue_recevie = os_queue_recevie,
+    .pf_os_queue_sent    = os_queue_sent
+};
+
+handler_led_os_critical_t  led_handler_os_critical    = {
+    .pf_os_critical_enter = os_critical_enter,
+    .pf_os_critical_exti  = os_critical_exti
+};
+
+handler_led_os_task_t      led_handler_os_task        = {
+    .pf_os_task_create = handler_led_os_task_create,
+    .pf_os_task_delete = os_task_delete
 };
 
 #endif
@@ -287,7 +438,7 @@ void StartDefaultTask(void *argument)
           &os_test,
           &get_time_base_test);
 
-led_driver_inst(
+    led_driver_inst(
           &test_drive2,
           &led_test_operation,
           &os_test,
@@ -295,13 +446,19 @@ led_driver_inst(
 
 
   led_handler_inst(&test_handler,
-          &led_handler_api,
-          &led_handler_get_time_base);
+          &led_handler_os_delay,
+          &led_handler_os_queue,
+          &led_handler_os_critical,
+          &led_handler_os_task,
+          &led_handler_get_time_base
+          );
 
   uint32_t idx =0;
   uint32_t idx2 =0;
   test_handler.pf_led_mount(&test_drive1,&test_handler,&idx);
   test_handler.pf_led_mount(&test_drive2,&test_handler,&idx2);
+
+  test_handler.pf_led_control(&test_drive1,&test_handler,idx);
   for(;;)
   {
 		

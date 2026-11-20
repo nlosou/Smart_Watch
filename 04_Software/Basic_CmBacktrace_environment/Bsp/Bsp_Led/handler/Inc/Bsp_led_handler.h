@@ -84,9 +84,9 @@ typedef enum
 typedef struct bsp_led_handler bsp_led_handler_t;
 
 typedef HANDLER_LED_status_t (*pf_handler_led_control_t)(
-                             bsp_led_drive_t* led_driver,
-                             bsp_led_handler_t* led_handler                           
-                                         );
+                                bsp_led_drive_t* led_driver,
+                             bsp_led_handler_t* led_handler,
+                             uint32_t need_control_led_idx);
 
 typedef HANDLER_LED_status_t (*pf_handler_led_mount_t)(
                               bsp_led_drive_t  *  led_driver,
@@ -109,24 +109,74 @@ typedef struct {
 
     HANDLER_LED_status_t (*pf_os_delay_ms)   (const uint32_t);/* TODO:need ai write docs*/
 
+}handler_led_os_delay_t;
 
-    /* TODO:need ai write docs*/
+
+typedef struct {
+
+    /**
+     * @brief 
+     *TODO:need ai write docs
+     * @param 
+     *TODO:need ai write docs
+     * @param queue_item_size
+     *TODO:need ai write docs
+     * @param queue_handler
+     *TODO:need ai write docs
+     */
     HANDLER_LED_status_t (*pf_os_queue_create)(const uint32_t  queue_lenth,
                                             const uint32_t queue_item_size,
                                           void ** const     queue_handler);
 
-    /* TODO:need ai write docs*/
-    HANDLER_LED_status_t (*pf_os_queue_delete)(void * const     queue_handler);
+    /**
+     * @brief 
+     *TODO:need ai write docs
 
-    /* TODO:need ai write docs*/
-    HANDLER_LED_status_t (*pf_os_queue_sent)(void * const queue_handler,
-                                             void * const         iteme,
-                                             uint32_t          time_out);
+     * @param 
+     *TODO:need ai write docs
 
-    /* TODO:need ai write docs*/
+     */
+    HANDLER_LED_status_t (*pf_os_queue_delete)(void * const queue_handler);
+
+    /**
+     * @brief 
+     *TODO:need ai write docs
+
+     * @param 
+     *TODO:need ai write docs
+
+     * @param iteme
+     *TODO:need ai write docs
+
+     * @param time_out
+     *TODO:need ai write docs
+
+     */
+    HANDLER_LED_status_t (*pf_os_queue_sent)(void *    const queue_handler,
+                                             void *    const         iteme,
+                                             uint32_t            time_out);
+
+    /**
+     * @brief 
+     *TODO:need ai write docs
+
+     * @param 
+     *TODO:need ai write docs
+
+     * @param iteme
+     *TODO:need ai write docs
+
+     * @param time_out
+     *TODO:need ai write docs
+
+     */
     HANDLER_LED_status_t (*pf_os_queue_recevie)(void * const queue_handler,
                                                 void * const         iteme,
                                                 uint32_t         time_out);
+
+}handler_led_os_queue_t;
+
+typedef struct {
 
     /* TODO:need ai write docs*/
     HANDLER_LED_status_t  (*pf_os_critical_enter)(void);
@@ -134,7 +184,23 @@ typedef struct {
     /* TODO:need ai write docs*/
     HANDLER_LED_status_t  (*pf_os_critical_exti)(void);
 
-}handler_led_os_api_t;
+}handler_led_os_critical_t;
+
+typedef struct {
+
+    HANDLER_LED_status_t (*pf_os_task_create)(void * const       task_code,
+                                              const char * const task_name,
+                                              uint32_t     task_stack_size,
+                                          void     * const      parameters,
+                                          uint32_t                priority,
+                                          void    ** const   task_handler);
+
+    HANDLER_LED_status_t (*pf_os_task_delete)(void * const task_handler);
+
+
+}handler_led_os_task_t;
+
+
 #endif
 
 typedef struct {
@@ -146,9 +212,12 @@ typedef struct {
 }led_driver_array_t;
 
 typedef struct bsp_led_handler {
-    uint8_t                      is_handler_led_init;      /* 标记 handler 是否已初始化 */
+    uint8_t                   is_handler_led_init;           /* 标记 handler 是
+                                                                  否已初始化 */
 
-    led_driver_array_t           led_drive_mount;      /* LED 驱动对象数组 */
+    led_driver_array_t            led_drive_mount;       /* LED 驱动对象数组 */
+    void*                           queue_handler;
+    void*                           task_handler;
 
     /* 内部实现提供的接口 */
     /* MCU Core */
@@ -156,13 +225,15 @@ typedef struct bsp_led_handler {
 
 #ifdef OS_SUPPROT
     /* OS Interface */
-    handler_led_os_api_t        *p_os_ops_api;             /* OS 相关 API */
+    handler_led_os_delay_t           *p_os_delay;             /* OS 相关 API */
+    handler_led_os_queue_t           *p_os_queue;
+    handler_led_os_critical_t     *p_os_critical;
+    handler_led_os_task_t             *p_os_task;
 #endif
 
     /* 提供给外部的接口 
      * App层通过bsp_led_handler_t类型的变量调用
      * */
-
     /* 提供给 App 层，操作 LED 的接口 */
     pf_handler_led_control_t     pf_led_control;           /* LED 控制接口 */
 
@@ -186,19 +257,18 @@ typedef struct bsp_led_handler {
  * TODO:need ai write docs
  */
 HANDLER_LED_status_t led_handler_inst(
-        bsp_led_handler_t          *const           self,
+        bsp_led_handler_t          *const            self,
 #ifdef OS_SUPPROT
-        handler_led_os_api_t       *const     os_ops_api,
+        handler_led_os_delay_t     *const     os_delay_ms,
+        handler_led_os_queue_t     *const        os_queue,
+        handler_led_os_critical_t  *const     os_critical,
+        handler_led_os_task_t      *const         os_task,
 #endif
-        handler_led_get_time_base_t*const get_time_base);
-
+        handler_led_get_time_base_t*const  get_time_base);
 
 
 
 //*********************************Declaring***********************************//
-
-
-
 
 
 #endif /* end of include guard: __BSP_LED_HANDLER_H__ */
