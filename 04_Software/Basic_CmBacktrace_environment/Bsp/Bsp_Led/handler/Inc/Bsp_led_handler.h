@@ -84,9 +84,11 @@ typedef enum
 typedef struct bsp_led_handler bsp_led_handler_t;
 
 typedef HANDLER_LED_status_t (*pf_handler_led_control_t)(
-                                bsp_led_drive_t* led_driver,
-                             bsp_led_handler_t* led_handler,
-                             uint32_t need_control_led_idx);
+                          bsp_led_handler_t* led_handler,
+                                 uint32_t blink_cycle_ms,
+                                    uint32_t blink_times,
+          time_proporton_on_off_t led_proporton_on_off_t,
+                          uint32_t need_control_led_idx);
 
 typedef HANDLER_LED_status_t (*pf_handler_led_mount_t)(
                               bsp_led_drive_t  *  led_driver,

@@ -134,15 +134,92 @@ static HANDLER_LED_status_t led_handler_mount(bsp_led_drive_t*  led_driver,
     
 }
 
-static HANDLER_LED_status_t led_handler_control(
-                             bsp_led_drive_t* led_driver,
-                             bsp_led_handler_t* led_handler,
-                             uint32_t need_control_led_idx)
+/**
+ * @brief 
+ * TODO:need ai write docs
+ *
+ * @param self
+ * TODO:need ai write docs
+ * @param blink_cycle_ms
+ * TODO:need ai write docs
+ * @param blink_times
+ * TODO:need ai write docs
+ * @param led_proporton_on_off_t
+ * TODO:need ai write docs
+ *
+ * @return 
+ * TODO:need ai write docs
+ */
+static HANDLER_LED_status_t __event_process(bsp_led_drive_t* self)
+{
+    HANDLER_LED_status_t ret = HANDLER_LED_OK;
+    /*1.检查self是否为NULL,对象是否已经初始化完毕*/
+
+    if(NULL == self||INITIALIZATION_NO == self->initialization)
+    {
+#ifdef DEBUG
+        DEBUG_OUT("led is null or led is not init");
+#endif
+        ret = HANDLER_LED_ERRORPARAMETER;
+        return ret; 
+    }
+
+    /*2.编写led控制逻辑*/
+    /*获取led亮多久*/
+    uint32_t CMD_GET_SWITCH_TIME = 0;
+    if(PROPORTON_1_3 ==self->led_proporton_on_off_t)
+    {
+        CMD_GET_SWITCH_TIME = self->blink_cycle_ms * (1/(1+3));
+    }
+    else if(PROPORTON_1_2 == self->led_proporton_on_off_t)
+    {
+        CMD_GET_SWITCH_TIME = self->blink_cycle_ms * (1/(1+2));
+    }
+    else if(PROPORTON_1_1 == self->led_proporton_on_off_t)
+    {
+
+        CMD_GET_SWITCH_TIME = self->blink_cycle_ms * (1/(1+1));
+    }
+    else
+    {
+
+#ifdef DEBUG
+        DEBUG_OUT("led is null or led is not init");
+#endif
+        ret = HANDLER_LED_ERRORPARAMETER;
+        return ret; 
+     
+    }
+
+    for(uint32_t i = 0 ; i < self->blink_times; i++)
+    {
+#ifdef DEBUG
+        DEBUG_OUT("led blink start");
+#endif
+ 
+        self->p_led_ops_inst->pf_led_on();  
+        self->p_os_ops_api->pf_os_delay_ms(CMD_GET_SWITCH_TIME);
+        self->p_led_ops_inst->pf_led_off();  
+        self->p_os_ops_api->pf_os_delay_ms(self->blink_cycle_ms - CMD_GET_SWITCH_TIME);
+    }
+
+#ifdef DEBUG
+        DEBUG_OUT("led blink end");
+#endif
+ 
+    return ret;
+}
+static HANDLER_LED_status_t led_handler_control(bsp_led_handler_t* led_handler,
+                                                       uint32_t blink_cycle_ms,
+                                                          uint32_t blink_times,
+                                time_proporton_on_off_t led_proporton_on_off_t,
+                                                 uint32_t need_control_led_idx)
 {
     HANDLER_LED_status_t ret = HANDLER_LED_OK;
 
     //1,检测参数
-    if(NULL == led_driver || NULL == led_handler)
+    if(NULL == led_handler ||
+      INIT_HANDLER_LED_NO == led_handler->is_handler_led_init)
     {
 
 #ifdef DEBUG
@@ -151,11 +228,24 @@ static HANDLER_LED_status_t led_handler_control(
     ret = HANDLER_LED_ERRORPARAMETER; 
     return ret;
     }
-    //2.组装msg
+    //2.配置相应led drive特性
+    //2.1 TODO: 检测输入的特性参数是否正确
 
-    //3.发送msg
+    //2.2填入数据
+    led_handler->led_drive_mount.led_drive_array[need_control_led_idx]\
+                                     ->blink_cycle_ms = blink_cycle_ms;
 
-    static uint32_t test_data = 0xA5A5A5A5;
+    led_handler->led_drive_mount.led_drive_array[need_control_led_idx]\
+                                         ->blink_times = blink_times;
+
+    led_handler->led_drive_mount.led_drive_array[need_control_led_idx]\
+                                     ->led_proporton_on_off_t= led_proporton_on_off_t;
+
+
+
+    //3.通知任务开始运行,通知具体是哪个led需要控制
+
+    uint32_t test_data = need_control_led_idx;
 
     ret = led_handler->\
         p_os_queue->\
@@ -171,6 +261,7 @@ static HANDLER_LED_status_t led_handler_control(
         ret = HANDLER_LED_ERROR;
         return ret;
     }
+
 
 #ifdef DEBUG
     DEBUG_OUT("queue sent successful");
@@ -193,7 +284,7 @@ static void handler_led_task_code(void *self)
         p_os_queue->\
         pf_os_queue_recevie(handler_self->queue_handler,&test_data,0xffffffffUL);
    
-     SEGGER_RTT_printf(0,"%x",test_data);
+     __event_process(handler_self->led_drive_mount.led_drive_array[test_data]);
         
     }
 }
