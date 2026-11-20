@@ -119,8 +119,6 @@ typedef struct bsp_led_drive {
     os_api_t                         *p_os_ops_api;     /* TODO:need ai write docs*/
 #endif
 
-    /*提供给外部的接口*/
-    pf_led_control_t              pf_led_controler;     /* TODO:need ai write docs*/
 
 
 }bsp_led_drive_t;

@@ -69,81 +69,6 @@ static LED_status_t led_driver_init(bsp_led_drive_t *const self)
 
 
 
-/**
- * @brief 
- * TODO:need ai write docs
- *
- * @param self
- * TODO:need ai write docs
- * @param blink_cycle_ms
- * TODO:need ai write docs
- * @param blink_times
- * TODO:need ai write docs
- * @param led_proporton_on_off_t
- * TODO:need ai write docs
- *
- * @return 
- * TODO:need ai write docs
- */
-static LED_status_t led_control(bsp_led_drive_t* self,
-                               uint32_t blink_cycle_ms,
-                               uint32_t blink_times,
-                               time_proporton_on_off_t led_proporton_on_off_t)
-{
-    LED_status_t ret = LED_OK;
-    /*1.检查self是否为NULL,对象是否已经初始化完毕*/
-
-    if(NULL == self||INITIALIZATION_NO == self->initialization)
-    {
-#ifdef DEBUG
-        DEBUG_OUT("led is null or led is not init");
-#endif
-        ret = LED_ERRORPARAMETER;
-        return ret; 
-    }
-
-    /*2.编写led控制逻辑*/
-    /*获取led亮多久*/
-    uint32_t CMD_GET_SWITCH_TIME = 0;
-    if(PROPORTON_1_3 == led_proporton_on_off_t)
-    {
-        CMD_GET_SWITCH_TIME = blink_cycle_ms * (1/(1+3));
-    }
-    else if(PROPORTON_1_2 == led_proporton_on_off_t)
-    {
-        CMD_GET_SWITCH_TIME = blink_cycle_ms * (1/(1+2));
-    }
-    else if(PROPORTON_1_1 == led_proporton_on_off_t)
-    {
-
-        CMD_GET_SWITCH_TIME = blink_cycle_ms * (1/(1+1));
-    }
-    else
-    {
-
-#ifdef DEBUG
-        DEBUG_OUT("led is null or led is not init");
-#endif
-        ret = LED_ERRORPARAMETER;
-        return ret; 
-     
-    }
-
-    for(uint32_t i = 0 ; i < blink_times; i++)
-    {
-#ifdef DEBUG
-        DEBUG_OUT("led start blink");
-#endif
- 
-        self->p_led_ops_inst->pf_led_on();  
-        self->p_os_ops_api->pf_os_delay_ms(CMD_GET_SWITCH_TIME);
-        self->p_led_ops_inst->pf_led_off();  
-        self->p_os_ops_api->pf_os_delay_ms(blink_cycle_ms - CMD_GET_SWITCH_TIME);
-    }
-    return ret;
-}
-
-
 
 /**
  * @brief 
@@ -210,7 +135,6 @@ LED_status_t led_driver_inst(bsp_led_drive_t *const         self,
 #endif
 
     /*绑定提供给外部使用的api*/
-    self->pf_led_controler = led_control;
 
     /*初始化目标*/
     self->blink_times            = 0;

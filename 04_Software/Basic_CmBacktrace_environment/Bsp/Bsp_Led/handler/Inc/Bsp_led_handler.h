@@ -40,14 +40,17 @@
 //********************************Includes***********************************//
 
 //*********************************Defines***********************************//
-//
-#define OS_SUPPROT                                  /* TODO:need ai write docs*/
-#define DEBUG                                       /* TODO:need ai write docs*/
 
-#define DEBUG_OUT(X) SEGGER_RTT_printf(0,"%s\r\n",X)       /* TODO:need ai write docs*/
+#define OS_SUPPROT                                 /* TODO:need ai write docs*/
+#define DEBUG                                      /* TODO:need ai write docs*/
+
+#define DEBUG_OUT(X) SEGGER_RTT_printf(0,"%s\r\n",X)            /* TODO:need ai 
+                                                                   write docs*/
 
 #define INIT_HANDLER_LED_YES 1                     /* TODO:need ai write docs*/
 #define INIT_HANDLER_LED_NO  0                     /* TODO:need ai write docs*/
+#define INIT_PATERN 0xA5A5A5A5                     /* TODO:need ai write docs*/
+
 typedef enum
 {
     HANDLER_LED_OK               = 0,        /* Operation completed successfully.  */
