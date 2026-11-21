@@ -20,8 +20,8 @@
  * @par dependencies
  * bsp_led_drive.h
  *
- * @brief 
- * TODO:need ai write docs
+ * @brief LED 驱动模块实现。
+ * 提供 LED 驱动对象初始化与外部接口绑定。
  *
  * @author Noser
  * @version 1
@@ -36,14 +36,12 @@
 
 
 /**
- * @brief 
+ * @brief 初始化 LED 驱动对象。
  *
- * TODO:need ai write docs
- * @param self
+ * 关闭 LED 并做一次短暂延时，同时读取时基作为初始化自检。
+ * @param self LED 驱动对象指针。
  *
- * TODO:need ai write docs
- * @return 
- * TODO:need ai write docs
+ * @return LED_OK 成功；LED_ERRORPARAMETER 参数错误。
  */
 static LED_status_t led_driver_init(bsp_led_drive_t *const self)
 {
@@ -71,20 +69,16 @@ static LED_status_t led_driver_init(bsp_led_drive_t *const self)
 
 
 /**
- * @brief 
- * TODO:need ai write docs
+ * @brief 实例化 LED 驱动。
  *
- * @param self
- * TODO:need ai write docs
- * @param led_ops
- * TODO:need ai write docs
- * @param os_ops_api
- * TODO:need ai write docs
- * @param get_time_base
- * TODO:need ai write docs
+ * 校验参数，绑定 LED 操作、OS 和时基接口，并完成内部状态初始化。
+ * @param self LED 驱动对象。
+ * @param led_ops LED 亮灭操作接口。
+ * @param os_ops_api OS 延时接口。
+ * @param get_time_base 时基获取接口。
  *
- * @return 
- * TODO:need ai write docs
+ * @return LED_OK 成功；LED_ERRORPARAMETER 参数错误；
+ *         LED_ERRORRESOURCE 重复初始化。
  */
 LED_status_t led_driver_inst(bsp_led_drive_t *const         self,
                              led_operation_t *const      led_ops,

@@ -20,8 +20,8 @@
  * @par dependencies
  * stdint.h
  *
- * @brief 
- * TODO:need ai write docs
+ * @brief LED 驱动模块接口。
+ * 定义 LED 驱动对象、操作接口、占空比枚举与实例化接口。
  *
  * @author Noser
  * @version 1
@@ -40,24 +40,28 @@
 
 //*********************************Defines***********************************//
 
-#define OS_SUPPROT                                         /* TODO:need ai write docs*/
-#define DEBUG                                              /* TODO:need ai write docs*/
+#define OS_SUPPROT                                         /* 启用 OS 接口 */
+#define DEBUG                                              /* 启用调试日志 */
 
 
-#define INITIALIZATION_YES 1                               /* TODO:need ai write docs*/
+#define INITIALIZATION_YES 1                               /* 已初始化 */
+#define INITIALIZATION_NO  0                               /* 未初始化 */
 
-#define INITIALIZATION_NO  0                               /* TODO:need ai write docs*/
-
-#define DEBUG_OUT(X) SEGGER_RTT_printf(0,"%s\r\n",X)       /* TODO:need ai write docs*/
+/* 通过 SEGGER RTT 输出调试字符串 */
+#define DEBUG_OUT(X) SEGGER_RTT_printf(0,"%s\r\n",X)
 
 
 typedef struct bsp_led_drive bsp_led_drive_t;
 typedef enum
 {
-   PROPORTON_1_3 = 0,                                      /* TODO:need ai write docs*/
-   PROPORTON_1_2 = 1,                                      /* TODO:need ai write docs*/
-   PROPORTON_1_1 = 2,                                      /* TODO:need ai write docs*/
-   PROPORTON_x_x = 0xFF,                                   /* TODO:need ai write docs*/
+   /* 亮灭时间比 1:3 */
+   PROPORTON_1_3 = 0,
+   /* 亮灭时间比 1:2 */
+   PROPORTON_1_2 = 1,
+   /* 亮灭时间比 1:1 */
+   PROPORTON_1_1 = 2,
+   /* 未配置占空比 */
+   PROPORTON_x_x = 0xFF,
 }time_proporton_on_off_t;
 
 typedef enum
@@ -85,38 +89,48 @@ typedef LED_status_t (*pf_led_control_t)(bsp_led_drive_t* self,
 
 /*led自身特性*/
 typedef struct {
-    LED_status_t (*pf_led_on)                  (void);/* TODO:need ai write docs*/
-    LED_status_t (*pf_led_off)                 (void);/* TODO:need ai write docs*/
+    /* 点亮 LED 的回调 */
+    LED_status_t (*pf_led_on)                  (void);
+    /* 熄灭 LED 的回调 */
+    LED_status_t (*pf_led_off)                 (void);
 }led_operation_t;
 
 
 typedef struct {
-    LED_status_t (*pf_get_time_base)(uint32_t* const);/* TODO:need ai write docs*/
+    /* 获取时基的回调 */
+    LED_status_t (*pf_get_time_base)(uint32_t* const);
 }get_time_base_t;
 
 
 #ifdef OS_SUPPROT
 typedef struct {
-    LED_status_t (*pf_os_delay_ms)   (const uint32_t);/* TODO:need ai write docs*/
+    /* OS 延时接口 */
+    LED_status_t (*pf_os_delay_ms)   (const uint32_t);
 }os_api_t;
 #endif
 
 typedef struct bsp_led_drive {
     uint8_t                         initialization;
     /* led特性*/
-    uint32_t                        blink_cycle_ms;     /* TODO:need ai write docs*/
-    uint32_t                           blink_times;     /* TODO:need ai write docs*/
-    time_proporton_on_off_t led_proporton_on_off_t;     /* TODO:need ai write docs*/
+    /* 闪烁周期，单位 ms */
+    uint32_t                        blink_cycle_ms;
+    /* 闪烁次数 */
+    uint32_t                           blink_times;
+    /* 亮灭时间占空比 */
+    time_proporton_on_off_t led_proporton_on_off_t;
 
 
     /*内部实现提供的接口*/
     /*MCU Core */
-    led_operation_t                *p_led_ops_inst;     /* TODO:need ai write docs*/
-    get_time_base_t              *pf_get_time_base;     /* TODO:need ai write docs*/
+    /* LED 操作接口 */
+    led_operation_t                *p_led_ops_inst;
+    /* 时基获取接口 */
+    get_time_base_t              *pf_get_time_base;
 
 #ifdef OS_SUPPROT
     /*OS Interface*/
-    os_api_t                         *p_os_ops_api;     /* TODO:need ai write docs*/
+    /* OS 延时接口 */
+    os_api_t                         *p_os_ops_api;
 #endif
 
 
@@ -125,20 +139,16 @@ typedef struct bsp_led_drive {
 
 
 /**
- * @brief 
- * TODO:need ai write docs
+ * @brief 实例化 LED 驱动。
  *
- * @param self
- * TODO:need ai write docs
- * @param led_ops
- * TODO:need ai write docs
- * @param os_ops_api
- * TODO:need ai write docs
- * @param get_time_base
- * TODO:need ai write docs
+ * 校验参数，绑定 LED 操作、OS 和时基接口，并完成内部状态初始化。
+ * @param self LED 驱动对象。
+ * @param led_ops LED 亮灭操作接口。
+ * @param os_ops_api OS 延时接口。
+ * @param get_time_base 时基获取接口。
  *
- * @return 
- * TODO:need ai write docs
+ * @return LED_OK 成功；LED_ERRORPARAMETER 参数错误；
+ *         LED_ERRORRESOURCE 重复初始化。
  */
 LED_status_t led_driver_inst(bsp_led_drive_t *const         self,
                              led_operation_t *const      led_ops,
@@ -154,4 +164,3 @@ LED_status_t led_driver_inst(bsp_led_drive_t *const         self,
 
 
 #endif
-

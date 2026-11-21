@@ -41,7 +41,9 @@ HardFault_Handler    PROC
     BL      cm_backtrace_fault
 
 Fault_Loop
-    BL      Fault_Loop              ;while(1)
+	MOV     r0, lr                  ; get lr
+    MOV     r1, sp                  ; get stack pointer (current is MSP)
+    BL      cm_backtrace_fault              ;while(1)
     ENDP
 
     END

@@ -67,8 +67,6 @@ typedef enum
 
 //********************************Variables**********************************//
 
-extern bsp_led_handler_t test_handler;
-extern bsp_led_drive_t   led_driver1;
 
 //********************************Variables**********************************//
 
@@ -78,74 +76,16 @@ extern bsp_led_drive_t   led_driver1;
 
 //********************************Prototypes**********************************//
 
-/* TODO:need ai write docs*/
-LED_status_t led_on(void);
-
-/* TODO:need ai write docs*/
-LED_status_t led_off(void);
-
-
-/* TODO:need ai write docs*/
-LED_status_t FreeRTOS_delay_ms(const uint32_t time);
-
-/* TODO:need ai write docs*/
-LED_status_t get_time_test(uint32_t* const time);
-
-
-/* TODO:need ai write docs*/
-HANDLER_LED_status_t (os_queue_create)(const uint32_t  queue_lenth,
-                                          const uint32_t queue_item_size,
-                                         void ** const     queue_handler);
-
-HANDLER_LED_status_t os_delay_ms(const uint32_t time);
-/* TODO:need ai write docs*/
-HANDLER_LED_status_t (os_queue_delete)(void * const queue_handler);
-
-/* TODO:need ai write docs*/
-HANDLER_LED_status_t (os_queue_sent)(void * const queue_handler,
-                                     void * const         iteme,
-                                     uint32_t          time_out);
-
-/* TODO:need ai write docs*/
-HANDLER_LED_status_t (os_queue_recevie)(void * const queue_handler,
-                                        void * const         iteme,
-                                         uint32_t         time_out);
-
-/* TODO:need ai write docs*/
-HANDLER_LED_status_t  (os_critical_enter)(void);
-
-/* TODO:need ai write docs*/
-HANDLER_LED_status_t  (os_critical_exti)(void);
-
-
-
-/* TODO:need ai write docs*/
-HANDLER_LED_status_t (handler_get_time_base)(uint32_t* const time);
-
-/* TODO:need ai write docs*/
-HANDLER_LED_status_t handler_led_os_task_create(
-                                              void * const       task_code,
-                                              const char * const task_name,
-                                              uint32_t     task_stack_size,
-                                          void     * const      parameters,
-                                          uint32_t                priority,
-                                          void    **const     task_handler);
-
-
-/* TODO:need ai write docs*/
-HANDLER_LED_status_t (os_task_delete)(void * const task_handler);
-
-
 
 
 //********************************Prototypes**********************************//
 
 
 /**
- * @brief 
- *TODO:need ai write docs*
- * @return 
- *TODO:need ai write docs*
+ * @brief 初始化系统适配层。
+ *
+ * 依次实例化 LED 驱动与 LED handler。
+ * @return ADAPT_OK 成功；ADAPT_ERRORRESOURCE 初始化失败。
  */
 system_adapt_status_t system_adapt_init(void);
 

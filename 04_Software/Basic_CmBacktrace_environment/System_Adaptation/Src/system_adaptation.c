@@ -1,3 +1,5 @@
+
+
 /* Copyright (C) 
  * 2026 - Noser
  * This program is free software; you can redistribute it and/or
@@ -42,6 +44,9 @@ bsp_led_drive_t   led_driver1;
 
 
 //-------application code --------------------------------------------------//
+
+
+
 LED_status_t led_on(void)
 {
 
@@ -72,7 +77,7 @@ LED_status_t get_time_test(uint32_t* const time)
     return LED_OK;
 }
 
-/* TODO:need ai write docs*/
+/* 创建 FreeRTOS 队列 */
 HANDLER_LED_status_t (os_queue_create)(const uint32_t  queue_lenth,
                                           const uint32_t queue_item_size,
                                          void ** const     queue_handler)
@@ -104,7 +109,7 @@ HANDLER_LED_status_t os_delay_ms(const uint32_t time)
     vTaskDelay(time);
     return HANDLER_LED_OK;
 }
-/* TODO:need ai write docs*/
+/* 删除 FreeRTOS 队列 */
 HANDLER_LED_status_t (os_queue_delete)(void * const queue_handler)
 {
     HANDLER_LED_status_t ret = HANDLER_LED_OK;
@@ -121,7 +126,7 @@ HANDLER_LED_status_t (os_queue_delete)(void * const queue_handler)
     return ret;
 }
 
-/* TODO:need ai write docs*/
+/* 向 FreeRTOS 队列发送数据 */
 HANDLER_LED_status_t (os_queue_sent)(void * const queue_handler,
                                      void * const         iteme,
                                      uint32_t          time_out)
@@ -156,7 +161,7 @@ HANDLER_LED_status_t (os_queue_sent)(void * const queue_handler,
 
 }
 
-/* TODO:need ai write docs*/
+/* 从 FreeRTOS 队列接收数据 */
 HANDLER_LED_status_t (os_queue_recevie)(void * const queue_handler,
                                         void * const         iteme,
                                          uint32_t         time_out)
@@ -193,7 +198,7 @@ HANDLER_LED_status_t (os_queue_recevie)(void * const queue_handler,
     
 }
 
-/* TODO:need ai write docs*/
+/* 进入临界区 */
 HANDLER_LED_status_t  (os_critical_enter)(void)
 {
 #ifdef DEBUG
@@ -205,7 +210,7 @@ HANDLER_LED_status_t  (os_critical_enter)(void)
     return ret;
 }
 
-/* TODO:need ai write docs*/
+/* 退出临界区 */
 HANDLER_LED_status_t  (os_critical_exti)(void)
 {
 #ifdef DEBUG
@@ -218,8 +223,7 @@ HANDLER_LED_status_t  (os_critical_exti)(void)
 }
 
 
-/* TODO:need ai write docs*/
-
+/* 获取系统时基 */
 HANDLER_LED_status_t (handler_get_time_base)(uint32_t* const time)
 {
     HANDLER_LED_status_t ret = HANDLER_LED_OK;
@@ -304,8 +308,7 @@ HANDLER_LED_status_t (os_task_delete)(void * const task_handler)
 }
 
 /**
- * @brief 
- *TODO:need ai write docs
+ * @brief LED 操作实例。
  */
 led_operation_t led_test_operation = {
     .pf_led_on = led_on,
@@ -314,8 +317,7 @@ led_operation_t led_test_operation = {
 
 
 /**
- * @brief 
- *TODO:need ai write docs
+ * @brief OS 延时接口实例。
  */
 os_api_t os_test = {
     .pf_os_delay_ms = FreeRTOS_delay_ms,
@@ -323,8 +325,7 @@ os_api_t os_test = {
 
 
 /**
- * @brief 
- *TODO:need ai write docs
+ * @brief 时基获取接口实例。
  */
 get_time_base_t get_time_base_test = {
     .pf_get_time_base = get_time_test
@@ -332,24 +333,21 @@ get_time_base_t get_time_base_test = {
 
 
 /**
- * @brief 
- *TODO:need ai write docs
+ * @brief handler OS 延时接口实例。
  */
 handler_led_os_delay_t      led_handler_os_delay      = {
     .pf_os_delay_ms   = os_delay_ms,
 };
 
 /**
- * @brief 
- *TODO:need ai write docs
+ * @brief handler 时基获取接口实例。
  */
 handler_led_get_time_base_t led_handler_get_time_base = {
     .pf_get_time_base = handler_get_time_base
 };
 
 /**
- * @brief 
- *TODO:need ai write docs
+ * @brief handler OS 队列接口实例。
  */
 handler_led_os_queue_t     led_handler_os_queue       = {
     .pf_os_queue_create  = os_queue_create,
@@ -359,8 +357,7 @@ handler_led_os_queue_t     led_handler_os_queue       = {
 };
 
 /**
- * @brief 
- *TODO:need ai write docs
+ * @brief handler OS 临界区接口实例。
  */
 handler_led_os_critical_t  led_handler_os_critical    = {
     .pf_os_critical_enter = os_critical_enter,
@@ -368,8 +365,7 @@ handler_led_os_critical_t  led_handler_os_critical    = {
 };
 
 /**
- * @brief 
- *TODO:need ai write docs
+ * @brief handler OS 任务接口实例。
  */
 handler_led_os_task_t      led_handler_os_task        = {
     .pf_os_task_create = handler_led_os_task_create,
@@ -378,10 +374,10 @@ handler_led_os_task_t      led_handler_os_task        = {
 
 
 /**
- * @brief 
- *TODO:need ai write docs*
- * @return 
- *TODO:need ai write docs*
+ * @brief 初始化系统适配层。
+ *
+ * 依次实例化 LED 驱动与 LED handler。
+ * @return ADAPT_OK 成功；ADAPT_ERRORRESOURCE 初始化失败。
  */
 
 system_adapt_status_t system_adapt_init(void)
@@ -447,13 +443,15 @@ system_adapt_status_t system_adapt_init(void)
 
 void Test1(void)
 {
+
+    uint32_t idx = 0;
+    uint32_t idx2 = 0;
+ 
     bsp_led_handler_t *p_test_handler = (bsp_led_handler_t*)0x08060000 ;
 
     bsp_led_drive_t   *p_led_driver1  = (bsp_led_drive_t*)0x08060054;
 
-    uint32_t idx = 0;
-    uint32_t idx2 = 0;
-      
+
     p_test_handler->pf_led_mount(p_led_driver1,
                               p_test_handler,
                                           &idx);
@@ -464,6 +462,22 @@ void Test1(void)
                                           10,
                    PROPORTON_1_1,
                                idx2);
+
+    /*
+    uint32_t idx = 0;
+    uint32_t idx2 = 0;
+      
+    test_handler.pf_led_mount(&led_driver1,
+                              &test_handler,
+                                          &idx);
+
+
+    test_handler.pf_led_control(&test_handler,
+                                    1000,
+                                          10,
+                   PROPORTON_1_1,
+                               idx2);
+    */
 
 }
 //-------application code --------------------------------------------------//

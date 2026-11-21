@@ -22,8 +22,8 @@
  * stddef.h
  * bsp_led_drive.h
  *
- * @brief 
- * TODO:need ai write docs
+ * @brief LED handler 模块接口。
+ * 定义 LED handler 对象、接口类型与初始化接口。
  * @author Noser
  * @version 1.1
  * @date 2026-11-17
@@ -41,15 +41,15 @@
 
 //*********************************Defines***********************************//
 
-#define OS_SUPPROT                                 /* TODO:need ai write docs*/
-#define DEBUG                                      /* TODO:need ai write docs*/
+#define OS_SUPPROT                                 /* 启用 OS 适配接口 */
+#define DEBUG                                      /* 启用调试日志 */
 
-#define DEBUG_OUT(X) SEGGER_RTT_printf(0,"%s\r\n",X)            /* TODO:need ai 
-                                                                   write docs*/
+/* 通过 SEGGER RTT 输出调试字符串 */
+#define DEBUG_OUT(X) SEGGER_RTT_printf(0,"%s\r\n",X)
 
-#define INIT_HANDLER_LED_YES 1                     /* TODO:need ai write docs*/
-#define INIT_HANDLER_LED_NO  0                     /* TODO:need ai write docs*/
-#define INIT_PATERN 0xA5A5A5A5                     /* TODO:need ai write docs*/
+#define INIT_HANDLER_LED_YES 1                     /* 已初始化 */
+#define INIT_HANDLER_LED_NO  0                     /* 未初始化 */
+#define INIT_PATERN 0xA5A5A5A5                     /* 初始化模式标记 */
 
 typedef enum
 {
@@ -101,7 +101,8 @@ typedef HANDLER_LED_status_t (*pf_handler_led_mount_t)(
 
 
 typedef struct {
-    HANDLER_LED_status_t (*pf_get_time_base)(uint32_t* const);/* TODO:need ai write docs*/
+    /* 获取时基的回调 */
+    HANDLER_LED_status_t (*pf_get_time_base)(uint32_t* const);
 }handler_led_get_time_base_t;
 
 
@@ -112,7 +113,8 @@ typedef struct {
  */
 typedef struct {
 
-    HANDLER_LED_status_t (*pf_os_delay_ms)   (const uint32_t);/* TODO:need ai write docs*/
+    /* OS 延时接口 */
+    HANDLER_LED_status_t (*pf_os_delay_ms)   (const uint32_t);
 
 }handler_led_os_delay_t;
 
@@ -120,60 +122,36 @@ typedef struct {
 typedef struct {
 
     /**
-     * @brief 
-     *TODO:need ai write docs
-     * @param 
-     *TODO:need ai write docs
-     * @param queue_item_size
-     *TODO:need ai write docs
-     * @param queue_handler
-     *TODO:need ai write docs
+     * @brief 创建消息队列。
+     * @param queue_lenth 队列长度。
+     * @param queue_item_size 单个队列元素大小。
+     * @param queue_handler 输出队列句柄。
      */
     HANDLER_LED_status_t (*pf_os_queue_create)(const uint32_t  queue_lenth,
                                             const uint32_t queue_item_size,
                                           void ** const     queue_handler);
 
     /**
-     * @brief 
-     *TODO:need ai write docs
-
-     * @param 
-     *TODO:need ai write docs
-
+     * @brief 删除消息队列。
+     * @param queue_handler 待删除的队列句柄。
      */
     HANDLER_LED_status_t (*pf_os_queue_delete)(void * const queue_handler);
 
     /**
-     * @brief 
-     *TODO:need ai write docs
-
-     * @param 
-     *TODO:need ai write docs
-
-     * @param iteme
-     *TODO:need ai write docs
-
-     * @param time_out
-     *TODO:need ai write docs
-
+     * @brief 向队列发送数据。
+     * @param queue_handler 队列句柄。
+     * @param iteme 待发送数据指针。
+     * @param time_out 等待超时时间。
      */
     HANDLER_LED_status_t (*pf_os_queue_sent)(void *    const queue_handler,
                                              void *    const         iteme,
                                              uint32_t            time_out);
 
     /**
-     * @brief 
-     *TODO:need ai write docs
-
-     * @param 
-     *TODO:need ai write docs
-
-     * @param iteme
-     *TODO:need ai write docs
-
-     * @param time_out
-     *TODO:need ai write docs
-
+     * @brief 从队列接收数据。
+     * @param queue_handler 队列句柄。
+     * @param iteme 接收数据指针。
+     * @param time_out 等待超时时间。
      */
     HANDLER_LED_status_t (*pf_os_queue_recevie)(void * const queue_handler,
                                                 void * const         iteme,
@@ -183,10 +161,10 @@ typedef struct {
 
 typedef struct {
 
-    /* TODO:need ai write docs*/
+    /* 进入临界区 */
     HANDLER_LED_status_t  (*pf_os_critical_enter)(void);
 
-    /* TODO:need ai write docs*/
+    /* 退出临界区 */
     HANDLER_LED_status_t  (*pf_os_critical_exti)(void);
 
 }handler_led_os_critical_t;
@@ -210,7 +188,8 @@ typedef struct {
 
 typedef struct {
 
-    uint32_t                            led_index;/* TODO:need ai write docs*/
+    /* 当前已挂载 LED 驱动数量 */
+    uint32_t                            led_index;
 
     bsp_led_drive_t    *led_drive_array[MAX_LED_X];     /* LED 驱动对象数组 */
 
@@ -249,17 +228,18 @@ typedef struct bsp_led_handler {
 
 
 /**
- * @brief 
- * TODO:need ai write docs
- * @param self
- * TODO:need ai write docs
- * @param os_ops_api
- * TODO:need ai write docs
- * @param get_time_base
- * TODO:need ai write docs
+ * @brief 初始化 LED handler 并绑定外部接口。
  *
- * @return 
- * TODO:need ai write docs
+ * 创建消息队列与处理任务，注册挂载和控制接口。
+ * @param self LED handler 对象。
+ * @param os_delay_ms OS 延时接口。
+ * @param os_queue OS 队列接口。
+ * @param os_critical OS 临界区接口。
+ * @param os_task OS 任务接口。
+ * @param get_time_base 时基获取接口。
+ *
+ * @return HANDLER_LED_OK 成功；HANDLER_LED_ERRORPARAMETER 参数错误；
+ *         HANDLER_LED_ERRORRESOURCE 资源创建失败。
  */
 HANDLER_LED_status_t led_handler_inst(
         bsp_led_handler_t          *const            self,

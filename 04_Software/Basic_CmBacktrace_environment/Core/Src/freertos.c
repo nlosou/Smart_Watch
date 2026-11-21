@@ -97,7 +97,7 @@ void MX_FREERTOS_Init(void) {
   /* add threads, ... */
   /* USER CODE END RTOS_THREADS */
 
-  /* USER CODE BEGIN RTOS_EVENTS */
+  /* USER CODE BEGIN RTOS_EVENTS w*/
   /* add events, ... */
   /* USER CODE END RTOS_EVENTS */
 
@@ -116,7 +116,7 @@ void StartDefaultTask(void *argument)
 {
   /* USER CODE BEGIN StartDefaultTask */
   /* Infinite loop */
-  
+//  
 //  system_adapt_init();
   Test1();
   for(;;)

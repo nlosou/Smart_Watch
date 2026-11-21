@@ -21,8 +21,8 @@
  * stddef.h
  * bsp_led_handler.h
  *
- * @brief 
- * TODO:need ai write docs
+ * @brief LED handler 模块实现。
+ * 提供 LED 驱动对象挂载、控制和任务事件处理。
  * @author Noser
  * @version 1.1
  * @date 2026-11-17
@@ -38,14 +38,12 @@
 
 
 /**
- * @brief 
+ * @brief 初始化 LED 驱动挂载数组。
  *
- * TODO:need ai write docs
- * @param led_handler
+ * 将挂载计数清零，并把驱动指针数组中的每个元素置为空。
+ * @param led_handler LED handler 对象。
  *
- * TODO:need ai write docs
- * @return 
- * TODO:need ai write docs
+ * @return HANDLER_LED_OK 成功；HANDLER_LED_ERRORPARAMETER 参数为空。
  */
 static HANDLER_LED_status_t led_handler_init_array(
     bsp_led_handler_t* led_handler)
@@ -59,7 +57,7 @@ static HANDLER_LED_status_t led_handler_init_array(
 
     for (uint32_t i = 0; i < MAX_LED_X; i++)
     {
-        led_handler->led_drive_mount.led_drive_array[i] = NULL;
+        led_handler->led_drive_mount.led_drive_array[i] =(bsp_led_drive_t*) INIT_PATERN;
     }
 
     return HANDLER_LED_OK;
@@ -68,20 +66,17 @@ static HANDLER_LED_status_t led_handler_init_array(
 
 
 /**
- * @brief 
- * TODO:need ai write docs
+ * @brief 将 LED 驱动挂载到 handler 的驱动数组。
  *
- * @param led_driver
- * TODO:need ai write docs
- * @param led_handler
- * TODO:need ai write docs
- * @param led_idx
- * TODO:need ai write docs
+ * 校验参数与初始化状态，在临界区中保存驱动指针并返回分配下标。
+ * @param led_driver 待挂载的 LED 驱动对象。
+ * @param led_handler LED handler 对象。
+ * @param led_idx 输出分配到的挂载下标。
  *
- * @return 
- * TODO:need ai write docs
+ * @return HANDLER_LED_OK 成功；HANDLER_LED_ERRORPARAMETER 参数错误；
+ *         HANDLER_LED_ERRORRESOURCE 驱动数组已满。
  */
-static HANDLER_LED_status_t led_handler_mount(bsp_led_drive_t*  led_driver,
+HANDLER_LED_status_t led_handler_mount(bsp_led_drive_t*  led_driver,
                                     bsp_led_handler_t * led_handler,
                                               uint32_t*     led_idx)
 
@@ -134,20 +129,12 @@ static HANDLER_LED_status_t led_handler_mount(bsp_led_drive_t*  led_driver,
 }
 
 /**
- * @brief 
- * TODO:need ai write docs
+ * @brief 处理一次 LED 闪烁事件。
  *
- * @param self
- * TODO:need ai write docs
- * @param blink_cycle_ms
- * TODO:need ai write docs
- * @param blink_times
- * TODO:need ai write docs
- * @param led_proporton_on_off_t
- * TODO:need ai write docs
+ * 根据占空比计算点亮时间，并循环执行 LED 亮灭与延时。
+ * @param self LED 驱动对象。
  *
- * @return 
- * TODO:need ai write docs
+ * @return HANDLER_LED_OK 成功；HANDLER_LED_ERRORPARAMETER 参数错误。
  */
 static HANDLER_LED_status_t __event_process(bsp_led_drive_t* self)
 {
@@ -289,22 +276,18 @@ static void handler_led_task_code(void *self)
 }
 
 /**
- * @brief 
- * TODO:need ai write docs
+ * @brief 初始化 LED handler 并绑定外部接口。
  *
- * @param self
- * TODO:need ai write docs
- * @param os_delay_ms
- * TODO:need ai write docs
- * @param os_queue
- * TODO:need ai write docs
- * @param os_critical
- * TODO:need ai write docs
- * @param get_time_base
- * TODO:need ai write docs
+ * 创建消息队列与处理任务，注册挂载和控制接口。
+ * @param self LED handler 对象。
+ * @param os_delay_ms OS 延时接口。
+ * @param os_queue OS 队列接口。
+ * @param os_critical OS 临界区接口。
+ * @param os_task OS 任务接口。
+ * @param get_time_base 时基获取接口。
  *
- * @return 
- * TODO:need ai write docs
+ * @return HANDLER_LED_OK 成功；HANDLER_LED_ERRORPARAMETER 参数错误；
+ *         HANDLER_LED_ERRORRESOURCE 资源创建失败。
  */
 HANDLER_LED_status_t led_handler_inst(
         bsp_led_handler_t          *const            self,
@@ -370,7 +353,7 @@ HANDLER_LED_status_t led_handler_inst(
 
     /*6.创建队列与任务*/
     
-    /* TODO:need ai write docs*/
+    /* 创建 LED 处理队列 */
     if(HANDLER_LED_OK !=self-> \
             p_os_queue->\
             pf_os_queue_create(10,sizeof(uint32_t),&self->queue_handler))
@@ -384,7 +367,7 @@ HANDLER_LED_status_t led_handler_inst(
        return ret;
     }   
 
-    /* TODO:need ai write docs*/
+    /* 创建 LED 处理任务 */
 
     if(HANDLER_LED_OK !=self-> \
             p_os_task->\
