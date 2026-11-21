@@ -45,7 +45,7 @@
  *
  * @return HANDLER_LED_OK 成功；HANDLER_LED_ERRORPARAMETER 参数为空。
  */
-static HANDLER_LED_status_t led_handler_init_array(
+ __attribute__((used)) static HANDLER_LED_status_t led_handler_init_array(
     bsp_led_handler_t* led_handler)
 {
     if (NULL == led_handler)
@@ -76,7 +76,7 @@ static HANDLER_LED_status_t led_handler_init_array(
  * @return HANDLER_LED_OK 成功；HANDLER_LED_ERRORPARAMETER 参数错误；
  *         HANDLER_LED_ERRORRESOURCE 驱动数组已满。
  */
-HANDLER_LED_status_t led_handler_mount(bsp_led_drive_t*  led_driver,
+__attribute__((used))static HANDLER_LED_status_t led_handler_mount(bsp_led_drive_t*  led_driver,
                                     bsp_led_handler_t * led_handler,
                                               uint32_t*     led_idx)
 
@@ -116,8 +116,21 @@ HANDLER_LED_status_t led_handler_mount(bsp_led_drive_t*  led_driver,
     *led_idx = led_handler->led_drive_mount.led_index;
     
     led_handler->led_drive_mount.led_drive_array[led_handler-> \
-        led_drive_mount.led_index++] = led_driver;
-
+        led_drive_mount.led_index] = led_driver;
+		
+		if(led_handler->led_drive_mount.led_drive_array[led_handler-> \
+        led_drive_mount.led_index] != led_driver)
+		{
+			   led_handler->p_os_critical->pf_os_critical_exti();
+    /*退出临界区*/
+#ifdef DEBUG
+        DEBUG_OUT("led mount is write data false");
+#endif
+			  ret = HANDLER_LED_ERRORRESOURCE;
+        return ret;
+		}
+		
+		led_handler->led_drive_mount.led_index++;
     led_handler->p_os_critical->pf_os_critical_exti();
     /*退出临界区*/
 #ifdef DEBUG
@@ -136,7 +149,7 @@ HANDLER_LED_status_t led_handler_mount(bsp_led_drive_t*  led_driver,
  *
  * @return HANDLER_LED_OK 成功；HANDLER_LED_ERRORPARAMETER 参数错误。
  */
-static HANDLER_LED_status_t __event_process(bsp_led_drive_t* self)
+  __attribute__((used)) static HANDLER_LED_status_t __event_process(bsp_led_drive_t* self)
 {
     HANDLER_LED_status_t ret = HANDLER_LED_OK;
     /*1.检查self是否为NULL,对象是否已经初始化完毕*/
@@ -195,7 +208,17 @@ static HANDLER_LED_status_t __event_process(bsp_led_drive_t* self)
  
     return ret;
 }
-static HANDLER_LED_status_t led_handler_control(bsp_led_handler_t* led_handler,
+
+/**
+ * @brief 
+ *
+ * @param 
+ * @param blink_cycle_ms
+ * @param blink_times
+ * @param led_proporton_on_off_t
+ * @param need_control_led_idx
+ */
+  __attribute__((used)) static HANDLER_LED_status_t led_handler_control(bsp_led_handler_t* led_handler,
                                                        uint32_t blink_cycle_ms,
                                                           uint32_t blink_times,
                                 time_proporton_on_off_t led_proporton_on_off_t,
@@ -257,7 +280,12 @@ static HANDLER_LED_status_t led_handler_control(bsp_led_handler_t* led_handler,
 }
 
 
-static void handler_led_task_code(void *self) 
+/**
+ * @brief 
+ *
+ * @param 
+ */
+  __attribute__((used)) static void handler_led_task_code(void *self) 
 {
     HANDLER_LED_status_t ret = HANDLER_LED_OK;
     bsp_led_handler_t* handler_self = (bsp_led_handler_t*)self;
@@ -289,7 +317,7 @@ static void handler_led_task_code(void *self)
  * @return HANDLER_LED_OK 成功；HANDLER_LED_ERRORPARAMETER 参数错误；
  *         HANDLER_LED_ERRORRESOURCE 资源创建失败。
  */
-HANDLER_LED_status_t led_handler_inst(
+__attribute__((used)) HANDLER_LED_status_t led_handler_inst(
         bsp_led_handler_t          *const            self,
 #ifdef OS_SUPPROT
         handler_led_os_delay_t     *const     os_delay_ms,

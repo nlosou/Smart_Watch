@@ -33,13 +33,14 @@
 
 //*********************************Defines***********************************//
 
+#define KEEP_SYMBOL __attribute__((used))
 
 //********************************Variables**********************************//
 __attribute__ ((used,section("bsp_target")))
-bsp_led_handler_t test_handler ;
+static bsp_led_handler_t test_handler ;
 
 __attribute__ ((used,section("bsp_target")))
-bsp_led_drive_t   led_driver1;
+static bsp_led_drive_t   led_driver1;
 //********************************Variables**********************************//
 
 
@@ -310,7 +311,7 @@ HANDLER_LED_status_t (os_task_delete)(void * const task_handler)
 /**
  * @brief LED 操作实例。
  */
-led_operation_t led_test_operation = {
+ KEEP_SYMBOL led_operation_t led_test_operation = {
     .pf_led_on = led_on,
     .pf_led_off = led_off
 };
@@ -319,7 +320,7 @@ led_operation_t led_test_operation = {
 /**
  * @brief OS 延时接口实例。
  */
-os_api_t os_test = {
+ KEEP_SYMBOL os_api_t os_test = {
     .pf_os_delay_ms = FreeRTOS_delay_ms,
 };
 
@@ -327,7 +328,7 @@ os_api_t os_test = {
 /**
  * @brief 时基获取接口实例。
  */
-get_time_base_t get_time_base_test = {
+ KEEP_SYMBOL get_time_base_t get_time_base_test = {
     .pf_get_time_base = get_time_test
 };
 
@@ -335,21 +336,21 @@ get_time_base_t get_time_base_test = {
 /**
  * @brief handler OS 延时接口实例。
  */
-handler_led_os_delay_t      led_handler_os_delay      = {
+ KEEP_SYMBOL handler_led_os_delay_t      led_handler_os_delay      = {
     .pf_os_delay_ms   = os_delay_ms,
 };
 
 /**
  * @brief handler 时基获取接口实例。
  */
-handler_led_get_time_base_t led_handler_get_time_base = {
+KEEP_SYMBOL handler_led_get_time_base_t led_handler_get_time_base = {
     .pf_get_time_base = handler_get_time_base
 };
 
 /**
  * @brief handler OS 队列接口实例。
  */
-handler_led_os_queue_t     led_handler_os_queue       = {
+KEEP_SYMBOL handler_led_os_queue_t     led_handler_os_queue       = {
     .pf_os_queue_create  = os_queue_create,
     .pf_os_queue_delete  = os_queue_delete,
     .pf_os_queue_recevie = os_queue_recevie,
@@ -359,7 +360,7 @@ handler_led_os_queue_t     led_handler_os_queue       = {
 /**
  * @brief handler OS 临界区接口实例。
  */
-handler_led_os_critical_t  led_handler_os_critical    = {
+ KEEP_SYMBOL handler_led_os_critical_t  led_handler_os_critical    = {
     .pf_os_critical_enter = os_critical_enter,
     .pf_os_critical_exti  = os_critical_exti
 };
@@ -367,7 +368,7 @@ handler_led_os_critical_t  led_handler_os_critical    = {
 /**
  * @brief handler OS 任务接口实例。
  */
-handler_led_os_task_t      led_handler_os_task        = {
+ KEEP_SYMBOL handler_led_os_task_t      led_handler_os_task        = {
     .pf_os_task_create = handler_led_os_task_create,
     .pf_os_task_delete = os_task_delete
 };
@@ -380,7 +381,7 @@ handler_led_os_task_t      led_handler_os_task        = {
  * @return ADAPT_OK 成功；ADAPT_ERRORRESOURCE 初始化失败。
  */
 
-system_adapt_status_t system_adapt_init(void)
+ KEEP_SYMBOL system_adapt_status_t system_adapt_init(void)
 {
 
     LED_status_t         ret1  = LED_OK;

@@ -40,10 +40,10 @@ HardFault_Handler    PROC
     MOV     r1, sp                  ; get stack pointer (current is MSP)
     BL      cm_backtrace_fault
 
-Fault_Loop
-	MOV     r0, lr                  ; get lr
-    MOV     r1, sp                  ; get stack pointer (current is MSP)
-    BL      cm_backtrace_fault              ;while(1)
-    ENDP
+;Fault_Loop
+;	MOV     r0, lr                  ; get lr
+;    MOV     r1, sp                  ; get stack pointer (current is MSP)
+;    BL      cm_backtrace_fault              ;while(1)
+;    ENDP
 
-    END
+;    END

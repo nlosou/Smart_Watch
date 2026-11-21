@@ -199,6 +199,7 @@ typedef struct bsp_led_handler {
     uint8_t                   is_handler_led_init;           /* 标记 handler 是
                                                                   否已初始化 */
 
+		
     led_driver_array_t            led_drive_mount;       /* LED 驱动对象数组 */
     void*                           queue_handler;
     void*                           task_handler;

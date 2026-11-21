@@ -26,3 +26,9 @@ LR_IROM1 0x08000000 0x00060000  {    ; load region size_region
 ;  }
 ;}
 
+;LR_IROM2 0x08060000 0x00020000  {    ; load region size_region
+;  ER_IRAM2 0x20019000  0x00010000  {  ; load address = execution address
+;   *.o(bsp_target)
+;  }
+;}
+
