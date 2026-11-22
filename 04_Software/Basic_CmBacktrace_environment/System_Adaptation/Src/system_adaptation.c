@@ -41,6 +41,8 @@ static bsp_led_handler_t test_handler ;
 
 __attribute__ ((used,section("bsp_target")))
 static bsp_led_drive_t   led_driver1;
+
+bsp_led_handler_runtime_t handler_runtime;
 //********************************Variables**********************************//
 
 
@@ -252,6 +254,7 @@ HANDLER_LED_status_t handler_led_os_task_create(
 {
 
     HANDLER_LED_status_t ret = HANDLER_LED_OK;
+    
     if(NULL == task_code||
        NULL == task_name||
        NULL == parameters
@@ -299,7 +302,7 @@ HANDLER_LED_status_t (os_task_delete)(void * const task_handler)
         return ret;
     }
 
-    vQueueDelete((QueueHandle_t)task_handler);
+    vTaskDelete((TaskHandle_t)task_handler);
 
 #ifdef DEBUG
         DEBUG_OUT("task _handler is delete successfully");
@@ -446,6 +449,64 @@ uint32_t idx = 0;
 }
 
 
+/**
+ * @brief 
+ *TODO:need ai to write Annotation
+ */
+
+void System_Adaptation_runtime_init(void)
+{
+    /* 1. 获取 Flash 中的静态配置 */
+
+    bsp_led_handler_t *p_test_handler = (bsp_led_handler_t*)0x08060000 ;
+
+    bsp_led_drive_t   *p_led_driver1  = (bsp_led_drive_t*)0x08060054;
+
+
+    /* 2. 创建 Queue，获取新的 RAM 句柄 */
+    if(HANDLER_LED_OK !=p_test_handler-> \
+            p_os_queue->\
+            pf_os_queue_create(10,sizeof(uint32_t),&handler_runtime.queue_handler))
+    {
+
+#ifdef DEBUG
+    DEBUG_OUT("queue create is false");
+#endif
+       return ;
+    }   
+
+    /* 3. 创建 Task，获取新的 RAM 句柄 */
+
+if(HANDLER_LED_OK !=p_test_handler-> \
+            p_os_task->\
+            pf_os_task_create(handler_led_task_code,
+                            "handler led task code",
+                                                521,
+                                                p_test_handler,
+                                                  0,
+                                &handler_runtime.task_handler))
+
+    {
+
+#ifdef DEBUG
+    DEBUG_OUT("task create is false");
+#endif
+       /*创建任务失败,之前创建的队列要一同删除*/
+       p_test_handler->p_os_queue->\
+           pf_os_queue_delete(handler_runtime.queue_handler);
+       return ;
+    }
+    /* 4. 初始化运行时状态 */
+    p_test_handler->queue_handler =&handler_runtime.queue_handler;
+    p_test_handler->queue_handler = &handler_runtime.task_handler;
+
+    /* 5. 将静态配置和运行时状态关联起来 */
+}
+
+/**
+ * @brief 
+ *TODO:need ai to write Annotation
+ */
 void Test1(void)
 {
 
@@ -454,46 +515,13 @@ void Test1(void)
     bsp_led_drive_t   *p_led_driver1  = (bsp_led_drive_t*)0x08060054;
 
 
-//        /* 创建 LED 处理队列 */
-//    if(HANDLER_LED_OK !=p_test_handler-> \
-//            p_os_queue->\
-//            pf_os_queue_create(10,sizeof(uint32_t),&p_test_handler->queue_handler))
-//    {
-
-//#ifdef DEBUG
-//    DEBUG_OUT("queue create is false");
-//#endif
-//       return ;
-//    }   
-
-//    /* 创建 LED 处理任务 */
-
-//    if(HANDLER_LED_OK !=p_test_handler-> \
-//            p_os_task->\
-//            pf_os_task_create(handler_led_task_code,
-//                            "handler led task code",
-//                                                521,
-//                                                p_test_handler,
-//                                                  0,
-//                                &p_test_handler->task_handler))
-
-//    {
-
-//#ifdef DEBUG
-//    DEBUG_OUT("task create is false");
-//#endif
-
-//       /*创建任务失败,之前创建的队列要一同删除*/
-//       p_test_handler->p_os_queue->pf_os_queue_delete(p_test_handler->queue_handler);
-//       return ;
-//    }
-
 
     p_test_handler->pf_led_control(p_test_handler,
-                                    1000,
-                                          10,
-                   PROPORTON_1_1,
-                               idx);
+                             &handler_runtime,
+                                          1000,
+                                               10,
+                         PROPORTON_1_1,
+                                    idx);
 
     /*
     uint32_t idx = 0;

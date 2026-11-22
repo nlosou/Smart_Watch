@@ -89,10 +89,16 @@ typedef enum
  */
 system_adapt_status_t system_adapt_init(void);
 
+/**
+ * @brief 
+ *TODO:need ai to Annotation
+ */
+void System_Adaptation_runtime_init(void);
 
 #if 1
 /**
  * @brief 
+ *TODO:need ai to Annotation
  */
 void Test1(void);
 

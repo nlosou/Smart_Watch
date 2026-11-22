@@ -118,6 +118,7 @@ void StartDefaultTask(void *argument)
   /* Infinite loop */
 //  
 //  system_adapt_init();
+  System_Adaptation_runtime_init();
   Test1();
   for(;;)
   {

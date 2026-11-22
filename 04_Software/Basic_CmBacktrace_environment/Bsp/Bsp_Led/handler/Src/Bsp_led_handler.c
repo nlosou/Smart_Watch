@@ -34,6 +34,7 @@
 
 
 //*********************************Defines***********************************//
+extern bsp_led_handler_runtime_t handler_runtime;
 //*********************************Defines***********************************//
 
 
@@ -143,16 +144,37 @@ __attribute__((used))static HANDLER_LED_status_t led_handler_mount(bsp_led_drive
 
 
 
-/**
- * @brief 
- *
- * @param 
- * @param blink_cycle_ms
- * @param blink_times
- * @param led_proporton_on_off_t
- * @param need_control_led_idx
- */
-  __attribute__((used)) static HANDLER_LED_status_t led_handler_control(bsp_led_handler_t* led_handler,
+    /**
+     * @brief 
+     *
+     *TODO:need ai to write Annotation
+
+     * @param led_handler
+     * TODO:need ai to write Annotation
+
+     * @param runtime_handler
+     *TODO:need ai to write Annotation
+
+     * @param blink_cycle_ms
+     *TODO:need ai to write Annotation
+
+     * @param blink_times
+     *TODO:need ai to write Annotation
+
+     * @param led_proporton_on_off_t
+     *TODO:need ai to write Annotation
+
+     * @param need_control_led_idx
+     *TODO:need ai to write Annotation
+     *
+     * @return 
+     *TODO:need ai to write Annotation
+
+     */
+
+__attribute__((used)) 
+static HANDLER_LED_status_t led_handler_control(bsp_led_handler_t* led_handler,
+                                   bsp_led_handler_runtime_t  *runtime_handler,
                                                        uint32_t blink_cycle_ms,
                                                           uint32_t blink_times,
                                 time_proporton_on_off_t led_proporton_on_off_t,
@@ -192,7 +214,7 @@ __attribute__((used))static HANDLER_LED_status_t led_handler_mount(bsp_led_drive
 
     ret = led_handler->\
         p_os_queue->\
-        pf_os_queue_sent(led_handler->queue_handler,&test_data,0);
+        pf_os_queue_sent(runtime_handler->queue_handler,&test_data,0);
 
     if(HANDLER_LED_OK!=ret)
     {
@@ -284,13 +306,17 @@ __attribute__((used))static HANDLER_LED_status_t led_handler_mount(bsp_led_drive
 
 /**
  * @brief 
- *
+ *TODO:need ai to write Annotation
  * @param 
+ *TODO:need ai to write Annotation
+ * @param runtime_handler
+ *TODO:need ai to write Annotation
  */
-  __attribute__((used)) static void handler_led_task_code(void *self) 
+__attribute__((used))
+void handler_led_task_code(void *self)
 {
-    HANDLER_LED_status_t ret = HANDLER_LED_OK;
-    bsp_led_handler_t* handler_self = (bsp_led_handler_t*)self;
+    HANDLER_LED_status_t ret                = HANDLER_LED_OK;
+    bsp_led_handler_t* handler_self         = (bsp_led_handler_t*)self;
 
     uint32_t test_data = 0;
     while(1)
@@ -298,7 +324,7 @@ __attribute__((used))static HANDLER_LED_status_t led_handler_mount(bsp_led_drive
         
      ret =handler_self->\
         p_os_queue->\
-        pf_os_queue_recevie(handler_self->queue_handler,&test_data,0xffffffffUL);
+        pf_os_queue_recevie(handler_runtime.queue_handler,&test_data,0xffffffffUL);
    
      __event_process(handler_self->led_drive_mount.led_drive_array[test_data]);
         
@@ -382,44 +408,44 @@ __attribute__((used)) HANDLER_LED_status_t led_handler_inst(
     self->pf_led_mount   = led_handler_mount;
     self->pf_led_control = led_handler_control;
 
-    /*6.创建队列与任务*/
-    
-    /* 创建 LED 处理队列 */
-    if(HANDLER_LED_OK !=self-> \
-            p_os_queue->\
-            pf_os_queue_create(10,sizeof(uint32_t),&self->queue_handler))
-    {
+//    /*6.创建队列与任务*/
+//    
+//    /* 创建 LED 处理队列 */
+//    if(HANDLER_LED_OK !=self-> \
+//            p_os_queue->\
+//            pf_os_queue_create(10,sizeof(uint32_t),&self->queue_handler))
+//    {
 
-#ifdef DEBUG
-    DEBUG_OUT("queue create is false");
-#endif
+//#ifdef DEBUG
+//    DEBUG_OUT("queue create is false");
+//#endif
 
-       ret =HANDLER_LED_ERRORRESOURCE; 
-       return ret;
-    }   
+//       ret =HANDLER_LED_ERRORRESOURCE; 
+//       return ret;
+//    }   
 
-    /* 创建 LED 处理任务 */
+//    /* 创建 LED 处理任务 */
 
-    if(HANDLER_LED_OK !=self-> \
-            p_os_task->\
-            pf_os_task_create(handler_led_task_code,
-                            "handler led task code",
-                                                521,
-                                                self,
-                                                  0,
-                                &self->task_handler))
+//    if(HANDLER_LED_OK !=self-> \
+//            p_os_task->\
+//            pf_os_task_create(handler_led_task_code,
+//                            "handler led task code",
+//                                                521,
+//                                                self,
+//                                                  0,
+//                                &self->task_handler))
 
-    {
+//    {
 
-#ifdef DEBUG
-    DEBUG_OUT("task create is false");
-#endif
+//#ifdef DEBUG
+//    DEBUG_OUT("task create is false");
+//#endif
 
-       /*创建任务失败,之前创建的队列要一同删除*/
-       self->p_os_queue->pf_os_queue_delete(self->queue_handler);
-       ret =HANDLER_LED_ERRORRESOURCE; 
-       return ret;
-    }
+//       /*创建任务失败,之前创建的队列要一同删除*/
+//       self->p_os_queue->pf_os_queue_delete(self->queue_handler);
+//       ret =HANDLER_LED_ERRORRESOURCE; 
+//       return ret;
+//    }
 
     self->is_handler_led_init = INIT_HANDLER_LED_YES;
 #ifdef DEBUG

@@ -84,10 +84,12 @@ typedef enum
 //*********************************Defines***********************************//
 
 //*********************************Declaring*********************************//
-typedef struct bsp_led_handler bsp_led_handler_t;
+typedef struct bsp_led_handler                 bsp_led_handler_t;
+typedef struct bsp_led_handler_runtime bsp_led_handler_runtime_t;
 
 typedef HANDLER_LED_status_t (*pf_handler_led_control_t)(
                           bsp_led_handler_t* led_handler,
+              bsp_led_handler_runtime_t* runtime_handler,
                                  uint32_t blink_cycle_ms,
                                     uint32_t blink_times,
           time_proporton_on_off_t led_proporton_on_off_t,
@@ -171,6 +173,21 @@ typedef struct {
 
 typedef struct {
 
+    /**
+     * @brief 
+     * TODO:need ai to write Annotation
+     * @param TODO:need ai to write Annotation
+     * @param task_name
+     *TODO:need ai to write Annotation
+     * @param task_stack_size
+     *TODO:need ai to write Annotation
+     * @param parameters
+     *TODO:need ai to write Annotation
+     * @param priority
+     *TODO:need ai to write Annotation
+     * @param task_handler
+     *TODO:need ai to write Annotation
+     */
     HANDLER_LED_status_t (*pf_os_task_create)(void * const       task_code,
                                               const char * const task_name,
                                               uint32_t     task_stack_size,
@@ -178,6 +195,12 @@ typedef struct {
                                           uint32_t                priority,
                                           void    ** const   task_handler);
 
+    /**
+     * @brief 
+     *TODO:need ai to write Annotation
+     * @param 
+     *TODO:need ai to write Annotation
+     */
     HANDLER_LED_status_t (*pf_os_task_delete)(void * const task_handler);
 
 
@@ -199,10 +222,13 @@ typedef struct bsp_led_handler {
     uint8_t                   is_handler_led_init;           /* 标记 handler 是
                                                                   否已初始化 */
 
-		
-    led_driver_array_t            led_drive_mount;       /* LED 驱动对象数组 */
-    void*                           queue_handler;
+	void*                           queue_handler;
+
     void*                           task_handler;
+
+	
+    led_driver_array_t            led_drive_mount;       /* LED 驱动对象数组 */
+    
 
     /* 内部实现提供的接口 */
     /* MCU Core */
@@ -227,6 +253,29 @@ typedef struct bsp_led_handler {
 
 } bsp_led_handler_t;
 
+typedef struct bsp_led_handler_runtime
+{
+    void*                           queue_handler;
+    void*                           task_handler;
+
+    uint32_t blink_cycle_ms[MAX_LED_X];
+    uint32_t blink_times[MAX_LED_X];
+
+} bsp_led_handler_runtime_t;
+
+
+
+/**
+ * @brief 
+ *
+ *TODO:need ai to write Annotation
+ * @param 
+ *TODO:need ai to write Annotation
+ * @param runtime_self
+ *TODO:need ai to write Annotation
+ */
+__attribute__((used)) 
+void handler_led_task_code(void *self); 
 
 /**
  * @brief 初始化 LED handler 并绑定外部接口。
