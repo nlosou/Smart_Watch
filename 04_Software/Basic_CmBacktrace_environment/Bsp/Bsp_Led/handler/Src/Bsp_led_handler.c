@@ -141,73 +141,7 @@ __attribute__((used))static HANDLER_LED_status_t led_handler_mount(bsp_led_drive
     
 }
 
-/**
- * @brief 处理一次 LED 闪烁事件。
- *
- * 根据占空比计算点亮时间，并循环执行 LED 亮灭与延时。
- * @param self LED 驱动对象。
- *
- * @return HANDLER_LED_OK 成功；HANDLER_LED_ERRORPARAMETER 参数错误。
- */
-  __attribute__((used)) static HANDLER_LED_status_t __event_process(bsp_led_drive_t* self)
-{
-    HANDLER_LED_status_t ret = HANDLER_LED_OK;
-    /*1.检查self是否为NULL,对象是否已经初始化完毕*/
 
-    if(NULL == self||INITIALIZATION_NO == self->initialization)
-    {
-#ifdef DEBUG
-        DEBUG_OUT("led is null or led is not init");
-#endif
-        ret = HANDLER_LED_ERRORPARAMETER;
-        return ret; 
-    }
-
-    /*2.编写led控制逻辑*/
-    /*获取led亮多久*/
-    uint32_t CMD_GET_SWITCH_TIME = 0;
-    if(PROPORTON_1_3 ==self->led_proporton_on_off_t)
-    {
-        CMD_GET_SWITCH_TIME = self->blink_cycle_ms * (1/(1+3));
-    }
-    else if(PROPORTON_1_2 == self->led_proporton_on_off_t)
-    {
-        CMD_GET_SWITCH_TIME = self->blink_cycle_ms * (1/(1+2));
-    }
-    else if(PROPORTON_1_1 == self->led_proporton_on_off_t)
-    {
-
-        CMD_GET_SWITCH_TIME = self->blink_cycle_ms * (1/(1+1));
-    }
-    else
-    {
-
-#ifdef DEBUG
-        DEBUG_OUT("led is null or led is not init");
-#endif
-        ret = HANDLER_LED_ERRORPARAMETER;
-        return ret; 
-     
-    }
-
-    for(uint32_t i = 0 ; i < self->blink_times; i++)
-    {
-#ifdef DEBUG
-        DEBUG_OUT("led blink start");
-#endif
- 
-        self->p_led_ops_inst->pf_led_on();  
-        self->p_os_ops_api->pf_os_delay_ms(CMD_GET_SWITCH_TIME);
-        self->p_led_ops_inst->pf_led_off();  
-        self->p_os_ops_api->pf_os_delay_ms(self->blink_cycle_ms - CMD_GET_SWITCH_TIME);
-    }
-
-#ifdef DEBUG
-        DEBUG_OUT("led blink end");
-#endif
- 
-    return ret;
-}
 
 /**
  * @brief 
@@ -281,6 +215,74 @@ __attribute__((used))static HANDLER_LED_status_t led_handler_mount(bsp_led_drive
 
 
 /**
+ * @brief 处理一次 LED 闪烁事件。
+ *
+ * 根据占空比计算点亮时间，并循环执行 LED 亮灭与延时。
+ * @param self LED 驱动对象。
+ *
+ * @return HANDLER_LED_OK 成功；HANDLER_LED_ERRORPARAMETER 参数错误。
+ */
+  __attribute__((used)) static HANDLER_LED_status_t __event_process(bsp_led_drive_t* self)
+{
+    HANDLER_LED_status_t ret = HANDLER_LED_OK;
+    /*1.检查self是否为NULL,对象是否已经初始化完毕*/
+
+    if(NULL == self||INITIALIZATION_NO == self->initialization)
+    {
+#ifdef DEBUG
+        DEBUG_OUT("led is null or led is not init");
+#endif
+        ret = HANDLER_LED_ERRORPARAMETER;
+        return ret; 
+    }
+
+    /*2.编写led控制逻辑*/
+    /*获取led亮多久*/
+    uint32_t CMD_GET_SWITCH_TIME = 0;
+    if(PROPORTON_1_3 ==self->led_proporton_on_off_t)
+    {
+        CMD_GET_SWITCH_TIME = self->blink_cycle_ms * (1/(1+3));
+    }
+    else if(PROPORTON_1_2 == self->led_proporton_on_off_t)
+    {
+        CMD_GET_SWITCH_TIME = self->blink_cycle_ms * (1/(1+2));
+    }
+    else if(PROPORTON_1_1 == self->led_proporton_on_off_t)
+    {
+
+        CMD_GET_SWITCH_TIME = self->blink_cycle_ms * (1/(1+1));
+    }
+    else
+    {
+
+#ifdef DEBUG
+        DEBUG_OUT("led is null or led is not init");
+#endif
+        ret = HANDLER_LED_ERRORPARAMETER;
+        return ret; 
+     
+    }
+
+    for(uint32_t i = 0 ; i < self->blink_times; i++)
+    {
+#ifdef DEBUG
+        DEBUG_OUT("led blink start");
+#endif
+ 
+        self->p_led_ops_inst->pf_led_on();  
+        self->p_os_ops_api->pf_os_delay_ms(CMD_GET_SWITCH_TIME);
+        self->p_led_ops_inst->pf_led_off();  
+        self->p_os_ops_api->pf_os_delay_ms(self->blink_cycle_ms - CMD_GET_SWITCH_TIME);
+    }
+
+#ifdef DEBUG
+        DEBUG_OUT("led blink end");
+#endif
+ 
+    return ret;
+}
+
+/**
  * @brief 
  *
  * @param 
@@ -302,6 +304,7 @@ __attribute__((used))static HANDLER_LED_status_t led_handler_mount(bsp_led_drive
         
     }
 }
+
 
 /**
  * @brief 初始化 LED handler 并绑定外部接口。

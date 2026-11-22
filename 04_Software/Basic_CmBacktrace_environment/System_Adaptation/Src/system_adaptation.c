@@ -380,7 +380,7 @@ KEEP_SYMBOL handler_led_os_queue_t     led_handler_os_queue       = {
  * 依次实例化 LED 驱动与 LED handler。
  * @return ADAPT_OK 成功；ADAPT_ERRORRESOURCE 初始化失败。
  */
-
+uint32_t idx = 0;
  KEEP_SYMBOL system_adapt_status_t system_adapt_init(void)
 {
 
@@ -438,31 +438,62 @@ KEEP_SYMBOL handler_led_os_queue_t     led_handler_os_queue       = {
 #endif
 
     }
+		test_handler.pf_led_mount(&led_driver1,
+                              &test_handler,
+                                          &idx);
 
     return ret3;
 }
 
+
 void Test1(void)
 {
 
-    uint32_t idx = 0;
-    uint32_t idx2 = 0;
- 
     bsp_led_handler_t *p_test_handler = (bsp_led_handler_t*)0x08060000 ;
 
     bsp_led_drive_t   *p_led_driver1  = (bsp_led_drive_t*)0x08060054;
 
 
-    p_test_handler->pf_led_mount(p_led_driver1,
-                              p_test_handler,
-                                          &idx);
+//        /* 创建 LED 处理队列 */
+//    if(HANDLER_LED_OK !=p_test_handler-> \
+//            p_os_queue->\
+//            pf_os_queue_create(10,sizeof(uint32_t),&p_test_handler->queue_handler))
+//    {
+
+//#ifdef DEBUG
+//    DEBUG_OUT("queue create is false");
+//#endif
+//       return ;
+//    }   
+
+//    /* 创建 LED 处理任务 */
+
+//    if(HANDLER_LED_OK !=p_test_handler-> \
+//            p_os_task->\
+//            pf_os_task_create(handler_led_task_code,
+//                            "handler led task code",
+//                                                521,
+//                                                p_test_handler,
+//                                                  0,
+//                                &p_test_handler->task_handler))
+
+//    {
+
+//#ifdef DEBUG
+//    DEBUG_OUT("task create is false");
+//#endif
+
+//       /*创建任务失败,之前创建的队列要一同删除*/
+//       p_test_handler->p_os_queue->pf_os_queue_delete(p_test_handler->queue_handler);
+//       return ;
+//    }
 
 
     p_test_handler->pf_led_control(p_test_handler,
                                     1000,
                                           10,
                    PROPORTON_1_1,
-                               idx2);
+                               idx);
 
     /*
     uint32_t idx = 0;

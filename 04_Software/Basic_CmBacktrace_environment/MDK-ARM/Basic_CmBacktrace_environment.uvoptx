@@ -12,7 +12,7 @@
     <lExt>*.lib</lExt>
     <tExt>*.txt; *.h; *.inc; *.md</tExt>
     <pExt>*.plm</pExt>
-    <CppX>*.cpp</CppX>
+    <CppX>*.cpp; *.cc; *.cxx</CppX>
     <nMigrate>0</nMigrate>
   </Extensions>
 
@@ -93,7 +93,7 @@
         <tRbreak>1</tRbreak>
         <tRwatch>1</tRwatch>
         <tRmem>1</tRmem>
-        <tRfunc>1</tRfunc>
+        <tRfunc>0</tRfunc>
         <tRbox>1</tRbox>
         <tRtrace>1</tRtrace>
         <sRSysVw>1</sRSysVw>
@@ -147,140 +147,23 @@
           <Key>UL2CM3</Key>
           <Name>UL2CM3(-S0 -C0 -P0 -FD20000000 -FC1000 -FN1 -FF0STM32F4xx_512 -FS08000000 -FL080000 -FP0($$Device:STM32F411CEUx$CMSIS\Flash\STM32F4xx_512.FLM))</Name>
         </SetRegEntry>
-        <SetRegEntry>
-          <Number>0</Number>
-          <Key>ST-LINKIII-KEIL_SWO</Key>
-          <Name>-U-O142 -O2254 -S0 -C0 -N00("ARM CoreSight SW-DP") -D00(2BA01477) -L00(0) -TO18 -TC10000000 -TP21 -TDS8007 -TDT0 -TDC1F -TIEFFFFFFFF -TIP8 -FO7 -FD20000000 -FC800 -FN1 -FF0STM32F4xx_512.FLM -FS08000000 -FL080000 -FP0($$Device:STM32F411CEUx$CMSIS\Flash\STM32F4xx_512.FLM)</Name>
-        </SetRegEntry>
       </TargetDriverDllRegistry>
       <Breakpoint>
         <Bp>
           <Number>0</Number>
           <Type>0</Type>
-          <LineNumber>244</LineNumber>
+          <LineNumber>121</LineNumber>
           <EnabledFlag>1</EnabledFlag>
-          <Address>134230312</Address>
+          <Address>134223646</Address>
           <ByteObject>0</ByteObject>
           <HtxType>0</HtxType>
           <ManyObjects>0</ManyObjects>
           <SizeOfObject>0</SizeOfObject>
           <BreakByAccess>0</BreakByAccess>
           <BreakIfRCount>1</BreakIfRCount>
-          <Filename>..\Bsp\Bsp_Led\handler\Src\Bsp_led_handler.c</Filename>
+          <Filename>../Core/Src/freertos.c</Filename>
           <ExecCommand></ExecCommand>
-          <Expression>\\Basic_CmBacktrace_environment\../Bsp/Bsp_Led/handler/Src/Bsp_led_handler.c\244</Expression>
-        </Bp>
-        <Bp>
-          <Number>1</Number>
-          <Type>0</Type>
-          <LineNumber>456</LineNumber>
-          <EnabledFlag>1</EnabledFlag>
-          <Address>134224076</Address>
-          <ByteObject>0</ByteObject>
-          <HtxType>0</HtxType>
-          <ManyObjects>0</ManyObjects>
-          <SizeOfObject>0</SizeOfObject>
-          <BreakByAccess>0</BreakByAccess>
-          <BreakIfRCount>1</BreakIfRCount>
-          <Filename>..\System_Adaptation\Src\system_adaptation.c</Filename>
-          <ExecCommand></ExecCommand>
-          <Expression>\\Basic_CmBacktrace_environment\../System_Adaptation/Src/system_adaptation.c\456</Expression>
-        </Bp>
-        <Bp>
-          <Number>2</Number>
-          <Type>0</Type>
-          <LineNumber>461</LineNumber>
-          <EnabledFlag>1</EnabledFlag>
-          <Address>134224086</Address>
-          <ByteObject>0</ByteObject>
-          <HtxType>0</HtxType>
-          <ManyObjects>0</ManyObjects>
-          <SizeOfObject>0</SizeOfObject>
-          <BreakByAccess>0</BreakByAccess>
-          <BreakIfRCount>1</BreakIfRCount>
-          <Filename>..\System_Adaptation\Src\system_adaptation.c</Filename>
-          <ExecCommand></ExecCommand>
-          <Expression>\\Basic_CmBacktrace_environment\../System_Adaptation/Src/system_adaptation.c\461</Expression>
-        </Bp>
-        <Bp>
-          <Number>3</Number>
-          <Type>0</Type>
-          <LineNumber>237</LineNumber>
-          <EnabledFlag>1</EnabledFlag>
-          <Address>134230302</Address>
-          <ByteObject>0</ByteObject>
-          <HtxType>0</HtxType>
-          <ManyObjects>0</ManyObjects>
-          <SizeOfObject>0</SizeOfObject>
-          <BreakByAccess>0</BreakByAccess>
-          <BreakIfRCount>1</BreakIfRCount>
-          <Filename>..\Bsp\Bsp_Led\handler\Src\Bsp_led_handler.c</Filename>
-          <ExecCommand></ExecCommand>
-          <Expression>\\Basic_CmBacktrace_environment\../Bsp/Bsp_Led/handler/Src/Bsp_led_handler.c\237</Expression>
-        </Bp>
-        <Bp>
-          <Number>4</Number>
-          <Type>0</Type>
-          <LineNumber>247</LineNumber>
-          <EnabledFlag>1</EnabledFlag>
-          <Address>134230322</Address>
-          <ByteObject>0</ByteObject>
-          <HtxType>0</HtxType>
-          <ManyObjects>0</ManyObjects>
-          <SizeOfObject>0</SizeOfObject>
-          <BreakByAccess>0</BreakByAccess>
-          <BreakIfRCount>1</BreakIfRCount>
-          <Filename>..\Bsp\Bsp_Led\handler\Src\Bsp_led_handler.c</Filename>
-          <ExecCommand></ExecCommand>
-          <Expression>\\Basic_CmBacktrace_environment\../Bsp/Bsp_Led/handler/Src/Bsp_led_handler.c\247</Expression>
-        </Bp>
-        <Bp>
-          <Number>5</Number>
-          <Type>0</Type>
-          <LineNumber>129</LineNumber>
-          <EnabledFlag>1</EnabledFlag>
-          <Address>134231070</Address>
-          <ByteObject>0</ByteObject>
-          <HtxType>0</HtxType>
-          <ManyObjects>0</ManyObjects>
-          <SizeOfObject>0</SizeOfObject>
-          <BreakByAccess>0</BreakByAccess>
-          <BreakIfRCount>1</BreakIfRCount>
-          <Filename>..\Bsp\Bsp_Led\handler\Src\Bsp_led_handler.c</Filename>
-          <ExecCommand></ExecCommand>
-          <Expression>\\Basic_CmBacktrace_environment\../Bsp/Bsp_Led/handler/Src/Bsp_led_handler.c\129</Expression>
-        </Bp>
-        <Bp>
-          <Number>6</Number>
-          <Type>0</Type>
-          <LineNumber>234</LineNumber>
-          <EnabledFlag>1</EnabledFlag>
-          <Address>0</Address>
-          <ByteObject>0</ByteObject>
-          <HtxType>0</HtxType>
-          <ManyObjects>0</ManyObjects>
-          <SizeOfObject>0</SizeOfObject>
-          <BreakByAccess>0</BreakByAccess>
-          <BreakIfRCount>0</BreakIfRCount>
-          <Filename>..\Bsp\Bsp_Led\handler\Src\Bsp_led_handler.c</Filename>
-          <ExecCommand></ExecCommand>
-          <Expression></Expression>
-        </Bp>
-        <Bp>
-          <Number>7</Number>
-          <Type>0</Type>
-          <LineNumber>241</LineNumber>
-          <EnabledFlag>1</EnabledFlag>
-          <Address>0</Address>
-          <ByteObject>0</ByteObject>
-          <HtxType>0</HtxType>
-          <ManyObjects>0</ManyObjects>
-          <SizeOfObject>0</SizeOfObject>
-          <BreakByAccess>0</BreakByAccess>
-          <BreakIfRCount>0</BreakIfRCount>
-          <Filename>..\Bsp\Bsp_Led\handler\Src\Bsp_led_handler.c</Filename>
-          <ExecCommand></ExecCommand>
-          <Expression></Expression>
+          <Expression>\\Basic_CmBacktrace_environment\../Core/Src/freertos.c\121</Expression>
         </Bp>
       </Breakpoint>
       <WatchWindow1>
@@ -292,54 +175,43 @@
         <Ww>
           <count>1</count>
           <WinNumber>1</WinNumber>
-          <ItemText>(bsp_led_handler_t*)0x20019000</ItemText>
+          <ItemText>(bsp_led_drive_t*)0x08060054</ItemText>
         </Ww>
         <Ww>
           <count>2</count>
           <WinNumber>1</WinNumber>
-          <ItemText>p_test_handler-&gt;pf_led_mount</ItemText>
+          <ItemText>(QueueHandle_t*)queue_handler</ItemText>
         </Ww>
         <Ww>
           <count>3</count>
           <WinNumber>1</WinNumber>
-          <ItemText>led_handler-&gt;led_drive_mount.led_drive_array[0]</ItemText>
+          <ItemText>(bsp_led_handler_t*)0x20019000</ItemText>
         </Ww>
         <Ww>
           <count>4</count>
           <WinNumber>1</WinNumber>
-          <ItemText>&amp;(led_handler-&gt;led_drive_mount.led_drive_array[0])</ItemText>
+          <ItemText>queue_handler</ItemText>
+        </Ww>
+        <Ww>
+          <count>5</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>*(self-&gt;task_handler)</ItemText>
         </Ww>
       </WatchWindow1>
       <MemoryWindow1>
         <Mm>
           <WinNumber>1</WinNumber>
-          <SubType>1</SubType>
-          <ItemText>0x08060000</ItemText>
+          <SubType>0</SubType>
+          <ItemText>0x20019000</ItemText>
           <AccSizeX>0</AccSizeX>
         </Mm>
       </MemoryWindow1>
-      <MemoryWindow2>
-        <Mm>
-          <WinNumber>2</WinNumber>
-          <SubType>1</SubType>
-          <ItemText>0x08060008</ItemText>
-          <AccSizeX>0</AccSizeX>
-        </Mm>
-      </MemoryWindow2>
-      <MemoryWindow3>
-        <Mm>
-          <WinNumber>3</WinNumber>
-          <SubType>1</SubType>
-          <ItemText>0x200054C0</ItemText>
-          <AccSizeX>0</AccSizeX>
-        </Mm>
-      </MemoryWindow3>
       <Tracepoint>
         <THDelay>0</THDelay>
       </Tracepoint>
       <DebugFlag>
         <trace>0</trace>
-        <periodic>1</periodic>
+        <periodic>0</periodic>
         <aLwin>1</aLwin>
         <aCover>0</aCover>
         <aSer1>0</aSer1>
@@ -358,7 +230,7 @@
         <aPa1>0</aPa1>
         <AscS4>0</AscS4>
         <aSer4>0</aSer4>
-        <StkLoc>1</StkLoc>
+        <StkLoc>0</StkLoc>
         <TrcWin>0</TrcWin>
         <newCpu>0</newCpu>
         <uProt>0</uProt>
@@ -408,7 +280,7 @@
 
   <Group>
     <GroupName>Application/User/Core</GroupName>
-    <tvExp>0</tvExp>
+    <tvExp>1</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
@@ -856,7 +728,7 @@
       <GroupNumber>6</GroupNumber>
       <FileNumber>36</FileNumber>
       <FileType>1</FileType>
-      <tvExp>1</tvExp>
+      <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
       <PathWithFileName>..\Middlewares\Third_Party\Cmbacktrace\cm_backtrace.c</PathWithFileName>
@@ -900,7 +772,7 @@
       <GroupNumber>7</GroupNumber>
       <FileNumber>39</FileNumber>
       <FileType>1</FileType>
-      <tvExp>1</tvExp>
+      <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
       <PathWithFileName>..\Middlewares\Third_Party\Segger_RTT\src\SEGGER_RTT_printf.c</PathWithFileName>
@@ -932,7 +804,7 @@
       <GroupNumber>8</GroupNumber>
       <FileNumber>41</FileNumber>
       <FileType>1</FileType>
-      <tvExp>1</tvExp>
+      <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
       <PathWithFileName>..\Bsp\Bsp_Led\handler\Src\Bsp_led_handler.c</PathWithFileName>
